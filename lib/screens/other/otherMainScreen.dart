@@ -1,10 +1,8 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/screens/other/externalTasks/enterExternalTaskScreen.dart';
+import 'package:deneme/screens/other/externalTasks/externalTasksMainScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
-import 'package:deneme/widgets/cards/shopCard.dart';
-import 'package:deneme/widgets/cards/taskCard.dart';
-import 'package:deneme/widgets/cards/taskDetailCard.dart';
-import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 
@@ -23,9 +21,6 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
   late double deviceHeight;
   late double deviceWidth;
 
-
-  DateTime now = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
 
@@ -42,14 +37,14 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           padding: EdgeInsets.fromLTRB(0, deviceWidth*0.1, 0, 0),
           child:Container(
             alignment: Alignment.center,
-            child: startWorkMainScreenUI(),
+            child: otherMainScreenUI(),
           ),
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
     );
   }
 
-  Widget startWorkMainScreenUI(){
+  Widget otherMainScreenUI(){
     return Builder(builder: (BuildContext context){
       return Container(
         child: Column(
@@ -60,17 +55,29 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
             externalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
             addExternalWorkButton(),
+            SizedBox(height: deviceHeight*0.03,),
+            logoutButton()
           ],
         ),
       );
     });
   }
 
+  void navi(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTasksMainScreen()));
+  }
+  void navi2(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EnterExternalTaskScreen()));
+  }
+
   Widget externalWorkButton(){
-    return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w400, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.white);
+    return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget addExternalWorkButton(){
-    return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w400, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.white);
+    return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi2(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  }
+  Widget logoutButton(){
+    return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 }
 

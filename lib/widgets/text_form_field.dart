@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:deneme/styles/context_extension.dart';
 
-class TextFormFieldWidget extends StatelessWidget{
+class TextFormFieldWidget extends StatefulWidget{
   final String text;
   final double borderWidht;
   final Color titleColor;
@@ -10,6 +9,7 @@ class TextFormFieldWidget extends StatelessWidget{
   final Icon prefixIcon;
   late String value;
   final double paddingValue;
+  final int maxLines;
 
   TextFormFieldWidget({
     Key? key,
@@ -20,35 +20,40 @@ class TextFormFieldWidget extends StatelessWidget{
     required this.controller,
     required this.prefixIcon,
     required this.value,
-    required this.paddingValue
+    required this.paddingValue,
+    required this.maxLines
   }) : super(key: key);
+
+  @override
+  State<TextFormFieldWidget> createState() => _TextFormFieldWidgetState();
+}
+
+class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
 
   @override
   Widget build(BuildContext context){
     return TextFormField(
-      controller: controller,
+      maxLines: widget.maxLines,
+      controller: widget.controller,
       autocorrect: false,
-      style: TextStyle(color: titleColor),
+      style: TextStyle(color: widget.titleColor),
       onSaved: (input){
         setState((){
-          value = input!;
+          widget.value = input!;
         });
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(paddingValue),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: borderColor, width: borderWidht)),
-        hintText: text,
-        prefixIcon: prefixIcon
+        contentPadding: EdgeInsets.all(widget.paddingValue),
+        border: OutlineInputBorder(borderSide: BorderSide(color: widget.borderColor, width: widget.borderWidht)),
+        hintText: widget.text,
       ),
+      validator: (String? value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
     );
   }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-
-  void setState(Null Function() param0) {}
 
 }

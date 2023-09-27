@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/button_widget.dart';
-import 'package:deneme/widgets/cards/shopCard.dart';
-import 'package:deneme/widgets/cards/taskCard.dart';
-import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import '../shopVisiting/commonScreens/shopsScreen.dart';
 
 
 // konum erişimi eklenicek
@@ -27,18 +24,35 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   int _selectedIndex = 0;
 
+  List<BottomNavigationBarItem> list = [];
+
   late double deviceHeight;
   late double deviceWidth;
 
-
   DateTime now = DateTime.now();
-
 
   @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
+
+    void userCondition(String user){
+      if(user=="BS"){
+        list = itemListBS;
+      }
+      if(user=="PM"){
+        list = itemListPM;
+      }
+      if(user=="BM" || user=="GK"){
+        list = itemListBMandGK;
+      }
+      if(user=="NK"){
+        list = itemListNK;
+      }
+    }
+
+    userCondition(userType); //utils dosyasındaki fonksiyonu çekmiyor sebebine bakılacak
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -53,7 +67,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           child: startWorkMainScreenUI(),
         ),
       ),
-      bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
+      bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: list,pageList: pages,)
     );
   }
 
@@ -80,6 +94,10 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     });
   }
 
+  void navi(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
+  }
+
   Widget locationInfo(){
     return TextWidget(text: "My Location", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
@@ -90,10 +108,10 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     return TextWidget(text: "Work Duration", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget startWorkButton(){
-    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w400, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget finishWorkButton(){
-    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w400, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 }
 

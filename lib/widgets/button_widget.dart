@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:deneme/styles/context_extension.dart';
 
-class ButtonWidget extends StatelessWidget{
+class ButtonWidget extends StatefulWidget{
   final String text;
   final double heightConst;
   final double widthConst;
@@ -27,22 +27,28 @@ class ButtonWidget extends StatelessWidget{
     required this.backgroundColor,
     required this.borderColor,
     required this.textColor
-  }) : super(key: key);
+  }): super(key: key);
+
+  @override
+  State<ButtonWidget> createState() => _ButtonWidgetState();
+}
+
+class _ButtonWidgetState extends State<ButtonWidget> {
 
   @override
   Widget build(BuildContext context){
     return Container(
       decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(radius),),
-      height: context.dynamicHeight(heightConst),
-      width: context.dynamicWidht(widthConst),
+        color: widget.backgroundColor,
+        borderRadius: BorderRadius.circular(widget.radius),),
+      height: context.dynamicHeight(widget.heightConst),
+      width: context.dynamicWidht(widget.widthConst),
       child: MaterialButton(
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: borderColor, width: borderWidht),
-          borderRadius: BorderRadius.all(Radius.circular(radius))),
-        onPressed: ()=>{onTaps()},
-        child: Text(text,style: TextStyle(fontWeight: fontWeight,fontSize: size, color: textColor),),
+          side: BorderSide(color: widget.borderColor, width: widget.borderWidht),
+          borderRadius: BorderRadius.all(Radius.circular(widget.radius))),
+        onPressed: ()=>{widget.onTaps()},
+        child: Text(widget.text,style: TextStyle(fontWeight: widget.fontWeight,fontSize: widget.size, color: widget.textColor),),
         ),
     );
   }

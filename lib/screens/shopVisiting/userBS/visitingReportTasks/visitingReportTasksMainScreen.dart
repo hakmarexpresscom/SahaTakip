@@ -1,19 +1,20 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/cards/taskCard.dart';
+import '../../../../widgets/cards/taskCard.dart';
 
-class RemoteTaskMainScreen extends StatefulWidget {
-  const RemoteTaskMainScreen({super.key});
+
+class VisitingReportTaskMainScreen extends StatefulWidget {
+  const VisitingReportTaskMainScreen({super.key});
 
   @override
-  State<RemoteTaskMainScreen> createState() =>
-      _RemoteTaskMainScreenState();
+  State<VisitingReportTaskMainScreen> createState() =>
+      _VisitingReportTaskMainScreenState();
 }
 
-class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> {
+class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScreen> {
 
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
 
   late double deviceHeight;
   late double deviceWidth;
@@ -28,20 +29,20 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
-          title: const Text('Uzaktan Görevler'),
+          title: const Text('Ziyaret Raporu GÖrevleri'),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),
           child:Container(
             alignment: Alignment.center,
-            child: remoteTaskMainScreenUI(),
+            child: visitingReportTaskMainScreenUI(),
           ),
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
     );
   }
 
-  Widget remoteTaskMainScreenUI(){
+  Widget visitingReportTaskMainScreenUI(){
     return Builder(builder: (BuildContext context){
       return Container(
         child: Column(

@@ -1,6 +1,5 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +62,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik"),
-                    ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik")
+                    ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
+                    ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
                   ]
                 ),
                 Row(
@@ -72,8 +71,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
                     ]
                 ),
                 Row(
@@ -81,8 +80,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
                     ]
                 ),
                 Row(
@@ -90,8 +89,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
                     ]
                 ),
                 Row(
@@ -99,14 +98,12 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: 5168, location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
                     ]
                 ),
               ],
             )
-
-
           ],
         ),
       );

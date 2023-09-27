@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,7 @@ import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 
-
+String userType = "BS";
 
 late List<BottomNavigationBarItem> itemListBS = [
   BottomNavigationBarItem(
@@ -99,3 +101,5 @@ late List<Widget> pages = [
   RemoteTaskMainScreen(),
   OtherMainScreen()
 ];
+
+
