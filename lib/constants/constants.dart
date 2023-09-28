@@ -9,10 +9,9 @@ import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 
-/*List<Magaza> magazalar = [];
-List<ZiyaretRaporu> ziyaretRaporlari = [];*/
 
 String userType = "PM";
+bool isBSorPM = true;
 bool isBS = false;
 bool isReportCreated = false;
 
@@ -118,9 +117,16 @@ late List<Widget> pagesPM = [
 ];
 
 late List<Widget> pagesBMGK = [
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  SubmitTaskMainScreen(),
+  OtherMainScreen()
 ];
 
 late List<Widget> pagesNK = [
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  OtherMainScreen()
 ];
 
 

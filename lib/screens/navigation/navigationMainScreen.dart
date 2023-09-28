@@ -32,14 +32,17 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
       if(user=="BS"){
         naviBarList = itemListBS;
         pageList = pagesBS;
+        _selectedIndex = 1;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
         pageList = pagesPM;
+        _selectedIndex = 1;
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
+        _selectedIndex = 0;
       }
       if(user=="NK"){
         naviBarList = itemListNK;

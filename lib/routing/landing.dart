@@ -1,3 +1,4 @@
+import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/other/externalTasks/enterExternalTaskScreen.dart';
@@ -79,5 +80,9 @@ void naviPastReportDetailScreen(BuildContext context){
 
 void naviSubmitTaskBSSelectionScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTaskBSSelectionScreen()));
+}
+
+void naviNavigationMainScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationMainScreen()));
 }
 

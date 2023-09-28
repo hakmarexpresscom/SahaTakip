@@ -43,7 +43,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             SizedBox(height: context.dynamicWidht(0.03),),
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.05),),
-            TextWidget(text: "Deadline: "+widget.taskDeadline, heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
+            TextWidget(text: "Bitiş Tarihi: "+widget.taskDeadline, heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.3),),
             TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.5),),

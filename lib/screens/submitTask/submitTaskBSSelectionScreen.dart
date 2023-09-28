@@ -37,10 +37,12 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
       if(user=="PM"){
         naviBarList = itemListPM;
         pageList = pagesPM;
+        _selectedIndex = 4;
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
+        _selectedIndex = 2;
       }
       if(user=="NK"){
         naviBarList = itemListNK;

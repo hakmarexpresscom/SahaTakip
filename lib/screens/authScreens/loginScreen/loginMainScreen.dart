@@ -3,6 +3,7 @@ import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/constants.dart';
 import '../../../routing/landing.dart';
 import '../../../widgets/text_form_field.dart';
 
@@ -96,7 +97,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
     return TextWidget(text: "Kullanıcı Girişi", heightConst: 0, widhtConst: 0, size: 35, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget loginButton(){
-    return ButtonWidget(text: "Giriş Yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviStartWorkMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Giriş Yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){(isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget forgetPasswordButton(){
     return ButtonWidget(text: "Şifremi Unuttum", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);

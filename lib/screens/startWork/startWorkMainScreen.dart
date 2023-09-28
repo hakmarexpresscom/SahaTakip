@@ -42,10 +42,12 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
       if(user=="BS"){
         naviBarList = itemListBS;
         pageList = pagesBS;
+        _selectedIndex = 0;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
         pageList = pagesPM;
+        _selectedIndex = 0;
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
