@@ -1,4 +1,5 @@
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
+import 'package:deneme/screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginMainScreen(),
+      home: VisitingRaportMainScreen(),
     );
   }
 }

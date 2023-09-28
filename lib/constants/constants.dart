@@ -1,12 +1,15 @@
 import 'dart:async';
-
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../models/sampleDataSet.dart';
 import '../screens/other/otherMainScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
+
+/*List<Magaza> magazalar = [];
+List<ZiyaretRaporu> ziyaretRaporlari = [];*/
 
 String userType = "BS";
 

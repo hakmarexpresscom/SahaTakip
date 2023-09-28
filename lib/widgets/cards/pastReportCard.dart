@@ -4,19 +4,21 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
-class TaskCard extends StatefulWidget {
+import '../../screens/shopVisiting/userPM/visitingReport/pastReports/pastReportDetailScreen.dart';
+
+class PastReportCard extends StatefulWidget {
 
   late double heightConst;
   late double widthConst;
-  late String taskName;
+  late String reportName;
 
-  TaskCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName}): super(key: key);
+  PastReportCard({Key? key, required this.heightConst,required this.widthConst, required this.reportName}): super(key: key);
 
   @override
-  State<TaskCard> createState() => _TaskCardState();
+  State<PastReportCard> createState() => _TaskCardState();
 }
 
-class _TaskCardState extends State<TaskCard> {
+class _TaskCardState extends State<PastReportCard> {
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,8 @@ class _TaskCardState extends State<TaskCard> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
-            ButtonWidget(text: "Görev Detayları", heightConst: 0.05, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskDetailScreen()),
+            TextWidget(text: widget.reportName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
+            ButtonWidget(text: "Rapor Detayları", heightConst: 0.05, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportDetailScreen()),
             );}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],
         ),
