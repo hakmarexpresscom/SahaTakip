@@ -4,6 +4,7 @@ import 'package:deneme/screens/submitTask/submitTaskBSSelectionScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import '../../routing/landing.dart';
 import '../../widgets/text_form_field.dart';
 import '../shopVisiting/commonScreens/shopsScreen.dart';
 
@@ -105,16 +106,12 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
     });
   }
 
-  void navi(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTaskBSSelectionScreen()));
-  }
-
   Widget submitTaskButton(){
     return ButtonWidget(text: "Görevi Ata", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 
   Widget BSSelectionButton(){
-    return ButtonWidget(text: "BS Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "BS Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskBSSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
   Widget inputForm(){

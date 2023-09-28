@@ -2,6 +2,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/other/externalTasks/externalTaskDetailScreen.dart';
 import 'package:flutter/material.dart';
+import '../../../routing/landing.dart';
 import '../../../widgets/cards/taskCard.dart';
 
 
@@ -82,23 +83,23 @@ class _ExternalTasksMainScreenState extends State<ExternalTasksMainScreen> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));}),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviExternalTaskDetailScreen(context);}),
               ],
             )
           ],

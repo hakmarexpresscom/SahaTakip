@@ -12,8 +12,8 @@ import '../screens/startWork/startWorkMainScreen.dart';
 /*List<Magaza> magazalar = [];
 List<ZiyaretRaporu> ziyaretRaporlari = [];*/
 
-String userType = "BS";
-bool isBS = true;
+String userType = "PM";
+bool isBS = false;
 bool isReportCreated = false;
 
 late List<BottomNavigationBarItem> itemListBS = [

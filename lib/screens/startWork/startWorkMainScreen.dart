@@ -4,7 +4,7 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import '../shopVisiting/commonScreens/shopsScreen.dart';
+import '../../routing/landing.dart';
 
 
 // konum erişimi eklenicek
@@ -99,9 +99,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     });
   }
 
-  void navi(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
-  }
 
   Widget locationInfo(){
     return TextWidget(text: "My Location", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
@@ -113,7 +110,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     return TextWidget(text: "Work Duration", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget startWorkButton(){
-    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviShopVisitingShopsScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget finishWorkButton(){
     return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);

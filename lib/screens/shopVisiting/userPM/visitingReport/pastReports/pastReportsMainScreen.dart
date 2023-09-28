@@ -1,7 +1,9 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/screens/shopVisiting/userPM/visitingReport/pastReports/pastReportDetailScreen.dart';
 import 'package:deneme/widgets/cards/pastReportCard.dart';
 import 'package:flutter/material.dart';
+import '../../../../../routing/landing.dart';
 
 
 class PastReportsMainScreen extends StatefulWidget {
@@ -50,23 +52,23 @@ class _PastReportsMainScreenState extends State<PastReportsMainScreen> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
                 SizedBox(height: deviceHeight*0.005,),
-                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1"),
+                PastReportCard(heightConst: 0.13, widthConst: 0.95, reportName: "Rapor1",onTaps: (){naviPastReportDetailScreen(context);}),
               ],
             )
           ],

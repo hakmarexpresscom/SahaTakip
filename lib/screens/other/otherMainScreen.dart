@@ -5,6 +5,8 @@ import 'package:deneme/screens/other/externalTasks/externalTasksMainScreen.dart'
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../routing/landing.dart';
+
 
 class OtherMainScreen extends StatefulWidget {
   const OtherMainScreen({super.key});
@@ -89,18 +91,12 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     });
   }
 
-  void navi(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTasksMainScreen()));
-  }
-  void navi2(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => EnterExternalTaskScreen()));
-  }
 
   Widget externalWorkButton(){
-    return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviExternalTasksMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget addExternalWorkButton(){
-    return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){navi2(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviEnterExternalTaskScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
   Widget logoutButton(){
     return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);

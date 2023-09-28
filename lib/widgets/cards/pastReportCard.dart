@@ -11,8 +11,9 @@ class PastReportCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String reportName;
+  final VoidCallback onTaps;
 
-  PastReportCard({Key? key, required this.heightConst,required this.widthConst, required this.reportName}): super(key: key);
+  PastReportCard({Key? key, required this.heightConst,required this.widthConst, required this.reportName, required this.onTaps}): super(key: key);
 
   @override
   State<PastReportCard> createState() => _TaskCardState();
@@ -40,8 +41,7 @@ class _TaskCardState extends State<PastReportCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextWidget(text: widget.reportName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
-            ButtonWidget(text: "Rapor Detayları", heightConst: 0.05, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportDetailScreen()),
-            );}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Rapor Detayları", heightConst: 0.05, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],
         ),
       ),
