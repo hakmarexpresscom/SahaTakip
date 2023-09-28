@@ -25,7 +25,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
 
   int _selectedIndex = 0;
 
-  bool isCreated = false;
+  List<BottomNavigationBarItem> naviBarList = [];
+  List<Widget> pageList = [];
 
   late double deviceHeight;
   late double deviceWidth;
@@ -42,11 +43,32 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
+    void userCondition(String user){
+      if(user=="BS"){
+        naviBarList = itemListBS;
+        pageList = pagesBS;
+      }
+      if(user=="PM"){
+        naviBarList = itemListPM;
+        pageList = pagesPM;
+      }
+      if(user=="BM" || user=="GK"){
+        naviBarList = itemListBMandGK;
+        pageList = pagesBMGK;
+      }
+      if(user=="NK"){
+        naviBarList = itemListNK;
+        pageList = pagesNK;
+      }
+    }
+
+    userCondition(userType);
+
     return DefaultTabController(
         initialIndex: 0,
         length: 2,
         child:Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Ziyaret Raporu'),
@@ -59,11 +81,11 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(child:(isCreated)?enterVisitingReportScreenUI():createReportButtonUI(),),
+                SingleChildScrollView(child:(isReportCreated)?enterVisitingReportScreenUI():createReportButtonUI(),),
                 PastReportsMainScreen(),
               ],
             ),
-            bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
+            bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
         ));
   }
 
@@ -104,11 +126,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
   }
 
   Widget createReportButton(){
-    return ButtonWidget(text: "Rapor Oluştur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){setState(() {isCreated=true;});}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
-  }
-
-  Widget createNewReportButton(){
-    return ButtonWidget(text: "Yeni Rapor Oluştur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){setState(() {isCreated=true;});}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Rapor Oluştur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){setState(() {isReportCreated=true;});}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 
   Widget saveExternalTaskButton(){

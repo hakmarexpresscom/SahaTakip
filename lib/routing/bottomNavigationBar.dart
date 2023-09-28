@@ -23,7 +23,7 @@ class BottomNaviBar extends StatelessWidget{
       selectedItemColor: Colors.indigo,
       unselectedItemColor: Colors.black,
       onTap: (index)=>{
-        Navigator.push(context, MaterialPageRoute(builder: (context) => pages[index]))
+        Navigator.push(context, MaterialPageRoute(builder: (context) => pageList[index]))
       },
     );
   }

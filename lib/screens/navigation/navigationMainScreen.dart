@@ -16,6 +16,9 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
 
   int _selectedIndex = 1;
 
+  List<BottomNavigationBarItem> naviBarList = [];
+  List<Widget> pageList = [];
+
   late double deviceHeight;
   late double deviceWidth;
 
@@ -25,8 +28,29 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
+    void userCondition(String user){
+      if(user=="BS"){
+        naviBarList = itemListBS;
+        pageList = pagesBS;
+      }
+      if(user=="PM"){
+        naviBarList = itemListPM;
+        pageList = pagesPM;
+      }
+      if(user=="BM" || user=="GK"){
+        naviBarList = itemListBMandGK;
+        pageList = pagesBMGK;
+      }
+      if(user=="NK"){
+        naviBarList = itemListNK;
+        pageList = pagesNK;
+      }
+    }
+
+    userCondition(userType);
+
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text('Navigasyon'),
@@ -38,7 +62,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
             child: navigationMainScreenUI(),
           ),
         ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
+        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 

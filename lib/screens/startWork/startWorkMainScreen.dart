@@ -24,7 +24,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   int _selectedIndex = 0;
 
-  List<BottomNavigationBarItem> list = [];
+  List<BottomNavigationBarItem> naviBarList = [];
+  List<Widget> pageList = [];
 
   late double deviceHeight;
   late double deviceWidth;
@@ -39,23 +40,27 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
     void userCondition(String user){
       if(user=="BS"){
-        list = itemListBS;
+        naviBarList = itemListBS;
+        pageList = pagesBS;
       }
       if(user=="PM"){
-        list = itemListPM;
+        naviBarList = itemListPM;
+        pageList = pagesPM;
       }
       if(user=="BM" || user=="GK"){
-        list = itemListBMandGK;
+        naviBarList = itemListBMandGK;
+        pageList = pagesBMGK;
       }
       if(user=="NK"){
-        list = itemListNK;
+        naviBarList = itemListNK;
+        pageList = pagesNK;
       }
     }
 
     userCondition(userType); //utils dosyasındaki fonksiyonu çekmiyor sebebine bakılacak
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Colors.indigo,
         title: const Text('Mesaiye Başla'),
@@ -67,7 +72,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           child: startWorkMainScreenUI(),
         ),
       ),
-      bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: list,pageList: pages,)
+      bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 

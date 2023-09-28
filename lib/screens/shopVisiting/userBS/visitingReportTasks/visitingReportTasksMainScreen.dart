@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/screens/shopVisiting/userBS/visitingReportTasks/visitingReportTaskDetailScreen.dart';
 import 'package:flutter/material.dart';
 import '../../../../widgets/cards/taskCard.dart';
 
@@ -16,6 +17,9 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
 
   int _selectedIndex = 0;
 
+  List<BottomNavigationBarItem> naviBarList = [];
+  List<Widget> pageList = [];
+
   late double deviceHeight;
   late double deviceWidth;
 
@@ -25,8 +29,29 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
+    void userCondition(String user){
+      if(user=="BS"){
+        naviBarList = itemListBS;
+        pageList = pagesBS;
+      }
+      if(user=="PM"){
+        naviBarList = itemListPM;
+        pageList = pagesPM;
+      }
+      if(user=="BM" || user=="GK"){
+        naviBarList = itemListBMandGK;
+        pageList = pagesBMGK;
+      }
+      if(user=="NK"){
+        naviBarList = itemListNK;
+        pageList = pagesNK;
+      }
+    }
+
+    userCondition(userType);
+
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text('Ziyaret Raporu GÖrevleri'),
@@ -38,7 +63,7 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
             child: visitingReportTaskMainScreenUI(),
           ),
         ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
+        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
@@ -55,23 +80,23 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
                 SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
+                TaskCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));}),
               ],
             )
           ],

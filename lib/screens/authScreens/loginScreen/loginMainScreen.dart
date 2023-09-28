@@ -36,7 +36,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
 
 
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child:Container(

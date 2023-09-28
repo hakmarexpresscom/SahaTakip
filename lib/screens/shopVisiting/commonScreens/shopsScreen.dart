@@ -16,6 +16,9 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> {
 
   int _selectedIndex = 0;
 
+  List<BottomNavigationBarItem> naviBarList = [];
+  List<Widget> pageList = [];
+
   late double deviceHeight;
   late double deviceWidth;
 
@@ -25,11 +28,32 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> {
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
+    void userCondition(String user){
+      if(user=="BS"){
+        naviBarList = itemListBS;
+        pageList = pagesBS;
+      }
+      if(user=="PM"){
+        naviBarList = itemListPM;
+        pageList = pagesPM;
+      }
+      if(user=="BM" || user=="GK"){
+        naviBarList = itemListBMandGK;
+        pageList = pagesBMGK;
+      }
+      if(user=="NK"){
+        naviBarList = itemListNK;
+        pageList = pagesNK;
+      }
+    }
+
+    userCondition(userType);
+
     return DefaultTabController(
         initialIndex: 0,
         length: 2,
         child:Scaffold(
-         resizeToAvoidBottomInset: false,
+         resizeToAvoidBottomInset: true,
          appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
@@ -46,7 +70,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> {
               SingleChildScrollView(child:partnerShopsScreenUI(),)
            ],
          ),
-          bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
+          bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     ));
   }
 

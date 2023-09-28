@@ -1,4 +1,4 @@
-import 'package:deneme/screens/remoteTasks/remoteTasksTaskDetailScreen.dart';
+import 'package:deneme/screens/remoteTasks/remoteTaskDetailScreen.dart';
 import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';

@@ -1,4 +1,4 @@
-import 'package:deneme/screens/remoteTasks/remoteTasksTaskDetailScreen.dart';
+import 'package:deneme/screens/remoteTasks/remoteTaskDetailScreen.dart';
 import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -9,8 +9,9 @@ class TaskCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String taskName;
+  final VoidCallback onTaps;
 
-  TaskCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName}): super(key: key);
+  TaskCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName, required this.onTaps}): super(key: key);
 
   @override
   State<TaskCard> createState() => _TaskCardState();
@@ -38,8 +39,7 @@ class _TaskCardState extends State<TaskCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
-            ButtonWidget(text: "Görev Detayları", heightConst: 0.05, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskDetailScreen()),
-            );}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Görev Detayları", heightConst: 0.05, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],
         ),
       ),

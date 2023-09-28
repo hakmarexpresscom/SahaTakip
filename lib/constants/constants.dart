@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
+import 'package:deneme/screens/submitTask/submitTaskMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/sampleDataSet.dart';
@@ -12,6 +13,8 @@ import '../screens/startWork/startWorkMainScreen.dart';
 List<ZiyaretRaporu> ziyaretRaporlari = [];*/
 
 String userType = "BS";
+bool isBS = true;
+bool isReportCreated = false;
 
 late List<BottomNavigationBarItem> itemListBS = [
   BottomNavigationBarItem(
@@ -97,12 +100,28 @@ late List<BottomNavigationBarItem> itemListNK = [
   ),
 ];
 
-late List<Widget> pages = [
+late List<Widget> pagesBS = [
   StartWorkMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   RemoteTaskMainScreen(),
   OtherMainScreen()
 ];
+
+late List<Widget> pagesPM = [
+  StartWorkMainScreen(),
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  RemoteTaskMainScreen(),
+  SubmitTaskMainScreen(),
+  OtherMainScreen()
+];
+
+late List<Widget> pagesBMGK = [
+];
+
+late List<Widget> pagesNK = [
+];
+
 
 

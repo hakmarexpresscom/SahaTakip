@@ -5,6 +5,7 @@ import 'package:deneme/screens/shopVisiting/commonScreens/shopClosingCheckingScr
 import 'package:deneme/screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
 import 'package:deneme/screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMainScreen.dart';
+import 'package:deneme/screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopVisitingProcessCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -23,6 +24,9 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
 
   int _selectedIndex = 0;
 
+  List<BottomNavigationBarItem> naviBarList = [];
+  List<Widget> pageList = [];
+
   late double deviceHeight;
   late double deviceWidth;
 
@@ -34,8 +38,29 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
+    void userCondition(String user){
+      if(user=="BS"){
+        naviBarList = itemListBS;
+        pageList = pagesBS;
+      }
+      if(user=="PM"){
+        naviBarList = itemListPM;
+        pageList = pagesPM;
+      }
+      if(user=="BM" || user=="GK"){
+        naviBarList = itemListBMandGK;
+        pageList = pagesBMGK;
+      }
+      if(user=="NK"){
+        naviBarList = itemListNK;
+        pageList = pagesNK;
+      }
+    }
+
+    userCondition(userType);
+
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
@@ -44,10 +69,10 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child:Container(
             alignment: Alignment.center,
-            child: shopVisitingProcessesScreenUI(),
+            child: (isBS)?shopVisitingProcessesScreenBSUI():shopVisitingProcessesScreenPMUI(),
           ),
         ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: itemListBS,pageList: pages,)
+        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
@@ -66,9 +91,12 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
   void navi5(BuildContext context){
     Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen()));
   }
+  void navi6(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreen()));
+  }
 
 
-  Widget shopVisitingProcessesScreenUI(){
+  Widget shopVisitingProcessesScreenBSUI(){
     return Builder(builder: (BuildContext context){
       return Container(
         child: Column(
@@ -133,10 +161,70 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                 ),
               ],
             )
-
-
           ],
         ));
+    });
+  }
+
+  Widget shopVisitingProcessesScreenPMUI(){
+    return Builder(builder: (BuildContext context){
+      return Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                color: Colors.grey.withOpacity(0.6),
+                height: deviceHeight*0.2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        SizedBox(height: deviceHeight*0.02,),
+                        shopNameInfo(),
+                        SizedBox(height: deviceHeight*0.03,),
+                        hourInfo(),
+                        SizedBox(height: deviceHeight*0.03,),
+                        workDurationInfo(),
+                      ],
+                    ),
+                    SizedBox(width: deviceWidth*0.05,),
+                    stopVisitingButton(),
+                  ],
+                ),
+              ),
+              SizedBox(height: deviceHeight*0.02,),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){navi(context);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){navi2(context);}),
+                      ]
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nRaporu\nGirişi", processIcon: Icons.assignment,onTaps: (){navi6(context);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa Sayımı", processIcon: Icons.price_check,onTaps: (){navi5(context);}),
+                      ]
+                  ),
+                ],
+              )
+            ],
+          ));
     });
   }
 
