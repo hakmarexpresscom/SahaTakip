@@ -55,7 +55,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
           title: const Text('Görev Detayı'),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),
           child:Container(
             alignment: Alignment.center,
             child: visitingReportTaskDetailScreen(),

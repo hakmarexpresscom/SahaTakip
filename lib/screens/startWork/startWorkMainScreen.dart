@@ -68,7 +68,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         title: const Text('Mesaiye Başla'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0, deviceWidth*0.4, 0, 0),
+        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.2, 0, 0),
         child:Container(
           alignment: Alignment.center,
           child: startWorkMainScreenUI(),

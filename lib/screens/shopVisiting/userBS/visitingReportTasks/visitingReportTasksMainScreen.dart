@@ -58,7 +58,7 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
           title: const Text('Ziyaret Raporu GÖrevleri'),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),
           child:Container(
             alignment: Alignment.center,
             child: visitingReportTaskMainScreenUI(),

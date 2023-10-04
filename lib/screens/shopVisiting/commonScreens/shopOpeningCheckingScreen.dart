@@ -66,8 +66,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),child:inShopOpeningCheckingUI()),
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),child:outShopOpeningCheckingUI())
+                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:inShopOpeningCheckingUI()),
+                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:outShopOpeningCheckingUI())
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)

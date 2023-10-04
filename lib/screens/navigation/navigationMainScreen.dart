@@ -17,7 +17,6 @@ class NavigationMainScreen extends StatefulWidget {
 class _NavigationMainScreenState extends State<NavigationMainScreen> {
 
   late Future<List<Shop>> futureShopList;
-  //late Future<Shop> futureShop;
 
   int _selectedIndex = 1;
 
@@ -31,7 +30,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
   void initState() {
     super.initState();
     futureShopList = fetchShop();
-    //futureShop = fetchShop();
   }
 
   @override
@@ -71,9 +69,16 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
           backgroundColor: Colors.indigo,
           title: const Text('Navigasyon'),
         ),
-        body: Container(
-            alignment: Alignment.center,
-            child: navigationMainScreenUI(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: deviceHeight*0.03,),
+              TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+              SizedBox(height: deviceHeight*0.03,),
+              navigationMainScreenUI(),
+            ],
           ),
 
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -85,7 +90,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
           future: futureShopList,
           builder: (context, snapshot){
             if(snapshot.hasData){
-              print("data var");
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 scrollDirection: Axis.vertical,

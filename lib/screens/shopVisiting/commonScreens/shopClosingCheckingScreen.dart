@@ -66,8 +66,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),child:inShopClosingCheckingUI()),
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),child:outShopClosingCheckingUI())
+                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:inShopClosingCheckingUI()),
+                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:outShopClosingCheckingUI())
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
