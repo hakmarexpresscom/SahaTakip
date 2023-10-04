@@ -4,7 +4,7 @@ import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../models/shop.dart';
-import '../../services/shop_services.dart';
+import '../../services/shopServices.dart';
 
 class NavigationMainScreen extends StatefulWidget {
   const NavigationMainScreen({super.key});
@@ -101,7 +101,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:<Widget>[
-                        ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: snapshot.data![index].shop_name, shopCode: snapshot.data![index].shop_code.toString(), location: "pendik")
+                        ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                       ]
                   );
                 },

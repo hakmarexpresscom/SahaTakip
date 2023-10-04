@@ -90,8 +90,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1)
                     ]
                 ),
                 Row(
@@ -99,8 +99,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1)
                     ]
                 ),
                 Row(
@@ -108,8 +108,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1)
                     ]
                 ),
                 Row(
@@ -117,8 +117,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1)
                     ]
                 ),
                 Row(
@@ -126,8 +126,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik"),
-                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", location: "pendik")
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1),
+                      ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: "Taşlıbayır/Pendik", shopCode: "5168", lat: 1, long: 1)
                     ]
                 ),
               ],

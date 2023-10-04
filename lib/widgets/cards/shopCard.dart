@@ -9,9 +9,10 @@ class ShopCard extends StatefulWidget {
   late double widthConst;
   late String shopName;
   late String shopCode;
-  late String location;
+  late int lat;
+  late int long;
 
-  ShopCard({Key? key, required this.heightConst,required this.widthConst, required this.shopName, required this.shopCode, required this.location}): super(key: key);
+  ShopCard({Key? key, required this.heightConst,required this.widthConst, required this.shopName, required this.shopCode, required this.lat, required this.long}): super(key: key);
 
   @override
   State<ShopCard> createState() => _ShopCardState();
