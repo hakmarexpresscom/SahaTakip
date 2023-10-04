@@ -47,6 +47,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
       if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
+        _selectedIndex = 1;
       }
     }
 

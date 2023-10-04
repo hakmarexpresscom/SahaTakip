@@ -3,16 +3,14 @@ import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/submitTask/submitTaskMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../models/sampleDataSet.dart';
 import '../screens/other/otherMainScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 
-
-String userType = "PM";
+String userType = "BS";
 bool isBSorPM = true;
-bool isBS = false;
+bool isBS = true;
 bool isReportCreated = false;
 
 late List<BottomNavigationBarItem> itemListBS = [
@@ -93,10 +91,6 @@ late List<BottomNavigationBarItem> itemListNK = [
     icon: Icon(Icons.near_me),
     label: 'Çevre Mağazalar',
   ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.menu),
-    label: 'Diğer',
-  ),
 ];
 
 late List<Widget> pagesBS = [
@@ -126,7 +120,6 @@ late List<Widget> pagesBMGK = [
 late List<Widget> pagesNK = [
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  OtherMainScreen()
 ];
 
 
