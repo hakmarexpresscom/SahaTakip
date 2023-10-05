@@ -14,7 +14,7 @@ class NavigationMainScreen extends StatefulWidget {
       _NavigationMainScreenState();
 }
 
-class _NavigationMainScreenState extends State<NavigationMainScreen> {
+class _NavigationMainScreenState extends State<NavigationMainScreen> with TickerProviderStateMixin  {
 
   late Future<List<Shop>> futureShopList;
 
@@ -26,10 +26,21 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
   late double deviceHeight;
   late double deviceWidth;
 
+  late AnimationController controller;
+
   @override
   void initState() {
     super.initState();
     futureShopList = fetchShop();
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
   }
 
   @override
@@ -108,7 +119,15 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> {
               );
             }
             else{
-              return TextWidget(text: "No data", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black);
+              return Column(
+                  children:[
+                    SizedBox(height: deviceHeight*0.06,),
+                    CircularProgressIndicator(
+                      value: controller.value,
+                      semanticsLabel: 'Circular progress indicator',
+                    ),
+                  ]
+              );
             }
         }));
   }
