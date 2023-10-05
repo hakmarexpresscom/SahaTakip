@@ -4,8 +4,8 @@ class Shop{
   late int BS_SAPID;
   late int PM_SAPID;
   late int BM_SAPID;
-  late int Lat;
-  late int Long;
+  late String Lat;
+  late String Long;
 
   Shop({
     required this.shopCode,
