@@ -16,7 +16,7 @@ import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMa
 import '../screens/shopVisiting/userPM/visitingReport/pastReports/pastReportDetailScreen.dart';
 import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
-import '../screens/submitTask/submitTaskBSSelectionScreen.dart';
+import '../screens/submitTask/submitTaskShopSelectionScreen.dart';
 
 void naviShopVisitingShopsScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));

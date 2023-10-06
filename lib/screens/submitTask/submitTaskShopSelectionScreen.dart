@@ -56,7 +56,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
-          title: const Text('Görev Atama BS Seçimi'),
+          title: const Text('Görev Atama Mağaza Seçimi'),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -75,7 +75,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
         child: Column(
           children: <Widget>[
             SizedBox(height: deviceHeight*0.07,),
-            TextWidget(text: "BS Seçimi", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+            TextWidget(text: "Mağaza Seçimi", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: deviceHeight*0.03,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +92,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -101,7 +101,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -110,7 +110,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -119,7 +119,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -128,7 +128,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -137,7 +137,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -146,7 +146,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             Row(
@@ -155,7 +155,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
-                TextWidget(text: "Bölge Sorumlusu 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Mağaza 1", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
               ],
             ),
             SizedBox(height: deviceHeight*0.03,),

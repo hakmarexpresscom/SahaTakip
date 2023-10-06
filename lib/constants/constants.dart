@@ -8,9 +8,17 @@ import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 
-String userType = "BS";
+class AppConstant {
+  static List<Map<String, dynamic>> list = [
+    {"id": "1", "lat": "37.4219983", "long": "-122.090"},
+    {"id": "2", "lat": "37.4219983", "long": "-122.095"},
+    {"id": "3", "lat": "37.4219983", "long": "-122.097"},
+  ];
+}
+
+String userType = "PM";
 bool isBSorPM = true;
-bool isBS = true;
+bool isBS = false;
 bool isReportCreated = false;
 
 late List<BottomNavigationBarItem> itemListBS = [

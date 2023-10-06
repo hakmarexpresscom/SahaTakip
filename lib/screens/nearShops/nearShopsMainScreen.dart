@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/screens/googleMap/googleMapNearShops.dart';
 import 'package:deneme/utils/functions.dart';
+import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,9 @@ class NearShopsMainScreen extends StatefulWidget {
       _NearShopsMainScreenState();
 }
 
-class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
+class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerProviderStateMixin {
+
+  late List<Map<String, String>> coordinates;
 
   late Future<List<Shop>> futureShopList;
 
@@ -31,6 +35,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
   late double deviceHeight;
   late double deviceWidth;
 
+  late AnimationController controller;
+
   bool servicestatus = false;
   bool haspermission = false;
   late LocationPermission permission;
@@ -40,8 +46,18 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
 
   @override
   void initState() {
+    coordinates = [{"lat":"","long":""}];
     checkGps();
     futureShopList = fetchShop();
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
     super.initState();
   }
 
@@ -158,9 +174,10 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
             TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: deviceHeight*0.03,),
             nearShopsMainScreenUI(),
+            seeAllShops()
           ],
         ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
+        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,),
     );
   }
 
@@ -170,29 +187,47 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> {
         future: futureShopList,
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index){
+                if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0){
+                  AppConstant.list.add({"id":snapshot.data![index].shopCode.toString(),"lat":snapshot.data![index].Lat, "long":snapshot.data![index].Long, });
+                }
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children:<Widget>[
-                      //Text(getDistance(37.4259983, -122.084, 37.4219983, -122.084).toString()),
-                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) ? ShopCard(heightConst: 0.25, widthConst: 0.47, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
+                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.02,heightConst: 0.19, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
                     ]
                 );
               },
             );
           }
           else{
-            return TextWidget(text: "No data", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black);
+            return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children:[
+                  SizedBox(height: deviceHeight*0.06,),
+                  CircularProgressIndicator(
+                    value: controller.value,
+                    semanticsLabel: 'Circular progress indicator',
+                  ),
+                ]
+            );
           }
-        }));
+        })
+    );
   }
+
+  Widget seeAllShops(){
+    return ButtonWidget(text: "Tümünü Haritada Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreenNearShops(currentLat: lat, currentLong: long,)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+  }
+
 
 }
 

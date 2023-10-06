@@ -40,10 +40,10 @@ class _MapScreenState extends State<MapScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child:GoogleMap(
-          zoomControlsEnabled: false,
+          mapType: MapType.normal,
           initialCameraPosition:CameraPosition(
             target: LatLng(double.parse(widget.targetLat), double.parse(widget.targetLong)),
-            zoom: 15.0,
+            zoom: 16.0,
           ),
           onMapCreated: (GoogleMapController controller){
             _controller = controller;

@@ -1,6 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/submitTask/submitTaskBSSelectionScreen.dart';
+import 'package:deneme/screens/submitTask/submitTaskShopSelectionScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +113,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   }
 
   Widget BSSelectionButton(){
-    return ButtonWidget(text: "BS Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskBSSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskBSSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
   Widget inputForm(){
