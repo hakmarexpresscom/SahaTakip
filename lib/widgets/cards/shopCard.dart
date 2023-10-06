@@ -1,3 +1,4 @@
+import 'package:deneme/screens/googleMap.dart';
 import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -49,7 +50,7 @@ class _ShopCardState extends State<ShopCard> {
             SizedBox(height: context.dynamicHeight(0.02),),
           TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: 18, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.04),),
-            ButtonWidget(text: "Haritada Gör", heightConst: 0.04, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Haritada Gör", heightConst: 0.04, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(targetLat: widget.lat, targetLong: widget.long)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
         ],
         ),
       ),
