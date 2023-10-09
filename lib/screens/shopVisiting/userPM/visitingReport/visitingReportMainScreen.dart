@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/shopVisiting/userPM/visitingReport/pastReports/pastReportsMainScreen.dart';
+import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/text_form_field.dart';
-import 'enterVisitingReport.dart';
 
 class VisitingRaportMainScreen extends StatefulWidget {
 
@@ -150,11 +150,11 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, prefixIcon: Icon(Icons.money), value: EnterVisitingReportScreen.taskName, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, value: VisitingRaportMainScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDeadlineController, prefixIcon: Icon(Icons.money), value: EnterVisitingReportScreen.taskDeadline, paddingValue: 5,maxLines: 1),
+            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, dateController: taskDeadlineController, value: VisitingRaportMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, prefixIcon: Icon(Icons.money), value: EnterVisitingReportScreen.taskDescription, paddingValue: 5,maxLines: 8),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, value: VisitingRaportMainScreen.taskDescription, paddingValue: 5,maxLines: 8),
           ],
         ),
       ),

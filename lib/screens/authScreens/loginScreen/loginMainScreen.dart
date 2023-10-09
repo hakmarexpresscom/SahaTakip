@@ -84,9 +84,9 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Email", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: emailController, prefixIcon: Icon(Icons.money), value: LoginMainScreen.email, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Email", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: emailController, value: LoginMainScreen.email, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Şİfre", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: emailController, prefixIcon: Icon(Icons.money), value: LoginMainScreen.password, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Şİfre", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: emailController, value: LoginMainScreen.password, paddingValue: 5,maxLines: 1),
           ],
         ),
       ),

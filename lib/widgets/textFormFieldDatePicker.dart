@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 
-class TextFormFieldWidget extends StatefulWidget{
+class TextFormFieldDatePicker extends StatefulWidget{
   final String text;
   final double borderWidht;
   final Color titleColor;
   final Color borderColor;
-  final TextEditingController controller;
+  final TextEditingController dateController;
   late String value;
   final double paddingValue;
   final int maxLines;
 
-  TextFormFieldWidget({
+  TextFormFieldDatePicker({
     Key? key,
     required this.text,
     required this.borderWidht,
     required this.titleColor,
     required this.borderColor,
-    required this.controller,
+    required this.dateController,
     required this.value,
     required this.paddingValue,
     required this.maxLines
   }) : super(key: key);
 
   @override
-  State<TextFormFieldWidget> createState() => _TextFormFieldWidgetState();
+  State<TextFormFieldDatePicker> createState() => _TextFormFieldDatePickerState();
 }
 
-class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
+class _TextFormFieldDatePickerState extends State<TextFormFieldDatePicker> {
 
   @override
   Widget build(BuildContext context){
     return TextFormField(
       maxLines: widget.maxLines,
-      controller: widget.controller,
+      controller: widget.dateController,
       autocorrect: false,
       style: TextStyle(color: widget.titleColor),
       onSaved: (input){
@@ -51,6 +51,17 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         }
         return null;
       },
+        onTap: () async{
+          DateTime? date = DateTime(1900);
+          FocusScope.of(context).requestFocus(FocusNode());
+
+          date = await showDatePicker(
+              context: context,
+              initialDate:DateTime.now(),
+              firstDate:DateTime(1900),
+              lastDate: DateTime(2100));
+
+          widget.dateController.text = date!.day.toString()+"."+date!.month.toString()+"."+date!.year.toString();}
     );
   }
 

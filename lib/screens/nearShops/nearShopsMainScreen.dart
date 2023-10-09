@@ -197,20 +197,17 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                 }
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children:<Widget>[
-                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.02,heightConst: 0.19, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
+                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.02,heightConst: 0.18, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
                     ]
                 );
               },
             );
           }
-          else{
+          if(snapshot.connectionState == ConnectionState.waiting){
             return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children:[
                   SizedBox(height: deviceHeight*0.06,),
                   CircularProgressIndicator(
@@ -220,12 +217,15 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                 ]
             );
           }
+          else{
+            return Text("Veri yok");
+          }
         })
     );
   }
 
   Widget seeAllShops(){
-    return ButtonWidget(text: "Tümünü Haritada Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreenNearShops(currentLat: lat, currentLong: long,)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Tümünü Haritada Görüntüle", heightConst: 0.06, widthConst: 0.7, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreenNearShops(currentLat: lat, currentLong: long,)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 
 

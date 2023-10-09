@@ -5,6 +5,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../models/shop.dart';
 import '../../services/shopServices.dart';
+import '../../widgets/customSearchDelegate.dart';
 
 class NavigationMainScreen extends StatefulWidget {
   const NavigationMainScreen({super.key});
@@ -79,6 +80,19 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text('Navigasyon'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                // method to show the search bar
+                showSearch(
+                    context: context,
+                    // delegate to customize the search bar
+                    delegate: CustomSearchDelegate()
+                );
+              },
+              icon: const Icon(Icons.search),
+            )
+          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,6 +115,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
           future: futureShopList,
           builder: (context, snapshot){
             if(snapshot.hasData){
+              // search bar doluysa ve boşsa koşulu buraya açılacak
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 scrollDirection: Axis.vertical,
@@ -118,7 +133,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                 },
               );
             }
-            else{
+            if(snapshot.connectionState == ConnectionState.waiting){
               return Column(
                   children:[
                     SizedBox(height: deviceHeight*0.06,),
@@ -129,7 +144,11 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                   ]
               );
             }
-        }));
+            else{
+              return Text("Veri yok");
+            }
+        })
+    );
   }
 
 }

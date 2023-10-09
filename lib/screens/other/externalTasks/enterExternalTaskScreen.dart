@@ -2,6 +2,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../widgets/textFormFieldDatePicker.dart';
 import '../../../widgets/text_form_field.dart';
 
 
@@ -116,11 +117,11 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, prefixIcon: Icon(Icons.money), value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDeadlineController, prefixIcon: Icon(Icons.money), value: EnterExternalTaskScreen.taskDeadline, paddingValue: 5,maxLines: 1),
+            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, dateController: taskDeadlineController, value: EnterExternalTaskScreen.taskDeadline, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, prefixIcon: Icon(Icons.money), value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8),
           ],
         ),
       ),

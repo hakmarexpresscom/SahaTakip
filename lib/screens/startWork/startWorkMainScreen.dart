@@ -8,7 +8,6 @@ import '../../routing/landing.dart';
 
 
 // konum erişimi eklenicek
-// kullanıcı türüne göre navibar conditionı koyulacak
 // work duration fonksiyonu yazılacak
 
 
