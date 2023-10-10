@@ -47,7 +47,7 @@ class _ShopCardState extends State<ShopCard> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Icon(widget.icon,size: 40,),],
+            children: [Icon(widget.icon,size: 35,),],
           ),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst1),),
           TextWidget(text: widget.shopCode, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),

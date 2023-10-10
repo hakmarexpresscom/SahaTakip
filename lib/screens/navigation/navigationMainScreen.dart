@@ -22,17 +22,17 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   TextEditingController shopSearchController = TextEditingController();
   List<String> shopListOnSearch = [];
   List<String> shopList = [
-    '14 - Magaza_Ismi1',
-    '51 - Magaza_Ismi2',
-    '20 - Magaza_Ismi3',
-    '16 - Magaza_Ismi4',
-    '86 - Magaza_Ismi5',
-    '26 - Magaza_Ismi6',
-    '77 - Magaza_Ismi7',
-    '75 - Magaza_Ismi8',
-    '69 - Magaza_Ismi9',
-    '78 - Magaza_Ismi10',
-    '3 - Magaza_Ismi11',
+    'Pendik',
+    'Kartal',
+    'Maltepe',
+    'Sancaktepe',
+    'Umraniye',
+    'Uskudar',
+    'Sultanbeyli',
+    'Tuzla',
+    'Bostanci',
+    'Goztepe',
+    'Atasehir',
   ];
 
   late Future<List<Shop>> futureShopList;
@@ -122,23 +122,48 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
           future: futureShopList,
           builder: (context, snapshot){
             if(snapshot.hasData){
-              // search bar doluysa ve boşsa koşulu buraya açılacak
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index){
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children:<Widget>[
-                        ShopCard(icon: Icons.store,sizedBoxConst1: 0.02,sizedBoxConst2: 0.02,sizedBoxConst3: 0.04,heightConst: 0.25, widthConst: 0.47, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
-                      ]
-                  );
-                },
-              );
+              if(shopSearchController.text.isEmpty){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:<Widget>[
+                          ShopCard(icon: Icons.store,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.01,heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                        ]
+                    );
+                  },
+                );
+              }
+              else if(shopSearchController.text.isNotEmpty){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    if(shopListOnSearch.contains(snapshot.data![index].shopName)){
+                      return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children:<Widget>[
+                            ShopCard(icon: Icons.store,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.02,heightConst: 0.18, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                          ]
+                      );
+                    }
+                    else{
+                      return Container();
+                    }
+                  },
+                );
+              }
+              else{
+                return Container();
+              }
             }
             if(snapshot.connectionState == ConnectionState.waiting){
               return Column(
@@ -161,13 +186,24 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   Widget searchBar(){
     return TextField(
       controller: shopSearchController,
+        onChanged: (value){
+      setState ((){
+        shopListOnSearch = shopList
+            .where((element) => element.toLowerCase().contains(value.toLowerCase()))
+            .toList();
+      });},
       decoration: InputDecoration(
         labelText: "Mağaza Ara",
         hintText: "Mağaza Ara",
         prefixIcon: Icon(Icons.search),
         suffixIcon: shopSearchController.text.isEmpty ? null
             : InkWell(
-                onTap: () => shopSearchController.clear(),
+                onTap: () {
+                  shopListOnSearch.clear();
+                  shopSearchController.clear();
+                  setState (() {
+                    shopSearchController.text = '';
+                  });},
                 child: Icon(Icons.clear),
               ),
         border: OutlineInputBorder(
