@@ -22,17 +22,17 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   TextEditingController shopSearchController = TextEditingController();
   List<String> shopListOnSearch = [];
   List<String> shopList = [
-    'Pendik',
-    'Kartal',
-    'Maltepe',
-    'Sancaktepe',
-    'Umraniye',
-    'Uskudar',
-    'Sultanbeyli',
-    'Tuzla',
-    'Bostanci',
-    'Goztepe',
-    'Atasehir',
+    '5000 Pendik',
+    '5001 Kartal',
+    '5002 Maltepe',
+    '5003 Sancaktepe',
+    '5004 Umraniye',
+    '5005 Uskudar',
+    '5006 Sultanbeyli',
+    '5007 Tuzla',
+    '5008 Bostanci',
+    '5009 Goztepe',
+    '5010 Atasehir',
   ];
 
   late Future<List<Shop>> futureShopList;
@@ -145,7 +145,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
-                    if(shopListOnSearch.contains(snapshot.data![index].shopName)){
+                    if(shopListOnSearch.contains(snapshot.data![index].shopCode.toString()+" "+snapshot.data![index].shopName)){
                       return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,
@@ -191,6 +191,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         shopListOnSearch = shopList
             .where((element) => element.toLowerCase().contains(value.toLowerCase()))
             .toList();
+        print(shopListOnSearch);
       });},
       decoration: InputDecoration(
         labelText: "Mağaza Ara",
