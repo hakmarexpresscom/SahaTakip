@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -57,9 +58,11 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.25,),
+            SizedBox(height: deviceHeight*0.12,),
+            logo(),
+            SizedBox(height: deviceHeight*0.05,),
             title(),
-            SizedBox(height: deviceHeight*0.1,),
+            SizedBox(height: deviceHeight*0.03,),
             inputForm(),
             SizedBox(height: deviceHeight*0.03,),
             loginButton(),
@@ -94,13 +97,25 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   }
 
   Widget title(){
-    return TextWidget(text: "Kullanıcı Girişi", heightConst: 0, widhtConst: 0, size: 35, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Kullanıcı Girişi", heightConst: 0, widhtConst: 0, size: 30, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget loginButton(){
     return ButtonWidget(text: "Giriş Yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){(isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget forgetPasswordButton(){
     return ButtonWidget(text: "Şifremi Unuttum", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  }
+  Widget logo(){
+    return Container(
+      height: 250,
+      width:250,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/logo/saha_takip_logo.png"),
+          fit: BoxFit.cover
+        )
+      ),
+    );
   }
 }
 
