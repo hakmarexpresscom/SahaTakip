@@ -7,7 +7,6 @@ import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-//başlangıç sayfası kullanıcı türüne göre değişicek. çünkü kullanıcı türüne göre navi bar değişiyor.
 //login olmamış kullanıcılar için sabit login ekranı başlangıç sayfası olucak fakat hesabı arka planda açık olan kullanıcıların ilk sayfası
 //navi barındaki ilk sayfası şeklinde açılıcak.
 

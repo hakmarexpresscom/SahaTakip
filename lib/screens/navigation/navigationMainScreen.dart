@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import '../../models/shop.dart';
 import '../../services/shopServices.dart';
 import '../../widgets/customSearchDelegate.dart';
+import '../../widgets/text_form_field.dart';
+import '../shopVisiting/commonScreens/cashCountingScreen.dart';
 
 class NavigationMainScreen extends StatefulWidget {
   const NavigationMainScreen({super.key});
@@ -16,6 +18,22 @@ class NavigationMainScreen extends StatefulWidget {
 }
 
 class _NavigationMainScreenState extends State<NavigationMainScreen> with TickerProviderStateMixin  {
+
+  TextEditingController shopSearchController = TextEditingController();
+  List<String> shopListOnSearch = [];
+  List<String> shopList = [
+    '14 - Magaza_Ismi1',
+    '51 - Magaza_Ismi2',
+    '20 - Magaza_Ismi3',
+    '16 - Magaza_Ismi4',
+    '86 - Magaza_Ismi5',
+    '26 - Magaza_Ismi6',
+    '77 - Magaza_Ismi7',
+    '75 - Magaza_Ismi8',
+    '69 - Magaza_Ismi9',
+    '78 - Magaza_Ismi10',
+    '3 - Magaza_Ismi11',
+  ];
 
   late Future<List<Shop>> futureShopList;
 
@@ -80,19 +98,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text('Navigasyon'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                // method to show the search bar
-                showSearch(
-                    context: context,
-                    // delegate to customize the search bar
-                    delegate: CustomSearchDelegate()
-                );
-              },
-              icon: const Icon(Icons.search),
-            )
-          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +106,9 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
             children: <Widget>[
               SizedBox(height: deviceHeight*0.03,),
               TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
-              SizedBox(height: deviceHeight*0.03,),
+              SizedBox(height: deviceHeight*0.04,),
+              searchBar(),
+              SizedBox(height: deviceHeight*0.04,),
               navigationMainScreenUI(),
             ],
           ),
@@ -148,6 +155,27 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Text("Veri yok");
             }
         })
+    );
+  }
+
+  Widget searchBar(){
+    return TextField(
+      controller: shopSearchController,
+      decoration: InputDecoration(
+        labelText: "Mağaza Ara",
+        hintText: "Mağaza Ara",
+        prefixIcon: Icon(Icons.search),
+        suffixIcon: shopSearchController.text.isEmpty ? null
+            : InkWell(
+                onTap: () => shopSearchController.clear(),
+                child: Icon(Icons.clear),
+              ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+      ),
     );
   }
 
