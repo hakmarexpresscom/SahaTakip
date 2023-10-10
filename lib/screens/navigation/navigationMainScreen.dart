@@ -5,9 +5,6 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../models/shop.dart';
 import '../../services/shopServices.dart';
-import '../../widgets/customSearchDelegate.dart';
-import '../../widgets/text_form_field.dart';
-import '../shopVisiting/commonScreens/cashCountingScreen.dart';
 
 class NavigationMainScreen extends StatefulWidget {
   const NavigationMainScreen({super.key});
@@ -151,7 +148,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children:<Widget>[
-                            ShopCard(icon: Icons.store,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.02,heightConst: 0.18, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                            ShopCard(icon: Icons.store,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.01,heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                           ]
                       );
                     }
@@ -168,7 +165,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
             if(snapshot.connectionState == ConnectionState.waiting){
               return Column(
                   children:[
-                    SizedBox(height: deviceHeight*0.06,),
+                    SizedBox(height: deviceHeight*0.06),
                     CircularProgressIndicator(
                       value: controller.value,
                       semanticsLabel: 'Circular progress indicator',

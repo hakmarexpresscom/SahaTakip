@@ -200,7 +200,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children:<Widget>[
-                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.02,heightConst: 0.18, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
+                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.01,heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
                     ]
                 );
               },
