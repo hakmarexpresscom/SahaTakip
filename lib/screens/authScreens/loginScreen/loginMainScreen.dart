@@ -107,9 +107,10 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   }
   Widget logo(){
     return Container(
-      height: 250,
-      width:250,
+      height: deviceHeight*0.3,
+      width: deviceWidth*0.6,
       decoration: BoxDecoration(
+        shape: BoxShape.circle,
         image: DecorationImage(
           image: AssetImage("assets/logo/saha_takip_logo.png"),
           fit: BoxFit.cover
