@@ -12,6 +12,7 @@ import '../../routing/landing.dart';
 
 
 class StartWorkMainScreen extends StatefulWidget {
+
   const StartWorkMainScreen({super.key});
 
   @override
@@ -85,8 +86,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            locationInfo(),
-            SizedBox(height: deviceHeight*0.03,),
+            /*locationInfo(),
+            SizedBox(height: deviceHeight*0.03,),*/
             hourInfo(),
             SizedBox(height: deviceHeight*0.03,),
             workDurationInfo(),
@@ -101,21 +102,20 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
   }
 
 
-  Widget locationInfo(){
-    return TextWidget(text: "My Location", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }
+ /* Widget locationInfo(){
+    return TextWidget(text: "My location", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+  }*/
   Widget hourInfo(){
-    return TextWidget(text: (now.hour+3).toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Saat: "+(now.hour+3).toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget workDurationInfo(){
-    return TextWidget(text: "Work Duration", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Çalışma Süresi: "+workDurationHour.toString()+" saat "+workDurationMin.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget startWorkButton(){
-    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviShopVisitingShopsScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=true;naviShopVisitingShopsScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget finishWorkButton(){
-    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=false;Navigator.push(context, MaterialPageRoute(builder: (context) => StartWorkMainScreen()));}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 }
-
 

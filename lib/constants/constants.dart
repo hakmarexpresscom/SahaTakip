@@ -3,10 +3,12 @@ import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/submitTask/submitTaskMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../models/shop.dart';
 import '../screens/other/otherMainScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
+import '../services/shopServices.dart';
 
 class AppConstant {
   static List<Map<String, dynamic>> list = [
@@ -16,6 +18,11 @@ class AppConstant {
   ];
 }
 
+Future<List<Shop>> futureShopList = fetchShop();
+
+int workDurationHour = 0;
+int workDurationMin = 0;
+bool isWorking = false;
 String userType = "PM";
 bool isBSorPM = true;
 bool isBS = false;

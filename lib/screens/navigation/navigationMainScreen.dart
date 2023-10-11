@@ -32,7 +32,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
     '5010 Atasehir',
   ];
 
-  late Future<List<Shop>> futureShopList;
+  //late Future<List<Shop>> futureShopList;
 
   int _selectedIndex = 1;
 
@@ -47,7 +47,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   @override
   void initState() {
     super.initState();
-    futureShopList = fetchShop();
+    //futureShopList = fetchShop();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

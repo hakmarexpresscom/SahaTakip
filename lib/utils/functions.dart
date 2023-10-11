@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:vector_math/vector_math.dart';
 
@@ -10,13 +11,3 @@ double getDistance(double targetLat, double targetLong, double currentLat, doubl
   var d = 6371000 * c;
   return d; //d is the distance in meters
 }
-
-
-
-
-
-
-
-
-
-

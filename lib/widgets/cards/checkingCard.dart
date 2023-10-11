@@ -40,7 +40,7 @@ class _TaskCardState extends State<CheckingCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
-            SizedBox(width: context.dynamicWidht(0.40),),
+            SizedBox(width: context.dynamicWidht(0.35),),
             Switch(
               value: light,
               activeColor: Colors.green,

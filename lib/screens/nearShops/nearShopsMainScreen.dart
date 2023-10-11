@@ -41,14 +41,14 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
   bool haspermission = false;
   late LocationPermission permission;
   late Position position;
-  String long = "", lat = "";
+  String long = "1", lat = "1";
   late StreamSubscription<Position> positionStream;
 
   @override
   void initState() {
     coordinates = [{"lat":"","long":""}];
-    checkGps();
     futureShopList = fetchShop();
+    checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
