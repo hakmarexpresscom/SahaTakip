@@ -1,7 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/other/externalTasks/enterExternalTaskScreen.dart';
-import 'package:deneme/screens/other/externalTasks/externalTasksMainScreen.dart';
+import 'package:deneme/screens/externalTask/enterExternalTaskScreen.dart';
+import 'package:deneme/screens/externalTask/externalTasksListScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -81,9 +81,6 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            externalWorkButton(),
-            SizedBox(height: deviceHeight*0.03,),
-            addExternalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
             logoutButton()
           ],
@@ -93,12 +90,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
   }
 
 
-  Widget externalWorkButton(){
-    return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviExternalTasksMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
-  }
-  Widget addExternalWorkButton(){
-    return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviEnterExternalTaskScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
-  }
+
   Widget logoutButton(){
     return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }

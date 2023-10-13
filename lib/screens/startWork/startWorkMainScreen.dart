@@ -6,9 +6,10 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../routing/landing.dart';
 
-
 // konum erişimi eklenicek
 // work duration fonksiyonu yazılacak
+
+late List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 
 
 class StartWorkMainScreen extends StatefulWidget {
@@ -21,6 +22,8 @@ class StartWorkMainScreen extends StatefulWidget {
 }
 
 class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
+
+  String item = shiftType[0];
 
   int _selectedIndex = 0;
 
@@ -61,6 +64,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
     userCondition(userType); //utils dosyasındaki fonksiyonu çekmiyor sebebine bakılacak
 
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -68,7 +72,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         title: const Text('Mesaiye Başla'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.2, 0, 0),
+        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.15, 0, 0),
         child:Container(
           alignment: Alignment.center,
           child: startWorkMainScreenUI(),
@@ -92,6 +96,10 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             SizedBox(height: deviceHeight*0.03,),
             workDurationInfo(),
             SizedBox(height: deviceHeight*0.09,),
+            shiftTypeInfo(),
+            SizedBox(height: deviceHeight*0.03,),
+            shiftTypeDropDown(),
+            SizedBox(height: deviceHeight*0.03,),
             startWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
             finishWorkButton(),
@@ -111,11 +119,29 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
   Widget workDurationInfo(){
     return TextWidget(text: "Çalışma Süresi: "+workDurationHour.toString()+" saat "+workDurationMin.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
+  Widget shiftTypeInfo(){
+    return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+  }
   Widget startWorkButton(){
-    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=true;naviShopVisitingShopsScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=true; (item=="Mağaza Ziyareti") ? naviShopVisitingShopsScreen(context) : naviExternalTaskMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget finishWorkButton(){
-    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=false;Navigator.push(context, MaterialPageRoute(builder: (context) => StartWorkMainScreen()));}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=false; Navigator.push(context, MaterialPageRoute(builder: (context) => StartWorkMainScreen()));}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  }
+  Widget shiftTypeDropDown(){
+    return DropdownMenu<String>(
+      initialSelection: item,
+      onSelected: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          item = value!;
+          print(item);
+        });
+      },
+      dropdownMenuEntries: shiftType.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
+    );
   }
 }
 

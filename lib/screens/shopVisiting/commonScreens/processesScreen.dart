@@ -1,11 +1,6 @@
 import 'dart:async';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
-import 'package:deneme/screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopVisitingProcessCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -76,26 +71,6 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
-
-  void navi(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopOpeningCheckingScreen()));
-  }
-  void navi2(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopClosingCheckingScreen()));
-  }
-  void navi3(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreen()));
-  }
-  void navi4(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreen()));
-  }
-  void navi5(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen()));
-  }
-  void navi6(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreen()));
-  }
-
 
   Widget shopVisitingProcessesScreenBSUI(){
     return Builder(builder: (BuildContext context){

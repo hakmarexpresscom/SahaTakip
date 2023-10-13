@@ -1,9 +1,10 @@
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../screens/other/externalTasks/enterExternalTaskScreen.dart';
-import '../screens/other/externalTasks/externalTaskDetailScreen.dart';
-import '../screens/other/externalTasks/externalTasksMainScreen.dart';
+import '../screens/externalTask/enterExternalTaskScreen.dart';
+import '../screens/externalTask/externalTaskDetailScreen.dart';
+import '../screens/externalTask/externalTaskMainScreen.dart';
+import '../screens/externalTask/externalTasksListScreen.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
 import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
@@ -30,8 +31,8 @@ void naviExternalTaskDetailScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));
 }
 
-void naviExternalTasksMainScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTasksMainScreen()));
+void naviExternalTasksListScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTasksListScreen()));
 }
 
 void naviEnterExternalTaskScreen(BuildContext context){
@@ -84,5 +85,9 @@ void naviSubmitTaskBSSelectionScreen(BuildContext context){
 
 void naviNavigationMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationMainScreen()));
+}
+
+void naviExternalTaskMainScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskMainScreen()));
 }
 

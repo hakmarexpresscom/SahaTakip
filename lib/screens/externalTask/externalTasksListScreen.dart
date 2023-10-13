@@ -1,20 +1,19 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/other/externalTasks/externalTaskDetailScreen.dart';
 import 'package:flutter/material.dart';
-import '../../../routing/landing.dart';
-import '../../../widgets/cards/taskCard.dart';
+import '../../routing/landing.dart';
+import '../../widgets/cards/taskCard.dart';
 
 
-class ExternalTasksMainScreen extends StatefulWidget {
-  const ExternalTasksMainScreen({super.key});
+class ExternalTasksListScreen extends StatefulWidget {
+  const ExternalTasksListScreen({super.key});
 
   @override
-  State<ExternalTasksMainScreen> createState() =>
-      _ExternalTasksMainScreenState();
+  State<ExternalTasksListScreen> createState() =>
+      _ExternalTasksListScreenState();
 }
 
-class _ExternalTasksMainScreenState extends State<ExternalTasksMainScreen> {
+class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> {
 
   int _selectedIndex = 4;
 
