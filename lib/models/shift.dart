@@ -1,34 +1,37 @@
 class Shift{
-  late int userID;
-  late int userSAPID;
+  late int bs_id;
+  late int pm_id;
   late String shiftType;
-  late DateTime Date;
-  late DateTime startHour;
-  late DateTime finishHour;
+  late DateTime shiftDate;
+  late DateTime startTime;
+  late DateTime finishTime;
   late int shopCode;
 
   Shift({
-    required this.userID,
-    required this.userSAPID,
+    required this.bs_id,
+    required this.pm_id,
     required this.shiftType,
-    required this.Date,
-    required this.startHour,
-    required this.finishHour,
+    required this.shiftDate,
+    required this.startTime,
+    required this.finishTime,
     required this.shopCode
   });
 
   factory Shift.fromJson(Map<String, dynamic> json) {
     return Shift(
-      userID: json['Kullanici_ID'],
-      userSAPID: json['Kullanici_SAPID'],
-      shiftType: json['Mesai_Turu'],
-      Date: json['Tarih'],
-      startHour: json['Baslangic_Saati'],
-      finishHour: json['Bitis_Saati'],
-      shopCode: json['Magaza_Kodu'],
+      bs_id: json['bs_id'],
+      pm_id: json['pm_id'],
+      shiftType: json['mesai_turu'],
+      shiftDate: json['mesai_tarihi'],
+      startTime: json['baslangic_saati'],
+      finishTime: json['bitis_tarihi'],
+      shopCode: json['magaza_kodu'],
     );
   }
 
 }
+
+
+
 
 

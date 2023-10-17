@@ -72,7 +72,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         title: const Text('Mesaiye Başla'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.15, 0, 0),
+        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.14, 0, 0),
         child:Container(
           alignment: Alignment.center,
           child: startWorkMainScreenUI(),
@@ -99,7 +99,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             shiftTypeInfo(),
             SizedBox(height: deviceHeight*0.03,),
             shiftTypeDropDown(),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight*0.07,),
             startWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
             finishWorkButton(),

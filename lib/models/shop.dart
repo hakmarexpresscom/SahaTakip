@@ -1,3 +1,5 @@
+//sql'e gore duzenlenicek su an parametre isimleri mockapi'dakine gore yazildi
+
 class Shop{
   late int shopCode;
   late String shopName;
