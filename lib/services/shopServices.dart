@@ -12,9 +12,9 @@ Future<List<Shop>> parseJsonList(String jsonBody) async{
   return returnList;
 }
 
-Future<List<Shop>> fetchShop() async {
+Future<List<Shop>> fetchShop(String url) async {
   final response = await http
-      .get(Uri.parse('https://651bb092194f77f2a5aeb616.mockapi.io/magaza'));
+      .get(Uri.parse(url));
   //https://localhost:7042/api/magaza
   //https://localhost:5000/api/magaza
   //https://10.12.1.190:7042/api/magaza

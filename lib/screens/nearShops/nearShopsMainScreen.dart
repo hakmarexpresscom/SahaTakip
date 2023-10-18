@@ -47,7 +47,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
   @override
   void initState() {
     coordinates = [{"lat":"","long":""}];
-    futureShopList = fetchShop();
+    futureShopList = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza');
     checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of

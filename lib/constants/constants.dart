@@ -18,7 +18,10 @@ class AppConstant {
   ];
 }
 
-Future<List<Shop>> futureShopList = fetchShop();
+Future<List<Shop>> futureShopList = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza');
+
+int id=1;
+Future<List<Shop>> futureShopList2 = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza?bs_id=${id}');
 
 int workDurationHour = 0;
 int workDurationMin = 0;

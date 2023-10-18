@@ -1,31 +1,32 @@
-//sql'e gore duzenlenicek su an parametre isimleri mockapi'dakine gore yazildi
-
 class Shop{
   late int shopCode;
   late String shopName;
-  late int BS_SAPID;
-  late int PM_SAPID;
-  late int BM_SAPID;
+  late int regionCode;
+  late int bs_id;
+  late int pm_id;
+  late int bm_id;
   late String Lat;
   late String Long;
 
   Shop({
     required this.shopCode,
     required this.shopName,
-    required this.BS_SAPID,
-    required this.PM_SAPID,
-    required this.BM_SAPID,
+    required this.regionCode,
+    required this.bs_id,
+    required this.pm_id,
+    required this.bm_id,
     required this.Lat,
     required this.Long
   });
 
   factory Shop.fromJson(Map<String, dynamic> json) {
     return Shop(
-      shopCode: json['Magaza_Kodu'],
-      shopName: json['Magaza_Ismi'],
-      BS_SAPID: json['BS_SAPID'],
-      PM_SAPID: json['PM_SAPID'],
-      BM_SAPID: json['BM_SAPID'],
+      shopCode: json['magaza_kodu'],
+      shopName: json['magaza_ismi'],
+      regionCode: json['bolge_kodu'],
+      bs_id: json['bs_id'],
+      pm_id: json['pm_id'],
+      bm_id: json['bm_id'],
       Lat: json['Lat'],
       Long: json['Long'],
     );

@@ -1,18 +1,25 @@
-import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
+import 'package:deneme/screens/googleMap/googleMap.dart';
 import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../screens/shopVisiting/commonScreens/processesScreen.dart';
+
 class VisitingShopCard extends StatefulWidget {
 
   late double heightConst;
   late double widthConst;
+  late double sizedBoxConst1;
+  late double sizedBoxConst2;
+  late double sizedBoxConst3;
   late String shopName;
   late String shopCode;
-  late String location;
+  late String lat;
+  late String long;
+  final IconData icon;
 
-  VisitingShopCard({Key? key, required this.heightConst,required this.widthConst, required this.shopName, required this.shopCode, required this.location}): super(key: key);
+  VisitingShopCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3,required this.shopName, required this.shopCode, required this.lat, required this.long, required this.icon}): super(key: key);
 
   @override
   State<VisitingShopCard> createState() => _VisitingShopCardState();
@@ -42,13 +49,13 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Icon(Icons.store,size: 45,),],
+              children: [Icon(widget.icon,size: 35,),],
             ),
-            SizedBox(height: context.dynamicHeight(0.02),),
+            SizedBox(height: context.dynamicHeight(widget.sizedBoxConst1),),
             TextWidget(text: widget.shopCode, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
-            SizedBox(height: context.dynamicHeight(0.02),),
+            SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
             TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: 18, fontWeight: FontWeight.w400, color: Colors.black),
-            SizedBox(height: context.dynamicHeight(0.04),),
+            SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
             ButtonWidget(text: "Ziyarete Başla", heightConst: 0.04, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreen()));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],
         ),
@@ -56,3 +63,4 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
     );
   }
 }
+
