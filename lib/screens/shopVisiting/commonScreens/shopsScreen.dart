@@ -3,9 +3,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/visitingShopCard.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/shop.dart';
-import '../../../widgets/cards/shopCard.dart';
 
 class ShopVisitingShopsScreen extends StatefulWidget {
   const ShopVisitingShopsScreen({super.key});
@@ -83,17 +81,43 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
             ],
           ),
         ),
-         body: TabBarView(
-           children: <Widget>[
-             ownShopsScreenUI(),
-              partnerShopsScreenUI()
-           ],
+         body: LayoutBuilder(
+           builder: (BuildContext context, BoxConstraints constraints){
+             if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
+               return TabBarView(
+                 children: <Widget>[
+                   ownShopsScreenUI(0.00, 0.015, 0.02, 0.20, 0.80, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.015, 0.02, 0.20, 0.80, 20, 18, 15)
+                 ],
+               );
+             }
+             else if(651<constraints.maxWidth && constraints.maxWidth<1000){
+               return TabBarView(
+                 children: <Widget>[
+                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 0.20, 0.60, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 0.17, 0.70, 30, 25, 20),
+                   ((deviceHeight-deviceWidth)<150) ? partnerShopsScreenUI(0.00, 0.02, 0.02, 0.20, 0.60, 20, 18, 15) : partnerShopsScreenUI(0.00, 0.02, 0.015, 0.17, 0.70, 30, 25, 20),
+                 ],
+               );
+             }
+             else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
+               return TabBarView(
+                 children: <Widget>[
+                   ownShopsScreenUI(0.00, 0.01, 0.01, 0.17, 0.80, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.01, 0.01, 0.17, 0.80, 20, 18, 15),
+                 ],
+               );
+             }
+             else{
+               print("elif");
+               return Container();
+             }
+           },
          ),
           bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     ));
   }
 
-  Widget ownShopsScreenUI(){
+  Widget ownShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
     return Flex(
         direction: Axis.vertical,
         children:[
@@ -112,7 +136,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children:<Widget>[
-                              VisitingShopCard(icon: Icons.store, sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.01,heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                              VisitingShopCard(icon: Icons.store, sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                             ]
                         );
                       },
@@ -138,7 +162,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     );
   }
 
-  Widget partnerShopsScreenUI() {
+  Widget partnerShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton) {
     return Flex(
         direction: Axis.vertical,
         children: [
@@ -157,7 +181,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                VisitingShopCard(icon: Icons.store, sizedBoxConst1: 0.00, sizedBoxConst2: 0.01, sizedBoxConst3: 0.01, heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                                VisitingShopCard(icon: Icons.store, sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                               ]
                           );
                         },
