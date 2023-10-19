@@ -16,8 +16,11 @@ class ShopCard extends StatefulWidget {
   late String lat;
   late String long;
   final IconData icon;
+  late double textSizeCode;
+  late double textSizeName;
+  late double textSizeButton;
 
-  ShopCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3,required this.shopName, required this.shopCode, required this.lat, required this.long, required this.icon}): super(key: key);
+  ShopCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3,required this.shopName, required this.shopCode, required this.lat, required this.long, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName}): super(key: key);
 
   @override
   State<ShopCard> createState() => _ShopCardState();
@@ -50,11 +53,11 @@ class _ShopCardState extends State<ShopCard> {
             children: [Icon(widget.icon,size: 35,),],
           ),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst1),),
-          TextWidget(text: widget.shopCode, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: widget.shopCode, heightConst: 0, widhtConst: 0, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
-          TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: 18, fontWeight: FontWeight.w400, color: Colors.black),
+          TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: widget.textSizeName, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Haritada Gör", heightConst: 0.04, widthConst: 0.35, size: 15, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(targetLat: widget.lat, targetLong: widget.long)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Haritada Gör", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(targetLat: widget.lat, targetLong: widget.long)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
         ],
         ),
       ),

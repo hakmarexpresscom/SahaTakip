@@ -24,23 +24,11 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   @override
   Widget build(BuildContext context) {
 
-    return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(
-              color: Colors.orangeAccent,
-              width: 3
-          )
-      ),
-      child: Container(
-        height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidht(widget.widthConst),
-        child: Column(
+    return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: context.dynamicWidht(0.03),),
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.05),),
             TextWidget(text: "Bitiş Tarihi: "+widget.taskDeadline, heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
@@ -58,9 +46,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             ),
             SizedBox(height: context.dynamicWidht(0.05),),
             ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.6, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black),
-          ],
-        ),
-      ),
+          ]
     );
   }
 }

@@ -96,25 +96,54 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
           backgroundColor: Colors.indigo,
           title: const Text('Navigasyon'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: deviceHeight*0.03,),
-              TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
-              SizedBox(height: deviceHeight*0.04,),
-              searchBar(),
-              SizedBox(height: deviceHeight*0.04,),
-              navigationMainScreenUI(),
-            ],
-          ),
-
+        body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints){
+            if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
+              return Column(
+                  children: [
+                    SizedBox(height: deviceHeight*0.03,),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    SizedBox(height: deviceHeight*0.04,),
+                    searchBar(),
+                    SizedBox(height: deviceHeight*0.04,),
+                    navigationMainScreenUI(0.00, 0.015, 0.02, 0.20, 0.80, 20, 18, 15)
+                  ]
+              );
+            }
+            else if(651<constraints.maxWidth && constraints.maxWidth<1000){
+              return Column(
+                  children: [
+                    SizedBox(height: deviceHeight*0.03,),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    SizedBox(height: deviceHeight*0.04,),
+                    searchBar(),
+                    SizedBox(height: deviceHeight*0.04,),
+                    ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 0.20, 0.60, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 0.17, 0.70, 30, 25, 20),
+                  ]
+              );
+            }
+            else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
+              return Column(
+                  children: [
+                    SizedBox(height: deviceHeight*0.03,),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    SizedBox(height: deviceHeight*0.04,),
+                    searchBar(),
+                    SizedBox(height: deviceHeight*0.04,),
+                    navigationMainScreenUI(0.00, 0.01, 0.01, 0.17, 0.80, 20, 18, 15),
+                  ]
+              );
+            }
+            else{
+              return Container();
+            }
+          },
+        ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
   
-  Widget navigationMainScreenUI(){
+  Widget navigationMainScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
     return Expanded(child: FutureBuilder<List<Shop>>(
           future: futureShopList,
           builder: (context, snapshot){
@@ -130,7 +159,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children:<Widget>[
-                          ShopCard(icon: Icons.store,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.01,heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                          ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                         ]
                     );
                   },
@@ -148,7 +177,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children:<Widget>[
-                            ShopCard(icon: Icons.store,sizedBoxConst1: 0.00,sizedBoxConst2: 0.01,sizedBoxConst3: 0.01,heightConst: 0.17, widthConst: 0.80, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                           ]
                       );
                     }
