@@ -18,7 +18,7 @@ class AppConstant {
   ];
 }
 
-Future<List<Shop>> futureShopList = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza');
+Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza');
 
 int id=1;
 Future<List<Shop>> futureShopList2 = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza?bs_id=${id}');

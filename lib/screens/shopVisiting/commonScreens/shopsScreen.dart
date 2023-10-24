@@ -102,8 +102,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
              else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
                return TabBarView(
                  children: <Widget>[
-                   ownShopsScreenUI(0.00, 0.01, 0.01, 0.17, 0.80, 20, 18, 15),
-                   partnerShopsScreenUI(0.00, 0.01, 0.01, 0.17, 0.80, 20, 18, 15),
+                   ownShopsScreenUI(0.00, 0.01, 0.015, 0.17, 0.80, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.01, 0.015, 0.17, 0.80, 20, 18, 15),
                  ],
                );
              }

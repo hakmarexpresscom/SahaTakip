@@ -114,7 +114,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     return TextWidget(text: "My location", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }*/
   Widget hourInfo(){
-    return TextWidget(text: "Saat: "+(now.hour+3).toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Saat: "+now.hour.toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget workDurationInfo(){
     return TextWidget(text: "Çalışma Süresi: "+workDurationHour.toString()+" saat "+workDurationMin.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);

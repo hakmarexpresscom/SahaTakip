@@ -104,7 +104,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
             ),
             SizedBox(height: deviceHeight*0.08,),
             externalWorkButton(),
-            SizedBox(height: deviceHeight*0.05,),
+            SizedBox(height: deviceHeight*0.03,),
             addExternalWorkButton()
           ],
         ),

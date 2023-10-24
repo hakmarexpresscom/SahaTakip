@@ -7,6 +7,8 @@ class Shop{
   late int bm_id;
   late String Lat;
   late String Long;
+  late int bs_manav_id;
+  late int pm_manav_id;
 
   Shop({
     required this.shopCode,
@@ -16,7 +18,9 @@ class Shop{
     required this.pm_id,
     required this.bm_id,
     required this.Lat,
-    required this.Long
+    required this.Long,
+    required this.bs_manav_id,
+    required this.pm_manav_id
   });
 
   factory Shop.fromJson(Map<String, dynamic> json) {
@@ -27,8 +31,10 @@ class Shop{
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       bm_id: json['bm_id'],
-      Lat: json['Lat'],
-      Long: json['Long'],
+      Lat: json['lat'],
+      Long: json['long'],
+      bs_manav_id: json['bs_manav_id'],
+      pm_manav_id: json['pm_manav_id'],
     );
   }
 

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';

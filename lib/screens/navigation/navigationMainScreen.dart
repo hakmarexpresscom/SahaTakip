@@ -34,6 +34,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
 
   //late Future<List<Shop>> futureShopList;
 
+  double textSizeName3 = 0;
+
   int _selectedIndex = 1;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -130,7 +132,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.04,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.04,),
-                    navigationMainScreenUI(0.00, 0.01, 0.01, 0.17, 0.80, 20, 18, 15),
+                    navigationMainScreenUI(0.00, 0.01, 0.015, 0.17, 0.80, 20, 18, 15),
                   ]
               );
             }
@@ -154,7 +156,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
-                    return Row(
+                    return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,7 +174,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
                     if(shopListOnSearch.contains(snapshot.data![index].shopCode.toString()+" "+snapshot.data![index].shopName)){
-                      return Row(
+                      return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
