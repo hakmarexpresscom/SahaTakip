@@ -4,7 +4,6 @@ import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../models/shop.dart';
-import '../../services/shopServices.dart';
 
 class NavigationMainScreen extends StatefulWidget {
   const NavigationMainScreen({super.key});

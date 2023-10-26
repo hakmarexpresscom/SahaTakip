@@ -9,8 +9,6 @@ import '../../routing/landing.dart';
 // konum erişimi eklenicek
 // work duration fonksiyonu yazılacak
 
-late List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
-
 
 class StartWorkMainScreen extends StatefulWidget {
 

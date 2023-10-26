@@ -25,12 +25,12 @@ class _MyAppState extends State<MapScreenNearShops> {
 
   Iterable markers = [];
 
-  final Iterable _markers = Iterable.generate(AppConstant.list.length, (index) {
+  final Iterable _markers = Iterable.generate(GoogleMapMarkerList.list.length, (index) {
     return Marker(
-      markerId: MarkerId(AppConstant.list[index]['id']),
+      markerId: MarkerId(GoogleMapMarkerList.list[index]['id']),
       position: LatLng(
-          double.parse(AppConstant.list[index]['lat']),
-          double.parse(AppConstant.list[index]['long'])
+          double.parse(GoogleMapMarkerList.list[index]['lat']),
+          double.parse(GoogleMapMarkerList.list[index]['long'])
       ),
     );
   });

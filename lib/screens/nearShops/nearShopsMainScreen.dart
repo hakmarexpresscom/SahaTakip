@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/googleMap/googleMapNearShops.dart';
-import 'package:deneme/utils/functions.dart';
+import 'package:deneme/utils/distanceFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -221,7 +221,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index){
                 if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0){
-                  AppConstant.list.add({"id":snapshot.data![index].shopCode.toString(),"lat":snapshot.data![index].Lat, "long":snapshot.data![index].Long, });
+                  GoogleMapMarkerList.list.add({"id":snapshot.data![index].shopCode.toString(),"lat":snapshot.data![index].Lat, "long":snapshot.data![index].Long, });
                 }
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.center,

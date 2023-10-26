@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:deneme/models/userBM.dart';
+import 'package:deneme/models/userBS.dart';
+import 'package:deneme/models/userPM.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/submitTask/submitTaskMainScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,8 +12,11 @@ import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../services/shopServices.dart';
+import '../services/userBMServices.dart';
+import '../services/userBSServices.dart';
+import '../services/userPMServices.dart';
 
-class AppConstant {
+class GoogleMapMarkerList {
   static List<Map<String, dynamic>> list = [
     {"id": "1", "lat": "37.4219983", "long": "-122.090"},
     {"id": "2", "lat": "37.4219983", "long": "-122.095"},
@@ -30,6 +36,10 @@ String userType = "PM";
 bool isBSorPM = true;
 bool isBS = false;
 bool isReportCreated = false;
+List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
+List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü'];
+String email="";
+String password="";
 
 late List<BottomNavigationBarItem> itemListBS = [
   BottomNavigationBarItem(
