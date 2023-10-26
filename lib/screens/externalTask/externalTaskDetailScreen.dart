@@ -3,6 +3,9 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/bottomNaviBarLists.dart';
+import '../../constants/pagesLists.dart';
+
 class ExternalTaskDetailScreen extends StatefulWidget {
   const ExternalTaskDetailScreen({super.key});
 

@@ -1,0 +1,65 @@
+List<String> inShopOpeningCheckingList = [
+  "Günlük evraklar işlenmiş mi?",
+  "Kasiyer Defteri verileri işlenmiş mi?",
+  "SKT kontrolü yapılmış mı?",
+  "Kasa altı poşetler yeterli mi?",
+  "Kasa altı çöpler dökülmüş mü?",
+  "Ofis ve depo kapıları kilitli mi?",
+  "Kasa çekmeceleri açık mı?",
+  "Kasa altı ve etrafında resmi evrak var mı?",
+  "WC ve lavabo muslukları kapalı mı?",
+  "Kasalar temizlenmiş mi?",
+  "Mağaza anahtarları ilgili sorumluda mı?",
+  "Mutfak- lavabo temizliği yapılmış mı?",
+  "Mağaza düzeni sabah satış için hazır mı?",
+  "Ofis ve depo çöpkeri dökülmüş mü?",
+  "Prizlerde takılı herhangi bir cihaz var mı?",
+  "Kameralar kayıt yapıyor mu?",
+  "Zemin temizliği doğru yapılmış mı?",
+  "Kasa etrafı düzenlenmiş mi?",
+  "Manav düzeni sabah satış için hazır mı?",
+  "Kasa altı poşetler hazırlanmış mı?",
+  "Isıtıcı ve klimalar kapalı mı?"
+];
+
+List<String> outShopOpeningCheckingList = [
+  "Alarm kurularak mağazaya giriş yapılıyor mu?",
+  "Mağaza yeterli personel ile açıldı mı?",
+  "Mağaza açılışından önce uygun zamanda\ngelindi mi?",
+  "Giriş-çıkış kapısı, kepenkler ve depo\nkapısı kapalı mı?",
+  "Mağaza anahtarları ilgili sorumluda mı?",
+];
+
+List<String> inShopClosingCheckingList = [
+  "Prizlere yakılı herhangi bir cihaz var mı?",
+  "Dolap aydınlatmaları ve perdeler kaaplı mı?",
+  "Kameralar kayıt yapıyor mu?",
+  "Mutfak, lavabo temizliği yapılmış mı?",
+  "Kasa çekmeceleri açık mı?",
+  "Kasa altı poşetleri hazırlanmış mı ve\nyeterli mi?",
+  "Kasa etrafı düzenlenmiş mi?",
+  "Mağaza düzeni satış için hazır mı?",
+  "Wc ve lavabo muslukları kapalı mı?",
+  "Günlük evraklar işlenmiş mi?",
+  "Zemin temizliği doğru yapılmış mı?",
+  "Ofis ve depo kapıları kilitli mi?",
+  "Isıtıcı ve klimalar kapalı mı?",
+  "Ofis ve depo çöpleri dkülmüş mü?",
+  "Kasa altı ve etrafında resmi evrak var mı?",
+  "Kasalar temizlenmiş mi?",
+  "Kasiyer defteri verileri işlenmiş mi?",
+  "SKT kontrolü yapılmış mı?",
+  "Manav düzeni satış için hazır mı?",
+  "Kasa altı çöpler dökülmüş mü?",
+];
+
+List<String> outShopClosingCheckingList = [
+  "Mağazada zamanında karartma yapılıyor mu?",
+  "Zeminin temizliği yapılıyor mu?",
+  "Alarm kurularak çıkılıyor mu?",
+  "Dolap aydınlatmaları ve perdeler\nkapatıldı mı?",
+  "Çalışanlar mağazayı aynı anda mı\nterk ediyor?",
+  "Giriş kapısı ve kepenkler zamanında\nkapatılıyor mu?",
+  "Son müşteri çıkışına eşlik ediliyor mu?",
+  "Kasa çıkışları zamanında sorumlu eşliğinde\nalınıyor mu?",
+];

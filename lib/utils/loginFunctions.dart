@@ -10,12 +10,21 @@ import '../services/userPMServices.dart';
 
 checkEmail(String user, String email, BuildContext context){
   if(user=="Bölge Sorumlusu") {
+    userType="BS";
+    isBSorPM=true;
+    isBS=true;
     loginUserBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
   }
   else if(user=="Pazarlama Müdürü") {
+    userType="PM";
+    isBSorPM=true;
+    isBS=false;
     loginUserPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
   }
   else if(user=="Bölge Müdürü") {
+    userType="BM";
+    isBSorPM=false;
+    isBS=false;
     loginUserBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
   }
 }

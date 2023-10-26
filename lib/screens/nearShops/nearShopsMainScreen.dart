@@ -10,6 +10,8 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../constants/bottomNaviBarLists.dart';
+import '../../constants/pagesLists.dart';
 import '../../models/shop.dart';
 import '../../services/shopServices.dart';
 

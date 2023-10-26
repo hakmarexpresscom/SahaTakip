@@ -31,16 +31,15 @@ class _TaskCardState extends State<CheckingCard> {
           )
       ),
       child: Container(
-        padding: EdgeInsets.fromLTRB(context.dynamicWidht(0.02), context.dynamicWidht(0.08), 0, 0),
+        padding: EdgeInsets.fromLTRB(context.dynamicWidht(0.01), context.dynamicWidht(0.08), 0, 0),
         height: context.dynamicHeight(widget.heightConst),
         width: context.dynamicWidht(widget.widthConst),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
-            SizedBox(width: context.dynamicWidht(0.35),),
+            TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
             Switch(
               value: light,
               activeColor: Colors.green,

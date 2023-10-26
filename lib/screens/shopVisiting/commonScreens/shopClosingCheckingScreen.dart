@@ -4,6 +4,10 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/bottomNaviBarLists.dart';
+import '../../../constants/pagesLists.dart';
+import '../../../constants/shopOpenCloseChekingLists.dart';
+
 class ShopClosingCheckingScreen extends StatefulWidget {
   const ShopClosingCheckingScreen({super.key});
 
@@ -66,8 +70,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:inShopClosingCheckingUI()),
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:outShopClosingCheckingUI())
+                inShopClosingCheckingUI(),
+                outShopClosingCheckingUI()
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -75,75 +79,54 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
   }
 
   Widget inShopClosingCheckingUI(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                SizedBox(height: deviceHeight*0.03,),
-                saveButton(),
-                SizedBox(height: deviceHeight*0.03,),
-              ],
-            )
-          ],
-        ),
-      );
-    });
+    return Column(
+        children: [
+          Expanded(
+            child:ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: inShopClosingCheckingList.length,
+              itemBuilder: (BuildContext context, int index){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: deviceHeight*0.005,),
+                    CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopClosingCheckingList[index]),
+                  ],
+                );
+              },
+            ),
+          ),
+          saveButton(),
+        ]
+    );
   }
 
   Widget outShopClosingCheckingUI(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                SizedBox(height: deviceHeight*0.03,),
-                saveButton(),
-                SizedBox(height: deviceHeight*0.03,),
-              ],
-            )
-          ],
-        ),
-      );
-    });
+    return Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: outShopClosingCheckingList.length,
+              itemBuilder: (BuildContext context, int index){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopClosingCheckingList[index]),
+                  ],
+                );
+              },
+            ),
+          ),
+          saveButton(),
+        ]
+    );
   }
 
   Widget saveButton(){

@@ -4,6 +4,9 @@ import 'package:deneme/widgets/cards/pastReportCard.dart';
 import 'package:deneme/widgets/cards/pastReportsDetailCard.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../constants/bottomNaviBarLists.dart';
+import '../../../../../constants/pagesLists.dart';
+
 
 class PastReportDetailScreen extends StatefulWidget {
   const PastReportDetailScreen({super.key});

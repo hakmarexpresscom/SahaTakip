@@ -4,6 +4,10 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/bottomNaviBarLists.dart';
+import '../../../constants/pagesLists.dart';
+import '../../../constants/shopOpenCloseChekingLists.dart';
+
 class ShopOpeningCheckingScreen extends StatefulWidget {
   const ShopOpeningCheckingScreen({super.key});
 
@@ -66,8 +70,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:inShopOpeningCheckingUI()),
-                SingleChildScrollView(padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),child:outShopOpeningCheckingUI())
+                inShopOpeningCheckingUI(),
+                outShopOpeningCheckingUI()
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -75,74 +79,54 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
   }
 
   Widget inShopOpeningCheckingUI(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.03,),
-                saveButton(),
-                SizedBox(height: deviceHeight*0.03,),
-              ],
-            )
-          ],
+    return Column(
+      children: [
+        Expanded(
+          child:ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: inShopOpeningCheckingList.length,
+            itemBuilder: (BuildContext context, int index){
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: deviceHeight*0.005,),
+                  CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopOpeningCheckingList[index]),
+                ],
+              );
+            },
+          ),
         ),
-      );
-    });
+        saveButton(),
+      ]
+    );
   }
 
   Widget outShopOpeningCheckingUI(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: "Temizlik görevi"),
-                SizedBox(height: deviceHeight*0.005,),
-                SizedBox(height: deviceHeight*0.03,),
-                saveButton(),
-                SizedBox(height: deviceHeight*0.03,),
-              ],
-            )
-          ],
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: outShopOpeningCheckingList.length,
+            itemBuilder: (BuildContext context, int index){
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopOpeningCheckingList[index]),
+                ],
+              );
+            },
+          ),
         ),
-      );
-    });
+        saveButton(),
+      ]
+    );
   }
 
   Widget saveButton(){

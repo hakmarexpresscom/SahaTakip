@@ -5,6 +5,8 @@ import 'package:deneme/screens/externalTask/externalTasksListScreen.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/bottomNaviBarLists.dart';
+import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
 
 

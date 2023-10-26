@@ -1,6 +1,8 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
+import '../../constants/bottomNaviBarLists.dart';
+import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
 import '../../widgets/cards/taskCard.dart';
 
