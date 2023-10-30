@@ -8,6 +8,7 @@ import '../screens/externalTask/externalTaskMainScreen.dart';
 import '../screens/externalTask/externalTasksListScreen.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
 import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
+import '../screens/shopVisiting/commonScreens/processesScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreen.dart';
@@ -61,8 +62,8 @@ void naviVisitingReportTaskMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreen()));
 }
 
-void naviInPlaceTaskMainScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreen()));
+void naviInPlaceTaskMainScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreen(shop_code:id)));
 }
 
 void naviCashCountingScreen(BuildContext context){
@@ -99,5 +100,9 @@ void naviExternalTaskMainScreen(BuildContext context){
 
 void naviLoginMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
+}
+
+void naviShopVisitingProcessesScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreen(shop_code:id)));
 }
 

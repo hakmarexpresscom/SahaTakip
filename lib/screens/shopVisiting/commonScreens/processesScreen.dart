@@ -11,7 +11,8 @@ import '../../../routing/landing.dart';
 import 'cashCountingScreen.dart';
 
 class ShopVisitingProcessesScreen extends StatefulWidget {
-  const ShopVisitingProcessesScreen({super.key});
+  int shop_code = 0;
+  ShopVisitingProcessesScreen({super.key, required this.shop_code});
 
   @override
   State<ShopVisitingProcessesScreen> createState() =>
@@ -126,7 +127,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nRaporu\nGörevleri", processIcon: Icons.assignment,onTaps: (){naviVisitingReportTaskMainScreen(context);}),
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde Görevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context);}),
+                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde Görevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}),
                     ]
                 ),
                 Row(

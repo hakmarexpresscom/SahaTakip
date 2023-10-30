@@ -11,7 +11,8 @@ import '../../../../widgets/cards/taskCard.dart';
 
 
 class InPlaceTaskMainScreen extends StatefulWidget {
-  const InPlaceTaskMainScreen({super.key});
+  int shop_code = 0;
+  InPlaceTaskMainScreen({super.key, required this.shop_code});
 
   @override
   State<InPlaceTaskMainScreen> createState() =>
@@ -35,7 +36,7 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=Yerinde');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?magaza_kodu=${widget.shop_code}&tamamlandi_bilgisi=0&gorev_turu=Yerinde');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
