@@ -2,6 +2,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/externalTask/enterExternalTaskScreen.dart';
 import 'package:deneme/screens/externalTask/externalTasksListScreen.dart';
+import 'package:deneme/utils/logoutFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -94,7 +95,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
 
 
   Widget logoutButton(){
-    return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){logout(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 }
 

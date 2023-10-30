@@ -1,3 +1,4 @@
+import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import '../constants/constants.dart';
 import '../models/userBM.dart';
@@ -33,6 +34,9 @@ Future loginUserBS(String email,String url,BuildContext context) async {
   final List<UserBS> users = await fetchUserBS2(url);
   for(int i=0; i<users.length;i++){
     if(users[i].email==email){
+      userID=users[i].bs_id;
+      await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
+      yoneticiID=users[i].manager_id;
       (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
     }
   }
@@ -42,6 +46,8 @@ Future loginUserPM(String email, String url,BuildContext context) async {
   final List<UserPM> users = await fetchUserPM2(url);
   for(int i=0; i<users.length;i++){
     if(users[i].email==email){
+      userID=users[i].pm_id;
+      await saveShopCodes("http://172.23.21.112:7042/api/magaza/byPmId?pm_id=${userID}");
       (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
     }
   }
@@ -51,6 +57,7 @@ Future loginUserBM(String email, String url,BuildContext context) async {
   final List<UserBM> users = await fetchUserBM2(url);
   for(int i=0; i<users.length;i++){
     if(users[i].email==email){
+      userID=users[i].bm_id;
       (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
     }
   }

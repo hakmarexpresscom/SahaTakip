@@ -12,9 +12,10 @@ class GoogleMapMarkerList {
 
 Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza');
 
-int id=1;
-Future<List<Shop>> futureShopList2 = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza?bs_id=${id}');
-
+String urlTaskShops ="";
+List<int> shopCodes = [];
+int userID=0;
+int yoneticiID=0;
 int workDurationHour = 0;
 int workDurationMin = 0;
 bool isWorking = false;
@@ -26,6 +27,7 @@ List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü'];
 String email="";
 String password="";
+
 
 
 

@@ -123,7 +123,32 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget startWorkButton(){
-    return ButtonWidget(text: "Mesaiye Başla", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=true; (item=="Mağaza Ziyareti") ? naviShopVisitingShopsScreen(context) : naviExternalTaskMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Mesaiye Başla",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight:
+        FontWeight.w600,
+        onTaps: (){
+          isWorking=true;
+          print(userID);
+          if(item=="Mağaza Ziyareti" && userType=="BS"){
+            naviShopVisitingShopsScreen(context);
+          }
+          else if(item=="Mağaza Ziyareti" && userType=="PM"){
+            naviShopVisitingShopsScreenPM(context);
+          }
+          else if(item=="Harici İş"){
+            naviExternalTaskMainScreen(context);
+          }
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black
+    );
   }
   Widget finishWorkButton(){
     return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=false; Navigator.push(context, MaterialPageRoute(builder: (context) => StartWorkMainScreen()));}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);

@@ -29,3 +29,16 @@ Future<List<Shop>> fetchShop(String url) async {
   }
 }
 
+Future<List<Shop>> fetchShop2(String url) async {
+  final response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    List<dynamic> jsonResponse = json.decode(response.body);
+    List<Shop> users = jsonResponse.map((data) {
+      return Shop.fromJson(data);
+    }).toList();
+    return users;
+  } else {
+    throw Exception('Failed to load user data');
+  }
+}
+

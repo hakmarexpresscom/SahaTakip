@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../models/shop.dart';
+import '../../../services/shopServices.dart';
 
 class ShopVisitingShopsScreen extends StatefulWidget {
   const ShopVisitingShopsScreen({super.key});
@@ -16,6 +17,9 @@ class ShopVisitingShopsScreen extends StatefulWidget {
 }
 
 class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with TickerProviderStateMixin{
+
+  late Future<List<Shop>> futureOwnShopListBS;
+  late Future<List<Shop>> futurePartnerShopList;
 
   int _selectedIndex = 0;
 
@@ -30,6 +34,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
   @override
   void initState() {
     super.initState();
+    futureOwnShopListBS = fetchShop('http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}');
+    futurePartnerShopList = fetchShop('http://172.23.21.112:7042/api/magaza/byPmId?pm_id=${yoneticiID}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -110,7 +116,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                );
              }
              else{
-               print("elif");
                return Container();
              }
            },
@@ -125,7 +130,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
         children:[
           Expanded(
             child: FutureBuilder<List<Shop>>(
-              future: futureShopList2,
+              future: futureOwnShopListBS,
               builder: (context, snapshot){
                 if(snapshot.hasData){
                     return ListView.builder(
@@ -170,7 +175,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
         children: [
           Expanded(
               child: FutureBuilder<List<Shop>>(
-                  future: futureShopList2,
+                  future: futurePartnerShopList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(

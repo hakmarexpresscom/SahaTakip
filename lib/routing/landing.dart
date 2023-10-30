@@ -1,3 +1,4 @@
+import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreen.dart';
+import '../screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart';
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
 import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTaskDetailScreen.dart';
@@ -21,6 +23,10 @@ import '../screens/submitTask/submitTaskShopSelectionScreen.dart';
 
 void naviShopVisitingShopsScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
+}
+
+void naviShopVisitingShopsScreenPM(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreenPM()));
 }
 
 void naviStartWorkMainScreen(BuildContext context){
@@ -39,8 +45,8 @@ void naviEnterExternalTaskScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => EnterExternalTaskScreen()));
 }
 
-void naviRemoteTaskDetailScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskDetailScreen()));
+void naviRemoteTaskDetailScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskDetailScreen(task_id: id,)));
 }
 
 void naviShopOpeningCheckingScreen(BuildContext context){
@@ -63,7 +69,7 @@ void naviCashCountingScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen()));
 }
 
-void naviVisitingRaportMainScreen(BuildContext context){
+void naviVisitingReportMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreen()));
 }
 
@@ -89,5 +95,9 @@ void naviNavigationMainScreen(BuildContext context){
 
 void naviExternalTaskMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskMainScreen()));
+}
+
+void naviLoginMainScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
 }
 
