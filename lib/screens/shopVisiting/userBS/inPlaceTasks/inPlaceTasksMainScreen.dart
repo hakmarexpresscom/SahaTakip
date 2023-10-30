@@ -4,7 +4,9 @@ import 'package:deneme/screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetai
 import 'package:flutter/material.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
+import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../widgets/cards/taskCard.dart';
 
 
@@ -16,7 +18,9 @@ class InPlaceTaskMainScreen extends StatefulWidget {
       _InPlaceTaskMainScreenState();
 }
 
-class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> {
+class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with TickerProviderStateMixin {
+
+  late Future<List<IncompleteTask>> futureIncompleteTask;
 
   int _selectedIndex = 0;
 
@@ -25,6 +29,23 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> {
 
   late double deviceHeight;
   late double deviceWidth;
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=Yerinde');
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,53 +80,58 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> {
           backgroundColor: Colors.indigo,
           title: const Text('Yerinde Görevler'),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: inPlaceTaskMainScreenUI(),
-          ),
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              inPlaceTaskMainScreenUI()
+            ]
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
   Widget inPlaceTaskMainScreenUI(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-                SizedBox(height: deviceHeight*0.005,),
-                TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: "Temizlik görevi",onTaps: (){naviInPlaceTaskDetailScreen(context);}),
-              ],
-            )
-          ],
-        ),
-      );
-    });
+    return Expanded(
+        child: FutureBuilder<List<IncompleteTask>>(
+            future: futureIncompleteTask,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){naviInPlaceTaskDetailScreen(context,snapshot.data![index].task_id);}),
+                        SizedBox(height: deviceHeight*0.005,),
+                      ],
+                    );
+                  },
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
   }
 }
 

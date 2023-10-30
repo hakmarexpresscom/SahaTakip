@@ -73,8 +73,8 @@ void naviVisitingReportMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreen()));
 }
 
-void naviInPlaceTaskDetailScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreen()));
+void naviInPlaceTaskDetailScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreen(task_id: id)));
 }
 
 void naviVisitingReportTaskDetailScreen(BuildContext context){
