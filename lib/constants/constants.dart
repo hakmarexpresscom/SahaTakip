@@ -12,6 +12,7 @@ class GoogleMapMarkerList {
 
 Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza');
 
+String urlShopFilter = "";
 String urlTaskShops ="";
 List<int> shopCodes = [];
 int userID=0;

@@ -80,13 +80,12 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
           backgroundColor: Colors.indigo,
           title: const Text('Görev Detayı'),
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              remoteTaskDetailScreenUI()
-            ]
+        body: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
+          child:Container(
+            alignment: Alignment.center,
+            child: remoteTaskDetailScreenUI(),
+          ),
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
@@ -103,7 +102,6 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: deviceHeight*0.05,),
                         TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9)
                       ],
                     );

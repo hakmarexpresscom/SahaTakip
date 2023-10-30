@@ -81,7 +81,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
           title: const Text('Görev Detayı'),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
           child:Container(
             alignment: Alignment.center,
             child: inPlaceTaskDetailScreenUI(),
@@ -102,7 +102,6 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: deviceHeight*0.05,),
                     TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9)
                   ],
                 );

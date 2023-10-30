@@ -3,6 +3,7 @@ import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../models/shop.dart';
 import '../../routing/bottomNavigationBar.dart';
+import '../../services/shopServices.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/text_widget.dart';
 import 'package:deneme/constants/constants.dart';
@@ -15,6 +16,8 @@ class SubmitTaskBSSelectionScreen extends StatefulWidget {
 }
 
 class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScreen> with TickerProviderStateMixin {
+
+  late Future<List<Shop>> futureShopList;
 
   int _selectedIndex = 4;
 
@@ -31,7 +34,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
   @override
   void initState() {
     super.initState();
-    //futureShopList = fetchShop();
+    futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza${urlShopFilter}=${userID}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

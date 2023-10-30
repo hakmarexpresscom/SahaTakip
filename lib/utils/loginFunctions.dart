@@ -14,18 +14,21 @@ checkEmail(String user, String email, BuildContext context){
     userType="BS";
     isBSorPM=true;
     isBS=true;
+    urlShopFilter = "/byBsId?bs_id";
     loginUserBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
   }
   else if(user=="Pazarlama Müdürü") {
     userType="PM";
     isBSorPM=true;
     isBS=false;
+    urlShopFilter = "/byPmId?pm_id";
     loginUserPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
   }
   else if(user=="Bölge Müdürü") {
     userType="BM";
     isBSorPM=false;
     isBS=false;
+    urlShopFilter = "/byBmId?bm_id";
     loginUserBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
   }
 }
