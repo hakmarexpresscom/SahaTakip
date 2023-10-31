@@ -49,7 +49,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
   @override
   void initState() {
     coordinates = [{"lat":"","long":""}];
-    futureShopList = fetchShop('https://651bb092194f77f2a5aeb616.mockapi.io/magaza');
+    futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza');
     checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
@@ -230,7 +230,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children:<Widget>[
-                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(),
+                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(child: (index==snapshot.data!.length-1)?Text("Yakında Mağaza Yok"):Text(""),),
                     ]
                 );
               },

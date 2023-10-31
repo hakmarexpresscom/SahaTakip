@@ -17,6 +17,7 @@ logout(BuildContext context){
   password="";
   urlTaskShops ="";
   shopCodes = [];
+  urlShopFilter = "";
   naviLoginMainScreen(context);
 }
 

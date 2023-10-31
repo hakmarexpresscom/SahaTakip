@@ -33,3 +33,17 @@ Future<IncompleteTask> fetchIncompleteTask2(String url) async {
     throw Exception('Failed to load album');
   }
 }
+
+Future<IncompleteTask> updateIncompleteTask(String url,int completionInfo) async {
+  final response = await http.put(
+    Uri.parse(url),
+    body: jsonEncode(<String, int>{
+      'tamamlandi_bilgisi': completionInfo,
+    }),
+  );
+  if (response.statusCode == 200) {
+    return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to update album.');
+  }
+}
