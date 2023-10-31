@@ -1,28 +1,51 @@
 import 'package:deneme/constants/constants.dart';
+import 'package:deneme/models/externalWork.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../services/externalWorkServices.dart';
 
 class ExternalTaskDetailScreen extends StatefulWidget {
-  const ExternalTaskDetailScreen({super.key});
+
+  int work_id = 0;
+  ExternalTaskDetailScreen({super.key, required this.work_id});
 
   @override
   State<ExternalTaskDetailScreen> createState() =>
       _ExternalTaskDetailScreenState();
 }
 
-class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> {
+class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> with TickerProviderStateMixin {
 
-  int _selectedIndex = 4;
+  late Future<ExternalWork> futureExternalWork;
+
+  int _selectedIndex = 0;
 
   List<BottomNavigationBarItem> naviBarList = [];
   List<Widget> pageList = [];
 
   late double deviceHeight;
   late double deviceWidth;
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    futureExternalWork = fetchExternalWork2('http://172.23.21.112:7042/api/HariciIs/${widget.work_id}');
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +57,21 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> {
       if(user=="BS"){
         naviBarList = itemListBS;
         pageList = pagesBS;
-        _selectedIndex = 4;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
         pageList = pagesPM;
-        _selectedIndex = 5;
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
-        _selectedIndex = 3;
       }
       if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }
     }
+
 
     userCondition(userType);
 
@@ -72,19 +93,37 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> {
   }
 
   Widget externalTaskDetailScreenUI(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: deviceHeight*0.03,),
-            TaskDetailCard(heightConst: 0.7,taskDeadline: "24.11.1998",taskDescription: "Görev tanımı",taskName: "Görev Adı",widthConst: 0.9)
-          ],
-        ),
-      );
-    });
+    return Expanded(
+        child: FutureBuilder<ExternalWork>(
+            future: futureExternalWork,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.workFinishDate,taskDescription: snapshot.data!.workDetail!,taskName: snapshot.data!.workTitle,widthConst: 0.9)
+                  ],
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
   }
 }
 

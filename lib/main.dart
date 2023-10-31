@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
-import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
-import 'package:deneme/screens/externalTask/externalTasksListScreen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -21,3 +19,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

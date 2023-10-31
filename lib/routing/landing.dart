@@ -34,8 +34,8 @@ void naviStartWorkMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => StartWorkMainScreen()));
 }
 
-void naviExternalTaskDetailScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen()));
+void naviExternalTaskDetailScreen(BuildContext context, int id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ExternalTaskDetailScreen(work_id:id)));
 }
 
 void naviExternalTasksListScreen(BuildContext context){

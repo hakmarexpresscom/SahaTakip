@@ -23,7 +23,7 @@ class EnterExternalTaskScreen extends StatefulWidget {
 
 class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
 
-  int _selectedIndex = 4; //bu değişken other main screen'deki değerle aynı olucak çünkü o sayfanın altında
+  int _selectedIndex = 0;
 
   List<BottomNavigationBarItem> naviBarList = [];
   List<Widget> pageList = [];
@@ -47,23 +47,21 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
       if(user=="BS"){
         naviBarList = itemListBS;
         pageList = pagesBS;
-        _selectedIndex = 4;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
         pageList = pagesPM;
-        _selectedIndex = 5;
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
-        _selectedIndex = 3;
       }
       if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }
     }
+
 
     userCondition(userType);
 

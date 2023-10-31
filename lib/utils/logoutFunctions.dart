@@ -18,6 +18,7 @@ logout(BuildContext context){
   urlTaskShops ="";
   shopCodes = [];
   urlShopFilter = "";
+  urlWorkFilter = "";
   naviLoginMainScreen(context);
 }
 

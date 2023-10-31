@@ -15,6 +15,7 @@ checkEmail(String user, String email, BuildContext context){
     isBSorPM=true;
     isBS=true;
     urlShopFilter = "/byBsId?bs_id";
+    urlWorkFilter = "filterHariciIs1?bs_id";
     loginUserBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
   }
   else if(user=="Pazarlama Müdürü") {
@@ -22,6 +23,7 @@ checkEmail(String user, String email, BuildContext context){
     isBSorPM=true;
     isBS=false;
     urlShopFilter = "/byPmId?pm_id";
+    urlWorkFilter = "filterHariciIs2?pm_id";
     loginUserPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
   }
   else if(user=="Bölge Müdürü") {
