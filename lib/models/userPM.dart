@@ -1,6 +1,5 @@
 class UserPM{
   late int pm_id;
-  late int user_sapid;
   late String userName;
   late String userSurname;
   late String email;
@@ -11,7 +10,6 @@ class UserPM{
 
   UserPM({
     required this.pm_id,
-    required this.user_sapid,
     required this.userName,
     required this.userSurname,
     required this.email,
@@ -23,7 +21,6 @@ class UserPM{
   factory UserPM.fromJson(Map<String, dynamic> json) {
     return UserPM(
       pm_id: json['pm_id'],
-      user_sapid: json['kullanici_sapid'],
       userName: json['kullanici_ismi'],
       userSurname: json['kullanici_soyismi'],
       email: json['email'],

@@ -1,6 +1,5 @@
 class UserBS{
   late int bs_id;
-  late int user_sapid;
   late String userName;
   late String userSurname;
   late String email;
@@ -11,7 +10,6 @@ class UserBS{
 
   UserBS({
     required this.bs_id,
-    required this.user_sapid,
     required this.userName,
     required this.userSurname,
     required this.email,
@@ -23,7 +21,6 @@ class UserBS{
   factory UserBS.fromJson(Map<String, dynamic> json) {
     return UserBS(
       bs_id: json['bs_id'],
-      user_sapid: json['kullanici_sapid'],
       userName: json['kullanici_ismi'],
       userSurname: json['kullanici_soyismi'],
       email: json['email'],
