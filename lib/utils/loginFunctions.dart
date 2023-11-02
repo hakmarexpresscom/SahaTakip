@@ -21,7 +21,7 @@ import 'package:crypto/crypto.dart';
 
 int sayac = 0;
 
-checkEmail(String user, String email, String password, BuildContext context){
+login(String user, String email, String password, BuildContext context){
   if(user=="Bölge Sorumlusu") {
     userType="BS";
     isBSorPM=true;
@@ -56,6 +56,7 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
     if(users[i].email==email){
       userID=users[i].bs_id;
       sayac=i;
+      isCorrectEmail = true;
     }
   }
 }
@@ -72,7 +73,8 @@ Future checkPasswordBS(String password, String urlPw, String urlUser, int sayac,
       if(listEquals(binaryHashedPassword, hashedPassword)){
         yoneticiID=users[sayac].manager_id;
         await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
-        (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
+        isCorrectPassword = true;
+        //(isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
   }
@@ -85,8 +87,6 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
     if(users[i].email==email){
       userID=users[i].pm_id;
       sayac=i;
-      await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
-      (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
     }
   }
 }
@@ -114,7 +114,6 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
   for(int i=0; i<users.length;i++){
     if(users[i].email==email){
       userID=users[i].bm_id;
-      (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
     }
   }
 }
