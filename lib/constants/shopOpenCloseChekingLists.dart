@@ -61,5 +61,5 @@ List<String> outShopClosingCheckingList = [
   "Çalışanlar mağazayı aynı anda mı\nterk ediyor?",
   "Giriş kapısı ve kepenkler zamanında\nkapatılıyor mu?",
   "Son müşteri çıkışına eşlik ediliyor mu?",
-  "Kasa çıkışları zamanında sorumlu eşliğinde\nalınıyor mu?",
+  "Kasa çıkışları zamanında sorumlu\neşliğinde alınıyor mu?",
 ];

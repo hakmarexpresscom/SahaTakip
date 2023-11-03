@@ -102,7 +102,7 @@ void naviLoginMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
 }
 
-void naviShopVisitingProcessesScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreen(shop_code:id)));
+void naviShopVisitingProcessesScreen(BuildContext context, id, name){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreen(shop_code:id, shopName: name,)));
 }
 

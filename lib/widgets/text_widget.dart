@@ -28,7 +28,7 @@ class _TextWidgetState extends State<TextWidget> {
   Widget build(BuildContext context){
     return Container(
       child: Column(
-        children: [Text(widget.text,style: TextStyle(fontSize: widget.size, fontWeight: widget.fontWeight, color: widget.color),)],
+        children: [Text(widget.text,style: TextStyle(fontSize: widget.size, fontWeight: widget.fontWeight, color: widget.color,),textAlign: TextAlign.center,)],
       ),
     );
   }

@@ -80,57 +80,27 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              color: Colors.grey.withOpacity(0.6),
-              height: deviceHeight*0.2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: deviceHeight*0.02,),
-                      hourInfo(),
-                      SizedBox(height: deviceHeight*0.03,),
-                      workDurationInfo(),
-                    ],
-                  ),
-                  SizedBox(width: deviceWidth*0.05,),
-                  stopExternalTaskButton(),
-                ],
-              ),
-            ),
             SizedBox(height: deviceHeight*0.08,),
             externalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
-            addExternalWorkButton()
+            addExternalWorkButton(),
+            SizedBox(height: deviceHeight*0.03,),
+            stopExternalTaskButton()
           ],
         ),
       );
     });
   }
 
-  Widget shopNameInfo(){
-    return TextWidget(text: "Mağaza İsmi", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }
-  Widget hourInfo(){
-    return TextWidget(text: (now.hour+3).toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }
-  Widget workDurationInfo(){
-    return TextWidget(text: "Work Duration", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }
-  Widget stopExternalTaskButton(){
-    return ButtonWidget(text: "Harici İşi Durdur", heightConst: 0.05, widthConst: 0.33, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: Colors.red.withOpacity(0.6), textColor: Colors.black);
-  }
+
   Widget externalWorkButton(){
     return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviExternalTasksListScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
   Widget addExternalWorkButton(){
     return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviEnterExternalTaskScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  }
+  Widget stopExternalTaskButton(){
+    return ButtonWidget(text: "Harici İşi Durdur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: Colors.red.withOpacity(0.6), textColor: Colors.black);
   }
 
 }

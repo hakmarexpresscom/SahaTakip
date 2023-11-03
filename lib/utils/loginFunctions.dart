@@ -74,7 +74,7 @@ Future checkPasswordBS(String password, String urlPw, String urlUser, int sayac,
         yoneticiID=users[sayac].manager_id;
         await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
         isCorrectPassword = true;
-        //(isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
+        (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
   }

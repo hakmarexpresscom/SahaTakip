@@ -12,7 +12,9 @@ import 'cashCountingScreen.dart';
 
 class ShopVisitingProcessesScreen extends StatefulWidget {
   int shop_code = 0;
-  ShopVisitingProcessesScreen({super.key, required this.shop_code});
+  String shopName = "";
+
+  ShopVisitingProcessesScreen({super.key, required this.shop_code,required this.shopName});
 
   @override
   State<ShopVisitingProcessesScreen> createState() =>
@@ -20,6 +22,8 @@ class ShopVisitingProcessesScreen extends StatefulWidget {
 }
 
 class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScreen> {
+
+  List<String> splittedName=[];
 
   int _selectedIndex = 0;
 
@@ -30,6 +34,12 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
   late double deviceWidth;
 
   DateTime now = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    splittedName = widget.shopName.split("/");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,24 +94,22 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              color: Colors.grey.withOpacity(0.6),
-              height: deviceHeight*0.2,
+              color: Colors.grey.withOpacity(0.4),
+              height: deviceHeight*0.18,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: deviceHeight*0.02,),
+                      shopCodeInfo(),
                       shopNameInfo(),
-                      SizedBox(height: deviceHeight*0.03,),
-                      hourInfo(),
-                      SizedBox(height: deviceHeight*0.03,),
-                      workDurationInfo(),
                     ],
                   ),
-                  SizedBox(width: deviceWidth*0.05,),
                   stopVisitingButton(),
                 ],
               ),
@@ -127,7 +135,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nRaporu\nGörevleri", processIcon: Icons.assignment,onTaps: (){naviVisitingReportTaskMainScreen(context);}),
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde Görevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}),
+                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde\nGörevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}),
                     ]
                 ),
                 Row(
@@ -135,7 +143,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa Sayımı", processIcon: Icons.price_check,onTaps: (){naviCashCountingScreen(context);}),
+                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa\nSayımı", processIcon: Icons.price_check,onTaps: (){naviCashCountingScreen(context);}),
                     ]
                 ),
               ],
@@ -154,24 +162,22 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                color: Colors.grey.withOpacity(0.6),
-                height: deviceHeight*0.2,
+                color: Colors.grey.withOpacity(0.4),
+                height: deviceHeight*0.18,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: deviceHeight*0.02,),
+                        shopCodeInfo(),
                         shopNameInfo(),
-                        SizedBox(height: deviceHeight*0.03,),
-                        hourInfo(),
-                        SizedBox(height: deviceHeight*0.03,),
-                        workDurationInfo(),
                       ],
                     ),
-                    SizedBox(width: deviceWidth*0.05,),
                     stopVisitingButton(),
                   ],
                 ),
@@ -197,7 +203,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nRaporu\nGirişi", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context);}),
-                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa Sayımı", processIcon: Icons.price_check,onTaps: (){naviCashCountingScreen(context);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa\nSayımı", processIcon: Icons.price_check,onTaps: (){naviCashCountingScreen(context);}),
                       ]
                   ),
                 ],
@@ -209,16 +215,13 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
 
 
   Widget shopNameInfo(){
-    return TextWidget(text: "Mağaza İsmi", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: splittedName[0]+"\n"+splittedName[1], heightConst: 0, widhtConst: 0, size: 18, fontWeight: FontWeight.w600, color: Colors.black);
   }
-  Widget hourInfo(){
-    return TextWidget(text: (now.hour+3).toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }
-  Widget workDurationInfo(){
-    return TextWidget(text: "Work Duration", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+  Widget shopCodeInfo(){
+    return TextWidget(text: "${widget.shop_code}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black);
   }
   Widget stopVisitingButton(){
-    return ButtonWidget(text: "Ziyareti Durdur", heightConst: 0.05, widthConst: 0.33, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: Colors.red.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Ziyareti Durdur", heightConst: 0.05, widthConst: 0.22, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: Colors.red.withOpacity(0.6), textColor: Colors.black);
   }
 
 }

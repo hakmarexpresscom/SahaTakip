@@ -48,7 +48,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           side: BorderSide(color: widget.borderColor, width: widget.borderWidht),
           borderRadius: BorderRadius.all(Radius.circular(widget.radius))),
         onPressed: ()=>{widget.onTaps()},
-        child: Text(widget.text,style: TextStyle(fontWeight: widget.fontWeight,fontSize: widget.size, color: widget.textColor),),
+        child: Text(widget.text,style: TextStyle(fontWeight: widget.fontWeight,fontSize: widget.size, color: widget.textColor),textAlign: TextAlign.center,),
         ),
     );
   }

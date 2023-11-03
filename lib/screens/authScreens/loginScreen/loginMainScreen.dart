@@ -121,15 +121,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Lütfen bir email giriniz.';
-                }
-                else if (isCorrectEmail == false) {
-                  return 'Email yanlış.';
-                }
-                return null;
-              },
               maxLines: 1,
               autocorrect: false,
               onSaved: (input){
@@ -146,15 +137,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
             ),
             SizedBox(height: deviceHeight*0.03,),
             TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Lütfen bir şifre giriniz.';
-                }
-                else if (isCorrectPassword == false) {
-                  return 'Şifre yanlış.';
-                }
-                return null;
-              },
               maxLines: 1,
               autocorrect: false,
               onSaved: (input){
@@ -187,9 +169,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                 FontWeight.w600,
                 onTaps: (){
                     login(item, emailController.text,passwordController.text, context);
-                    if (_formKey.currentState!.validate()) {
-                      (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-                    }
                   },
                 borderWidht: 1,
                 backgroundColor: Colors.lightGreen.withOpacity(0.6),

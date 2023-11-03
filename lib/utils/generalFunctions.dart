@@ -14,4 +14,5 @@ Future saveShopCodes(String url) async{
     }
     shopCodes.add(shops[i].shopCode);
   }
+  print(urlTaskShops);
 }
