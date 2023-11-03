@@ -42,7 +42,6 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
   }

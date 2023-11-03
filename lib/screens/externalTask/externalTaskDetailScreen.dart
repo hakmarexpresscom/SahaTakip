@@ -42,7 +42,6 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
   }

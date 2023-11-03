@@ -42,7 +42,6 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
   }

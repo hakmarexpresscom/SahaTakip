@@ -58,8 +58,8 @@ void naviShopClosingCheckingScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopClosingCheckingScreen()));
 }
 
-void naviVisitingReportTaskMainScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreen()));
+void naviVisitingReportTaskMainScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreen(shop_code: id,)));
 }
 
 void naviInPlaceTaskMainScreen(BuildContext context, id){
@@ -78,8 +78,8 @@ void naviInPlaceTaskDetailScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreen(task_id: id)));
 }
 
-void naviVisitingReportTaskDetailScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen()));
+void naviVisitingReportTaskDetailScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen(task_id: id)));
 }
 
 void naviPastReportDetailScreen(BuildContext context){

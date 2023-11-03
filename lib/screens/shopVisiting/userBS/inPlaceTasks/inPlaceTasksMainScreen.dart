@@ -43,7 +43,6 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
   }

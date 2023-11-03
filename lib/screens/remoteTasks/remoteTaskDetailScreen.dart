@@ -42,7 +42,6 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
   }

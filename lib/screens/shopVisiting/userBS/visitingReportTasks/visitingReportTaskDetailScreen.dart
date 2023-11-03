@@ -5,16 +5,21 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../models/incompleteTask.dart';
+import '../../../../services/inCompleteTaskServices.dart';
 
 class VisitingReportTaskDetailScreen extends StatefulWidget {
-  const VisitingReportTaskDetailScreen({super.key});
+  int task_id=0;
+  VisitingReportTaskDetailScreen({super.key, required this.task_id});
 
   @override
   State<VisitingReportTaskDetailScreen> createState() =>
       _VisitingReportTaskDetailScreenState();
 }
 
-class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetailScreen> {
+class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetailScreen> with TickerProviderStateMixin {
+
+  late Future<IncompleteTask> futureIncompleteTask;
 
   int _selectedIndex = 0;
 
@@ -23,6 +28,22 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
 
   late double deviceHeight;
   late double deviceWidth;
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    futureIncompleteTask = fetchIncompleteTask2('http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.task_id}');
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+    });
+    controller.repeat(reverse: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +90,37 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
   }
 
   Widget visitingReportTaskDetailScreen(){
-    return Builder(builder: (BuildContext context){
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: deviceHeight*0.03,),
-            TaskDetailCard(heightConst: 0.7,taskDeadline: "24.11.1998",taskDescription: "Görev tanımı",taskName: "Görev Adı",widthConst: 0.9)
-          ],
-        ),
-      );
-    });
+    return Expanded(
+        child: FutureBuilder<IncompleteTask>(
+            future: futureIncompleteTask,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9)
+                  ],
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
   }
 }
 

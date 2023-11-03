@@ -43,7 +43,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
   }

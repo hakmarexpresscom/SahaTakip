@@ -57,7 +57,6 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      setState(() {});
     });
     controller.repeat(reverse: true);
     super.initState();
