@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../models/bmPassword.dart';
 import '../models/bsPassword.dart';
@@ -73,7 +74,8 @@ Future checkPasswordBS(String password, String urlPw, String urlUser, int sayac,
       if(listEquals(binaryHashedPassword, hashedPassword)){
         yoneticiID=users[sayac].manager_id;
         await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
-        isCorrectPassword = true;
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
         (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
@@ -103,6 +105,8 @@ Future checkPasswordPM(String password, String urlPw, String urlUser, int sayac,
       if(listEquals(binaryHashedPassword, hashedPassword)){
         yoneticiID=users[sayac].manager_id;
         await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
         (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
@@ -128,6 +132,8 @@ Future checkPasswordBM(String password, String urlPw, String urlUser, int sayac,
       var hashedPassword = digest.bytes;
       if(listEquals(binaryHashedPassword, hashedPassword)){
         await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
         (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }

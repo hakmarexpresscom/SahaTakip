@@ -61,7 +61,7 @@ class _TextFormFieldDatePickerState extends State<TextFormFieldDatePicker> {
               firstDate:DateTime(1900),
               lastDate: DateTime(2100));
 
-          widget.dateController.text = date!.day.toString()+"."+date!.month.toString()+"."+date!.year.toString();}
+          widget.dateController.text = date!.day.toString()+"-"+date!.month.toString()+"-"+date!.year.toString();}
     );
   }
 

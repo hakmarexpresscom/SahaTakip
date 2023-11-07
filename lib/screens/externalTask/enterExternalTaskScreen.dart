@@ -4,6 +4,7 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../services/externalWorkServices.dart';
 import '../../widgets/textFormFieldDatePicker.dart';
 import '../../widgets/text_form_field.dart';
 
@@ -30,6 +31,8 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -100,10 +103,6 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
     });
   }
 
-  Widget saveExternalTaskButton(){
-    return ButtonWidget(text: "Harici İşi Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
-  }
-
   Widget inputForm(){
     return Container(
       width: deviceWidth*0.8,
@@ -126,6 +125,35 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         ),
       ),
     );
+  }
+
+  Widget saveExternalTaskButton(){
+    return ButtonWidget(
+        text: "Harici İşi Kaydet",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: () async {
+          await countExternalTask("http://172.23.21.112:7042/api/HariciIs", context);
+          print(externalTaskCount);
+          await createExternalWork(
+            externalTaskCount+1,
+            taskNameController.text,
+            taskDescriptionController.text,
+            now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+            taskDeadlineController.text,
+              userID,
+              null,
+              "http://172.23.21.112:7042/api/HariciIs"
+          );
+
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
 }

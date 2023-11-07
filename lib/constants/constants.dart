@@ -2,6 +2,8 @@ import 'dart:async';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+bool isLoggedIn = false;
+
 class GoogleMapMarkerList {
   static List<Map<String, dynamic>> list = [
     {"id": "1", "lat": "37.4219983", "long": "-122.090"},
@@ -12,6 +14,7 @@ class GoogleMapMarkerList {
 
 Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza');
 
+int externalTaskCount = 0;
 bool isCorrectEmail = false;
 bool isCorrectPassword = false;
 String urlShopFilter = "";

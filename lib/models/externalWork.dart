@@ -27,7 +27,7 @@ class ExternalWork{
       workAssignmentDate: json['is_atama_tarihi'],
       workFinishDate: json['is_bitis_tarihi'],
       bs_id: json['bs_id'],
-      pm_id: json['pm_is_id'],
+      pm_id: json['pm_id'],
       completionInfo: json['tamamlandi_bilgisi'],
     );
   }
