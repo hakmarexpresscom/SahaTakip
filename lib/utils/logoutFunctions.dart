@@ -2,9 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/constants.dart';
+import '../main.dart';
 import '../routing/landing.dart';
+import 'loginFunctions.dart';
 
 logout(BuildContext context) async {
+  box.put("userID",0);
+  box.put("yoneticiID",0);
+  box.put("userType","PM");
+  box.put("isBSorPM",true);
+  box.put("isBS",false);
+  box.put("urlShopFilter","");
+  box.put("urlWorkFilter","");
   userID=0;
   yoneticiID=0;
   workDurationHour = 0;
