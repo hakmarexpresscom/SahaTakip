@@ -2,6 +2,7 @@ import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../screens/authScreens/loginScreen/forgetPasswordScreen.dart';
 import '../screens/externalTask/enterExternalTaskScreen.dart';
 import '../screens/externalTask/externalTaskDetailScreen.dart';
 import '../screens/externalTask/externalTaskMainScreen.dart';
@@ -100,6 +101,10 @@ void naviExternalTaskMainScreen(BuildContext context){
 
 void naviLoginMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
+}
+
+void naviForgetPasswordScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
 }
 
 void naviShopVisitingProcessesScreen(BuildContext context, id, name){

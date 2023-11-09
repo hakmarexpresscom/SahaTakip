@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:deneme/utils/forgetPasswordFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +122,15 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Lütfen emailinizi giriniz.';
+                }
+                else if(isCorrectEmail==false){
+                  return 'Yanlış email.';
+                }
+                return null;
+              },
               maxLines: 1,
               autocorrect: false,
               onSaved: (input){
@@ -137,6 +147,15 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
             ),
             SizedBox(height: deviceHeight*0.03,),
             TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Lütfen şifrenizi giriniz.';
+                }
+                else if(isCorrectPassword==false){
+                  return 'Yanlış şifre.';
+                }
+                return null;
+              },
               maxLines: 1,
               autocorrect: false,
               onSaved: (input){
@@ -165,10 +184,14 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                 widthConst: widthConst,
                 size: 18,
                 radius: 20,
-                fontWeight:
-                FontWeight.w600,
-                onTaps: (){
-                    login(item, emailController.text,passwordController.text, context);
+                fontWeight: FontWeight.w600,
+                onTaps: () {
+                  login(item, emailController.text, passwordController.text, context);
+                  /*print(isCorrectEmail.toString()+"************email");
+                  print(isCorrectPassword.toString()+"************pw");
+                  if (_formKey.currentState!.validate()) {
+                    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
+                  }*/
                   },
                 borderWidht: 1,
                 backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -185,7 +208,20 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
     return TextWidget(text: "Kullanıcı Girişi", heightConst: 0, widhtConst: 0, size: 35, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget forgetPasswordButton(double heightConst, double widthConst){
-    return ButtonWidget(text: "Şifremi Unuttum", heightConst: heightConst, widthConst: widthConst, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(
+        text: "Şifremi Unuttum",
+        heightConst: heightConst,
+        widthConst: widthConst,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          naviForgetPasswordScreen(context);
+        },
+        borderWidht: 3,
+        backgroundColor: Colors.orangeAccent,
+        borderColor: Colors.orangeAccent,
+        textColor: Colors.black);
   }
   Widget logo(){
     return Container(

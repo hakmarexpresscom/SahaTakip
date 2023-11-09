@@ -90,10 +90,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            /*locationInfo(),
-            SizedBox(height: deviceHeight*0.03,),*/
-            hourInfo(),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight*0.04,),
             workDurationInfo(),
             SizedBox(height: deviceHeight*0.09,),
             shiftTypeInfo(),
@@ -110,12 +107,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
   }
 
 
- /* Widget locationInfo(){
-    return TextWidget(text: "My location", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }*/
-  Widget hourInfo(){
-    return TextWidget(text: "Saat: "+now.hour.toString()+":"+now.minute.toString(), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
-  }
   Widget workDurationInfo(){
     return TextWidget(text: "Çalışma Süresi: "+workDurationHour.toString()+" saat "+workDurationMin.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
@@ -157,7 +148,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     return DropdownMenu<String>(
       initialSelection: item,
       onSelected: (String? value) {
-        // This is called when the user selects an item.
         setState(() {
           item = value!;
           print(item);

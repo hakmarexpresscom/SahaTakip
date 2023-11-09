@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';
 import '../routing/landing.dart';
-import 'loginFunctions.dart';
 
 logout(BuildContext context) async {
   box.put("userID",0);

@@ -22,6 +22,7 @@ import '../services/userPMServices.dart';
 import 'package:crypto/crypto.dart';
 
 int sayac = 0;
+int sayac_2 = 0;
 
 login(String user, String email, String password, BuildContext context) async {
   if(user=="Bölge Sorumlusu") {
@@ -91,8 +92,13 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("userID",users[i].bs_id);
       userID=box.get("userID");
 
+      isCorrectEmail=true;
+
       sayac=i;
     }
+  }
+  if(sayac==0) {
+    isCorrectEmail = false;
   }
 }
 
@@ -110,12 +116,19 @@ Future checkPasswordBS(String password, String urlPw, String urlUser, int sayac,
         box.put("yoneticiID",users[sayac].manager_id);
         yoneticiID=box.get("yoneticiID");
 
+        isCorrectPassword=true;
+
+        sayac_2 = j;
+
         await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isLoggedIn', true);
         (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
+  }
+  if(sayac_2==0) {
+    isCorrectPassword = false;
   }
 }
 
@@ -128,8 +141,13 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("userID",users[i].pm_id);
       userID=box.get("userID");
 
+      isCorrectEmail=true;
+
       sayac=i;
     }
+  }
+  if(sayac==0) {
+    isCorrectEmail = false;
   }
 }
 
@@ -147,12 +165,19 @@ Future checkPasswordPM(String password, String urlPw, String urlUser, int sayac,
         box.put("yoneticiID",users[sayac].manager_id);
         yoneticiID=box.get("yoneticiID");
 
+        isCorrectPassword=true;
+
+        sayac_2 = j;
+
         await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isLoggedIn', true);
         (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
+  }
+  if(sayac_2==0) {
+    isCorrectPassword = false;
   }
 }
 
@@ -163,7 +188,14 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
 
       box.put("userID",users[i].bm_id);
       userID=box.get("userID");
+
+      isCorrectEmail=true;
+
+      sayac = i;
     }
+  }
+  if(sayac==0) {
+    isCorrectEmail = false;
   }
 }
 
@@ -176,11 +208,19 @@ Future checkPasswordBM(String password, String urlPw, String urlUser, int sayac,
       var digest = sha256.convert(bytes);
       var hashedPassword = digest.bytes;
       if(listEquals(binaryHashedPassword, hashedPassword)){
+
+        isCorrectPassword=true;
+
+        sayac_2 = j;
+
         await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isLoggedIn', true);
         (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
       }
     }
+  }
+  if(sayac_2==0) {
+    isCorrectPassword = false;
   }
 }

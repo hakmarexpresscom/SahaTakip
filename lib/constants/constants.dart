@@ -20,8 +20,8 @@ Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/mag
 
 
 int externalTaskCount = 0;
-bool isCorrectEmail = false;
-bool isCorrectPassword = false;
+bool isCorrectEmail = true;
+bool isCorrectPassword = true;
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";
 String urlTaskShops ="";
