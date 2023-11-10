@@ -43,7 +43,7 @@ login(String user, String email, String password, BuildContext context) async {
     urlWorkFilter = box.get("urlWorkFilter");
 
     checkEmailBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
-    checkPasswordBS(password, 'http://172.23.21.112:7042/api/BSSifre','http://172.23.21.112:7042/api/KullaniciBS', sayac,context);
+    checkPasswordBS(password,'http://172.23.21.112:7042/api/KullaniciBS', sayac,context);
   }
   else if(user=="Pazarlama Müdürü") {
 
@@ -63,7 +63,7 @@ login(String user, String email, String password, BuildContext context) async {
     urlWorkFilter = box.get("urlWorkFilter");
 
     checkEmailPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
-    checkPasswordPM(password, 'http://172.23.21.112:7042/api/PMSifre','http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
+    checkPasswordPM(password,'http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
   }
   else if(user=="Bölge Müdürü") {
 
@@ -80,7 +80,7 @@ login(String user, String email, String password, BuildContext context) async {
     urlShopFilter = box.get("urlShopFilter");
 
     checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
-    checkPasswordBM(password, 'http://172.23.21.112:7042/api/BMSifre','http://172.23.21.112:7042/api/KullaniciBM', sayac,context);
+    checkPasswordBM(password,'http://172.23.21.112:7042/api/KullaniciBM', sayac,context);
   }
 }
 
@@ -92,43 +92,29 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("userID",users[i].bs_id);
       userID=box.get("userID");
 
-      isCorrectEmail=true;
-
       sayac=i;
     }
   }
-  if(sayac==0) {
-    isCorrectEmail = false;
-  }
 }
 
-Future checkPasswordBS(String password, String urlPw, String urlUser, int sayac, BuildContext context) async {
-  final List<BSPassword> passwords = await fetchBSPassword(urlPw);
+Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext context) async {
   final List<UserBS> users = await fetchUserBS2(urlUser);
-  for(int j=0; j<passwords.length;j++){
-    if(passwords[j].bs_id==userID){
-      List<int> binaryHashedPassword = base64Decode(passwords[j].hashed_pw);
-      var bytes = utf8.encode(password);
-      var digest = sha256.convert(bytes);
-      var hashedPassword = digest.bytes;
-      if(listEquals(binaryHashedPassword, hashedPassword)){
+  final BSPassword hashedPw = await fetchBSPassword2('http://172.23.21.112:7042/api/BSSifre/${userID}');
 
-        box.put("yoneticiID",users[sayac].manager_id);
-        yoneticiID=box.get("yoneticiID");
+  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+  var bytes = utf8.encode(password);
+  var digest = sha256.convert(bytes);
+  var hashedPassword = digest.bytes;
 
-        isCorrectPassword=true;
+  if(listEquals(binaryHashedPassword, hashedPassword)){
 
-        sayac_2 = j;
+    box.put("yoneticiID",users[sayac].manager_id);
+    yoneticiID=box.get("yoneticiID");
 
-        await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-      }
-    }
-  }
-  if(sayac_2==0) {
-    isCorrectPassword = false;
+    await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
   }
 }
 
@@ -141,43 +127,29 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("userID",users[i].pm_id);
       userID=box.get("userID");
 
-      isCorrectEmail=true;
-
       sayac=i;
     }
   }
-  if(sayac==0) {
-    isCorrectEmail = false;
-  }
 }
 
-Future checkPasswordPM(String password, String urlPw, String urlUser, int sayac, BuildContext context) async {
-  final List<PMPassword> passwords = await fetchPMPassword(urlPw);
+Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext context) async {
   final List<UserPM> users = await fetchUserPM2(urlUser);
-  for(int j=0; j<passwords.length;j++){
-    if(passwords[j].pm_id==userID){
-      List<int> binaryHashedPassword = base64Decode(passwords[j].hashed_pw);
-      var bytes = utf8.encode(password);
-      var digest = sha256.convert(bytes);
-      var hashedPassword = digest.bytes;
-      if(listEquals(binaryHashedPassword, hashedPassword)){
+  final PMPassword hashedPw = await fetchPMPassword2('http://172.23.21.112:7042/api/PMSifre/${userID}');
 
-        box.put("yoneticiID",users[sayac].manager_id);
-        yoneticiID=box.get("yoneticiID");
+  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+  var bytes = utf8.encode(password);
+  var digest = sha256.convert(bytes);
+  var hashedPassword = digest.bytes;
 
-        isCorrectPassword=true;
+  if(listEquals(binaryHashedPassword, hashedPassword)){
 
-        sayac_2 = j;
+    box.put("yoneticiID",users[sayac].manager_id);
+    yoneticiID=box.get("yoneticiID");
 
-        await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-      }
-    }
-  }
-  if(sayac_2==0) {
-    isCorrectPassword = false;
+    await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
   }
 }
 
@@ -199,28 +171,20 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
   }
 }
 
-Future checkPasswordBM(String password, String urlPw, String urlUser, int sayac, BuildContext context) async {
-  final List<BMPassword> passwords = await fetchBMPassword(urlPw);
-  for(int j=0; j<passwords.length;j++){
-    if(passwords[j].bm_id==userID){
-      List<int> binaryHashedPassword = base64Decode(passwords[j].hashed_pw);
-      var bytes = utf8.encode(password);
-      var digest = sha256.convert(bytes);
-      var hashedPassword = digest.bytes;
-      if(listEquals(binaryHashedPassword, hashedPassword)){
+Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext context) async {
+  final List<UserBM> users = await fetchUserBM2(urlUser);
+  final BMPassword hashedPw = await fetchBMPassword2('http://172.23.21.112:7042/api/BMSifre/${userID}');
 
-        isCorrectPassword=true;
+  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+  var bytes = utf8.encode(password);
+  var digest = sha256.convert(bytes);
+  var hashedPassword = digest.bytes;
 
-        sayac_2 = j;
+  if(listEquals(binaryHashedPassword, hashedPassword)){
 
-        await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-      }
-    }
-  }
-  if(sayac_2==0) {
-    isCorrectPassword = false;
+    await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
   }
 }

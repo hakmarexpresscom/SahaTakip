@@ -20,6 +20,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   final emailController = TextEditingController();
 
+  String item = userTypeList[0];
+
   late double deviceHeight;
   late double deviceWidth;
 
@@ -90,6 +92,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             SizedBox(height: deviceHeight*0.03,),
             title(),
             SizedBox(height: deviceHeight*0.04,),
+            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
+            SizedBox(height: deviceHeight*0.02,),
+            userTypeDropDown(),
+            SizedBox(height: deviceHeight*0.03,),
             inputForm(heightConst, widthConst),
             SizedBox(height: deviceHeight*0.03,),
             backLoginScreenButton(heightConst, widthConst),
@@ -136,7 +142,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 radius: 20,
                 fontWeight: FontWeight.w600,
                 onTaps: () {
-                  sendMail(emailController.text);
+                  findPassword(item,emailController.text,context);
+                  //sendPasswordMail(emailController.text,"M1234567.");
                 },
                 borderWidht: 1,
                 backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -179,6 +186,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               fit: BoxFit.contain
           )
       ),
+    );
+  }
+
+  Widget userTypeDropDown(){
+    return DropdownMenu<String>(
+      initialSelection: item,
+      onSelected: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          item = value!;
+        });
+      },
+      dropdownMenuEntries: userTypeList.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
     );
   }
 

@@ -20,17 +20,19 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   TextEditingController shopSearchController = TextEditingController();
   List<String> shopListOnSearch = [];
   List<String> shopList = [
-    '5000 Pendik',
-    '5001 Kartal',
-    '5002 Maltepe',
-    '5003 Sancaktepe',
-    '5004 Umraniye',
-    '5005 Uskudar',
-    '5006 Sultanbeyli',
-    '5007 Tuzla',
-    '5008 Bostanci',
-    '5009 Goztepe',
-    '5010 Atasehir',
+    '5000 Esenyalı / PENDİK',
+    '5001 Beylikbaı / GEBZE',
+    '5002 Gözdağı / PENDİK',
+    '5003 Sondurak / KARTAL',
+    '5004 Fatih Esenyalı / PENDİK',
+    '5005 Güzelyalı / PENDİK',
+    '5006 Topselvi / KARTAL',
+    '5007 Soğanlık / KARTAL',
+    '5008 Kemerdere / ÜMRANİYE',
+    '5009 Gülsuyu / MALTEPE',
+    '5010 Yavuz Selim / SULTANBEYLİ',
+    '5011 Çamlık / SULTANBEYLİ',
+    '5012 Şifa 19 Mayıs / TUZLA'
   ];
 
   //late Future<List<Shop>> futureShopList;

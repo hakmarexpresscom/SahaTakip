@@ -102,7 +102,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.workFinishDate,taskDescription: snapshot.data!.workDetail!,taskName: snapshot.data!.workTitle,widthConst: 0.9)
+                    TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.workFinishHour,taskDescription: snapshot.data!.workDetail!,taskName: snapshot.data!.workTitle,widthConst: 0.9,isExternalTask: true,)
                   ],
                 );
               }

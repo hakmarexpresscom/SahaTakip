@@ -10,8 +10,9 @@ class TaskDetailCard extends StatefulWidget {
   late String taskName;
   late String taskDescription;
   late String taskDeadline;
+  late bool isExternalTask;
 
-  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline,}): super(key: key);
+  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.isExternalTask}): super(key: key);
 
   @override
   State<TaskDetailCard> createState() => _TaskDetailCardState();
@@ -31,7 +32,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           children: <Widget>[
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.05),),
-            TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
+            (widget.isExternalTask)?TextWidget(text: "Bitiş Saati: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black): TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.3),),
             TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicWidht(0.5),),
