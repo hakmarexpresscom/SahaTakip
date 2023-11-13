@@ -19,7 +19,7 @@ Future<List<UserBM>> fetchUserBM(String url) async {
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
-    throw Exception('Failed to load shop');
+    throw Exception('Failed to load User BM List');
   }
 }
 
@@ -32,7 +32,7 @@ Future<List<UserBM>> fetchUserBM2(String url) async {
     }).toList();
     return users;
   } else {
-    throw Exception('Failed to load user data');
+    throw Exception('Failed to load User BM List2');
   }
 }
 

@@ -20,7 +20,7 @@ Future<List<IncompleteTask>> fetchIncompleteTask(String url) async {
     print(parseJsonList(response.body));
     return parseJsonList(response.body);
   } else {
-    throw Exception('Failed to load task');
+    throw Exception('Failed to load Incomplete Task List');
   }
 }
 
@@ -30,7 +30,7 @@ Future<IncompleteTask> fetchIncompleteTask2(String url) async {
   if (response.statusCode == 200) {
     return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load Incomplete Task');
   }
 }
 
@@ -57,6 +57,6 @@ Future<IncompleteTask> updateIncompleteTask(int id,String title,String? detail,S
   if (response.statusCode == 200) {
     return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to update album.');
+    throw Exception('Failed to update Incomplete Task');
   }
 }

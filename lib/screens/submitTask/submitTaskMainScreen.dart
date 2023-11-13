@@ -102,6 +102,11 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         });
   }
 
+  String imageToBase64(String path) {
+    final bytes = File(path).readAsBytesSync();
+    return base64Encode(bytes);
+  }
+
   @override
   Widget build(BuildContext context) {
 

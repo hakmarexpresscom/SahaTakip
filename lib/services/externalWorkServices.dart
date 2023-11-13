@@ -21,7 +21,7 @@ Future<List<ExternalWork>> fetchExternalWork(String url) async {
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
-    throw Exception('Failed to load task');
+    throw Exception('Failed to load External Task List');
   }
 }
 
@@ -31,7 +31,7 @@ Future<ExternalWork> fetchExternalWork2(String url) async {
   if (response.statusCode == 200) {
     return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load External Task');
   }
 }
 
@@ -44,7 +44,7 @@ Future<List<ExternalWork>> fetchExternalWork3(String url) async {
     }).toList();
     return users;
   } else {
-    throw Exception('Failed to load user data');
+    throw Exception('Failed to load External Task List2');
   }
 }
 
@@ -59,7 +59,7 @@ Future<ExternalWork> createExternalWork(int id,String title,String? detail,Strin
       "is_tanimi": title,
       "is_detayi": detail,
       "is_atama_tarihi": assignmentDate,
-      "is_bitis_saati": "15.00",
+      "is_bitis_saati": finishHour,
       "bs_id": bs_id,
       "pm_id": pm_id,
       "tamamlandi_bilgisi": 0,
@@ -70,7 +70,7 @@ Future<ExternalWork> createExternalWork(int id,String title,String? detail,Strin
   if (response.statusCode == 201) {
     return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to create External Task.');
   }
 }
 
@@ -96,7 +96,7 @@ Future<ExternalWork> updateExternalWork(int id,String title,String? detail,Strin
   if (response.statusCode == 200) {
     return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to update album.');
+    throw Exception('Failed to update External Task.');
   }
 }
 

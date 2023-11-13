@@ -21,7 +21,7 @@ Future<List<PMPassword>> fetchPMPassword(String url) async {
     }).toList();
     return users;
   } else {
-    throw Exception('Failed to load user data');
+    throw Exception('Failed to load PM Password List');
   }
 }
 
@@ -31,7 +31,7 @@ Future<PMPassword> fetchPMPassword2(String url) async {
   if (response.statusCode == 200) {
     return PMPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load PM Password');
   }
 }
 
