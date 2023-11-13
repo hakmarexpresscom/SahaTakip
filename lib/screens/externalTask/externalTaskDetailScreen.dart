@@ -114,6 +114,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       taskType: "Harici",
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                       onTaps: (){naviExternalTasksListScreen(context);},
+                      onTapsPhoto: (){},
                       id: snapshot.data!.external_work_id,
                       user_id: userID,
                       assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),

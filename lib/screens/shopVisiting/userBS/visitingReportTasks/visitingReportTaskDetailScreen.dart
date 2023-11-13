@@ -2,6 +2,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
@@ -33,6 +34,62 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
   DateTime now = DateTime.now();
 
   late AnimationController controller;
+
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+    setState(() {
+      image = img;
+    });
+  }
+
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Please choose media to select'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('Galeriyi Aç'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('Kamerayı Aç'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -112,6 +169,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
                       taskType: snapshot.data!.taskType,
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                       onTaps: (){naviVisitingReportTaskMainScreen(context, snapshot.data!.shopCode);},
+                      onTapsPhoto: (){myAlert();},
                       id: snapshot.data!.task_id,
                       user_id: userID,
                       assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),

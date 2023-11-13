@@ -78,7 +78,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                     child: Row(
                       children: [
                         Icon(Icons.image),
-                        Text('From Gallery'),
+                        Text('Galeriyi Aç'),
                       ],
                     ),
                   ),
@@ -91,7 +91,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                     child: Row(
                       children: [
                         Icon(Icons.camera),
-                        Text('From Camera'),
+                        Text('Kamerayı Aç'),
                       ],
                     ),
                   ),

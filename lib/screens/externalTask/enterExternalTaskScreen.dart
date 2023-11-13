@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -148,7 +149,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               now.hour.toString()+"."+now.minute.toString(),
               "http://172.23.21.112:7042/api/HariciIs"
           );
-
+          naviExternalTasksListScreen(context);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
