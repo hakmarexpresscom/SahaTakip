@@ -48,6 +48,7 @@ dependencies:
   path_provider: ^2.1.1
   mailer: ^6.0.1
   archive: ^3.4.9
+  file_picker: ^6.1.1
 
 flutter_icons:
   android: "launcher_icon"

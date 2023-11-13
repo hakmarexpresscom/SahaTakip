@@ -5,11 +5,14 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
 import '../../widgets/text_form_field.dart';
 import '../shopVisiting/commonScreens/shopsScreen.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class SubmitTaskMainScreen extends StatefulWidget {
 
@@ -42,6 +45,62 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
 
   late bool inPlace=false;
   late bool remote=false;
+
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+    setState(() {
+      image = img;
+    });
+  }
+
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Please choose media to select'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('From Gallery'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('From Camera'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,14 +156,30 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.07,),
+            SizedBox(height: deviceHeight*0.02,),
             inputForm(),
             SizedBox(height: deviceHeight*0.03,),
             inPlaceOrRemoteTaskCheckbox(),
             SizedBox(height: deviceHeight*0.03,),
+            image != null ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(
+                  //to show image, you type like this.
+                  File(image!.path),
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                ),
+              ),
+            ) : Text("Fotoğraf Bilgisi Yok", style: TextStyle(fontSize: 17),),
+            SizedBox(height: deviceHeight*0.03,),
+            addPhotoButton(),
+            SizedBox(height: deviceHeight*0.03,),
             BSSelectionButton(),
             SizedBox(height: deviceHeight*0.03,),
-            submitTaskButton()
+            submitTaskButton(),
           ],
         ),
       );
@@ -117,6 +192,10 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
 
   Widget BSSelectionButton(){
     return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskBSSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  }
+
+  Widget addPhotoButton(){
+    return ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
   Widget inputForm(){
