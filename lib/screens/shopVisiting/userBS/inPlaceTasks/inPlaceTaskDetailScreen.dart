@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
 import '../../../../models/incompleteTask.dart';
+import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
 
 class InPlaceTaskDetailScreen extends StatefulWidget {
@@ -29,6 +30,8 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   late AnimationController controller;
 
@@ -101,7 +104,24 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false)
+                    TaskDetailCard(
+                      heightConst: 0.7,
+                      taskDeadline: snapshot.data!.taskFinishDate,
+                      taskDescription: snapshot.data!.taskDetail!,
+                      taskName: snapshot.data!.taskTitle,
+                      widthConst: 0.9,
+                      taskType: snapshot.data!.taskType,
+                      isCompleted: (snapshot.data!.completionInfo==1)?true:false,
+                      onTaps: (){naviInPlaceTaskMainScreen(context,snapshot.data!.shopCode);},
+                      id: snapshot.data!.task_id,
+                      user_id: userID,
+                      assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                      assignmentHour: now.hour.toString()+"."+now.minute.toString(),
+                      shop_code: snapshot.data!.shopCode,
+                      photo_id: snapshot.data!.photo_id,
+                      report_id: snapshot.data!.report_id,
+                    )
+                    //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
                   ],
                 );
               }

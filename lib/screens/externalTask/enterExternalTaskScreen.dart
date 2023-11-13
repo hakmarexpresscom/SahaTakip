@@ -118,7 +118,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           children: <Widget>[
             TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, dateController: taskDeadlineController, value: EnterExternalTaskScreen.taskDeadline, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Bitiş Saati", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDeadlineController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
             TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8),
           ],
@@ -137,15 +137,15 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         fontWeight: FontWeight.w600,
         onTaps: () async {
           await countExternalTask("http://172.23.21.112:7042/api/HariciIs", context);
-          print(externalTaskCount);
           await createExternalWork(
             externalTaskCount+1,
             taskNameController.text,
             taskDescriptionController.text,
             now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
             taskDeadlineController.text,
-              userID,
-              null,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              now.hour.toString()+"."+now.minute.toString(),
               "http://172.23.21.112:7042/api/HariciIs"
           );
 

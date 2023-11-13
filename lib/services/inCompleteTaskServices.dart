@@ -34,12 +34,25 @@ Future<IncompleteTask> fetchIncompleteTask2(String url) async {
   }
 }
 
-Future<IncompleteTask> updateIncompleteTask(String url,int completionInfo) async {
-  final response = await http.put(
-    Uri.parse(url),
-    body: jsonEncode(<String, int>{
-      'tamamlandi_bilgisi': completionInfo,
-    }),
+Future<IncompleteTask> updateIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int completionInfo, String url) async {
+  final response = await http.put(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>
+    {
+      "gorev_id": id,
+      "gorev_tanimi": title,
+      "gorev_detayi": detail,
+      "gorev_atama_tarihi": assignmentDate,
+      "gorev_bitis_tarihi": finishDate,
+      "magaza_kodu": shopCode,
+      "foto_id": photo_id,
+      "gorev_turu": taskType,
+      "rapor_id": report_id,
+      "tamamlandi_bilgisi": completionInfo
+    }
+    ),
   );
   if (response.statusCode == 200) {
     return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);

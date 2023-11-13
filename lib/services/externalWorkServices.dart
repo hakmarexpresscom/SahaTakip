@@ -19,8 +19,6 @@ Future<List<ExternalWork>> fetchExternalWork(String url) async {
       .get(Uri.parse(url));
   print(response.statusCode);
   if (response.statusCode == 200) {
-    print(response.body);
-    print(parseJsonList(response.body));
     return parseJsonList(response.body);
   } else {
     throw Exception('Failed to load task');
@@ -50,35 +48,22 @@ Future<List<ExternalWork>> fetchExternalWork3(String url) async {
   }
 }
 
-Future<ExternalWork> updateExternalWork(String url,int completionInfo) async {
-  final response = await http.put(
-    Uri.parse(url),
-    body: jsonEncode(<String, int>{
-      'tamamlandi_bilgisi': completionInfo,
-    }),
-  );
-  if (response.statusCode == 200) {
-    return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to update album.');
-  }
-}
-
-Future<ExternalWork> createExternalWork(int id,String title,String? detail,String assignmentDate, String finishDate, int bs_id, int? pm_id, url) async {
+Future<ExternalWork> createExternalWork(int id,String title,String? detail,String assignmentDate, String finishHour, int? bs_id, int? pm_id,String assignmentHour, url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>
     {
-      "harici_is_id": id,
+      "harici_is_id":id,
       "is_tanimi": title,
       "is_detayi": detail,
       "is_atama_tarihi": assignmentDate,
-      "is_bitis_tarihi": finishDate,
+      "is_bitis_saati": "15.00",
       "bs_id": bs_id,
       "pm_id": pm_id,
-      "tamamlandi_bilgisi": 0
+      "tamamlandi_bilgisi": 0,
+      "is_atama_saati": assignmentHour
     }
     ),
   );
@@ -89,9 +74,35 @@ Future<ExternalWork> createExternalWork(int id,String title,String? detail,Strin
   }
 }
 
+Future<ExternalWork> updateExternalWork(int id,String title,String? detail,String assignmentDate, String finishHour, int? bs_id, int? pm_id,int completionInfo, String assignmentHour,String url) async {
+  final response = await http.put(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>
+    {
+      "harici_is_id":id,
+      "is_tanimi": title,
+      "is_detayi": detail,
+      "is_atama_tarihi": assignmentDate,
+      "is_bitis_saati": finishHour,
+      "bs_id": bs_id,
+      "pm_id": pm_id,
+      "tamamlandi_bilgisi": completionInfo,
+      "is_atama_saati": assignmentHour
+    }
+    ),
+  );
+  if (response.statusCode == 200) {
+    return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to update album.');
+  }
+}
+
 
 Future countExternalTask(String url,BuildContext context) async {
+  externalTaskCount = 0;
   final List<ExternalWork> externalTasks = await fetchExternalWork3(url);
   externalTaskCount = externalTaskCount + externalTasks.length;
-  print("********************************${externalTaskCount}");
 }

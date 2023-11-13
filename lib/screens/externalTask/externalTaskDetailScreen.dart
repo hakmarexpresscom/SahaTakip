@@ -1,6 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/models/externalWork.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,8 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   late AnimationController controller;
 
@@ -102,7 +105,23 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.workFinishHour,taskDescription: snapshot.data!.workDetail!,taskName: snapshot.data!.workTitle,widthConst: 0.9,isExternalTask: true,)
+                    TaskDetailCard(
+                      heightConst: 0.7,
+                      taskDeadline: snapshot.data!.workFinishHour,
+                      taskDescription: snapshot.data!.workDetail!,
+                      taskName: snapshot.data!.workTitle,
+                      widthConst: 0.9,
+                      taskType: "Harici",
+                      isCompleted: (snapshot.data!.completionInfo==1)?true:false,
+                      onTaps: (){naviExternalTasksListScreen(context);},
+                      id: snapshot.data!.external_work_id,
+                      user_id: userID,
+                      assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                      assignmentHour: now.hour.toString()+"."+now.minute.toString(),
+                      shop_code: 0,
+                      report_id: 0,
+                      photo_id: 0,
+                    )
                   ],
                 );
               }

@@ -8,6 +8,7 @@ import '../screens/externalTask/externalTaskDetailScreen.dart';
 import '../screens/externalTask/externalTaskMainScreen.dart';
 import '../screens/externalTask/externalTasksListScreen.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
+import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
 import '../screens/shopVisiting/commonScreens/processesScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
@@ -49,6 +50,10 @@ void naviEnterExternalTaskScreen(BuildContext context){
 
 void naviRemoteTaskDetailScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskDetailScreen(task_id: id,)));
+}
+
+void naviRemoteTasksMainScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskMainScreen()));
 }
 
 void naviShopOpeningCheckingScreen(BuildContext context){
