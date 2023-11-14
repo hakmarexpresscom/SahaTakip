@@ -1,3 +1,4 @@
+import 'package:deneme/routing/landing.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
@@ -27,7 +28,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
   late double deviceHeight;
   late double deviceWidth;
 
-  late bool bs=false;
+  late bool allShops=false;
 
   late AnimationController controller;
 
@@ -93,7 +94,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
+                  Checkbox(value: allShops, onChanged: (newvalue){setState(() {allShops=newvalue!;});}),
                   TextWidget(text: "Tümünü Seç", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
                 ],
               ),
@@ -121,7 +122,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Checkbox(value: bs, onChanged: (newvalue){setState(() {bs=newvalue!;});}),
+                    Checkbox(value: shopCheckboxMap[snapshot.data![index].shopCode], onChanged: (newvalue){setState(() {shopCheckboxMap[snapshot.data![index].shopCode]=newvalue!;});}),
                     TextWidget(text: snapshot.data![index].shopName, heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
                   ],
                 );
@@ -147,7 +148,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
   }
 
   Widget BSSelectionButton(){
-    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskMainScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 
 }

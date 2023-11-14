@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:deneme/models/userBS.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-
 import '../constants/constants.dart';
 import '../models/photo.dart';
 
@@ -25,7 +25,17 @@ Future<List<Photo>> fetchPhoto(String url) async {
   }
 }
 
-Future<List<Photo>> fetchPhoto2(String url) async {
+Future<Photo> fetchPhoto2(String url) async {
+  final response = await http
+      .get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    return Photo.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load Incomplete Task');
+  }
+}
+
+Future<List<Photo>> fetchPhoto3(String url) async {
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
@@ -63,3 +73,8 @@ Future<Photo> createPhoto(int id,int task_id,int shopCode,int? bs_id,int? pm_id,
   }
 }
 
+Future countPhoto(String url,BuildContext context) async {
+  photoCount = 0;
+  final List<Photo> photos = await fetchPhoto3(url);
+  photoCount = photoCount + photos.length;
+}

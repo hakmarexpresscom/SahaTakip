@@ -48,6 +48,9 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             SizedBox(height: context.dynamicWidht(0.3),),
             TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.2),),
+            // image null degilse fotografi göstericek
+            // image i önce çözmek lazım sonra göstermek gerekiyor
+            // çözüm nasıl olucak chatgpt'den bakılcak
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -58,9 +61,8 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                     value: widget.isCompleted,
                     onChanged: (newvalue){
                       setState(() {widget.isCompleted=newvalue!;});
-                      print(widget.taskType);
                       if(widget.taskType=="Harici"){
-                        updateExternalWork(
+                        updateCompletionInfoExternalWork(
                           widget.id,
                           widget.taskName,
                           widget.taskDescription,
@@ -74,7 +76,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                         );
                       }
                       else if(widget.taskType=="Uzaktan"||widget.taskType=="Yerinde"||widget.taskType=="Rapor"){
-                        updateIncompleteTask(
+                        updateCompletionInfoIncompleteTask(
                           widget.id,
                           widget.taskName,
                           widget.taskDescription,

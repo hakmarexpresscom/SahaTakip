@@ -74,7 +74,7 @@ Future<ExternalWork> createExternalWork(int id,String title,String? detail,Strin
   }
 }
 
-Future<ExternalWork> updateExternalWork(int id,String title,String? detail,String assignmentDate, String finishHour, int? bs_id, int? pm_id,int completionInfo, String assignmentHour,String url) async {
+Future<ExternalWork> updateCompletionInfoExternalWork(int id,String title,String? detail,String assignmentDate, String finishHour, int? bs_id, int? pm_id,int completionInfo, String assignmentHour,String url) async {
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -99,7 +99,6 @@ Future<ExternalWork> updateExternalWork(int id,String title,String? detail,Strin
     throw Exception('Failed to update External Task.');
   }
 }
-
 
 Future countExternalTask(String url,BuildContext context) async {
   externalTaskCount = 0;

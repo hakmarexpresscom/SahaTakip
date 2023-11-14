@@ -2,9 +2,9 @@ class Photo{
   late int photo_id;
   late int task_id;
   late int shopCode;
-  late int bs_id;
-  late int pm_id;
-  late int bm_id;
+  late int? bs_id;
+  late int? pm_id;
+  late int? bm_id;
   late String photoType;
   late String photo_file;
 

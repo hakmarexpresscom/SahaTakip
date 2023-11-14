@@ -1,6 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/submitTask/submitTaskShopSelectionScreen.dart';
+import 'package:deneme/utils/generalFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -9,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
+import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/text_form_field.dart';
 import '../shopVisiting/commonScreens/shopsScreen.dart';
 import 'dart:io';
@@ -37,6 +39,8 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   late double deviceHeight;
   late double deviceWidth;
 
+  DateTime now = DateTime.now();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final taskNameController = TextEditingController();
@@ -64,7 +68,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text('Please choose media to select'),
+            title: Text('Atanacak görev için bir fotoğraf yükleyin.'),
             content: Container(
               height: MediaQuery.of(context).size.height / 6,
               child: Column(
@@ -192,7 +196,41 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   }
 
   Widget submitTaskButton(){
-    return ButtonWidget(text: "Görevi Ata", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Görevi Ata",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: () async {
+          await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev",context);
+          await addIncompleteTaskToDatabase(
+              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+              context,
+              taskNameController.text,
+              taskDescriptionController.text,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              taskDeadlineController.text,
+              null,
+              (inPlace==true)?"Yerinde":"Uzaktan",
+              null,
+              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+            image,
+            image?.path,
+              "http://172.23.21.112:7042/api/Fotograf",
+              (isBS)?userID:null,
+              (isBS==false && isBSorPM==true)?userID:null,
+              (isBSorPM==false)?userID:null,
+                (inPlace==true)?"Yerinde":"Uzaktan",
+              "http://172.23.21.112:7042/api/Fotograf",
+              "http://172.23.21.112:7042/api/TamamlanmamisGorev/${incompleteTaskCount+1}"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
   Widget BSSelectionButton(){
@@ -266,5 +304,3 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   }
 
 }
-
-

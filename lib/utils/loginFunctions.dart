@@ -112,6 +112,7 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
     yoneticiID=box.get("yoneticiID");
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
+    createShopCheckboxMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
@@ -147,6 +148,7 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
     yoneticiID=box.get("yoneticiID");
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    createShopCheckboxMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
@@ -183,6 +185,7 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
   if(listEquals(binaryHashedPassword, hashedPassword)){
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    createShopCheckboxMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
