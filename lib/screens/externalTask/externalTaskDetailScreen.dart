@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
+import '../../widgets/button_widget.dart';
 
 class ExternalTaskDetailScreen extends StatefulWidget {
 
@@ -84,7 +85,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
           title: const Text('Harici İş Detayı'),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceWidth*0.04, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
           child:Container(
             alignment: Alignment.center,
             child: externalTaskDetailScreenUI(),
@@ -114,7 +115,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       taskType: "Harici",
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                       onTaps: (){naviExternalTasksListScreen(context);},
-                      onTapsPhoto: (){},
+                      onTapsShowPhoto: (){},
                       id: snapshot.data!.external_work_id,
                       user_id: userID,
                       assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
@@ -122,6 +123,8 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       shop_code: 0,
                       report_id: 0,
                       photo_id: 0,
+                      addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+                      image: null,
                     )
                   ],
                 );

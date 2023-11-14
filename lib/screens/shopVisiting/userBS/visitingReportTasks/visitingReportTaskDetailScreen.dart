@@ -9,6 +9,7 @@ import '../../../../constants/pagesLists.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
+import '../../../../widgets/button_widget.dart';
 
 class VisitingReportTaskDetailScreen extends StatefulWidget {
   int task_id=0;
@@ -53,7 +54,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
         builder: (BuildContext context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text('Please choose media to select'),
+            title: Text('Tamamladığınız görev için bir fotoğraf yükleyin.'),
             content: Container(
               height: MediaQuery.of(context).size.height / 6,
               child: Column(
@@ -139,7 +140,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
           title: const Text('Görev Detayı'),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
           child:Container(
             alignment: Alignment.center,
             child: visitingReportTaskDetailScreen(),
@@ -169,7 +170,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
                       taskType: snapshot.data!.taskType,
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                       onTaps: (){naviVisitingReportTaskMainScreen(context, snapshot.data!.shopCode);},
-                      onTapsPhoto: (){myAlert();},
+                      onTapsShowPhoto: (){},
                       id: snapshot.data!.task_id,
                       user_id: userID,
                       assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
@@ -177,6 +178,8 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
                       shop_code: snapshot.data!.shopCode,
                       photo_id: snapshot.data!.photo_id,
                       report_id: snapshot.data!.report_id,
+                      addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+                      image: image,
                     )
                     //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
                   ],

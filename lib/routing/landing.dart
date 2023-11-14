@@ -24,6 +24,7 @@ import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.d
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/submitTask/submitTaskShopSelectionScreen.dart';
+import '../widgets/taskDownloadedPhoto.dart';
 
 void naviShopVisitingShopsScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
@@ -121,3 +122,6 @@ void naviShopVisitingProcessesScreen(BuildContext context, id, name){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreen(shop_code:id, shopName: name,)));
 }
 
+void naviTaskDownloadedPhotoScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDownloadedPhotoScreen(photo_id: id)));
+}

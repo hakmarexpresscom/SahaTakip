@@ -1,27 +1,37 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
+
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
-import '../../models/externalWork.dart';
+import '../../models/incompleteTask.dart';
 import '../../routing/landing.dart';
-import '../../services/externalWorkServices.dart';
-import '../../widgets/cards/taskCard.dart';
+import '../../services/inCompleteTaskServices.dart';
+import '../../widgets/button_widget.dart';
+import '../models/photo.dart';
+import '../services/photoServices.dart';
 
+class TaskDownloadedPhotoScreen extends StatefulWidget {
 
-class ExternalTasksListScreen extends StatefulWidget {
-  const ExternalTasksListScreen({super.key});
+  int? photo_id = 0;
+  TaskDownloadedPhotoScreen({super.key, required this.photo_id});
 
   @override
-  State<ExternalTasksListScreen> createState() =>
-      _ExternalTasksListScreenState();
+  State<TaskDownloadedPhotoScreen> createState() =>
+      _TaskDownloadedPhotoScreenState();
 }
 
-class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with TickerProviderStateMixin  {
+class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> with TickerProviderStateMixin {
 
-  late Future<List<ExternalWork>> futureExternalWork;
+  late Future<Photo> futurePhoto;
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   List<BottomNavigationBarItem> naviBarList = [];
   List<Widget> pageList = [];
@@ -29,19 +39,22 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
   late double deviceHeight;
   late double deviceWidth;
 
+  DateTime now = DateTime.now();
+
   late AnimationController controller;
+
+  late String base64photo = "";
 
   @override
   void initState() {
     super.initState();
-    futureExternalWork = fetchExternalWork('http://172.23.21.112:7042/api/HariciIs/$urlWorkFilter=${userID}&tamamlandi_bilgisi=0');
+    futurePhoto = fetchPhoto2('http://172.23.21.112:7042/api/Fotograf/${widget.photo_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
-      //setState(() {});
     });
     controller.repeat(reverse: true);
   }
@@ -71,50 +84,35 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
       }
     }
 
-
     userCondition(userType);
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
-          title: const Text('Harici İşlerim'),
+          title: const Text('Görev Fotoğrafı'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: deviceHeight*0.02,),
-            externalTasksMainScreenUI()
-          ],
-        ),
+        body: Container(
+            alignment: Alignment.center,
+            child: taskDownloadedPhotoScreenUI(),
+          ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
-  Widget externalTasksMainScreenUI(){
+  Widget taskDownloadedPhotoScreenUI(){
     return Expanded(
-        child: FutureBuilder<List<ExternalWork>>(
-            future: futureExternalWork,
+        child: FutureBuilder<Photo>(
+            future: futurePhoto,
             builder: (context, snapshot){
               if(snapshot.hasData){
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].workTitle,onTaps: (){naviExternalTaskDetailScreen(context,snapshot.data![index].external_work_id);}),
-                        SizedBox(height: deviceHeight*0.005,),
-                      ],
-                    );
-                  },
-                );
+                base64photo = snapshot.data!.photo_file;
+                Uint8List photoBytes = base64Decode(base64photo);
+                ImageProvider imageProvider = MemoryImage(photoBytes);
+                return PhotoView(
+                      imageProvider: imageProvider,
+                      minScale: PhotoViewComputedScale.contained,
+                      maxScale: PhotoViewComputedScale.covered * 2,);
               }
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Column(
@@ -128,7 +126,7 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
                 );
               }
               else{
-                return Text("Veri yok");
+                return Text("Bu görev için yüklenen fotoğraf yok.");
               }
             }
         )

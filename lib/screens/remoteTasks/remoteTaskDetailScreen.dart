@@ -3,12 +3,12 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../models/incompleteTask.dart';
 import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
+import '../../widgets/button_widget.dart';
 
 class RemoteTaskDetailScreen extends StatefulWidget {
 
@@ -54,7 +54,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
         builder: (BuildContext context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text('Please choose media to select'),
+            title: Text('Tamamladığınız görev için bir fotoğraf yükleyin.'),
             content: Container(
               height: MediaQuery.of(context).size.height / 6,
               child: Column(
@@ -170,7 +170,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                           taskType: snapshot.data!.taskType,
                           isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                           onTaps: (){naviRemoteTasksMainScreen(context);},
-                          onTapsPhoto: (){myAlert();},
+                          onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
                           id: snapshot.data!.task_id,
                           user_id: userID,
                           assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
@@ -178,8 +178,9 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                           shop_code: snapshot.data!.shopCode,
                           photo_id: snapshot.data!.photo_id,
                           report_id: snapshot.data!.report_id,
-                        )
-                        //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
+                          addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+                          image: image,
+                        ),
                       ],
                     );
               }

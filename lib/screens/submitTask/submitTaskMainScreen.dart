@@ -106,10 +106,10 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         });
   }
 
-  String imageToBase64(String path) {
+  /*String imageToBase64(String path) {
     final bytes = File(path).readAsBytesSync();
     return base64Encode(bytes);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -204,10 +204,9 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev",context);
+          await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev");
           await addIncompleteTaskToDatabase(
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
-              context,
               taskNameController.text,
               taskDescriptionController.text,
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
@@ -226,6 +225,9 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
               "http://172.23.21.112:7042/api/Fotograf",
               "http://172.23.21.112:7042/api/TamamlanmamisGorev/${incompleteTaskCount+1}"
           );
+          Future.delayed(Duration.zero, () {
+            showTaskAssignedDialog(context);
+          });
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -300,6 +302,27 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           )
         ],
       ),
+    );
+  }
+
+  showTaskAssignedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Görev Atandı'),
+          content: Text('Görev başarıyla atandı!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                resetShopCheckboxMap();
+                naviSubmitTaskMainScreen(context);
+              },
+              child: Text('Tamam'),
+            ),
+          ],
+        );
+      },
     );
   }
 

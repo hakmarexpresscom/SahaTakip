@@ -80,12 +80,14 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
           backgroundColor: Colors.indigo,
           title: const Text('Yerinde Görevler'),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.02, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: inPlaceTaskMainScreenUI(),
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: deviceHeight*0.02,),
+            inPlaceTaskMainScreenUI()
+          ],
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );

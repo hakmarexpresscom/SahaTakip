@@ -79,13 +79,15 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
           backgroundColor: Colors.indigo,
           title: const Text('Uzaktan Görevler'),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.02, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: remoteTaskMainScreenUI(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: deviceHeight*0.02,),
+              remoteTaskMainScreenUI()
+            ],
           ),
-        ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }

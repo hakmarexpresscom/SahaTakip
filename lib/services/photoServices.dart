@@ -73,7 +73,7 @@ Future<Photo> createPhoto(int id,int task_id,int shopCode,int? bs_id,int? pm_id,
   }
 }
 
-Future countPhoto(String url,BuildContext context) async {
+Future countPhoto(String url) async {
   photoCount = 0;
   final List<Photo> photos = await fetchPhoto3(url);
   photoCount = photoCount + photos.length;

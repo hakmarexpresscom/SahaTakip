@@ -157,7 +157,7 @@ Future<IncompleteTask> updateReportIDIncompleteTask(int id,String title,String? 
   }
 }
 
-Future countIncompleteTask(String url,BuildContext context) async {
+Future countIncompleteTask(String url) async {
   incompleteTaskCount = 0;
   final List<IncompleteTask> incompleteTasks = await fetchIncompleteTask3(url);
   incompleteTaskCount = incompleteTaskCount + incompleteTasks.length;

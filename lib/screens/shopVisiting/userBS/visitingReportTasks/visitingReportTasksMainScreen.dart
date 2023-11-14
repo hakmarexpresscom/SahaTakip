@@ -80,12 +80,14 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
           backgroundColor: Colors.indigo,
           title: const Text('Ziyaret Raporu GÖrevleri'),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.03, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: visitingReportTaskMainScreenUI(),
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: deviceHeight*0.02,),
+            visitingReportTaskMainScreenUI()
+          ],
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
