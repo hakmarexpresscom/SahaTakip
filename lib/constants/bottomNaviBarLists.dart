@@ -38,11 +38,11 @@ late List<BottomNavigationBarItem> itemListPM = [
     label: 'Çevre Mağazalar',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.task_alt),
-    label: 'Uzaktan Görevler',
+    icon: Icon(Icons.fact_check_outlined),
+    label: 'Görev Takip',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.assignment_outlined),
+    icon: Icon(Icons.add_task),
     label: 'Görev Atama',
   ),
   BottomNavigationBarItem(
@@ -61,7 +61,11 @@ late List<BottomNavigationBarItem> itemListBMandGK = [
     label: 'Çevre Mağazalar',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.assignment_outlined),
+    icon: Icon(Icons.fact_check_outlined),
+    label: 'Görev Takip',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.add_task),
     label: 'Görev Atama',
   ),
   BottomNavigationBarItem(

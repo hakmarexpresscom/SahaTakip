@@ -49,7 +49,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
-        _selectedIndex = 3;
+        _selectedIndex = 4;
       }
       if(user=="NK"){
         naviBarList = itemListNK;

@@ -130,7 +130,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
-        _selectedIndex = 2;
+        _selectedIndex = 3;
       }
       if(user=="NK"){
         naviBarList = itemListNK;

@@ -41,13 +41,13 @@ addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, St
     if(shopCheckboxMap[shopCodes[i]]==true){
       await countIncompleteTask(countTaskUrl);
       await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photo_id, taskType, report_id, createTaskUrl);
-    }
-    if(image!=null){
-      final bytes = File(path!).readAsBytesSync();
-      String photo_file =  base64Encode(bytes);
-      await countPhoto(countPhotoUrl);
-      await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, photo_file, createPhotoUrl);
-      await updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, updateTaskUrl);
+      if(image!=null){
+        final bytes = File(path!).readAsBytesSync();
+        String photo_file =  base64Encode(bytes);
+        await countPhoto(countPhotoUrl);
+        await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, photo_file, createPhotoUrl);
+        await updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, updateTaskUrl);
+      }
     }
   }
 }
