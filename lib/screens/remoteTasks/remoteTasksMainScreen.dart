@@ -134,5 +134,3 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
     );
   }
 }
-
-

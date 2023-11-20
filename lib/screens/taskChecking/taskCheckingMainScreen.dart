@@ -112,15 +112,17 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: deviceHeight*0.01,),
-                        TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
-                      ],
-                    );
+                    if(snapshot.data![index].report_id==null){
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: deviceHeight*0.01,),
+                          TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
+                        ],
+                      );
+                    }
                   },
                 );
               }
@@ -154,15 +156,17 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: deviceHeight*0.01,),
-                        TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
-                      ],
-                    );
+                    if(snapshot.data![index].report_id==null){
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: deviceHeight*0.01,),
+                          TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
+                        ],
+                      );
+                    }
                   },
                 );
               }

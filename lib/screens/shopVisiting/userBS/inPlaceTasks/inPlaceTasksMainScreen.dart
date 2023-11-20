@@ -135,5 +135,3 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
     );
   }
 }
-
-
