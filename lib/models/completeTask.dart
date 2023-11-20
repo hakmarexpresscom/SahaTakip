@@ -1,8 +1,8 @@
 class CompleteTask{
   late int task_id;
   late int bs_id;
-  late DateTime taskCompleteDate;
-  late int photo_id;
+  late String taskCompleteDate;
+  late int? photo_id;
   late int completionInfo;
 
   CompleteTask({

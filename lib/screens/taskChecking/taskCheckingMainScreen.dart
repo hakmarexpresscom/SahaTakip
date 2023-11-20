@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
+import '../../models/completeTask.dart';
+import '../../models/incompleteTask.dart';
 import '../../routing/bottomNavigationBar.dart';
+import '../../routing/landing.dart';
+import '../../services/inCompleteTaskServices.dart';
+import '../../widgets/cards/taskCheckingCard.dart';
 
 class TaskCheckingMainScreen extends StatefulWidget {
   const TaskCheckingMainScreen({super.key});
@@ -14,6 +19,9 @@ class TaskCheckingMainScreen extends StatefulWidget {
 }
 
 class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with TickerProviderStateMixin  {
+
+  late Future<List<IncompleteTask>> futureIncompleteTask;
+  late Future<List<IncompleteTask>> futureIncompleteTask2;
 
   int _selectedIndex = 3;
 
@@ -28,6 +36,8 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
   @override
   void initState() {
     super.initState();
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0');
+    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -66,21 +76,113 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
 
     userCondition(userType);
 
-    return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          backgroundColor: Colors.indigo,
-          title: const Text('Görev Takip'),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: deviceHeight*0.02,),
-          ],
-        ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
+    return DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child:Scaffold(
+            resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              backgroundColor: Colors.indigo,
+              title: const Text('Görev Kontrol'),
+              bottom: TabBar(
+                tabs: [
+                  Tab(text: "Tamamlanmış Görevler"),
+                  Tab(text: "Tamamlanmamış Görevler")
+                ],
+              ),
+            ),
+            body: TabBarView(
+              children: <Widget>[
+                completeTasksScreenUI(),
+                incompleteTasksScreenUI(),
+              ],
+            ),
+            bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
+        ));
+  }
+
+  Widget incompleteTasksScreenUI(){
+    return Expanded(
+        child: FutureBuilder<List<IncompleteTask>>(
+            future: futureIncompleteTask,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: deviceHeight*0.01,),
+                        TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
+                      ],
+                    );
+                  },
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
     );
   }
+
+  Widget completeTasksScreenUI(){
+    return Expanded(
+        child: FutureBuilder<List<IncompleteTask>>(
+            future: futureIncompleteTask2,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: deviceHeight*0.01,),
+                        TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
+                      ],
+                    );
+                  },
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
+  }
+
 }

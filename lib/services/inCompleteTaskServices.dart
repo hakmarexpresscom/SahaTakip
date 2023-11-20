@@ -40,10 +40,10 @@ Future<List<IncompleteTask>> fetchIncompleteTask3(String url) async {
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
-    List<IncompleteTask> users = jsonResponse.map((data) {
+    List<IncompleteTask> incompleteTasks = jsonResponse.map((data) {
       return IncompleteTask.fromJson(data);
     }).toList();
-    return users;
+    return incompleteTasks;
   } else {
     throw Exception('Failed to load External Task List2');
   }

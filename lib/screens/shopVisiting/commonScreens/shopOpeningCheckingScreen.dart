@@ -92,7 +92,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: deviceHeight*0.005,),
+                  SizedBox(height: deviceHeight*0.01,),
                   CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopOpeningCheckingList[index]),
                 ],
               );
@@ -118,6 +118,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(height: deviceHeight*0.01,),
                   CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopOpeningCheckingList[index]),
                 ],
               );

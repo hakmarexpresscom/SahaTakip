@@ -4,6 +4,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/constants.dart';
+import '../../services/completeTaskServices.dart';
 import '../../services/externalWorkServices.dart';
 import '../../services/inCompleteTaskServices.dart';
 import 'dart:io';
@@ -48,11 +49,11 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.02),),
             (widget.taskType=="Harici")?TextWidget(text: "Bitiş Saati: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black): TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
-            SizedBox(height: context.dynamicWidht(0.2),),
+            SizedBox(height: context.dynamicHeight(0.1),),
             TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.05),),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
-            SizedBox(height: context.dynamicWidht(0.2),),
+            SizedBox(height: context.dynamicHeight(0.1),),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -91,6 +92,14 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                             (widget.isCompleted)?1:0,
                             'http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.id}'
                         );
+                        // createCompleteTask();
+                        // cevap olarak eklenen fotoğrafı sql'e kaydetmeyi
+                        // yapmamışım onu eklemem lazım ama nasıl olcağını bilmiyorum
+                        // XFile image olarak dosyası buraya iletiliyo screen scrptinden
+                        // ama tam olarak nerede createPhoto() fonksiyonunu çalıştırmam
+                        // lazım onu bulamadım
+                        // createPhoto() fonksiyonunu bu else if'in içinde çağırabiliriz
+                        // diye düşünüyorum
                       }
                     }
                     )
