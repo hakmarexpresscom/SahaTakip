@@ -18,9 +18,8 @@ class IncompleteTaskCheckingDetailCard extends StatefulWidget {
   late String assignmentDate;
   late int shop_code;
   late int? photo_id;
-  late XFile? image;
 
-  IncompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate, required this.shop_code, required this.photo_id,required this.image}): super(key: key);
+  IncompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate, required this.shop_code, required this.photo_id}): super(key: key);
 
   @override
   State<IncompleteTaskCheckingDetailCard> createState() => _IncompleteTaskCheckingDetailCardState();
