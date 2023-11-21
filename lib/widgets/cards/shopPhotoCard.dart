@@ -1,6 +1,7 @@
 import 'package:deneme/styles/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../constants/constants.dart';
 import '../button_widget.dart';
 import '../text_widget.dart';
 
@@ -18,9 +19,8 @@ class ShopPhotoCard extends StatefulWidget {
   late double textSizeName;
   late double textSizeButton;
   final VoidCallback onTaps;
-  late bool value;
 
-  ShopPhotoCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3, required this.sizedBoxConst4,required this.shopName, required this.shopCode, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName,required this.onTaps, required this.value}): super(key: key);
+  ShopPhotoCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3, required this.sizedBoxConst4,required this.shopName, required this.shopCode, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName,required this.onTaps,}): super(key: key);
 
   @override
   State<ShopPhotoCard> createState() => _ShopPhotoCardState();
@@ -57,7 +57,7 @@ class _ShopPhotoCardState extends State<ShopPhotoCard> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Checkbox(value: widget.value, onChanged: (newvalue){setState(() {widget.value=newvalue!;});}),
+                Checkbox(value: shopTaskPhotoMap[widget.shopCode]?[1], onChanged: (newvalue){setState(() {shopTaskPhotoMap[widget.shopCode]?[1]=newvalue!;});}),
                 TextWidget(text: "${widget.shopCode}", heightConst: 0, widhtConst: 0, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: Colors.black),
               ],
             ),

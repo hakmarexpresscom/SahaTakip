@@ -24,7 +24,6 @@ import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.d
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/submitTask/submitTaskShopPhotoSelectionScreen.dart';
-import '../screens/submitTask/submitTaskShopSelectionScreen.dart';
 import '../screens/taskChecking/taskCheckingDetailScreen.dart';
 import '../screens/downloadedScreen/taskDownloadedPhoto.dart';
 

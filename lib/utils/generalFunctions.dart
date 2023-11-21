@@ -24,17 +24,30 @@ Future saveShopCodes(String url) async{
   }
 }
 
-void createShopCheckboxMap(){
+void createShopTaskPhotoMap(){
   for(int i=0;i<shopCodes.length;i++){
-    shopCheckboxMap[shopCodes[i]]=false;
+    shopTaskPhotoMap[shopCodes[i]]=["",false];
   }
 }
 
-void resetShopCheckboxMap(){
+void createShopAnswerPhotoMap(){
   for(int i=0;i<shopCodes.length;i++){
-    shopCheckboxMap[shopCodes[i]]=false;
+    shopAnswerPhotoMap[shopCodes[i]]=["",false];
   }
 }
+
+void resetShopTaskPhotoMap() {
+  for (int i = 0; i < shopCodes.length; i++) {
+    shopTaskPhotoMap[shopCodes[i]] = ["", false];
+  }
+}
+
+void resetShopAnswerPhotoMap(){
+  for(int i=0;i<shopCodes.length;i++){
+    shopAnswerPhotoMap[shopCodes[i]]=["",false];
+  }
+}
+
 
 addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, String createTaskUrl,XFile? image, String? path, String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl, String updateTaskUrl) async{
   for(int i=0;i<shopCodes.length;i++){

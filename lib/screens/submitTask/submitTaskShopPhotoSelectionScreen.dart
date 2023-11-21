@@ -103,12 +103,12 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
               shrinkWrap: true,
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index){
-                return Row(
+                return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ShopPhotoCard(heightConst: 0.27, widthConst: 0.80, sizedBoxConst1: 0.00, sizedBoxConst2: 0.01, sizedBoxConst3: 0.03, sizedBoxConst4: 0.01, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode, icon: Icons.store, textSizeCode: 20, textSizeButton: 15, textSizeName: 18, onTaps: (){}, value: false)
+                    ShopPhotoCard(heightConst: 0.27, widthConst: 0.80, sizedBoxConst1: 0.00, sizedBoxConst2: 0.01, sizedBoxConst3: 0.03, sizedBoxConst4: 0.01, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode, icon: Icons.store, textSizeCode: 20, textSizeButton: 15, textSizeName: 18, onTaps: (){})
                   ],
                 );
               },

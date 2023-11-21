@@ -1,6 +1,5 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/submitTask/submitTaskShopSelectionScreen.dart';
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
@@ -12,7 +11,6 @@ import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/text_form_field.dart';
-import '../shopVisiting/commonScreens/shopsScreen.dart';
 import 'dart:io';
 import 'dart:convert';
 
@@ -240,7 +238,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   }
 
   Widget addPhotoButton(){
-    return ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Eklenen Fotoğrafları Gör", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
   Widget inputForm(){
@@ -315,7 +313,8 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                resetShopCheckboxMap();
+                resetShopTaskPhotoMap();
+                resetShopAnswerPhotoMap();
                 naviSubmitTaskMainScreen(context);
               },
               child: Text('Tamam'),
