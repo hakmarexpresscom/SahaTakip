@@ -28,6 +28,11 @@ String urlTaskShops ="";
 List<int> shopCodes = [];
 Map<int, bool> shopCheckboxMap = {};
 
+// ilk loginde default değerlerde create edilmedi. daha sonra içerideki işlemlere göre güncellenmeli
+// value olarak atanan listenin içindeki ilk değer photo_file'ı temsil ediyor
+Map<String, List> shopTaskPhotoMap = {"5000":["",false]};
+Map<String, List> shopAnswerPhotoMap = {"5000":["",false]};
+
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
 

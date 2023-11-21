@@ -1,22 +1,21 @@
-import 'package:deneme/routing/landing.dart';
+import 'package:deneme/widgets/cards/shopPhotoCard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
+import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
 import '../../models/shop.dart';
-import '../../routing/bottomNavigationBar.dart';
 import '../../services/shopServices.dart';
 import '../../widgets/button_widget.dart';
-import '../../widgets/text_widget.dart';
-import 'package:deneme/constants/constants.dart';
 
-class SubmitTaskBSSelectionScreen extends StatefulWidget {
-  const SubmitTaskBSSelectionScreen({super.key});
+class SubmitTaskShopPhotoSelectionScreen extends StatefulWidget {
+  const SubmitTaskShopPhotoSelectionScreen({super.key});
 
   @override
-  State<SubmitTaskBSSelectionScreen> createState() => _SubmitTaskBSSelectionScreenState();
+  State<SubmitTaskShopPhotoSelectionScreen> createState() => _SubmitTaskShopPhotoSelectionScreenState();
 }
 
-class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScreen> with TickerProviderStateMixin {
+class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhotoSelectionScreen> with TickerProviderStateMixin {
 
   late Future<List<Shop>> futureShopList;
 
@@ -27,8 +26,6 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
 
   late double deviceHeight;
   late double deviceWidth;
-
-  late bool allShops=false;
 
   late AnimationController controller;
 
@@ -76,38 +73,27 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
     userCondition(userType);
 
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          backgroundColor: Colors.indigo,
-          title: const Text('Görev Atama Mağaza Seçimi'),
-        ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: deviceHeight*0.04,),
-              TextWidget(text: "Mağaza Seçimi", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
-              SizedBox(height: deviceHeight*0.03,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Checkbox(value: allShops, onChanged: (newvalue){setState(() {allShops=newvalue!;});}),
-                  TextWidget(text: "Tümünü Seç", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
-                ],
-              ),
-              submitTaskBSSelectionUI(),
-              SizedBox(height: deviceHeight*0.03,),
-              BSSelectionButton(),
-            ]
-        ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        backgroundColor: Colors.indigo,
+        title: const Text('Görev Atama Mağaza Seçimi'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: deviceHeight*0.02,),
+          submitTaskShopPhotoSelectionScreen(),
+          SizedBox(height: deviceHeight*0.02,),
+          shopPhotoSelectionButton(),
+          SizedBox(height: deviceHeight*0.02,),
+        ],
+      )
     );
   }
 
-  Widget submitTaskBSSelectionUI(){
+  Widget submitTaskShopPhotoSelectionScreen(){
     return Expanded(child: FutureBuilder<List<Shop>>(
         future: futureShopList,
         builder: (context, snapshot){
@@ -122,8 +108,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Checkbox(value: shopCheckboxMap[snapshot.data![index].shopCode], onChanged: (newvalue){setState(() {shopCheckboxMap[snapshot.data![index].shopCode]=newvalue!;});}),
-                    TextWidget(text: snapshot.data![index].shopName, heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
+                    ShopPhotoCard(heightConst: 0.27, widthConst: 0.80, sizedBoxConst1: 0.00, sizedBoxConst2: 0.01, sizedBoxConst3: 0.03, sizedBoxConst4: 0.01, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode, icon: Icons.store, textSizeCode: 20, textSizeButton: 15, textSizeName: 18, onTaps: (){}, value: false)
                   ],
                 );
               },
@@ -147,7 +132,7 @@ class _SubmitTaskBSSelectionScreenState extends State<SubmitTaskBSSelectionScree
     );
   }
 
-  Widget BSSelectionButton(){
+  Widget shopPhotoSelectionButton(){
     return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.pop(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 

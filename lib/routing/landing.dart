@@ -23,9 +23,10 @@ import '../screens/shopVisiting/userPM/visitingReport/pastReports/pastReportDeta
 import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
+import '../screens/submitTask/submitTaskShopPhotoSelectionScreen.dart';
 import '../screens/submitTask/submitTaskShopSelectionScreen.dart';
 import '../screens/taskChecking/taskCheckingDetailScreen.dart';
-import '../widgets/taskDownloadedPhoto.dart';
+import '../screens/downloadedScreen/taskDownloadedPhoto.dart';
 
 void naviShopVisitingShopsScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
@@ -99,8 +100,8 @@ void naviSubmitTaskMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTaskMainScreen()));
 }
 
-void naviSubmitTaskBSSelectionScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTaskBSSelectionScreen()));
+void naviSubmitTaskShopPhotoSelectionScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTaskShopPhotoSelectionScreen()));
 }
 
 void naviNavigationMainScreen(BuildContext context){

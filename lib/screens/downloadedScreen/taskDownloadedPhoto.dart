@@ -1,21 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
-
-import '../../constants/bottomNaviBarLists.dart';
-import '../../constants/pagesLists.dart';
-import '../../models/incompleteTask.dart';
-import '../../routing/landing.dart';
-import '../../services/inCompleteTaskServices.dart';
-import '../../widgets/button_widget.dart';
-import '../models/photo.dart';
-import '../services/photoServices.dart';
+import '../../../constants/bottomNaviBarLists.dart';
+import '../../../constants/pagesLists.dart';
+import '../../models/photo.dart';
+import '../../services/photoServices.dart';
 
 class TaskDownloadedPhotoScreen extends StatefulWidget {
 
