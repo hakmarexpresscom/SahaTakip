@@ -1,10 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/widgets/cards/shopPhotoCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
 import '../../models/shop.dart';
+import '../../routing/bottomNavigationBar.dart';
 import '../../services/shopServices.dart';
 import '../../widgets/button_widget.dart';
 
@@ -28,6 +34,67 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   late double deviceWidth;
 
   late AnimationController controller;
+
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  String photo_file = "";
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media, int shopCode) async {
+    var img = await picker.pickImage(source: media);
+    final bytes = File(img!.path).readAsBytesSync();
+    photo_file = photo_file+base64Encode(bytes);
+    setState(() {
+      shopTaskPhotoMap[shopCode]?[0] = shopTaskPhotoMap[shopCode]?[0]+photo_file;
+    });
+    taskPhotos.add(img);
+  }
+
+  void addPhoto(int shopCode) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Atanacak görev için bir fotoğraf yükleyin.'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery, shopCode);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('Galeriyi Aç'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera, shopCode);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('Kamerayı Aç'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -89,7 +156,8 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
           shopPhotoSelectionButton(),
           SizedBox(height: deviceHeight*0.02,),
         ],
-      )
+      ),
+        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
@@ -108,7 +176,25 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ShopPhotoCard(heightConst: 0.27, widthConst: 0.80, sizedBoxConst1: 0.00, sizedBoxConst2: 0.01, sizedBoxConst3: 0.03, sizedBoxConst4: 0.01, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode, icon: Icons.store, textSizeCode: 20, textSizeButton: 15, textSizeName: 18, onTaps: (){})
+                    ShopPhotoCard(
+                      heightConst: 0.27,
+                      widthConst: 0.80,
+                      sizedBoxConst1: 0.00,
+                      sizedBoxConst2: 0.01,
+                      sizedBoxConst3: 0.03,
+                      sizedBoxConst4: 0.01,
+                      shopName: snapshot.data![index].shopName,
+                      shopCode: snapshot.data![index].shopCode,
+                      icon: Icons.store, textSizeCode: 20,
+                      textSizeButton: 15,
+                      textSizeName: 18,
+                      onAddPhotoTaps: (){
+                        addPhoto(snapshot.data![index].shopCode);
+                        },
+                      onShowPhotoTaps: (){
+                        naviTaskPhotoScreen(context, shopTaskPhotoMap[snapshot.data![index].shopCode]?[0]);
+                      },
+                    ),
                   ],
                 );
               },
@@ -137,3 +223,5 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   }
 
 }
+
+

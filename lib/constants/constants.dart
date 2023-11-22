@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:image_picker/image_picker.dart';
+
 import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
@@ -25,13 +27,12 @@ String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";
 String urlTaskShops ="";
 
-List<int> shopCodes = [];
+List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
 Map<int, bool> shopCheckboxMap = {};
 
-// ilk loginde default değerlerde create edilmedi. daha sonra içerideki işlemlere göre güncellenmeli
-// value olarak atanan listenin içindeki ilk değer photo_file'ı temsil ediyor
-Map<int, List> shopTaskPhotoMap = {};
-Map<int, List> shopAnswerPhotoMap = {};
+Map<dynamic, dynamic> shopTaskPhotoMap = (isLoggedIn)?box.get("shopTaskPhotoMap"):{};
+Map<dynamic, dynamic> shopAnswerPhotoMap = (isLoggedIn)?box.get("shopAnswerPhotoMap"):{};
+List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;

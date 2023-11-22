@@ -42,6 +42,11 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("urlWorkFilter","filterHariciIs1?bs_id");
     urlWorkFilter = box.get("urlWorkFilter");
 
+    box.put("shopCodes",[]);
+
+    box.put("shopTaskPhotoMap",{});
+    box.put("shopAnswerPhotoMap",{});
+
     checkEmailBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
     checkPasswordBS(password,'http://172.23.21.112:7042/api/KullaniciBS', sayac,context);
   }
@@ -62,6 +67,11 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("urlWorkFilter","filterHariciIs2?pm_id");
     urlWorkFilter = box.get("urlWorkFilter");
 
+    box.put("shopCodes", []);
+
+    box.put("shopTaskPhotoMap",{});
+    box.put("shopAnswerPhotoMap",{});
+
     checkEmailPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
     checkPasswordPM(password,'http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
   }
@@ -78,6 +88,11 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("urlShopFilter","/byBmId?bm_id");
     urlShopFilter = box.get("urlShopFilter");
+
+    box.put("shopCodes",[]);
+
+    box.put("shopTaskPhotoMap",{});
+    box.put("shopAnswerPhotoMap",{});
 
     checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
     checkPasswordBM(password,'http://172.23.21.112:7042/api/KullaniciBM', sayac,context);

@@ -5,6 +5,7 @@ import 'package:deneme/services/photoServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_launcher_icons/utils.dart';
 import 'package:image_picker/image_picker.dart';
+import '../main.dart';
 import '../models/photo.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
@@ -20,32 +21,44 @@ Future saveShopCodes(String url) async{
     else{
       urlTaskShops=urlTaskShops+"magaza_kodu=${shops[i].shopCode}&";
     }
-    shopCodes.add(shops[i].shopCode);
+    box.get("shopCodes").add(shops[i].shopCode);
+    shopCodes = box.get("shopCodes");
+    //shopCodes.add(shops[i].shopCode);
   }
 }
 
 void createShopTaskPhotoMap(){
-  for(int i=0;i<shopCodes.length;i++){
-    shopTaskPhotoMap[shopCodes[i]]=["",false];
+  for(int i=0;i<box.get("shopCodes").length;i++){
+    box.get("shopTaskPhotoMap")[box.get("shopCodes")[i]]=["",false];
+    //shopTaskPhotoMap[shopCodes[i]]=["",false];
   }
+  shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 }
 
 void createShopAnswerPhotoMap(){
-  for(int i=0;i<shopCodes.length;i++){
-    shopAnswerPhotoMap[shopCodes[i]]=["",false];
+  for(int i=0;i<box.get("shopCodes").length;i++){
+    box.get("shopAnswerPhotoMap")[box.get("shopCodes")[i]]=["",false];
+    //shopAnswerPhotoMap[shopCodes[i]]=["",false];
   }
+  shopAnswerPhotoMap = box.get("shopAnswerPhotoMap");
 }
 
 void resetShopTaskPhotoMap() {
   for (int i = 0; i < shopCodes.length; i++) {
-    shopTaskPhotoMap[shopCodes[i]] = ["", false];
+    box.get("shopTaskPhotoMap")[shopCodes[i]]=["",false];
+    //shopTaskPhotoMap[shopCodes[i]] = ["", false];
   }
 }
 
 void resetShopAnswerPhotoMap(){
   for(int i=0;i<shopCodes.length;i++){
-    shopAnswerPhotoMap[shopCodes[i]]=["",false];
+    box.get("shopAnswerPhotoMap")[shopCodes[i]]=["",false];
+    //shopAnswerPhotoMap[shopCodes[i]]=["",false];
   }
+}
+
+void resetTaskPhotos(){
+  taskPhotos=[];
 }
 
 

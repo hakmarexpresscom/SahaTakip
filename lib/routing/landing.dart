@@ -7,6 +7,9 @@ import '../screens/externalTask/enterExternalTaskScreen.dart';
 import '../screens/externalTask/externalTaskDetailScreen.dart';
 import '../screens/externalTask/externalTaskMainScreen.dart';
 import '../screens/externalTask/externalTasksListScreen.dart';
+import '../screens/photoScreen/taskDownloadedPhoto.dart';
+import '../screens/photoScreen/taskPhoto.dart';
+import '../screens/photoScreen/taskPhotoGalleryView.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
@@ -25,7 +28,7 @@ import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/submitTask/submitTaskShopPhotoSelectionScreen.dart';
 import '../screens/taskChecking/taskCheckingDetailScreen.dart';
-import '../screens/downloadedScreen/taskDownloadedPhoto.dart';
+
 
 void naviShopVisitingShopsScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
@@ -125,6 +128,14 @@ void naviShopVisitingProcessesScreen(BuildContext context, id, name){
 
 void naviTaskDownloadedPhotoScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDownloadedPhotoScreen(photo_id: id)));
+}
+
+void naviTaskPhotoScreen(BuildContext context, photo_file){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPhotoScreen(photo_file: photo_file)));
+}
+
+void naviTaskPhotoGalleryView(BuildContext context, imageList){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPhotoGalleryView(imageList: imageList)));
 }
 
 void naviTaskCheckingDetailScreen(BuildContext context, id, completionInfo){

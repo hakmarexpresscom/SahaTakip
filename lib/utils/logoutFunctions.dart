@@ -13,6 +13,9 @@ logout(BuildContext context) async {
   box.put("isBS",false);
   box.put("urlShopFilter","");
   box.put("urlWorkFilter","");
+  box.put("shopCodes",[]);
+  box.put("shopTaskPhotoMap",{});
+  box.put("shopAnswerPhotoMap",{});
   userID=0;
   yoneticiID=0;
   workDurationHour = 0;
@@ -26,6 +29,9 @@ logout(BuildContext context) async {
   password="";
   urlTaskShops ="";
   shopCodes = [];
+  shopTaskPhotoMap = {};
+  shopAnswerPhotoMap = {};
+  taskPhotos = [];
   urlShopFilter = "";
   urlWorkFilter = "";
   final prefs = await SharedPreferences.getInstance();

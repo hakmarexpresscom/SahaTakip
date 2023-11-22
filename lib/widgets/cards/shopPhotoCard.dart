@@ -18,9 +18,10 @@ class ShopPhotoCard extends StatefulWidget {
   late double textSizeCode;
   late double textSizeName;
   late double textSizeButton;
-  final VoidCallback onTaps;
+  final VoidCallback onAddPhotoTaps;
+  final VoidCallback onShowPhotoTaps;
 
-  ShopPhotoCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3, required this.sizedBoxConst4,required this.shopName, required this.shopCode, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName,required this.onTaps,}): super(key: key);
+  ShopPhotoCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3, required this.sizedBoxConst4,required this.shopName, required this.shopCode, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName,required this.onAddPhotoTaps,required this.onShowPhotoTaps}): super(key: key);
 
   @override
   State<ShopPhotoCard> createState() => _ShopPhotoCardState();
@@ -64,9 +65,9 @@ class _ShopPhotoCardState extends State<ShopPhotoCard> {
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
             TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: widget.textSizeName, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps;}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onAddPhotoTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst4),),
-            ButtonWidget(text: "Fotoğrafı Gör", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps;}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Fotoğrafı Gör", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onShowPhotoTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],
         ),
       ),

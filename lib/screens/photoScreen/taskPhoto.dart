@@ -9,21 +9,21 @@ import '../../../constants/pagesLists.dart';
 import '../../models/photo.dart';
 import '../../services/photoServices.dart';
 
-class TaskDownloadedPhotoScreen extends StatefulWidget {
+class TaskPhotoScreen extends StatefulWidget {
 
-  int? photo_id = 0;
-  TaskDownloadedPhotoScreen({super.key, required this.photo_id});
+  String photo_file = "";
+  TaskPhotoScreen({super.key, required this.photo_file});
 
   @override
-  State<TaskDownloadedPhotoScreen> createState() =>
-      _TaskDownloadedPhotoScreenState();
+  State<TaskPhotoScreen> createState() =>
+      _TaskPhotoScreenState();
 }
 
-class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> with TickerProviderStateMixin {
+class _TaskPhotoScreenState extends State<TaskPhotoScreen> with TickerProviderStateMixin {
 
   late Future<Photo> futurePhoto;
 
-  int _selectedIndex = 3;
+  int _selectedIndex = 4;
 
   List<BottomNavigationBarItem> naviBarList = [];
   List<Widget> pageList = [];
@@ -35,12 +35,14 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
 
   late AnimationController controller;
 
-  late String base64photo = "";
+  late String base64photo = widget.photo_file;
+  late ImageProvider imageProvider;
 
   @override
   void initState() {
     super.initState();
-    futurePhoto = fetchPhoto2('http://172.23.21.112:7042/api/Fotograf/${widget.photo_id}');
+    Uint8List photoBytes = base64Decode(base64photo);
+    imageProvider = MemoryImage(photoBytes);
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -65,10 +67,12 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
       if(user=="PM"){
         naviBarList = itemListPM;
         pageList = pagesPM;
+        _selectedIndex = 4;
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
+        _selectedIndex = 3;
       }
       if(user=="NK"){
         naviBarList = itemListNK;
@@ -82,47 +86,27 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
-          title: const Text('Görev Fotoğrafı'),
+          title: const Text('Mağaza İçin Yüklenen Fotoğraf'),
         ),
         body: Container(
-            alignment: Alignment.center,
-            child: taskDownloadedPhotoScreenUI(),
-          ),
+          alignment: Alignment.center,
+          child: taskPhotoScreenUI(this.imageProvider),
+        ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
-  Widget taskDownloadedPhotoScreenUI(){
-    return Expanded(
-        child: FutureBuilder<Photo>(
-            future: futurePhoto,
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                base64photo = snapshot.data!.photo_file;
-                Uint8List photoBytes = base64Decode(base64photo);
-                ImageProvider imageProvider = MemoryImage(photoBytes);
-                return PhotoView(
-                      imageProvider: imageProvider,
-                      minScale: PhotoViewComputedScale.contained,
-                      maxScale: PhotoViewComputedScale.covered * 2,);
-              }
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Column(
-                    children:[
-                      SizedBox(height: deviceHeight*0.06,),
-                      CircularProgressIndicator(
-                        value: controller.value,
-                        semanticsLabel: 'Circular progress indicator',
-                      ),
-                    ]
-                );
-              }
-              else{
-                return Text("Bu görev için yüklenen fotoğraf yok.");
-              }
-            }
-        )
-    );
+  Widget taskPhotoScreenUI(ImageProvider imageProvider){
+    if(widget.photo_file==""){
+      return Text("Bu görev için yüklenen fotoğraf yok.");
+    }
+    else{
+      return PhotoView(
+        imageProvider: imageProvider,
+        minScale: PhotoViewComputedScale.contained,
+        maxScale: PhotoViewComputedScale.covered * 2,
+      );
+    }
   }
 }
 

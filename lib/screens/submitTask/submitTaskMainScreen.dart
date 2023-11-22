@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/text_form_field.dart';
@@ -51,58 +52,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   XFile? image;
 
   final ImagePicker picker = ImagePicker();
-
-  //we can upload image from camera or from gallery based on parameter
-  Future getImage(ImageSource media) async {
-    var img = await picker.pickImage(source: media);
-    setState(() {
-      image = img;
-    });
-  }
-
-  void myAlert() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text('Atanacak görev için bir fotoğraf yükleyin.'),
-            content: Container(
-              height: MediaQuery.of(context).size.height / 6,
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    //if user click this button, user can upload image from gallery
-                    onPressed: () {
-                      Navigator.pop(context);
-                      getImage(ImageSource.gallery);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.image),
-                        Text('Galeriyi Aç'),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    //if user click this button. user can upload image from camera
-                    onPressed: () {
-                      Navigator.pop(context);
-                      getImage(ImageSource.camera);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.camera),
-                        Text('Kamerayı Aç'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
 
   /*String imageToBase64(String path) {
     final bytes = File(path).readAsBytesSync();
@@ -168,21 +117,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             SizedBox(height: deviceHeight*0.03,),
             inPlaceOrRemoteTaskCheckbox(),
             SizedBox(height: deviceHeight*0.03,),
-            image != null ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.file(
-                  //to show image, you type like this.
-                  File(image!.path),
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width,
-                  height: 300,
-                ),
-              ),
-            ) : Text("Fotoğraf Bilgisi Yok", style: TextStyle(fontSize: 17),),
-            SizedBox(height: deviceHeight*0.03,),
-            addPhotoButton(),
+            showAddedPhotoButton(),
             SizedBox(height: deviceHeight*0.03,),
             BSSelectionButton(),
             SizedBox(height: deviceHeight*0.03,),
@@ -234,11 +169,11 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   }
 
   Widget BSSelectionButton(){
-    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){print(box.get("shopCodes"));print(box.get("shopTaskPhotoMap"));print(shopCodes);print(shopTaskPhotoMap);naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
-  Widget addPhotoButton(){
-    return ButtonWidget(text: "Eklenen Fotoğrafları Gör", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  Widget showAddedPhotoButton(){
+    return ButtonWidget(text: "Eklenen Fotoğrafları Gör", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviTaskPhotoGalleryView(context, taskPhotos);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
   Widget inputForm(){
@@ -315,6 +250,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
               onPressed: () {
                 resetShopTaskPhotoMap();
                 resetShopAnswerPhotoMap();
+                resetTaskPhotos();
                 naviSubmitTaskMainScreen(context);
               },
               child: Text('Tamam'),
