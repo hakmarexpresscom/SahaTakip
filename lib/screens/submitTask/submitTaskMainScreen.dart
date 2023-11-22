@@ -49,15 +49,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   late bool inPlace=false;
   late bool remote=false;
 
-  XFile? image;
-
-  final ImagePicker picker = ImagePicker();
-
-  /*String imageToBase64(String path) {
-    final bytes = File(path).readAsBytesSync();
-    return base64Encode(bytes);
-  }*/
-
   @override
   Widget build(BuildContext context) {
 
@@ -119,7 +110,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             SizedBox(height: deviceHeight*0.03,),
             showAddedPhotoButton(),
             SizedBox(height: deviceHeight*0.03,),
-            BSSelectionButton(),
+            shopSelectionButton(),
             SizedBox(height: deviceHeight*0.03,),
             submitTaskButton(),
           ],
@@ -148,8 +139,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
               (inPlace==true)?"Yerinde":"Uzaktan",
               null,
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
-            image,
-            image?.path,
               "http://172.23.21.112:7042/api/Fotograf",
               (isBS)?userID:null,
               (isBS==false && isBSorPM==true)?userID:null,
@@ -168,8 +157,8 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         textColor: Colors.black);
   }
 
-  Widget BSSelectionButton(){
-    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){print(box.get("shopCodes"));print(box.get("shopTaskPhotoMap"));print(shopCodes);print(shopTaskPhotoMap);naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+  Widget shopSelectionButton(){
+    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
   }
 
   Widget showAddedPhotoButton(){
