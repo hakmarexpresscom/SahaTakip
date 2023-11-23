@@ -46,7 +46,7 @@ Future<List<Photo>> fetchPhoto3(String url) async {
   }
 }
 
-Future<Photo> createPhoto(int id,int task_id,int shopCode,int? bs_id,int? pm_id,int? bm_id, String photoType, String photoFile, url) async {
+Future<Photo> createPhoto(int id,int? task_id, int shopCode,int? bs_id,int? pm_id,int? bm_id, String photoType, String photoFile,int? completeTask_id, url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -61,6 +61,7 @@ Future<Photo> createPhoto(int id,int task_id,int shopCode,int? bs_id,int? pm_id,
       "bm_id": bm_id,
       "foto_turu": photoType,
       "foto_file": photoFile,
+      "tamamlanmis_gorev_id" : completeTask_id
     }
     ),
   );

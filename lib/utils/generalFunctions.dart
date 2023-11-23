@@ -61,7 +61,7 @@ Future<void> addIncompleteTaskToDatabase(String countTaskUrl, String title, Stri
       await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photo_id, taskType, report_id, createTaskUrl);
       if(shopTaskPhotoMap[shopCodes[i]][0]!=null){
         await countPhoto(countPhotoUrl);
-        await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, shopTaskPhotoMap[shopCodes[i]][0], createPhotoUrl);
+        await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, shopTaskPhotoMap[shopCodes[i]][0],null, createPhotoUrl);
         await updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, updateTaskUrl);
       }
     }

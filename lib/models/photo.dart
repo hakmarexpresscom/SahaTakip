@@ -1,6 +1,7 @@
 class Photo{
   late int photo_id;
-  late int task_id;
+  late int? task_id;
+  late int? completeTask_id;
   late int shopCode;
   late int? bs_id;
   late int? pm_id;
@@ -11,6 +12,7 @@ class Photo{
   Photo({
     required this.photo_id,
     required this.task_id,
+    required this.completeTask_id,
     required this.shopCode,
     required this.bs_id,
     required this.pm_id,
@@ -28,7 +30,8 @@ class Photo{
       pm_id: json['pm_id'],
       bm_id: json['bm_id'],
       photoType: json['foto_turu'],
-      photo_file: json['foto_file']
+      photo_file: json['foto_file'],
+      completeTask_id: json['tamamlanmis_gorev_id']
     );
   }
 

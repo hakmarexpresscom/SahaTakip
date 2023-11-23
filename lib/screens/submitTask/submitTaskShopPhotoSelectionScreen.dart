@@ -41,7 +41,6 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
 
   String photo_file = "";
 
-  //we can upload image from camera or from gallery based on parameter
   Future getImage(ImageSource media, int shopCode) async {
     var img = await picker.pickImage(source: media);
     final bytes = File(img!.path).readAsBytesSync();
@@ -64,7 +63,6 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
               child: Column(
                 children: [
                   ElevatedButton(
-                    //if user click this button, user can upload image from gallery
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.gallery, shopCode);
@@ -77,7 +75,6 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                     ),
                   ),
                   ElevatedButton(
-                    //if user click this button. user can upload image from camera
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.camera, shopCode);
