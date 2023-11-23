@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/button_widget.dart';
@@ -7,10 +6,6 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
-
-// konum erişimi eklenicek
-// work duration fonksiyonu yazılacak
-
 
 class StartWorkMainScreen extends StatefulWidget {
 

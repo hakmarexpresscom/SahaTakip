@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/bsPassword.dart';
 import '../models/pmPassword.dart';
 
 Future<List<PMPassword>> parseJsonList(String jsonBody) async{

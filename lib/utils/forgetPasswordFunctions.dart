@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:archive/archive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
-import '../constants/constants.dart';
 import '../models/bmPassword.dart';
 import '../models/bsPassword.dart';
 import '../models/pmPassword.dart';

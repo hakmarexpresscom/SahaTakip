@@ -1,6 +1,5 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';

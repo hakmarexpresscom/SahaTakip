@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 class BSPassword{
   late int bs_id;
   late String hashed_pw;

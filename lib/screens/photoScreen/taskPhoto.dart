@@ -7,7 +7,6 @@ import 'package:photo_view/photo_view.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../models/photo.dart';
-import '../../services/photoServices.dart';
 
 class TaskPhotoScreen extends StatefulWidget {
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

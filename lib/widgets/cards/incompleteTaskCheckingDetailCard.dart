@@ -1,8 +1,6 @@
 import 'package:deneme/styles/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../button_widget.dart';
 import '../text_widget.dart';
 

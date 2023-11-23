@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../routing/landing.dart';
 import '../../widgets/button_widget.dart';
-import '../../widgets/text_widget.dart';
 
 class ExternalTaskMainScreen extends StatefulWidget {
   const ExternalTaskMainScreen({super.key});

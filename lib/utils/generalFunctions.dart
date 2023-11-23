@@ -1,16 +1,9 @@
-import 'dart:typed_data';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
 import 'package:deneme/services/photoServices.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_launcher_icons/utils.dart';
-import 'package:image_picker/image_picker.dart';
 import '../main.dart';
-import '../models/photo.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
-import 'dart:io';
-import 'dart:convert';
 
 Future saveShopCodes(String url) async{
   final List<Shop> shops = await fetchShop2(url);

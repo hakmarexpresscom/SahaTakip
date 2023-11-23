@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
-import '../../widgets/textFormFieldDatePicker.dart';
 import '../../widgets/text_form_field.dart';
-
 
 class EnterExternalTaskScreen extends StatefulWidget {
 

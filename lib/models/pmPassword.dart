@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 class PMPassword{
   late int pm_id;
   late String hashed_pw;

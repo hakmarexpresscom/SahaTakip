@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:deneme/styles/context_extension.dart';
-
-import '../constants/constants.dart';
 
 class BottomNaviBar extends StatelessWidget{
   final int selectedIndex;

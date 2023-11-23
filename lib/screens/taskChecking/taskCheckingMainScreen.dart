@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
-import '../../models/completeTask.dart';
 import '../../models/incompleteTask.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../routing/landing.dart';

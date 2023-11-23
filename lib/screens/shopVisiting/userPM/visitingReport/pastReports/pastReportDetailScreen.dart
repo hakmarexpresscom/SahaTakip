@@ -1,9 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/widgets/cards/pastReportCard.dart';
 import 'package:deneme/widgets/cards/pastReportsDetailCard.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../constants/bottomNaviBarLists.dart';
 import '../../../../../constants/pagesLists.dart';
 

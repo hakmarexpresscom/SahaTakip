@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'package:deneme/utils/forgetPasswordFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -241,7 +239,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
     return DropdownMenu<String>(
       initialSelection: item,
       onSelected: (String? value) {
-        // This is called when the user selects an item.
         setState(() {
           item = value!;
         });

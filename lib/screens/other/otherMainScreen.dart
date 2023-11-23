@@ -1,15 +1,10 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/externalTask/enterExternalTaskScreen.dart';
-import 'package:deneme/screens/externalTask/externalTasksListScreen.dart';
 import 'package:deneme/utils/logoutFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
-import '../../routing/landing.dart';
-
 
 class OtherMainScreen extends StatefulWidget {
   const OtherMainScreen({super.key});

@@ -1,8 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/bmPassword.dart';
-import '../models/bsPassword.dart';
-import '../models/pmPassword.dart';
 
 Future<List<BMPassword>> parseJsonList(String jsonBody) async{
   List<dynamic> responseList = jsonDecode(jsonBody);

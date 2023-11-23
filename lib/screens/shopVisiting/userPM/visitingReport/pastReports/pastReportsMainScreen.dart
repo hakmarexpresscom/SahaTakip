@@ -1,6 +1,3 @@
-import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/shopVisiting/userPM/visitingReport/pastReports/pastReportDetailScreen.dart';
 import 'package:deneme/widgets/cards/pastReportCard.dart';
 import 'package:flutter/material.dart';
 import '../../../../../routing/landing.dart';

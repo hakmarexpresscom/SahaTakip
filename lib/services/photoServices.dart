@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:deneme/models/userBS.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../constants/constants.dart';
 import '../models/photo.dart';

@@ -5,15 +5,12 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
-import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/text_form_field.dart';
-import 'dart:io';
-import 'dart:convert';
+
 
 class SubmitTaskMainScreen extends StatefulWidget {
 

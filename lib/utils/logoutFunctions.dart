@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../constants/constants.dart';
 import '../main.dart';
 import '../routing/landing.dart';

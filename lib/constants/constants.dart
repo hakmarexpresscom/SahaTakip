@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
-
 import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
