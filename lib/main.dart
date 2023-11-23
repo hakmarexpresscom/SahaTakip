@@ -26,14 +26,6 @@ void main() async{
   runApp(const MyApp());
 }
 
-// main fonksiyonunda initialize işlemlerini yapıyoruz,
-// box hive objesi oluşturma ve box açma işlemlerini yapıyoruz,
-// son olarak uygulama ilk başladığında çalışıcak o class'ı
-// çağırıyoruz.
-
-// myapp fonksiyonunda sharedpreferences kütüphanesi yardımı ile
-// log in olunmuş mu olunmamış mı kontrol ediliyo
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 

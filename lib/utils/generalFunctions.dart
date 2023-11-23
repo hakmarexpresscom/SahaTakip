@@ -61,8 +61,7 @@ void resetTaskPhotos(){
   taskPhotos=[];
 }
 
-
-addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl, String updateTaskUrl) async{
+Future<void> addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl, String updateTaskUrl) async{
   for(int i=0;i<shopCodes.length;i++){
     if(shopTaskPhotoMap[shopCodes[i]][1]==true){
       await countIncompleteTask(countTaskUrl);
