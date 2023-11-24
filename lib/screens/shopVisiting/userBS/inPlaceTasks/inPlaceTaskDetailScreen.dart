@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
@@ -7,7 +10,9 @@ import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
+import '../../../../services/completeTaskServices.dart';
 import '../../../../services/inCompleteTaskServices.dart';
+import '../../../../services/photoServices.dart';
 import '../../../../widgets/button_widget.dart';
 
 class InPlaceTaskDetailScreen extends StatefulWidget {
@@ -40,15 +45,21 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
 
   final ImagePicker picker = ImagePicker();
 
+  String photo_file = "";
+
   //we can upload image from camera or from gallery based on parameter
-  Future getImage(ImageSource media) async {
+  Future getImage(ImageSource media, int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) async {
     var img = await picker.pickImage(source: media);
+    final bytes = File(img!.path).readAsBytesSync();
+    photo_file = photo_file+base64Encode(bytes);
     setState(() {
       image = img;
     });
+    await countPhoto(url);
+    await createPhoto(photoCount+1, task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
   }
 
-  void myAlert() {
+  void addPhoto(int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -63,7 +74,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                     //if user click this button, user can upload image from gallery
                     onPressed: () {
                       Navigator.pop(context);
-                      getImage(ImageSource.gallery);
+                      getImage(ImageSource.gallery,task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);
                     },
                     child: Row(
                       children: [
@@ -76,7 +87,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                     //if user click this button. user can upload image from camera
                     onPressed: () {
                       Navigator.pop(context);
-                      getImage(ImageSource.camera);
+                      getImage(ImageSource.camera, task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);
                     },
                     child: Row(
                       children: [
@@ -170,18 +181,44 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                       widthConst: 0.9,
                       taskType: snapshot.data!.taskType,
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
-                      onTaps: (){naviInPlaceTaskMainScreen(context,snapshot.data!.shopCode);},
-                      onTapsShowPhoto: (){},
+                      onTaps: (){
+                        createCompleteTask(
+                            snapshot.data!.task_id,
+                            userID,
+                            now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                            (photo_file.isEmpty)?null:photoCount+1,
+                            'http://172.23.21.112:7042/api/TamamlanmisGorev'
+                        );
+                        updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", photo_file, snapshot.data!.task_id, 'http://172.23.21.112:7042/api/Fotograf/${photoCount+1}');
+                        naviRemoteTasksMainScreen(context);
+                      },
+                      onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
                       id: snapshot.data!.task_id,
                       user_id: userID,
-                      assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                      assignmentHour: now.hour.toString()+"."+now.minute.toString(),
+                      assignmentDate: snapshot.data!.taskAssigmentDate,
+                      assignmentHour: null,
                       shop_code: snapshot.data!.shopCode,
                       photo_id: snapshot.data!.photo_id,
                       report_id: snapshot.data!.report_id,
-                      addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){myAlert();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+                      addPhotoButton:
+                      ButtonWidget(
+                          text: "Fotoğraf Ekle",
+                          heightConst: 0.06,
+                          widthConst: 0.8,
+                          size: 18,
+                          radius: 20,
+                          fontWeight: FontWeight.w600,
+                          onTaps: (){
+                            addPhoto(null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", null, 'http://172.23.21.112:7042/api/Fotograf');
+                          },
+                          borderWidht: 3,
+                          backgroundColor: Colors.orangeAccent,
+                          borderColor: Colors.orangeAccent,
+                          textColor: Colors.black),
                       image: image,
-                    )
+                      completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                      answer_photo_id: (photoCount==0)?null:photoCount+1,
+                    ),
                     //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
                   ],
                 );

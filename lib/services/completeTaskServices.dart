@@ -20,7 +20,7 @@ Future<List<CompleteTask>> fetchCompleteTask(String url) async {
     print(parseJsonList(response.body));
     return parseJsonList(response.body);
   } else {
-    throw Exception('Failed to load Incomplete Task List');
+    throw Exception('Failed to load Complete Task List');
   }
 }
 
@@ -30,7 +30,7 @@ Future<CompleteTask> fetchCompleteTask2(String url) async {
   if (response.statusCode == 200) {
     return CompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to load Incomplete Task');
+    throw Exception('Failed to load Complete Task');
   }
 }
 
@@ -43,7 +43,7 @@ Future<List<CompleteTask>> fetchCompleteTask3(String url) async {
     }).toList();
     return completeTasks;
   } else {
-    throw Exception('Failed to load External Task List2');
+    throw Exception('Failed to load Complete Task List2');
   }
 }
 
@@ -56,7 +56,7 @@ Future<CompleteTask> createCompleteTask(int id, int bs_id, String completionDate
     {
       "gorev_id": id,
       "bs_id": bs_id,
-      "tamamlanma-tarihi": completionDate,
+      "tamamlanma_tarihi": completionDate,
       "foto_id": photo_id,
       "tamamlandi_bilgisi": 1
     }
@@ -65,6 +65,6 @@ Future<CompleteTask> createCompleteTask(int id, int bs_id, String completionDate
   if (response.statusCode == 201) {
     return CompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to create External Task.');
+    throw Exception('Failed to create Complete Task.');
   }
 }

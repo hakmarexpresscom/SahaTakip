@@ -4,6 +4,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/constants.dart';
+import '../../services/completeTaskServices.dart';
 import '../../services/externalWorkServices.dart';
 import '../../services/inCompleteTaskServices.dart';
 import 'dart:io';
@@ -21,15 +22,17 @@ class TaskDetailCard extends StatefulWidget {
   late VoidCallback onTapsShowPhoto;
   late int id;
   late String assignmentDate;
-  late String assignmentHour;
+  late String? assignmentHour;
   late int user_id;
   late int shop_code;
   late int? photo_id;
   late int? report_id;
   late Widget addPhotoButton;
   late XFile? image;
+  late String completionDate;
+  late int? answer_photo_id;
 
-  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.isCompleted, required this.onTaps, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate,required this.assignmentHour,required this.user_id, required this.shop_code, required this.photo_id,required this.report_id,required this.addPhotoButton, required this.image}): super(key: key);
+  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.isCompleted, required this.onTaps, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate,required this.assignmentHour,required this.user_id, required this.shop_code, required this.photo_id,required this.report_id,required this.addPhotoButton, required this.image, required this.completionDate, required this.answer_photo_id}): super(key: key);
 
   @override
   State<TaskDetailCard> createState() => _TaskDetailCardState();
@@ -70,8 +73,8 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                           widget.taskDescription,
                           widget.assignmentDate,
                           widget.taskDeadline,
-                            (isBS)?widget.user_id:null,
-                            (isBS)?null:widget.user_id,
+                            widget.user_id,
+                            null,
                           (widget.isCompleted)?1:0,
                           widget.assignmentHour,
                           'http://172.23.21.112:7042/api/HariciIs/${widget.id}'
@@ -91,14 +94,13 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                             (widget.isCompleted)?1:0,
                             'http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.id}'
                         );
-                        // createCompleteTask();
-                        // cevap olarak eklenen fotoğrafı sql'e kaydetmeyi
-                        // yapmamışım onu eklemem lazım ama nasıl olcağını bilmiyorum
-                        // XFile image olarak dosyası buraya iletiliyo screen scrptinden
-                        // ama tam olarak nerede createPhoto() fonksiyonunu çalıştırmam
-                        // lazım onu bulamadım
-                        // createPhoto() fonksiyonunu bu else if'in içinde çağırabiliriz
-                        // diye düşünüyorum
+                        /*createCompleteTask(
+                          widget.id,
+                          widget.user_id,
+                          widget.completionDate,
+                          widget.answer_photo_id,
+                          'http://172.23.21.112:7042/api/TamamlanmisGorev'
+                        );*/
                       }
                     }
                     )

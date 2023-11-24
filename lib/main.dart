@@ -53,8 +53,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
-
 // ---------------------------------------------------------------------- tıklanamaz sayfa görünümü
 
 /*void main() => runApp(MaterialApp(

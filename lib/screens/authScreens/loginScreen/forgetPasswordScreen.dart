@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:deneme/utils/forgetPasswordFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -6,6 +5,14 @@ import 'package:flutter/material.dart';
 import '../../../constants/constants.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/loginFunctions.dart';
+
+// hashlenmiş şifre çözülmüyormuş o yüzden var olan şifreni sql'den
+// çekip çözüp mail atamıyoruz
+
+// şifremi unuttum yerine yeni şifre oluştur özelliği getirilecek
+// fakat şu anda askıya alınmış durumda
+
+// yeni şife random sayılardan oluşacak ve mail olarak iletilecek
 
 class ForgetPasswordScreen extends StatefulWidget {
 
@@ -193,7 +200,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return DropdownMenu<String>(
       initialSelection: item,
       onSelected: (String? value) {
-        // This is called when the user selects an item.
         setState(() {
           item = value!;
         });

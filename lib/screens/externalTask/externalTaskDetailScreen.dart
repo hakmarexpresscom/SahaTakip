@@ -117,13 +117,15 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       onTapsShowPhoto: (){},
                       id: snapshot.data!.external_work_id,
                       user_id: userID,
-                      assignmentDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                      assignmentHour: now.hour.toString()+"."+now.minute.toString(),
+                      assignmentDate: snapshot.data!.workAssignmentDate,
+                      assignmentHour: snapshot.data!.workAssignmentHour,
                       shop_code: 0,
                       report_id: 0,
                       photo_id: 0,
                       addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
                       image: null,
+                      answer_photo_id: 0,
+                      completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
                     )
                   ],
                 );
