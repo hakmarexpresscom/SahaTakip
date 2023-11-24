@@ -94,13 +94,6 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                             (widget.isCompleted)?1:0,
                             'http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.id}'
                         );
-                        /*createCompleteTask(
-                          widget.id,
-                          widget.user_id,
-                          widget.completionDate,
-                          widget.answer_photo_id,
-                          'http://172.23.21.112:7042/api/TamamlanmisGorev'
-                        );*/
                       }
                     }
                     )
