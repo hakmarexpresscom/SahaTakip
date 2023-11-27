@@ -201,7 +201,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        PastReportCard(heightConst: 0.15, widthConst: 0.95, reportName: "Rapor ${snapshot.data![index].report_id}",onTaps: (){naviPastReportDetailScreen(context);}),
+                        PastReportCard(heightConst: 0.15, widthConst: 0.95, reportName: "Rapor ${snapshot.data![index].report_id}",onTaps: (){naviPastReportTasksScreen(context,snapshot.data![index].report_id);}),
                       ],
                     );
                   },

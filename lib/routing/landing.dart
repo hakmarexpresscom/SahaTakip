@@ -23,7 +23,7 @@ import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
 import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTaskDetailScreen.dart';
 import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMainScreen.dart';
-import '../screens/shopVisiting/userPM/visitingReport/pastReports/pastReportDetailScreen.dart';
+import '../screens/shopVisiting/userPM/visitingReport/pastReportTasksScreen.dart';
 import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
@@ -95,8 +95,8 @@ void naviVisitingReportTaskDetailScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen(task_id: id)));
 }
 
-void naviPastReportDetailScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportDetailScreen()));
+void naviPastReportTasksScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreen(report_id: id,)));
 }
 
 void naviSubmitTaskMainScreen(BuildContext context){
