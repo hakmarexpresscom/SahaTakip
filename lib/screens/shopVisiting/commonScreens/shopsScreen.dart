@@ -143,7 +143,24 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children:<Widget>[
-                              VisitingShopCard(icon: Icons.store, sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long,onTaps: (){naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);})
+                              VisitingShopCard(
+                                  icon: Icons.store,
+                                  sizedBoxConst1: sizedBoxConst1,
+                                  sizedBoxConst2: sizedBoxConst2,
+                                  sizedBoxConst3: sizedBoxConst3,
+                                  heightConst: heightConst,
+                                  widthConst: widthConst,
+                                  textSizeCode: textSizeCode,
+                                  textSizeName: textSizeName,
+                                  textSizeButton: textSizeButton,
+                                  shopName: snapshot.data![index].shopName,
+                                  shopCode: snapshot.data![index].shopCode.toString(),
+                                  lat: snapshot.data![index].Lat,
+                                  long: snapshot.data![index].Long,
+                                  onTaps: (){
+                                    setState(() {currentShopCode=snapshot.data![index].shopCode;});
+                                    naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
+                                  })
                             ]
                         );
                       },

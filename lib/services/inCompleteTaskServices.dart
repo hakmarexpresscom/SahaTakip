@@ -44,7 +44,7 @@ Future<List<IncompleteTask>> fetchIncompleteTask3(String url) async {
     }).toList();
     return incompleteTasks;
   } else {
-    throw Exception('Failed to load External Task List2');
+    throw Exception('Failed to load Incomplete Task List 2');
   }
 }
 
@@ -71,7 +71,7 @@ Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,S
   if (response.statusCode == 201) {
     return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to create External Task.');
+    throw Exception('Failed to create Incomplete Task List.');
   }
 }
 

@@ -1,27 +1,34 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/shopVisiting/userPM/visitingReport/pastReports/pastReportsMainScreen.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../models/report.dart';
+import '../../../../routing/landing.dart';
+import '../../../../services/reportServices.dart';
 import '../../../../widgets/button_widget.dart';
+import '../../../../widgets/cards/pastReportCard.dart';
 import '../../../../widgets/text_form_field.dart';
 
 class VisitingRaportMainScreen extends StatefulWidget {
+
+  int shop_code = 0;
 
   static var taskName = "";
   static var taskDeadline = "";
   static var taskDescription = "";
 
-  const VisitingRaportMainScreen({super.key});
+  VisitingRaportMainScreen({super.key,required this.shop_code});
 
   @override
   State<VisitingRaportMainScreen> createState() =>
       _VisitingRaportMainScreenState();
 }
 
-class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
+class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> with TickerProviderStateMixin {
+
+  late Future<List<Report>> futureReport;
 
   int _selectedIndex = 0;
 
@@ -36,6 +43,22 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
   final taskNameController = TextEditingController();
   final taskDeadlineController = TextEditingController();
   final taskDescriptionController = TextEditingController();
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    futureReport = fetchReport('http://172.23.21.112:7042/api/Rapor/byMagazaKodu?magaza_kodu=${widget.shop_code}');
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+    });
+    controller.repeat(reverse: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +105,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
             body: TabBarView(
               children: <Widget>[
                 SingleChildScrollView(child:(isReportCreated)?enterVisitingReportScreenUI():createReportButtonUI(),),
-                PastReportsMainScreen(),
+                pastReportsMainScreenUI(),
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -161,6 +184,47 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> {
     );
   }
 
+  Widget pastReportsMainScreenUI(){
+    return Expanded(
+        child: FutureBuilder<List<Report>>(
+            future: futureReport,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: deviceHeight*0.01,),
+                        PastReportCard(heightConst: 0.15, widthConst: 0.95, reportName: "Rapor ${snapshot.data![index].report_id}",onTaps: (){naviPastReportDetailScreen(context);}),
+                      ],
+                    );
+                  },
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
+  }
 
 }
 
