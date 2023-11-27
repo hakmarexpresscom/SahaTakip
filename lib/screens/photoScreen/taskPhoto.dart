@@ -97,7 +97,7 @@ class _TaskPhotoScreenState extends State<TaskPhotoScreen> with TickerProviderSt
 
   Widget taskPhotoScreenUI(ImageProvider imageProvider){
     if(widget.photo_file==""){
-      return Text("Bu görev için yüklenen fotoğraf yok.");
+      return Text("Bu mağaza için yüklenen fotoğraf yok.");
     }
     else{
       return PhotoView(

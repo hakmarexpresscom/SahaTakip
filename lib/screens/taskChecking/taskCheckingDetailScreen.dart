@@ -1,3 +1,4 @@
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/widgets/cards/incompleteTaskCheckingDetailCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                         taskDescription: snapshot.data!.taskDetail!,
                         taskDeadline: snapshot.data!.taskFinishDate,
                         taskType: snapshot.data!.taskType,
-                        onTapsShowPhoto: (){},
+                        onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
                         id: snapshot.data!.task_id,
                         assignmentDate: snapshot.data!.taskAssigmentDate,
                         shop_code: snapshot.data!.shopCode,
@@ -136,6 +137,48 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
   }
 
   Widget completeTaskCheckingDetailScreen(){
-    return Container();
+    return Expanded(
+        child: FutureBuilder<IncompleteTask>(
+            future: futureIncompleteTask,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IncompleteTaskCheckingDetailCard(
+                      heightConst: 0.7,
+                      widthConst: 0.9,
+                      taskName: snapshot.data!.taskTitle,
+                      taskDescription: snapshot.data!.taskDetail!,
+                      taskDeadline: snapshot.data!.taskFinishDate,
+                      taskType: snapshot.data!.taskType,
+                      onTapsShowPhoto: (){naviAnswerDownloadedPhotoScreen(context, snapshot.data!.task_id);},
+                      id: snapshot.data!.task_id,
+                      assignmentDate: snapshot.data!.taskAssigmentDate,
+                      shop_code: snapshot.data!.shopCode,
+                      photo_id: snapshot.data!.photo_id,
+                    )
+                  ],
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
   }
 }

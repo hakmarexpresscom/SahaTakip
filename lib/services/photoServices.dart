@@ -29,7 +29,7 @@ Future<Photo> fetchPhoto2(String url) async {
   if (response.statusCode == 200) {
     return Photo.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Failed to load Incomplete Task');
+    throw Exception('Failed to load Photo');
   }
 }
 
@@ -37,10 +37,10 @@ Future<List<Photo>> fetchPhoto3(String url) async {
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
-    List<Photo> users = jsonResponse.map((data) {
+    List<Photo> photos = jsonResponse.map((data) {
       return Photo.fromJson(data);
     }).toList();
-    return users;
+    return photos;
   } else {
     throw Exception('Failed to load Photo');
   }

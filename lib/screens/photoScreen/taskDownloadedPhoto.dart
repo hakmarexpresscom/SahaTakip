@@ -118,7 +118,7 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
                 );
               }
               else{
-                return Text("Bu mağaza için yüklenen fotoğraf yok.");
+                return Text("Bu görev için yüklenen fotoğraf yok.");
               }
             }
         )

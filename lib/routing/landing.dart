@@ -7,6 +7,7 @@ import '../screens/externalTask/enterExternalTaskScreen.dart';
 import '../screens/externalTask/externalTaskDetailScreen.dart';
 import '../screens/externalTask/externalTaskMainScreen.dart';
 import '../screens/externalTask/externalTasksListScreen.dart';
+import '../screens/photoScreen/answerDownloadedPhoto.dart';
 import '../screens/photoScreen/taskDownloadedPhoto.dart';
 import '../screens/photoScreen/taskPhoto.dart';
 import '../screens/photoScreen/taskPhotoGalleryView.dart';
@@ -128,6 +129,10 @@ void naviShopVisitingProcessesScreen(BuildContext context, id, name){
 
 void naviTaskDownloadedPhotoScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDownloadedPhotoScreen(photo_id: id)));
+}
+
+void naviAnswerDownloadedPhotoScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => AnswerDownloadedPhotoScreen(complete_task_id: id)));
 }
 
 void naviTaskPhotoScreen(BuildContext context, photo_file){
