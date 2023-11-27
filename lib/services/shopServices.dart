@@ -27,10 +27,10 @@ Future<List<Shop>> fetchShop2(String url) async {
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
-    List<Shop> users = jsonResponse.map((data) {
+    List<Shop> shops = jsonResponse.map((data) {
       return Shop.fromJson(data);
     }).toList();
-    return users;
+    return shops;
   } else {
     throw Exception('Failed to load Shop List2');
   }

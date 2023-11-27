@@ -23,6 +23,7 @@ import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
 import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTaskDetailScreen.dart';
 import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMainScreen.dart';
+import '../screens/shopVisiting/userPM/visitingReport/pastReportTaskDetailScreen.dart';
 import '../screens/shopVisiting/userPM/visitingReport/pastReportTasksScreen.dart';
 import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
@@ -97,6 +98,10 @@ void naviVisitingReportTaskDetailScreen(BuildContext context, id){
 
 void naviPastReportTasksScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreen(report_id: id,)));
+}
+
+void naviPastReportTaskDetailScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreen(task_id: id,)));
 }
 
 void naviSubmitTaskMainScreen(BuildContext context){

@@ -51,7 +51,6 @@ List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','
 
 String email="";
 String password="";
-int currentShopCode = 0;
 
 
 

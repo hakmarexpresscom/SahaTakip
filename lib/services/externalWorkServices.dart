@@ -38,10 +38,10 @@ Future<List<ExternalWork>> fetchExternalWork3(String url) async {
   final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
-    List<ExternalWork> users = jsonResponse.map((data) {
+    List<ExternalWork> externalsTasks = jsonResponse.map((data) {
       return ExternalWork.fromJson(data);
     }).toList();
-    return users;
+    return externalsTasks;
   } else {
     throw Exception('Failed to load External Task List2');
   }

@@ -110,7 +110,7 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){}),
+                        TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){naviPastReportTaskDetailScreen(context,snapshot.data![index].task_id);}),
                         SizedBox(height: deviceHeight*0.005,),
                       ],
                     );
