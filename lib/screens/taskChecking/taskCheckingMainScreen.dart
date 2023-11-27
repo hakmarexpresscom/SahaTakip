@@ -121,6 +121,17 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
                         ],
                       );
                     }
+                    else if(snapshot.data![index].report_id!=null&&isBSorPM==false){
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: deviceHeight*0.01,),
+                          TaskCheckingCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                        ],
+                      );
+                    }
                     else{
                       return Container();
                     }
