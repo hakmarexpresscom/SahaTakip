@@ -139,6 +139,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.indigo,
         title: const Text('Görev Atama Mağaza Seçimi'),
       ),

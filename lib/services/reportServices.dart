@@ -49,3 +49,29 @@ Future<List<Report>> fetchReport3(String url) async {
     throw Exception('Failed to load Report list 2');
   }
 }
+
+Future<Report> createReport(int id, int pm_id, int shopCode, String url) async {
+  final response = await http.post(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>
+    {
+      "rapor_id": id,
+      "pm_id": pm_id,
+      "magaza_kodu": shopCode
+    }
+    ),
+  );
+  if (response.statusCode == 201) {
+    return Report.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to create Report.');
+  }
+}
+
+Future countReport(String url) async {
+  reportCount = 0;
+  final List<Report> reports = await fetchReport3(url);
+  reportCount = reportCount + reports.length;
+}

@@ -58,6 +58,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         child:Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
+              foregroundColor: Colors.white,
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Kapanış Kontrolü'),
               bottom: TabBar(

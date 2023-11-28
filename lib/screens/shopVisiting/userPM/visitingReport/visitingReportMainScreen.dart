@@ -93,6 +93,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         child:Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
+              foregroundColor: Colors.white,
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Ziyaret Raporu'),
               bottom: TabBar(
@@ -149,7 +150,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   }
 
   Widget createReportButton(){
-    return ButtonWidget(text: "Rapor Oluştur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){setState(() {isReportCreated=true;});}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Rapor Oluştur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: () async {setState(() {isReportCreated=true;});await countReport("http://172.23.21.112:7042/api/Rapor");await createReport(reportCount+1, userID, widget.shop_code, "http://172.23.21.112:7042/api/Rapor");}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
   }
 
   Widget saveExternalTaskButton(){

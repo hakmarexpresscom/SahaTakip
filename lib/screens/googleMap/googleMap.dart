@@ -32,6 +32,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.indigo,
         title: const Text('Mağaza Konumu'),
       ),

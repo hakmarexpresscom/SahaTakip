@@ -84,6 +84,7 @@ class _TaskPhotoScreenState extends State<TaskPhotoScreen> with TickerProviderSt
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Mağaza İçin Yüklenen Fotoğraf'),
         ),

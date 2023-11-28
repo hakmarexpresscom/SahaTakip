@@ -80,6 +80,7 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
         child:Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
+              foregroundColor: Colors.white,
               backgroundColor: Colors.indigo,
               title: const Text('Görev Kontrol'),
               bottom: TabBar(

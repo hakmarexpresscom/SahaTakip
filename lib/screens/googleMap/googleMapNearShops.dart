@@ -44,6 +44,7 @@ class _MyAppState extends State<MapScreenNearShops> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Yakın Mağazaların Konumu'),
         ),

@@ -80,6 +80,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
         child:Scaffold(
          resizeToAvoidBottomInset: true,
          appBar: AppBar(
+           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
           bottom: TabBar(

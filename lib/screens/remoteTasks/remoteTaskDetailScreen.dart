@@ -147,6 +147,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Görev Detayı'),
         ),

@@ -81,6 +81,7 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Görev Fotoğrafı'),
         ),

@@ -57,6 +57,7 @@ class _TaskPhotoGalleryViewState extends State<TaskPhotoGalleryView> {
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.indigo,
         title: const Text('Görev İçin Yüklenen Fotoğraflar'),
       ),

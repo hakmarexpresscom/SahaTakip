@@ -18,6 +18,7 @@ Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/mag
 int externalTaskCount = 0;
 int incompleteTaskCount = 0;
 int photoCount = 0;
+int reportCount = 0;
 
 bool isCorrectEmail = true;
 bool isCorrectPassword = true;
