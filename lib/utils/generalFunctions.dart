@@ -72,11 +72,11 @@ addReportTaskToDatabase(String countTaskUrl, String title, String detail, String
     await countIncompleteTask(countTaskUrl);
     if(photo_file.isNotEmpty){
       await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, photoCount+1, taskType, report_id, createTaskUrl);
+      await updateIncompleteTaskIDPhoto(photo_id!, incompleteTaskCount+1, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, null, updatePhotoUrl);
     }
     else if(photo_file.isEmpty){
       await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, null, taskType, report_id, createTaskUrl);
     }
-    await updateIncompleteTaskIDPhoto(photo_id!, incompleteTaskCount+1, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, null, updatePhotoUrl);
 }
 
 

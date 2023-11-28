@@ -16,7 +16,6 @@ Future<List<ExternalWork>> parseJsonList(String jsonBody) async{
 Future<List<ExternalWork>> fetchExternalWork(String url) async {
   final response = await http
       .get(Uri.parse(url));
-  print(response.statusCode);
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {

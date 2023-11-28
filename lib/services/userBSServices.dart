@@ -15,7 +15,6 @@ Future<List<UserBS>> parseJsonList(String jsonBody) async{
 
 Future<List<UserBS>> fetchUserBS(String url) async {
   final response = await http.get(Uri.parse(url));
-  print(response.statusCode);
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {

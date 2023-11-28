@@ -14,10 +14,7 @@ Future<List<CompleteTask>> parseJsonList(String jsonBody) async{
 Future<List<CompleteTask>> fetchCompleteTask(String url) async {
   final response = await http
       .get(Uri.parse(url));
-  print(response.statusCode);
   if (response.statusCode == 200) {
-    print(response.body);
-    print(parseJsonList(response.body));
     return parseJsonList(response.body);
   } else {
     throw Exception('Failed to load Complete Task List');
