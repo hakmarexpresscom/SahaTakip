@@ -62,6 +62,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Açılış Kontrolü'),
               bottom: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white30,
                 tabs: [
                   Tab(text: "Mağaza İçi"),
                   Tab(text: "Mağaza Dışı")

@@ -97,6 +97,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Ziyaret Raporu'),
               bottom: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white30,
                 tabs: [
                   Tab(text: "Rapor Girişi"),
                   Tab(text: "Geçmiş Raporlar")

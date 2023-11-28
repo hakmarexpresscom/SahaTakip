@@ -111,7 +111,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.04,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.04,),
-                    navigationMainScreenUI(0.00, 0.015, 0.02, 0.20, 0.80, 20, 18, 15)
+                    navigationMainScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15)
                   ]
               );
             }
@@ -123,7 +123,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.04,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.04,),
-                    ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 0.20, 0.60, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 0.17, 0.70, 30, 25, 20),
+                    ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
                   ]
               );
             }
@@ -135,7 +135,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.04,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.04,),
-                    navigationMainScreenUI(0.00, 0.01, 0.015, 0.17, 0.80, 20, 18, 15),
+                    navigationMainScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
                   ]
               );
             }

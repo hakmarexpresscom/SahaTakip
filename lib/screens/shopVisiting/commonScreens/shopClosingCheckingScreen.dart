@@ -62,6 +62,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Kapanış Kontrolü'),
               bottom: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white30,
                 tabs: [
                   Tab(text: "Mağaza İçi"),
                   Tab(text: "Mağaza Dışı")

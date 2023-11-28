@@ -84,6 +84,8 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
               backgroundColor: Colors.indigo,
               title: const Text('Görev Kontrol'),
               bottom: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white30,
                 tabs: [
                   Tab(text: "Tamamlanmış Görevler"),
                   Tab(text: "Tamamlanmamış Görevler")

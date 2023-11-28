@@ -84,6 +84,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
           backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
           bottom: TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white30,
             tabs: [
               Tab(text: "Kendi Mağazalarım"),
               Tab(text: "Partner Mağazalar")
@@ -95,24 +97,24 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
              if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
                return TabBarView(
                  children: <Widget>[
-                   ownShopsScreenUI(0.00, 0.015, 0.02, 0.20, 0.80, 20, 18, 15),
-                   partnerShopsScreenUI(0.00, 0.015, 0.02, 0.20, 0.80, 20, 18, 15)
+                   ownShopsScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15)
                  ],
                );
              }
              else if(651<constraints.maxWidth && constraints.maxWidth<1000){
                return TabBarView(
                  children: <Widget>[
-                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 0.20, 0.60, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 0.17, 0.70, 30, 25, 20),
-                   ((deviceHeight-deviceWidth)<150) ? partnerShopsScreenUI(0.00, 0.02, 0.02, 0.20, 0.60, 20, 18, 15) : partnerShopsScreenUI(0.00, 0.02, 0.015, 0.17, 0.70, 30, 25, 20),
+                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
+                   ((deviceHeight-deviceWidth)<150) ? partnerShopsScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : partnerShopsScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
                  ],
                );
              }
              else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
                return TabBarView(
                  children: <Widget>[
-                   ownShopsScreenUI(0.00, 0.01, 0.015, 0.17, 0.80, 20, 18, 15),
-                   partnerShopsScreenUI(0.00, 0.01, 0.015, 0.17, 0.80, 20, 18, 15),
+                   ownShopsScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
                  ],
                );
              }
