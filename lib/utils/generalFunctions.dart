@@ -68,5 +68,16 @@ Future<void> addIncompleteTaskToDatabase(String countTaskUrl, String title, Stri
   }
 }
 
+addReportTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType, String updatePhotoUrl) async{
+    await countIncompleteTask(countTaskUrl);
+    if(photo_file.isNotEmpty){
+      await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, photoCount+1, taskType, report_id, createTaskUrl);
+    }
+    else if(photo_file.isEmpty){
+      await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, null, taskType, report_id, createTaskUrl);
+    }
+    await updateIncompleteTaskIDPhoto(photo_id!, incompleteTaskCount+1, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, null, updatePhotoUrl);
+}
+
 
 

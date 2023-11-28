@@ -1,12 +1,19 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
 import '../../../../models/report.dart';
 import '../../../../routing/landing.dart';
+import '../../../../services/inCompleteTaskServices.dart';
+import '../../../../services/photoServices.dart';
 import '../../../../services/reportServices.dart';
+import '../../../../utils/generalFunctions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/pastReportCard.dart';
 import '../../../../widgets/text_form_field.dart';
@@ -44,7 +51,71 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   final taskDeadlineController = TextEditingController();
   final taskDescriptionController = TextEditingController();
 
+  DateTime now = DateTime.now();
+
   late AnimationController controller;
+
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  String photo_file = "";
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media, int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) async {
+    var img = await picker.pickImage(source: media);
+    final bytes = File(img!.path).readAsBytesSync();
+    photo_file = photo_file+base64Encode(bytes);
+    setState(() {
+      image = img;
+    });
+    await countPhoto(url);
+    await createPhoto(photoCount+1, task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
+  }
+
+  void addPhoto(int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Tamamladığınız görev için bir fotoğraf yükleyin.'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery,task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('Galeriyi Aç'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera, task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('Kamerayı Aç'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -126,6 +197,19 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             SizedBox(height: deviceHeight*0.05,),
             inputForm(),
             SizedBox(height: deviceHeight*0.03,),
+            image != null ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(
+                  File(image!.path),
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                ),
+              ),
+            ) : Text("Fotoğraf Bilgisi Yok", style: TextStyle(fontSize: 17),),
+            SizedBox(height: deviceHeight*0.03,),
             addPhotoButton(),
             SizedBox(height: deviceHeight*0.03,),
             saveExternalTaskButton(),
@@ -156,11 +240,55 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   }
 
   Widget saveExternalTaskButton(){
-    return ButtonWidget(text: "Görevi Rapora Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Görevi Rapora Ekle",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: () async {
+          await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev");
+          await addReportTaskToDatabase(
+              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+              taskNameController.text,
+              taskDescriptionController.text,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              taskDeadlineController.text,
+              widget.shop_code,
+              photoCount+1,
+              "Rapor",
+              reportCount+1,
+              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+              photo_file,
+              null,
+              userID,
+              null,
+              "Rapor",
+              "http://172.23.21.112:7042/api/Fotograf/${photoCount+1}"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
   Widget addPhotoButton(){
-    return ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(
+        text: "Fotoğraf Ekle",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          addPhoto(null, widget.shop_code, null, userID, null, "Rapor", null, 'http://172.23.21.112:7042/api/Fotograf');
+          },
+        borderWidht: 3,
+        backgroundColor: Colors.orangeAccent,
+        borderColor: Colors.orangeAccent,
+        textColor: Colors.black);
   }
 
   Widget inputForm(){
