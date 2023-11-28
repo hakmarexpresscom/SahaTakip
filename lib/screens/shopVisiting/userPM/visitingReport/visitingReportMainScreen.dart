@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/utils/sendTaskMailFuncstions.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -267,6 +268,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               "Rapor",
               "http://172.23.21.112:7042/api/Fotograf/${photoCount+1}"
           );
+          //sendTaskMail(email, "Tarafınıza ${widget.shop_code} koduna sahip mağaza ile alakalı yeni bir görev atanmıştır. Görev türü 'Ziyaret Raporu''dur. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
