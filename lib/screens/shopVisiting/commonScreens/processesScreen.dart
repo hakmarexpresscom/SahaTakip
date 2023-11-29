@@ -124,8 +124,8 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopOpeningCheckingScreen(context);}),
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopClosingCheckingScreen(context);}),
+                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopOpeningCheckingScreen(context, widget.shop_code);}),
+                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopClosingCheckingScreen(context, widget.shop_code);}),
                     ]
                 ),
                 Row(
@@ -192,8 +192,8 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopOpeningCheckingScreen(context);}),
-                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopClosingCheckingScreen(context);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopOpeningCheckingScreen(context, widget.shop_code);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopClosingCheckingScreen(context, widget.shop_code);}),
                       ]
                   ),
                   Row(

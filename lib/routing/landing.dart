@@ -64,12 +64,12 @@ void naviRemoteTasksMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => RemoteTaskMainScreen()));
 }
 
-void naviShopOpeningCheckingScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopOpeningCheckingScreen()));
+void naviShopOpeningCheckingScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopOpeningCheckingScreen(shop_code: id,)));
 }
 
-void naviShopClosingCheckingScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopClosingCheckingScreen()));
+void naviShopClosingCheckingScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopClosingCheckingScreen(shop_code: id)));
 }
 
 void naviVisitingReportTaskMainScreen(BuildContext context, id){

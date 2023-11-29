@@ -7,8 +7,11 @@ class CheckingCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String taskName;
+  late int value;
+  late Map<String, int> checkMap;
+  late String checkKey;
 
-  CheckingCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName}): super(key: key);
+  CheckingCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName,required this.value,required this.checkMap, required this.checkKey}): super(key: key);
 
   @override
   State<CheckingCard> createState() => _TaskCardState();
@@ -16,7 +19,7 @@ class CheckingCard extends StatefulWidget {
 
 class _TaskCardState extends State<CheckingCard> {
 
-  bool light = false;
+  //bool light = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +42,10 @@ class _TaskCardState extends State<CheckingCard> {
           children: <Widget>[
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
             Switch(
-              value: light,
+              value: (widget.value)==0?false:true,
               activeColor: Colors.green,
-              onChanged: (bool value) {
-                setState(() {light = value;});
+              onChanged: (bool newValue) {
+                setState(() {widget.value = newValue?1:0;widget.checkMap[widget.checkKey]=newValue?1:0;});
                 },
             )
           ],

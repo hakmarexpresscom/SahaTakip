@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/services/shopOpeningControlServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
 
 class ShopOpeningCheckingScreen extends StatefulWidget {
-  const ShopOpeningCheckingScreen({super.key});
+  int shop_code = 0;
+  ShopOpeningCheckingScreen({super.key, required this.shop_code});
 
   @override
   State<ShopOpeningCheckingScreen> createState() =>
@@ -24,6 +26,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -95,13 +99,13 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: deviceHeight*0.01,),
-                  CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopOpeningCheckingList[index]),
+                  CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopOpeningCheckingList.keys.toList()[index],value: inShopOpeningCheckingList.values.toList()[index], checkMap: inShopOpeningCheckingList,checkKey: inShopOpeningCheckingList.keys.toList()[index]),
                 ],
               );
             },
           ),
         ),
-        saveButton(),
+        saveButtonInshop(),
       ]
     );
   }
@@ -121,19 +125,87 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: deviceHeight*0.01,),
-                  CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopOpeningCheckingList[index]),
+                  CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopOpeningCheckingList.keys.toList()[index],value: outShopOpeningCheckingList.values.toList()[index],checkMap: outShopOpeningCheckingList,checkKey: outShopOpeningCheckingList.keys.toList()[index]),
                 ],
               );
             },
           ),
         ),
-        saveButton(),
+        saveButtonOutshop(),
       ]
     );
   }
 
-  Widget saveButton(){
-    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+  Widget saveButtonInshop(){
+    return ButtonWidget(
+        text: "Kaydet",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          createInShopOpenControl(
+              widget.shop_code,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              inShopOpeningCheckingList.values.toList()[0],
+              inShopOpeningCheckingList.values.toList()[1],
+              inShopOpeningCheckingList.values.toList()[2],
+              inShopOpeningCheckingList.values.toList()[3],
+              inShopOpeningCheckingList.values.toList()[4],
+              inShopOpeningCheckingList.values.toList()[5],
+              inShopOpeningCheckingList.values.toList()[6],
+              inShopOpeningCheckingList.values.toList()[7],
+              inShopOpeningCheckingList.values.toList()[8],
+              inShopOpeningCheckingList.values.toList()[9],
+              inShopOpeningCheckingList.values.toList()[10],
+              inShopOpeningCheckingList.values.toList()[11],
+              inShopOpeningCheckingList.values.toList()[12],
+              inShopOpeningCheckingList.values.toList()[13],
+              inShopOpeningCheckingList.values.toList()[14],
+              inShopOpeningCheckingList.values.toList()[15],
+              inShopOpeningCheckingList.values.toList()[16],
+              inShopOpeningCheckingList.values.toList()[17],
+              inShopOpeningCheckingList.values.toList()[18],
+              inShopOpeningCheckingList.values.toList()[19],
+              inShopOpeningCheckingList.values.toList()[20],
+              "http://172.23.21.112:7042/api/AcilisKontroluMagazaIci"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
+  }
+
+  Widget saveButtonOutshop(){
+    return ButtonWidget(
+        text: "Kaydet",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          createOutShopOpenControl(
+              widget.shop_code,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              outShopOpeningCheckingList.values.toList()[0],
+              outShopOpeningCheckingList.values.toList()[1],
+              outShopOpeningCheckingList.values.toList()[2],
+              outShopOpeningCheckingList.values.toList()[3],
+              outShopOpeningCheckingList.values.toList()[4],
+              "http://172.23.21.112:7042/api/AcilisKontroluMagazaDisi"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 }
 

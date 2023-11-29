@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/services/shopClosingControlServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
 
 class ShopClosingCheckingScreen extends StatefulWidget {
-  const ShopClosingCheckingScreen({super.key});
+  int shop_code = 0;
+  ShopClosingCheckingScreen({super.key, required this.shop_code});
 
   @override
   State<ShopClosingCheckingScreen> createState() =>
@@ -24,6 +26,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -95,13 +99,13 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: deviceHeight*0.01,),
-                    CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopClosingCheckingList[index]),
+                    CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: inShopClosingCheckingList.keys.toList()[index],value: inShopClosingCheckingList.values.toList()[index],checkMap: inShopClosingCheckingList,checkKey: inShopClosingCheckingList.keys.toList()[index]),
                   ],
                 );
               },
             ),
           ),
-          saveButton(),
+          saveButtonInshop(),
         ]
     );
   }
@@ -121,19 +125,89 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: deviceHeight*0.01,),
-                    CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopClosingCheckingList[index]),
+                    CheckingCard(heightConst: 0.13, widthConst: 0.95, taskName: outShopClosingCheckingList.keys.toList()[index],value: outShopClosingCheckingList.values.toList()[index],checkMap: outShopClosingCheckingList,checkKey: outShopClosingCheckingList.keys.toList()[index]),
                   ],
                 );
               },
             ),
           ),
-          saveButton(),
+          saveButtonOutshop(),
         ]
     );
   }
 
-  Widget saveButton(){
-    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+  Widget saveButtonInshop(){
+    return ButtonWidget(
+        text: "Kaydet",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          createInShopCloseControl(
+              widget.shop_code,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              inShopClosingCheckingList.values.toList()[0],
+              inShopClosingCheckingList.values.toList()[1],
+              inShopClosingCheckingList.values.toList()[2],
+              inShopClosingCheckingList.values.toList()[3],
+              inShopClosingCheckingList.values.toList()[4],
+              inShopClosingCheckingList.values.toList()[5],
+              inShopClosingCheckingList.values.toList()[6],
+              inShopClosingCheckingList.values.toList()[7],
+              inShopClosingCheckingList.values.toList()[8],
+              inShopClosingCheckingList.values.toList()[9],
+              inShopClosingCheckingList.values.toList()[10],
+              inShopClosingCheckingList.values.toList()[11],
+              inShopClosingCheckingList.values.toList()[12],
+              inShopClosingCheckingList.values.toList()[13],
+              inShopClosingCheckingList.values.toList()[14],
+              inShopClosingCheckingList.values.toList()[15],
+              inShopClosingCheckingList.values.toList()[16],
+              inShopClosingCheckingList.values.toList()[17],
+              inShopClosingCheckingList.values.toList()[18],
+              inShopClosingCheckingList.values.toList()[19],
+              "http://172.23.21.112:7042/api/KapanisKontroluMagazaIci"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
+  }
+
+  Widget saveButtonOutshop(){
+    return ButtonWidget(
+        text: "Kaydet",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          createOutShopCloseControl(
+              widget.shop_code,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              outShopClosingCheckingList.values.toList()[0],
+              outShopClosingCheckingList.values.toList()[1],
+              outShopClosingCheckingList.values.toList()[2],
+              outShopClosingCheckingList.values.toList()[3],
+              outShopClosingCheckingList.values.toList()[4],
+              outShopClosingCheckingList.values.toList()[5],
+              outShopClosingCheckingList.values.toList()[6],
+              outShopClosingCheckingList.values.toList()[7],
+              "http://172.23.21.112:7042/api/KapanisKontroluMagazaDisi"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 }
 
