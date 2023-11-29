@@ -45,7 +45,7 @@ Future<List<CashCounting>> fetchCashCounting3(String url) async {
   }
 }
 
-Future<CashCounting> createCashCounting(int shopCode, int? bs_id, int? pm_id, String savingDate, int kagit_para_sayimi, int madeni_para_sayimi, int poslar_toplami, int masraflar_tediyeler, int celik_kasa_mevcudu, int kasa_defter_mevcudu, int fark, String url) async {
+Future<CashCounting> createCashCounting(int shopCode, int? bs_id, int? pm_id, String savingDate, String kagit_para_sayimi, String madeni_para_sayimi, String poslar_toplami, String masraflar_tediyeler, String celik_kasa_mevcudu, String kasa_defter_mevcudu, String fark, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',

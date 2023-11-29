@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/services/cashCountingServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_form_field.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -10,6 +11,9 @@ import '../../../constants/pagesLists.dart';
 
 class CashCountingScreen extends StatefulWidget {
 
+  int shop_code = 0;
+  String shopName= "";
+
   static var kagitParaSayimi = "";
   static var madeniParaSsayimi = "";
   static var POSlarToplami = "";
@@ -18,7 +22,7 @@ class CashCountingScreen extends StatefulWidget {
   static var kasaDefterMevcudu = "";
   static var fark = "";
 
-  const CashCountingScreen({super.key});
+  CashCountingScreen({super.key, required this.shop_code,required this.shopName});
 
   @override
   State<CashCountingScreen> createState() =>
@@ -34,6 +38,8 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -126,7 +132,33 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
     return TextWidget(text: "5168", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget saveButton(){
-    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Kaydet",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          createCashCounting(
+              widget.shop_code,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              kagitParaSayimiController.text,
+              madeniParaSsayimiController.text,
+              POSlarToplamiController.text,
+              masraflarTediyelerController.text,
+              celikKasaMevcuduController.text,
+              kasaDefterMevcuduController.text,
+              farkController.text,
+              "http://172.23.21.112:7042/api/CelikKasaSayimi"
+          );
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
   Widget inputForm(){

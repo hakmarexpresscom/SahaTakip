@@ -80,8 +80,8 @@ void naviInPlaceTaskMainScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreen(shop_code:id)));
 }
 
-void naviCashCountingScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen()));
+void naviCashCountingScreen(BuildContext context, id, name){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen(shop_code:id, shopName: name,)));
 }
 
 void naviVisitingReportMainScreen(BuildContext context, id){
