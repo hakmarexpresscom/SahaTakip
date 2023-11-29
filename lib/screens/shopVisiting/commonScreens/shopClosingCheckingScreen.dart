@@ -172,6 +172,10 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               inShopClosingCheckingList.values.toList()[19],
               "http://172.23.21.112:7042/api/KapanisKontroluMagazaIci"
           );
+          /*outShopClosingCheckingList.forEach((key, value) {
+            outShopClosingCheckingList[key] = 0;
+          });
+          showTaskAssignedDialog(context);*/
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -203,11 +207,35 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               outShopClosingCheckingList.values.toList()[7],
               "http://172.23.21.112:7042/api/KapanisKontroluMagazaDisi"
           );
+          /*outShopClosingCheckingList.forEach((key, value) {
+            outShopClosingCheckingList[key] = 0;
+          });
+          showTaskAssignedDialog(context);*/
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
         borderColor: Colors.lightGreen.withOpacity(0.6),
         textColor: Colors.black);
+  }
+
+  showTaskAssignedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Kontroller Yapıldı'),
+          content: Text('Kapanış formunu başarıyla doldurdunuz!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Tamam'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

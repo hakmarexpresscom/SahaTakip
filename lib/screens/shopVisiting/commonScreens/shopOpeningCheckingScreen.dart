@@ -173,6 +173,10 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               inShopOpeningCheckingList.values.toList()[20],
               "http://172.23.21.112:7042/api/AcilisKontroluMagazaIci"
           );
+          /*inShopOpeningCheckingList.forEach((key, value) {
+            inShopOpeningCheckingList[key] = 0;
+          });
+          Navigator.pop(context);*/
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -201,11 +205,35 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               outShopOpeningCheckingList.values.toList()[4],
               "http://172.23.21.112:7042/api/AcilisKontroluMagazaDisi"
           );
+          /*outShopOpeningCheckingList.forEach((key, value) {
+            outShopOpeningCheckingList[key] = 0;
+          });
+          Navigator.pop(context);*/
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
         borderColor: Colors.lightGreen.withOpacity(0.6),
         textColor: Colors.black);
+  }
+
+  showTaskAssignedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Kontroller Yapıldı'),
+          content: Text('Açılış formunu başarıyla doldurdunuz!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Tamam'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
