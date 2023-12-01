@@ -239,7 +239,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             TextButton(
               onPressed: () {
                 resetShopTaskPhotoMap();
-                resetShopAnswerPhotoMap();
                 resetTaskPhotos();
                 naviSubmitTaskMainScreen(context);
               },

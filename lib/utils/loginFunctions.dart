@@ -44,7 +44,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
 
     box.put("shopTaskPhotoMap",{});
-    box.put("shopAnswerPhotoMap",{});
 
     checkEmailBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
     checkPasswordBS(password,'http://172.23.21.112:7042/api/KullaniciBS', sayac,context);
@@ -69,7 +68,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes", []);
 
     box.put("shopTaskPhotoMap",{});
-    box.put("shopAnswerPhotoMap",{});
 
     checkEmailPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
     checkPasswordPM(password,'http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
@@ -91,7 +89,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
 
     box.put("shopTaskPhotoMap",{});
-    box.put("shopAnswerPhotoMap",{});
 
     checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
     checkPasswordBM(password,'http://172.23.21.112:7042/api/KullaniciBM', sayac,context);
@@ -127,7 +124,6 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
     createShopTaskPhotoMap();
-    createShopAnswerPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
@@ -164,7 +160,6 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
     createShopTaskPhotoMap();
-    createShopAnswerPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
@@ -202,7 +197,6 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
     createShopTaskPhotoMap();
-    createShopAnswerPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);

@@ -14,7 +14,6 @@ logout(BuildContext context) async {
   box.put("urlWorkFilter","");
   box.put("shopCodes",[]);
   box.put("shopTaskPhotoMap",{});
-  box.put("shopAnswerPhotoMap",{});
   userID=0;
   yoneticiID=0;
   workDurationHour = 0;
@@ -29,7 +28,6 @@ logout(BuildContext context) async {
   urlTaskShops ="";
   shopCodes = [];
   shopTaskPhotoMap = {};
-  shopAnswerPhotoMap = {};
   taskPhotos = [];
   urlShopFilter = "";
   urlWorkFilter = "";

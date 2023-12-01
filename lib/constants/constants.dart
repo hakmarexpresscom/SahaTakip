@@ -31,7 +31,6 @@ List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
 Map<int, bool> shopCheckboxMap = {};
 
 Map<dynamic, dynamic> shopTaskPhotoMap = (isLoggedIn)?box.get("shopTaskPhotoMap"):{};
-Map<dynamic, dynamic> shopAnswerPhotoMap = (isLoggedIn)?box.get("shopAnswerPhotoMap"):{};
 List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;

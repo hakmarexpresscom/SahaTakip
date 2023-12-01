@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
+import 'package:deneme/utils/appStateManager.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var appConstants = Hive.box('appConstants');
@@ -12,13 +14,26 @@ bool isLoggedIn = false;
 
 var box;
 
-/*void main() async{
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path,backendPreference: HiveStorageBackendPreference.native);
   var hive = await Hive.openBox('appConstants');
   box = hive;
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => StoreVisitManager()),
+        ChangeNotifierProvider(create: (context) => ReportManager()),
+        ChangeNotifierProvider(create: (context) => InShopOpenFormManager()),
+        ChangeNotifierProvider(create: (context) => OutShopOpenFormManager()),
+        ChangeNotifierProvider(create: (context) => InShopCloseFormManager()),
+        ChangeNotifierProvider(create: (context) => OutShopCloseFormManager()),
+        ChangeNotifierProvider(create: (context) => CashCountFormManager()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -51,13 +66,13 @@ class _MyAppState extends State<MyApp> {
       home: (isLoggedIn)? StartWorkMainScreen():LoginMainScreen(),
     );
   }
-}*/
+}
+
 
 // ----------------------------------------------------------------------
 
 
-
-void main() {
+/*void main() {
   runApp(MyApp());
 }
 
@@ -169,10 +184,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-}
-
-
-
+}*/
 
 
 // ---------------------------------------------------------------------- geri tuşunu inaktif yapma

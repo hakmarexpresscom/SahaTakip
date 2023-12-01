@@ -28,25 +28,10 @@ void createShopTaskPhotoMap(){
   shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 }
 
-void createShopAnswerPhotoMap(){
-  for(int i=0;i<box.get("shopCodes").length;i++){
-    box.get("shopAnswerPhotoMap")[box.get("shopCodes")[i]]=["",false];
-    //shopAnswerPhotoMap[shopCodes[i]]=["",false];
-  }
-  shopAnswerPhotoMap = box.get("shopAnswerPhotoMap");
-}
-
 void resetShopTaskPhotoMap() {
   for (int i = 0; i < shopCodes.length; i++) {
     box.get("shopTaskPhotoMap")[shopCodes[i]]=["",false];
     //shopTaskPhotoMap[shopCodes[i]] = ["", false];
-  }
-}
-
-void resetShopAnswerPhotoMap(){
-  for(int i=0;i<shopCodes.length;i++){
-    box.get("shopAnswerPhotoMap")[shopCodes[i]]=["",false];
-    //shopAnswerPhotoMap[shopCodes[i]]=["",false];
   }
 }
 
