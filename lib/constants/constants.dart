@@ -40,6 +40,7 @@ int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
 int workDurationHour = 0;
 int workDurationMin = 0;
 bool isWorking = false;
+bool startVisiting = false;
 
 String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;

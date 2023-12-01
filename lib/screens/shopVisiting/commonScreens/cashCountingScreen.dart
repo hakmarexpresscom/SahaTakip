@@ -105,7 +105,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: deviceHeight*0.03,),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,11 +114,11 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
                 shopNameInfo()
               ],
             ),
-            SizedBox(height: deviceHeight*0.05,),
+            SizedBox(height: deviceHeight*0.03,),
             inputForm(),
-            SizedBox(height: deviceHeight*0.05,),
+            SizedBox(height: deviceHeight*0.03,),
             saveButton(),
-            SizedBox(height: deviceHeight*0.05,),
+            SizedBox(height: deviceHeight*0.03,),
           ],
         ),
       );
@@ -126,10 +126,10 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   }
 
   Widget shopNameInfo(){
-    return TextWidget(text: "Taşlıbayır/Pendik", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shopCodeInfo(){
-    return TextWidget(text: "5168", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: widget.shop_code.toString(), heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget saveButton(){
     return ButtonWidget(

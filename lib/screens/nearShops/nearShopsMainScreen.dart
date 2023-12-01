@@ -161,6 +161,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Çevre Mağazalar'),

@@ -63,6 +63,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         foregroundColor: Colors.white,
         backgroundColor: Colors.indigo,
         title: const Text('Mesaiye Başla'),
@@ -119,8 +120,10 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: (){
-          isWorking=true;
-          print(userID);
+          setState(() {
+            isWorking=true;
+          });
+          print(isWorking);
           if(item=="Mağaza Ziyareti" && userType=="BS"){
             naviShopVisitingShopsScreen(context);
           }
@@ -146,7 +149,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
       onSelected: (String? value) {
         setState(() {
           item = value!;
-          print(item);
         });
       },
       dropdownMenuEntries: shiftType.map<DropdownMenuEntry<String>>((String value) {

@@ -79,6 +79,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Görev Atama'),

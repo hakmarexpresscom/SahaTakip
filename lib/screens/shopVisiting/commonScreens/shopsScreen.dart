@@ -81,7 +81,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
          resizeToAvoidBottomInset: true,
          appBar: AppBar(
            foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+           backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
           bottom: TabBar(
             labelColor: Colors.white,
@@ -161,6 +161,9 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: (){
+                                    setState(() {
+                                      startVisiting = true;
+                                    });
                                     naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
                                   })
                             ]

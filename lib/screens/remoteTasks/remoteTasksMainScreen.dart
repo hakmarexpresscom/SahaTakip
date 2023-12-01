@@ -76,6 +76,7 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Uzaktan Görevler'),

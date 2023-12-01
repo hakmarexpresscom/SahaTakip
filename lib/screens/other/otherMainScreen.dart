@@ -57,6 +57,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Diğer'),

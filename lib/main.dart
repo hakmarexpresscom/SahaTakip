@@ -12,7 +12,7 @@ bool isLoggedIn = false;
 
 var box;
 
-void main() async{
+/*void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path,backendPreference: HiveStorageBackendPreference.native);
@@ -51,7 +51,270 @@ class _MyAppState extends State<MyApp> {
       home: (isLoggedIn)? StartWorkMainScreen():LoginMainScreen(),
     );
   }
+}*/
+
+// ----------------------------------------------------------------------
+
+
+
+void main() {
+  runApp(MyApp());
 }
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Mağaza Ziyareti Uygulaması',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _currentIndex = 0;
+
+  List<Widget> _pages = [
+    VisitPage(),
+    SettingsPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Mağaza Ziyareti Uygulaması'),
+      ),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: 'Mağaza Ziyareti',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Ayarlar',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class VisitPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Mağaza Ziyareti'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TasksPage()),
+            );
+          },
+          child: Text('Ziyareti Başlat'),
+        ),
+      ),
+    );
+  }
+}
+
+class TasksPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tasks'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context); // Ziyareti Bitir
+          },
+          child: Text('Ziyareti Bitir'),
+        ),
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Ayarlar'),
+      ),
+      body: Center(
+        child: Text('Bu sayfada sadece metin olacak.'),
+      ),
+    );
+  }
+}
+
+
+
+
+
+// ---------------------------------------------------------------------- geri tuşunu inaktif yapma
+
+
+/*void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: WillPopScope(
+        onWillPop: () async {
+          // Geri tuşunu engellemek için false döndürün
+          return false;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Geri Tuşu Engelleme'),
+          ),
+          body: Center(
+            child: Text('Geri tuşu engellendi.'),
+          ),
+        ),
+      ),
+    );
+  }
+}*/
+
+
+// ----------------------------------------------------------------------
+
+
+/*void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0; // Seçili olan bottom navigation bar endeksi
+
+  // Sayfaların listesi
+  List<Widget> _pages = [StoreVisitPage(), NavigationPage()];
+
+  // Bottom navigation bar'da seçim değiştiğinde çağrılır
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bottom Navigation Bar Örneği'),
+      ),
+      body: _pages[_selectedIndex], // Seçilen sayfayı göster
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Mağaza Ziyareti',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.navigation),
+            label: 'Navigasyon',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class StoreVisitPage extends StatefulWidget {
+  @override
+  _StoreVisitPageState createState() => _StoreVisitPageState();
+}
+
+class _StoreVisitPageState extends State<StoreVisitPage> {
+  bool _visitStarted = false;
+
+  // Mağaza ziyaretini başlatan fonksiyon
+  void _startVisit() {
+    setState(() {
+      _visitStarted = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          if (!_visitStarted)
+            ElevatedButton(
+              onPressed: _startVisit,
+              child: Text('Ziyarete Başla'),
+            )
+          else
+            Column(
+              children: [
+                // Burada görev listesini göster
+                Text('Görev 1: ...'),
+                Text('Görev 2: ...'),
+                // Diğer görevleri ekleyebilirsiniz
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class NavigationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Navigasyon Sayfası'),
+    );
+  }
+}*/
+
 
 // ---------------------------------------------------------------------- tıklanamaz sayfa görünümü
 
