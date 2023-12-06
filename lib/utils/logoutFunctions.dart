@@ -22,7 +22,7 @@ logout(BuildContext context) async {
   userType = "PM";
   isBSorPM = true;
   isBS = false;
-  isReportCreated = false;
+  //isReportCreated = false;
   email="";
   password="";
   urlTaskShops ="";

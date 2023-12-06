@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class BottomNaviBar extends StatelessWidget{
+class BottomNaviBar extends StatefulWidget {
   final int selectedIndex;
   final List<BottomNavigationBarItem> itemList;
   final List<Widget> pageList;
 
-  const BottomNaviBar({
+  BottomNaviBar({
     Key? key,
     required this.selectedIndex,
     required this.itemList,
@@ -13,16 +13,20 @@ class BottomNaviBar extends StatelessWidget{
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  State<BottomNaviBar> createState() => _BottomNaviBarState();
+}
+
+class _BottomNaviBarState extends State<BottomNaviBar> {
+  @override
+  Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: itemList,
-      currentIndex: selectedIndex,
+      items: widget.itemList,
+      currentIndex: widget.selectedIndex,
       selectedItemColor: Colors.indigo,
       unselectedItemColor: Colors.black,
       onTap: (index)=>{
-        Navigator.push(context, MaterialPageRoute(builder: (context) => pageList[index]))
+        Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pageList[index]))
       },
     );
   }
-
 }

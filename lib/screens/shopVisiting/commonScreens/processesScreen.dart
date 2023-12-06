@@ -4,9 +4,12 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopVisitingProcessCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../routing/landing.dart';
+import '../../../utils/appStateManager.dart';
 
 class ShopVisitingProcessesScreen extends StatefulWidget {
   int shop_code = 0;
@@ -33,6 +36,8 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
 
   DateTime now = DateTime.now();
 
+  final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+
   @override
   void initState() {
     super.initState();
@@ -48,11 +53,21 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        pageList = pagesBS;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesBS2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesBS;
+        }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        pageList = pagesPM;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesPM2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesPM;
+        }
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
@@ -220,7 +235,21 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     return TextWidget(text: "${widget.shop_code}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black);
   }
   Widget stopVisitingButton(){
-    return ButtonWidget(text: "Ziyareti Durdur", heightConst: 0.05, widthConst: 0.22, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: Colors.red.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Ziyareti Durdur",
+        heightConst: 0.05,
+        widthConst: 0.22,
+        size: 15,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          storeVisitManager.endStoreVisit();
+          (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
+          },
+        borderWidht: 1,
+        backgroundColor: Colors.red.withOpacity(0.6),
+        borderColor: Colors.red.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
 }

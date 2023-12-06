@@ -6,7 +6,10 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/utils/sendTaskMailFuncstions.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
 import '../../../../models/report.dart';
@@ -14,6 +17,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../services/photoServices.dart';
 import '../../../../services/reportServices.dart';
+import '../../../../utils/appStateManager.dart';
 import '../../../../utils/generalFunctions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/pastReportCard.dart';
@@ -55,6 +59,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   DateTime now = DateTime.now();
 
   late AnimationController controller;
+
+  final ReportManager reportManager = Get.put(ReportManager());
 
   XFile? image;
 
@@ -141,11 +147,21 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        pageList = pagesBS;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesBS2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesBS;
+        }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        pageList = pagesPM;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesPM2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesPM;
+        }
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
@@ -179,7 +195,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(child:(isReportCreated)?enterVisitingReportScreenUI():createReportButtonUI(),),
+                SingleChildScrollView(child:(isReportCreated.value)?enterVisitingReportScreenUI():createReportButtonUI(),),
                 pastReportsMainScreenUI(),
               ],
             ),
@@ -237,7 +253,23 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   }
 
   Widget createReportButton(){
-    return ButtonWidget(text: "Rapor Oluştur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: () async {setState(() {isReportCreated=true;});await countReport("http://172.23.21.112:7042/api/Rapor");await createReport(reportCount+1, userID, widget.shop_code, "http://172.23.21.112:7042/api/Rapor");}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Rapor Oluştur",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: () async {
+          reportManager.createReport();
+          await countReport("http://172.23.21.112:7042/api/Rapor");
+          await createReport(reportCount+1, userID, widget.shop_code, "http://172.23.21.112:7042/api/Rapor");
+          naviVisitingReportMainScreen(context, widget.shop_code);
+          },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
   Widget saveExternalTaskButton(){

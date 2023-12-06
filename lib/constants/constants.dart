@@ -1,11 +1,21 @@
 import 'dart:async';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+RxBool isStoreVisitInProgress = false.obs;
+RxBool isReportCreated = false.obs;
+RxBool isInShopOpenFormFilled = false.obs;
+RxBool isOutShopOpenFormFilled = false.obs;
+RxBool isInShopCloseFormFilled = false.obs;
+RxBool isOutShopCloseFormFilled = false.obs;
+RxBool isCashCountFormFilled = false.obs;
+
 
 class GoogleMapMarkerList {
+
   static List<Map<String, dynamic>> list = [
     {"id": "1", "lat": "37.4219983", "long": "-122.090"},
     {"id": "2", "lat": "37.4219983", "long": "-122.095"},
@@ -45,7 +55,7 @@ String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;
 bool isBS = (isLoggedIn)?box.get("isBS"):false;
 
-bool isReportCreated = false;
+//bool isReportCreated = false;
 
 List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü'];

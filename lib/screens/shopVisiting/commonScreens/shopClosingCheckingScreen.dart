@@ -38,11 +38,21 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        pageList = pagesBS;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesBS2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesBS;
+        }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        pageList = pagesPM;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesPM2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesPM;
+        }
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;

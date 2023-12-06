@@ -3,6 +3,7 @@ import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/utils/appStateManager.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -20,20 +21,7 @@ void main() async{
   Hive.init(appDocumentDir.path,backendPreference: HiveStorageBackendPreference.native);
   var hive = await Hive.openBox('appConstants');
   box = hive;
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => StoreVisitManager()),
-        ChangeNotifierProvider(create: (context) => ReportManager()),
-        ChangeNotifierProvider(create: (context) => InShopOpenFormManager()),
-        ChangeNotifierProvider(create: (context) => OutShopOpenFormManager()),
-        ChangeNotifierProvider(create: (context) => InShopCloseFormManager()),
-        ChangeNotifierProvider(create: (context) => OutShopCloseFormManager()),
-        ChangeNotifierProvider(create: (context) => CashCountFormManager()),
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -61,12 +49,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: (isLoggedIn)? StartWorkMainScreen():LoginMainScreen(),
     );
   }
 }
+
+// ----------------------------------------------------------------------
+
+
 
 
 // ----------------------------------------------------------------------

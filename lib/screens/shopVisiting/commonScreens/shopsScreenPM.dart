@@ -3,11 +3,14 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/visitingShopCard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
+import '../../../utils/appStateManager.dart';
 
 class ShopVisitingShopsScreenPM extends StatefulWidget {
   const ShopVisitingShopsScreenPM({super.key});
@@ -30,6 +33,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
   late double deviceWidth;
 
   late AnimationController controller;
+
+  final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+  final ReportManager reportManager = Get.put(ReportManager());
 
   @override
   void initState() {
@@ -54,11 +60,21 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        pageList = pagesBS;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesBS2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesBS;
+        }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        pageList = pagesPM;
+        if(isStoreVisitInProgress.value){
+          pageList = pagesPM2;
+        }
+        else if(isStoreVisitInProgress.value==false){
+          pageList = pagesPM;
+        }
       }
       if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
@@ -127,7 +143,26 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children:<Widget>[
-                          VisitingShopCard(icon: Icons.store, sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long,onTaps: (){naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);})
+                          VisitingShopCard(
+                              icon: Icons.store,
+                              sizedBoxConst1: sizedBoxConst1,
+                              sizedBoxConst2: sizedBoxConst2,
+                              sizedBoxConst3: sizedBoxConst3,
+                              heightConst: heightConst,
+                              widthConst: widthConst,
+                              textSizeCode: textSizeCode,
+                              textSizeName: textSizeName,
+                              textSizeButton: textSizeButton,
+                              shopName: snapshot.data![index].shopName,
+                              shopCode: snapshot.data![index].shopCode.toString(),
+                              lat: snapshot.data![index].Lat,
+                              long: snapshot.data![index].Long,
+                              onTaps: (){
+                                storeVisitManager.startStoreVisit();
+                                reportManager.noReport();
+                                naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
+                              }
+                              )
                         ]
                     );
                   },

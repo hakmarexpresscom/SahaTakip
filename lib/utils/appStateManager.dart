@@ -1,106 +1,87 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import '../constants/constants.dart';
 
-class StoreVisitManager extends ChangeNotifier {
-  bool isStoreVisitInProgress = false;
+class StoreVisitManager extends GetxController {
 
   void startStoreVisit() {
-    isStoreVisitInProgress = true;
-    notifyListeners();
+    isStoreVisitInProgress.value = true;
   }
 
   void endStoreVisit() {
-    isStoreVisitInProgress = false;
-    notifyListeners();
+    isStoreVisitInProgress.value = false;
   }
 }
 
 
-class ReportManager extends ChangeNotifier {
-  bool isReportCreated = false;
+class ReportManager extends GetxController {
 
   void createReport() {
-    isReportCreated = true;
-    notifyListeners();
+    isReportCreated.value = true;
   }
 
   void noReport() {
-    isReportCreated = false;
-    notifyListeners();
+    isReportCreated.value = false;
   }
 }
 
 
-class InShopOpenFormManager extends ChangeNotifier {
-  bool isFormFilled = false;
+class InShopOpenFormManager extends GetxController {
 
   void createForm() {
-    isFormFilled = true;
-    notifyListeners();
+    isInShopOpenFormFilled.value = true;
   }
 
   void noForm() {
-    isFormFilled = false;
-    notifyListeners();
+    isInShopOpenFormFilled.value = false;
   }
 }
 
 
-class OutShopOpenFormManager extends ChangeNotifier {
-  bool isFormFilled = false;
+class OutShopOpenFormManager extends GetxController {
 
   void createForm() {
-    isFormFilled = true;
-    notifyListeners();
+    isOutShopOpenFormFilled.value = true;
   }
 
   void noForm() {
-    isFormFilled = false;
-    notifyListeners();
+    isOutShopOpenFormFilled.value = false;
   }
 }
 
 
-class InShopCloseFormManager extends ChangeNotifier {
-  bool isFormFilled = false;
+class InShopCloseFormManager extends GetxController {
 
   void createForm() {
-    isFormFilled = true;
-    notifyListeners();
+    isInShopCloseFormFilled.value = true;
   }
 
   void noForm() {
-    isFormFilled = false;
-    notifyListeners();
+    isInShopCloseFormFilled.value = false;
   }
 }
 
 
-class OutShopCloseFormManager extends ChangeNotifier {
-  bool isFormFilled = false;
+class OutShopCloseFormManager extends GetxController {
 
   void createForm() {
-    isFormFilled = true;
-    notifyListeners();
+    isOutShopCloseFormFilled.value = true;
   }
 
   void noForm() {
-    isFormFilled = false;
-    notifyListeners();
+    isOutShopCloseFormFilled.value = false;
   }
 }
 
 
-class CashCountFormManager extends ChangeNotifier {
-  bool isFormFilled = false;
+class CashCountFormManager extends GetxController {
 
   void createForm() {
-    isFormFilled = true;
-    notifyListeners();
+    isCashCountFormFilled.value = true;
   }
 
   void noForm() {
-    isFormFilled = false;
-    notifyListeners();
+    isCashCountFormFilled.value = false;
   }
 }
 
