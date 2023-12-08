@@ -1,6 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/utils/generalFunctions.dart';
+import 'package:deneme/widgets/alert_dialog.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -159,7 +160,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           );
           //sendTaskMail(email, "Tarafınıza yeni bir görev atanmıştır. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
           Future.delayed(Duration.zero, () {
-            showTaskAssignedDialog(context);
+            showTaskSubmittedDialog(context);
           });
         },
         borderWidht: 1,
@@ -238,23 +239,18 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
     );
   }
 
-  showTaskAssignedDialog(BuildContext context) {
+  showTaskSubmittedDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Görev Atandı'),
-          content: Text('Görev başarıyla atandı!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                resetShopTaskPhotoMap();
-                resetTaskPhotos();
-                naviSubmitTaskMainScreen(context);
-              },
-              child: Text('Tamam'),
-            ),
-          ],
+        return AlertDialogWidget(
+          title: 'Görev Atandı',
+          content: 'Görev başarıyla atandı!',
+          onTaps: (){
+            resetShopTaskPhotoMap();
+            resetTaskPhotos();
+            naviSubmitTaskMainScreen(context);
+          },
         );
       },
     );

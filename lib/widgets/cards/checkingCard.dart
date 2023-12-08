@@ -45,7 +45,11 @@ class _TaskCardState extends State<CheckingCard> {
               value: (widget.value)==0?false:true,
               activeColor: Colors.green,
               onChanged: (bool newValue) {
-                setState(() {widget.value = newValue?1:0;widget.checkMap[widget.checkKey]=newValue?1:0;});
+                setState(() {
+                  widget.value = newValue?1:0;
+                  widget.checkMap[widget.checkKey]=newValue?1:0;
+                }
+                );
                 },
             )
           ],

@@ -36,7 +36,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
   final ReportManager reportManager = Get.put(ReportManager());
-
   @override
   void initState() {
     super.initState();

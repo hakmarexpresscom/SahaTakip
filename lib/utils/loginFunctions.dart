@@ -64,7 +64,7 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('outShopCloseForm', false);
     outShopCloseForm = boxStateManagement.get('outShopCloseForm');
 
-    boxStateManagement.put('cashCountForm ', false);
+    boxStateManagement.put('cashCountForm', false);
     cashCountForm  = boxStateManagement.get('cashCountForm');
 
     checkEmailBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
@@ -109,8 +109,8 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('outShopCloseForm', false);
     outShopCloseForm = boxStateManagement.get('outShopCloseForm');
 
-    boxStateManagement.put('cashCountForm ', false);
-    cashCountForm  = boxStateManagement.get('cashCountForm');
+    boxStateManagement.put('cashCountForm', false);
+    cashCountForm = boxStateManagement.get('cashCountForm');
 
     checkEmailPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
     checkPasswordPM(password,'http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
@@ -151,7 +151,7 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('outShopCloseForm', false);
     outShopCloseForm = boxStateManagement.get('outShopCloseForm');
 
-    boxStateManagement.put('cashCountForm ', false);
+    boxStateManagement.put('cashCountForm', false);
     cashCountForm  = boxStateManagement.get('cashCountForm');
 
     checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);

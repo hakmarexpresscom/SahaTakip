@@ -97,7 +97,7 @@ Future<List<OutShopCloseControl>> parseJsonListOut(String jsonBody) async{
   return returnList;
 }
 
-Future<List<OutShopCloseControl>> fetchOutShopOpenControl(String url) async {
+Future<List<OutShopCloseControl>> fetchOutShopCloseControl(String url) async {
   final response = await http
       .get(Uri.parse(url));
   if (response.statusCode == 200) {

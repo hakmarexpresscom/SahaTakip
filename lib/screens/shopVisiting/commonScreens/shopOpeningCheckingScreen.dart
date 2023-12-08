@@ -1,12 +1,18 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/services/shopOpeningControlServices.dart';
+import 'package:deneme/widgets/alert_dialog.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
+import '../../../models/shopOpeningControl.dart';
+import '../../../utils/appStateManager.dart';
 
 class ShopOpeningCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -19,6 +25,9 @@ class ShopOpeningCheckingScreen extends StatefulWidget {
 
 class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
 
+  late Future<List<InShopOpenControl>> futureInShopOpenControl;
+  late Future<List<OutShopOpenControl>> futureOutShopOpenControl;
+
   int _selectedIndex = 0;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -28,6 +37,13 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
   late double deviceWidth;
 
   DateTime now = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    futureInShopOpenControl = fetchInShopOpenControl('http://172.23.21.112:7042/api/AcilisKontroluMagazaIci/filterInShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureOutShopOpenControl = fetchOutShopOpenControl('http://172.23.21.112:7042/api/AcilisKontroluMagazaDisi/filterOutShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +102,28 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                inShopOpeningCheckingUI(),
-                outShopOpeningCheckingUI()
+                FutureBuilder<List<InShopOpenControl>>(
+                    future: futureInShopOpenControl,
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        return Text("Mağaza içi açılış kontrol formunu bu ziyaret için doldurdunuz.");
+                      }
+                      else{
+                        return inShopOpeningCheckingUI();
+                      }
+                    }
+                ),
+                FutureBuilder<List<OutShopOpenControl>>(
+                    future: futureOutShopOpenControl,
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        return Text("Mağaza dışı açılış kontrol formunu bu ziyaret için doldurdunuz.");
+                      }
+                      else{
+                        return outShopOpeningCheckingUI();
+                      }
+                    }
+                ),
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -155,6 +191,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: (){
+          print(inShopOpeningCheckingList.values.toList());
           createInShopOpenControl(
               widget.shop_code,
               (isBS)?userID:null,
@@ -183,10 +220,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               inShopOpeningCheckingList.values.toList()[20],
               "http://172.23.21.112:7042/api/AcilisKontroluMagazaIci"
           );
-          /*inShopOpeningCheckingList.forEach((key, value) {
-            inShopOpeningCheckingList[key] = 0;
-          });
-          Navigator.pop(context);*/
+          showFormFilledDialog(context,inShopOpeningCheckingList);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -215,10 +249,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               outShopOpeningCheckingList.values.toList()[4],
               "http://172.23.21.112:7042/api/AcilisKontroluMagazaDisi"
           );
-          /*outShopOpeningCheckingList.forEach((key, value) {
-            outShopOpeningCheckingList[key] = 0;
-          });
-          Navigator.pop(context);*/
+          showFormFilledDialog(context,outShopOpeningCheckingList);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -226,25 +257,19 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         textColor: Colors.black);
   }
 
-  showTaskAssignedDialog(BuildContext context) {
+  showFormFilledDialog(BuildContext context, Map<String, int>list) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Kontroller Yapıldı'),
-          content: Text('Açılış formunu başarıyla doldurdunuz!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
+        return AlertDialogWidget(
+            title: 'Kontroller Yapıldı',
+            content: 'Açılış formunu başarıyla doldurdunuz!',
+            onTaps: (){
+              list.forEach((key, value) {list[key] = 0;});
+              naviShopOpeningCheckingScreen(context, widget.shop_code);
               },
-              child: Text('Tamam'),
-            ),
-          ],
         );
-      },
+        }
     );
   }
 }
-
-

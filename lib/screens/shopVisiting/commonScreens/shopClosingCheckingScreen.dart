@@ -4,9 +4,15 @@ import 'package:deneme/services/shopClosingControlServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
+import '../../../models/shopClosingControl.dart';
+import '../../../routing/landing.dart';
+import '../../../utils/appStateManager.dart';
+import '../../../widgets/alert_dialog.dart';
 
 class ShopClosingCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -19,6 +25,9 @@ class ShopClosingCheckingScreen extends StatefulWidget {
 
 class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
 
+  late Future<List<InShopCloseControl>> futureInShopCloseControl;
+  late Future<List<OutShopCloseControl>> futureOutShopCloseControl;
+
   int _selectedIndex = 0;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -28,6 +37,13 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
   late double deviceWidth;
 
   DateTime now = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    futureInShopCloseControl = fetchInShopCloseControl('http://172.23.21.112:7042/api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureOutShopCloseControl = fetchOutShopCloseControl('http://172.23.21.112:7042/api/KapanisKontroluMagazaDisi/filterOutShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +102,28 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                inShopClosingCheckingUI(),
-                outShopClosingCheckingUI()
+                FutureBuilder<List<InShopCloseControl>>(
+                    future: futureInShopCloseControl,
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        return Text("Mağaza içi kapanış kontrol formunu bu ziyaret için doldurdunuz.");
+                      }
+                      else{
+                        return inShopClosingCheckingUI();
+                      }
+                    }
+                ),
+                FutureBuilder<List<OutShopCloseControl>>(
+                    future: futureOutShopCloseControl,
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        return Text("Mağaza dışı kapanış kontrol formunu bu ziyaret için doldurdunuz.");
+                      }
+                      else{
+                        return outShopClosingCheckingUI();
+                      }
+                    }
+                ),
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -182,10 +218,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               inShopClosingCheckingList.values.toList()[19],
               "http://172.23.21.112:7042/api/KapanisKontroluMagazaIci"
           );
-          /*outShopClosingCheckingList.forEach((key, value) {
-            outShopClosingCheckingList[key] = 0;
-          });
-          showTaskAssignedDialog(context);*/
+          showFormFilledDialog(context,inShopClosingCheckingList);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -217,10 +250,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               outShopClosingCheckingList.values.toList()[7],
               "http://172.23.21.112:7042/api/KapanisKontroluMagazaDisi"
           );
-          /*outShopClosingCheckingList.forEach((key, value) {
-            outShopClosingCheckingList[key] = 0;
-          });
-          showTaskAssignedDialog(context);*/
+          showFormFilledDialog(context,outShopClosingCheckingList);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -228,23 +258,19 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         textColor: Colors.black);
   }
 
-  showTaskAssignedDialog(BuildContext context) {
+  showFormFilledDialog(BuildContext context, Map<String, int>list) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Kontroller Yapıldı'),
-          content: Text('Kapanış formunu başarıyla doldurdunuz!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Tamam'),
-            ),
-          ],
-        );
-      },
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialogWidget(
+            title: 'Kontroller Yapıldı',
+            content: 'Kapanış formunu başarıyla doldurdunuz!',
+            onTaps: (){
+              list.forEach((key, value) {list[key] = 0;});
+              naviShopClosingCheckingScreen(context, widget.shop_code);
+            },
+          );
+        }
     );
   }
 }
