@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';
@@ -45,6 +46,27 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("shopTaskPhotoMap",{});
 
+    boxStateManagement.put('isStoreVisit', false);
+    isStoreVisit = boxStateManagement.get('isStoreVisit');
+
+    boxStateManagement.put('isReport', false);
+    isReport = boxStateManagement.get('isReport');
+
+    boxStateManagement.put('inShopOpenForm', false);
+    inShopOpenForm = boxStateManagement.get('inShopOpenForm');
+
+    boxStateManagement.put('outShopOpenForm', false);
+    outShopOpenForm = boxStateManagement.get('outShopOpenForm');
+
+    boxStateManagement.put('inShopCloseForm', false);
+    inShopCloseForm = boxStateManagement.get('inShopCloseForm');
+
+    boxStateManagement.put('outShopCloseForm', false);
+    outShopCloseForm = boxStateManagement.get('outShopCloseForm');
+
+    boxStateManagement.put('cashCountForm ', false);
+    cashCountForm  = boxStateManagement.get('cashCountForm');
+
     checkEmailBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
     checkPasswordBS(password,'http://172.23.21.112:7042/api/KullaniciBS', sayac,context);
   }
@@ -69,6 +91,27 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("shopTaskPhotoMap",{});
 
+    boxStateManagement.put('isStoreVisit', false);
+    isStoreVisit = boxStateManagement.get('isStoreVisit');
+
+    boxStateManagement.put('isReport', false);
+    isReport = boxStateManagement.get('isReport');
+
+    boxStateManagement.put('inShopOpenForm', false);
+    inShopOpenForm = boxStateManagement.get('inShopOpenForm');
+
+    boxStateManagement.put('outShopOpenForm', false);
+    outShopOpenForm = boxStateManagement.get('outShopOpenForm');
+
+    boxStateManagement.put('inShopCloseForm', false);
+    inShopCloseForm = boxStateManagement.get('inShopCloseForm');
+
+    boxStateManagement.put('outShopCloseForm', false);
+    outShopCloseForm = boxStateManagement.get('outShopCloseForm');
+
+    boxStateManagement.put('cashCountForm ', false);
+    cashCountForm  = boxStateManagement.get('cashCountForm');
+
     checkEmailPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
     checkPasswordPM(password,'http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
   }
@@ -89,6 +132,27 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
 
     box.put("shopTaskPhotoMap",{});
+
+    boxStateManagement.put('isStoreVisit', false);
+    isStoreVisit = boxStateManagement.get('isStoreVisit');
+
+    boxStateManagement.put('isReport', false);
+    isReport = boxStateManagement.get('isReport');
+
+    boxStateManagement.put('inShopOpenForm', false);
+    inShopOpenForm = boxStateManagement.get('inShopOpenForm');
+
+    boxStateManagement.put('outShopOpenForm', false);
+    outShopOpenForm = boxStateManagement.get('outShopOpenForm');
+
+    boxStateManagement.put('inShopCloseForm', false);
+    inShopCloseForm = boxStateManagement.get('inShopCloseForm');
+
+    boxStateManagement.put('outShopCloseForm', false);
+    outShopCloseForm = boxStateManagement.get('outShopCloseForm');
+
+    boxStateManagement.put('cashCountForm ', false);
+    cashCountForm  = boxStateManagement.get('cashCountForm');
 
     checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
     checkPasswordBM(password,'http://172.23.21.112:7042/api/KullaniciBM', sayac,context);

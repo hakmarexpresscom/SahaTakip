@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/utils/appStateManager.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +10,29 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants/constants.dart';
+
 var appConstants = Hive.box('appConstants');
+var stateManagementConstants = Hive.box('stateManagementConstants');
 
 bool isLoggedIn = false;
 
 var box;
+var boxStateManagement;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path,backendPreference: HiveStorageBackendPreference.native);
   var hive = await Hive.openBox('appConstants');
   box = hive;
+
+  final appDocumentDir2 = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir2.path,backendPreference: HiveStorageBackendPreference.native);
+  var hiveStateManagement = await Hive.openBox<bool>('stateManagementConstants');
+  boxStateManagement = hiveStateManagement;
+
   runApp(MyApp());
 }
 
@@ -51,7 +63,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (isLoggedIn)? StartWorkMainScreen():LoginMainScreen(),
+      home: (isLoggedIn)? ((boxStateManagement.get('isStoreVisit')) ? ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopname / shopname"): StartWorkMainScreen()) : LoginMainScreen(),
     );
   }
 }

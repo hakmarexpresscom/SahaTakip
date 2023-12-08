@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';
@@ -14,6 +15,13 @@ logout(BuildContext context) async {
   box.put("urlWorkFilter","");
   box.put("shopCodes",[]);
   box.put("shopTaskPhotoMap",{});
+  boxStateManagement.put("isStoreVisit", false);
+  boxStateManagement.put('isReport', false);
+  boxStateManagement.put('inShopOpenForm', false);
+  boxStateManagement.put('outShopOpenForm', false);
+  boxStateManagement.put('inShopCloseForm', false);
+  boxStateManagement.put('outShopCloseForm', false);
+  boxStateManagement.put('cashCountForm ', false);
   userID=0;
   yoneticiID=0;
   workDurationHour = 0;
@@ -22,7 +30,6 @@ logout(BuildContext context) async {
   userType = "PM";
   isBSorPM = true;
   isBS = false;
-  //isReportCreated = false;
   email="";
   password="";
   urlTaskShops ="";

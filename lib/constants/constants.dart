@@ -5,13 +5,26 @@ import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
-RxBool isStoreVisitInProgress = false.obs;
-RxBool isReportCreated = false.obs;
-RxBool isInShopOpenFormFilled = false.obs;
-RxBool isOutShopOpenFormFilled = false.obs;
-RxBool isInShopCloseFormFilled = false.obs;
-RxBool isOutShopCloseFormFilled = false.obs;
-RxBool isCashCountFormFilled = false.obs;
+RxBool isStoreVisitInProgress = isStoreVisit.obs;
+bool isStoreVisit = (isLoggedIn)?boxStateManagement.get('isStoreVisit'):false;
+
+RxBool isReportCreated = isReport.obs;
+bool isReport = (isLoggedIn)?boxStateManagement.get('isReport'):false;
+
+RxBool isInShopOpenFormFilled = inShopOpenForm.obs;
+bool inShopOpenForm = (isLoggedIn)?boxStateManagement.get('inShopOpenForm'):false;
+
+RxBool isOutShopOpenFormFilled = outShopOpenForm.obs;
+bool outShopOpenForm = (isLoggedIn)?boxStateManagement.get('outShopOpenForm'):false;
+
+RxBool isInShopCloseFormFilled = inShopCloseForm.obs;
+bool inShopCloseForm = (isLoggedIn)?boxStateManagement.get('inShopCloseForm'):false;
+
+RxBool isOutShopCloseFormFilled = outShopCloseForm.obs;
+bool outShopCloseForm = (isLoggedIn)?boxStateManagement.get('outShopCloseForm'):false;
+
+RxBool isCashCountFormFilled = cashCountForm.obs;
+bool cashCountForm = (isLoggedIn)?boxStateManagement.get('cashCountForm'):false;
 
 
 class GoogleMapMarkerList {
@@ -38,8 +51,6 @@ String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";
 String urlTaskShops ="";
 
 List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
-Map<int, bool> shopCheckboxMap = {};
-
 Map<dynamic, dynamic> shopTaskPhotoMap = (isLoggedIn)?box.get("shopTaskPhotoMap"):{};
 List<XFile> taskPhotos = [];
 
@@ -55,13 +66,14 @@ String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;
 bool isBS = (isLoggedIn)?box.get("isBS"):false;
 
-//bool isReportCreated = false;
-
 List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü'];
 
 String email="";
 String password="";
+
+String currentShop = "";
+int currentShopID = 0;
 
 
 
