@@ -32,9 +32,9 @@ class _TaskCardState extends State<CheckingCard> {
           )
       ),
       child: Container(
-        padding: EdgeInsets.fromLTRB(context.dynamicWidht(0.01), context.dynamicWidht(0.08), 0, 0),
+        padding: EdgeInsets.fromLTRB(context.dynamicWidth(0.01), context.dynamicWidth(0.08), 0, 0),
         height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidht(widget.widthConst),
+        width: context.dynamicWidth(widget.widthConst),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,

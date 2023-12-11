@@ -42,7 +42,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         color: widget.backgroundColor,
         borderRadius: BorderRadius.circular(widget.radius),),
       height: context.dynamicHeight(widget.heightConst),
-      width: context.dynamicWidht(widget.widthConst),
+      width: context.dynamicWidth(widget.widthConst),
       child: MaterialButton(
         shape: RoundedRectangleBorder(
           side: BorderSide(color: widget.borderColor, width: widget.borderWidht),

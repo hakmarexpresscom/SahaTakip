@@ -31,7 +31,7 @@ class _ShopVisitingProcessCardState extends State<ShopVisitingProcessCard> {
       ),
       child: Container(
         height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidht(widget.widthConst),
+        width: context.dynamicWidth(widget.widthConst),
         child: InkWell(
           child:Column(
             mainAxisAlignment: MainAxisAlignment.start,

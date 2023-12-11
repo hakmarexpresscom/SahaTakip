@@ -32,7 +32,7 @@ class _TaskCardState extends State<PastReportsDetailCard> {
       child: Container(
         padding: EdgeInsets.fromLTRB(0,0, 0, 0),
         height: context.dynamicHeight(widget.heightConstContainer),
-        width: context.dynamicWidht(widget.widthConstContainer),
+        width: context.dynamicWidth(widget.widthConstContainer),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,

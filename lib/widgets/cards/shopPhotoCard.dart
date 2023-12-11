@@ -40,7 +40,7 @@ class _ShopPhotoCardState extends State<ShopPhotoCard> {
       ),
       child: Container(
         height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidht(widget.widthConst),
+        width: context.dynamicWidth(widget.widthConst),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
