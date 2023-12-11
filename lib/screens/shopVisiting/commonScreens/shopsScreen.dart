@@ -9,9 +9,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
+import '../../../main.dart';
 import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
+import '../../../widgets/button_widget.dart';
+import '../../startWork/startWorkMainScreen.dart';
 
 class ShopVisitingShopsScreen extends StatefulWidget {
   const ShopVisitingShopsScreen({super.key});
@@ -38,6 +41,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
   final ReportManager reportManager = Get.put(ReportManager());
+  final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
 
   @override
   void initState() {
@@ -63,20 +67,26 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesBS;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesBS2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesBS;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesPM;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesPM2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesPM;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesPM3;
         }
       }
       if(user=="BM" || user=="GK"){
@@ -97,6 +107,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
         child:Scaffold(
          resizeToAvoidBottomInset: true,
          appBar: AppBar(
+           automaticallyImplyLeading: false,
            foregroundColor: Colors.white,
            backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
@@ -179,6 +190,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   long: snapshot.data![index].Long,
                                   onTaps: (){
                                     storeVisitManager.startStoreVisit();
+                                    box.put("currentShopName", snapshot.data![index].shopName);
+                                    box.put("currentShopID",snapshot.data![index].shopCode);
                                     naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
                                   })
                             ]
@@ -201,7 +214,25 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                   return Text("Veri yok");
                 }
               })
-          )
+          ),
+          SizedBox(height: deviceHeight*0.02,),
+          ButtonWidget(
+              text: "Mesaiyi Bitir",
+              heightConst: 0.06,
+              widthConst: 0.8,
+              size: 18,
+              radius: 20,
+              fontWeight: FontWeight.w600,
+              onTaps: (){
+                shopVisitWorkManager.endShopVisitWork();
+                naviStartWorkMainScreen(context);
+                },
+              borderWidht: 3,
+              backgroundColor: Colors.orangeAccent,
+              borderColor: Colors.orangeAccent,
+              textColor: Colors.black
+          ),
+          SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
@@ -241,6 +272,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     long: snapshot.data![index].Long,
                                     onTaps: (){
                                       storeVisitManager.startStoreVisit();
+                                      box.put("currentShopName", snapshot.data![index].shopName);
+                                      box.put("currentShopID",snapshot.data![index].shopCode);
                                       naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
                                     }
                                     )
@@ -264,7 +297,25 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                       return Text("Veri yok");
                     }
                   })
-          )
+          ),
+          SizedBox(height: deviceHeight*0.02,),
+          ButtonWidget(
+              text: "Mesaiyi Bitir",
+              heightConst: 0.06,
+              widthConst: 0.8,
+              size: 18,
+              radius: 20,
+              fontWeight: FontWeight.w600,
+              onTaps: (){
+                shopVisitWorkManager.endShopVisitWork();
+                naviStartWorkMainScreen(context);
+              },
+              borderWidht: 3,
+              backgroundColor: Colors.orangeAccent,
+              borderColor: Colors.orangeAccent,
+              textColor: Colors.black
+          ),
+          SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }

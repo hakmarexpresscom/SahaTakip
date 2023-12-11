@@ -5,27 +5,20 @@ import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+RxBool isStartShopVisitWorkObs = isStartShopVisitWork.obs;
+bool isStartShopVisitWork = (isLoggedIn)?boxStateManagement.get('isStartShopVisitWork'):false;
+
+RxBool isStartExternalTaskWorkObs = isStartExternalTaskWork.obs;
+bool isStartExternalTaskWork = (isLoggedIn)?boxStateManagement.get('isStartExternalTaskWork'):false;
+
 RxBool isStoreVisitInProgress = isStoreVisit.obs;
 bool isStoreVisit = (isLoggedIn)?boxStateManagement.get('isStoreVisit'):false;
 
 RxBool isReportCreated = isReport.obs;
 bool isReport = (isLoggedIn)?boxStateManagement.get('isReport'):false;
 
-RxBool isInShopOpenFormFilled = inShopOpenForm.obs;
-bool inShopOpenForm = (isLoggedIn)?boxStateManagement.get('inShopOpenForm'):false;
-
-RxBool isOutShopOpenFormFilled = outShopOpenForm.obs;
-bool outShopOpenForm = (isLoggedIn)?boxStateManagement.get('outShopOpenForm'):false;
-
-RxBool isInShopCloseFormFilled = inShopCloseForm.obs;
-bool inShopCloseForm = (isLoggedIn)?boxStateManagement.get('inShopCloseForm'):false;
-
-RxBool isOutShopCloseFormFilled = outShopCloseForm.obs;
-bool outShopCloseForm = (isLoggedIn)?boxStateManagement.get('outShopCloseForm'):false;
-
-RxBool isCashCountFormFilled = cashCountForm.obs;
-bool cashCountForm = (isLoggedIn)?boxStateManagement.get('cashCountForm'):false;
-
+String currentShopName = (isLoggedIn)?boxStateManagement.get('currentShopName'):"";
+int currentShopID = (isLoggedIn)?boxStateManagement.get('currentShopID'):0;
 
 class GoogleMapMarkerList {
 
@@ -59,8 +52,6 @@ int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
 
 int workDurationHour = 0;
 int workDurationMin = 0;
-bool isWorking = false;
-bool startVisiting = false;
 
 String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;
@@ -71,9 +62,6 @@ List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','
 
 String email="";
 String password="";
-
-String currentShop = "";
-int currentShopID = 0;
 
 
 

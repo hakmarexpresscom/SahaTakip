@@ -54,20 +54,26 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStoreVisitInProgress.value){
+        if(isStoreVisitInProgress.value==false){
+          pageList = pagesBS;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesBS2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesBS;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStoreVisitInProgress.value){
+        if(isStoreVisitInProgress.value==false){
+          pageList = pagesPM;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesPM2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesPM;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesPM3;
         }
       }
       if(user=="BM" || user=="GK"){

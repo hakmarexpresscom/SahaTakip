@@ -72,21 +72,27 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesBS;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesBS2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesBS;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesBS3;
         }
         _selectedIndex = 1;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesPM;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesPM2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesPM;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesPM3;
         }
         _selectedIndex = 1;
       }
@@ -160,7 +166,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   }
   
   Widget navigationMainScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
-    return Expanded(child: FutureBuilder<List<Shop>>(
+    return Expanded(
+        child: FutureBuilder<List<Shop>>(
           future: futureShopList,
           builder: (context, snapshot){
             if(snapshot.hasData){

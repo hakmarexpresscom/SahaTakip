@@ -57,20 +57,26 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesBS;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesBS2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesBS;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesPM;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesPM2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesPM;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesPM3;
         }
       }
       if(user=="BM" || user=="GK"){

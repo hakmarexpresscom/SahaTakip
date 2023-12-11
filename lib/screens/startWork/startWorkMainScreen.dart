@@ -3,9 +3,12 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
+import '../../utils/appStateManager.dart';
 
 class StartWorkMainScreen extends StatefulWidget {
 
@@ -30,6 +33,9 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   DateTime now = DateTime.now();
 
+  final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
+  final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
+
   @override
   Widget build(BuildContext context) {
 
@@ -39,21 +45,27 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesBS;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesBS2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesBS;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesBS3;
         }
         _selectedIndex = 0;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesPM;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesPM2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesPM;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesPM3;
         }
         _selectedIndex = 0;
       }
@@ -105,8 +117,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             shiftTypeDropDown(),
             SizedBox(height: deviceHeight*0.07,),
             startWorkButton(),
-            SizedBox(height: deviceHeight*0.03,),
-            finishWorkButton(),
           ],
         ),
       );
@@ -130,16 +140,16 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: (){
-          setState(() {
-            isWorking=true;
-          });
           if(item=="Mağaza Ziyareti" && userType=="BS"){
+            shopVisitWorkManager.startShopVisitWork();
             naviShopVisitingShopsScreen(context);
           }
           else if(item=="Mağaza Ziyareti" && userType=="PM"){
+            shopVisitWorkManager.startShopVisitWork();
             naviShopVisitingShopsScreenPM(context);
           }
           else if(item=="Harici İş"){
+            externalTaskWorkManager.startExternalTaskWork();
             naviExternalTaskMainScreen(context);
           }
         },
@@ -149,9 +159,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         textColor: Colors.black
     );
   }
-  Widget finishWorkButton(){
-    return ButtonWidget(text: "Mesaiyi Bitir", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){isWorking=false; Navigator.push(context, MaterialPageRoute(builder: (context) => StartWorkMainScreen()));}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
-  }
+
   Widget shiftTypeDropDown(){
     return DropdownMenu<String>(
       initialSelection: item,

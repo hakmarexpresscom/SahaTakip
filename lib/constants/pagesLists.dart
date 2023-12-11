@@ -1,4 +1,7 @@
+import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:flutter/cupertino.dart';
 import '../screens/navigation/navigationMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
@@ -18,7 +21,15 @@ late List<Widget> pagesBS = [
 ];
 
 late List<Widget> pagesBS2 = [
-  ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopName / shopname"),
+  ShopVisitingShopsScreen(),
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  RemoteTaskMainScreen(),
+  OtherMainScreen()
+];
+
+late List<Widget> pagesBS3 = [
+  ExternalTaskMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   RemoteTaskMainScreen(),
@@ -35,7 +46,16 @@ late List<Widget> pagesPM = [
 ];
 
 late List<Widget> pagesPM2 = [
-  ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopName / shopname"),
+  ShopVisitingShopsScreenPM(),
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  TaskCheckingMainScreen(),
+  SubmitTaskMainScreen(),
+  OtherMainScreen()
+];
+
+late List<Widget> pagesPM3 = [
+  ExternalTaskMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   TaskCheckingMainScreen(),

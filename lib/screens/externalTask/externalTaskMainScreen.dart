@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../routing/landing.dart';
+import '../../utils/appStateManager.dart';
 import '../../widgets/button_widget.dart';
 
 class ExternalTaskMainScreen extends StatefulWidget {
@@ -25,6 +28,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
 
   DateTime now = DateTime.now();
 
+  final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +39,26 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesBS;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesBS2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesBS;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStoreVisitInProgress.value){
+        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+          pageList = pagesPM;
+        }
+        else if(isStartShopVisitWorkObs.value){
           pageList = pagesPM2;
         }
-        else if(isStoreVisitInProgress.value==false){
-          pageList = pagesPM;
+        else if(isStartExternalTaskWorkObs.value){
+          pageList = pagesPM3;
         }
       }
       if(user=="BM" || user=="GK"){
@@ -66,6 +76,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Harici İş'),
@@ -103,13 +114,53 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
 
 
   Widget externalWorkButton(){
-    return ButtonWidget(text: "Harici İşlerim", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviExternalTasksListScreen(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Harici İşlerim",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          naviExternalTasksListScreen(context);
+          },
+        borderWidht: 1,
+        backgroundColor: Colors.lightGreen.withOpacity(0.6),
+        borderColor: Colors.lightGreen.withOpacity(0.6),
+        textColor: Colors.black);
   }
   Widget addExternalWorkButton(){
-    return ButtonWidget(text: "Harici İş Girişi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviEnterExternalTaskScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(
+        text: "Harici İş Girişi",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          naviEnterExternalTaskScreen(context);
+          },
+        borderWidht: 3,
+        backgroundColor: Colors.orangeAccent,
+        borderColor: Colors.orangeAccent,
+        textColor: Colors.black);
   }
   Widget stopExternalTaskButton(){
-    return ButtonWidget(text: "Harici İşi Durdur", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: Colors.red.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(
+        text: "Mesaiyi Bitir",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          externalTaskWorkManager.endExternalTaskWork();
+          naviStartWorkMainScreen(context);
+        },
+        borderWidht: 1,
+        backgroundColor: Colors.red.withOpacity(0.6),
+        borderColor: Colors.red.withOpacity(0.6),
+        textColor: Colors.black);
   }
 
 }

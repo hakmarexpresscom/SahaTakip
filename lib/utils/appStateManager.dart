@@ -3,6 +3,34 @@ import 'package:get/get.dart';
 import '../constants/constants.dart';
 import '../main.dart';
 
+class ShopVisitWorkManager extends GetxController {
+
+  void startShopVisitWork() {
+    isStartShopVisitWorkObs.value = true;
+    boxStateManagement.put('isStartShopVisitWork', true);
+  }
+
+  void endShopVisitWork() {
+    isStartShopVisitWorkObs.value = false;
+    boxStateManagement.put('isStartShopVisitWork', false);
+  }
+}
+
+
+class ExternalTaskWorkManager extends GetxController {
+
+  void startExternalTaskWork() {
+    isStartExternalTaskWorkObs.value = true;
+    boxStateManagement.put('isStartExternalTaskWork', true);
+  }
+
+  void endExternalTaskWork() {
+    isStartExternalTaskWorkObs.value = false;
+    boxStateManagement.put('isStartExternalTaskWork', false);
+  }
+}
+
+
 class StoreVisitManager extends GetxController {
 
   void startStoreVisit() {
@@ -27,76 +55,6 @@ class ReportManager extends GetxController {
   void noReport() {
     isReportCreated.value = false;
     boxStateManagement.put('isReport', false);
-  }
-}
-
-
-class InShopOpenFormManager extends GetxController {
-
-  void createForm() {
-    isInShopOpenFormFilled.value = true;
-    boxStateManagement.put('inShopOpenForm', true);
-  }
-
-  void noForm() {
-    isInShopOpenFormFilled.value = false;
-    boxStateManagement.put('inShopOpenForm', false);
-  }
-}
-
-
-class OutShopOpenFormManager extends GetxController {
-
-  void createForm() {
-    isOutShopOpenFormFilled.value = true;
-    boxStateManagement.put('outShopOpenForm', true);
-  }
-
-  void noForm() {
-    isOutShopOpenFormFilled.value = false;
-    boxStateManagement.put('outShopOpenForm', false);
-  }
-}
-
-
-class InShopCloseFormManager extends GetxController {
-
-  void createForm() {
-    isInShopCloseFormFilled.value = true;
-    boxStateManagement.put('inShopCloseForm', true);
-  }
-
-  void noForm() {
-    isInShopCloseFormFilled.value = false;
-    boxStateManagement.put('inShopCloseForm', false);
-  }
-}
-
-
-class OutShopCloseFormManager extends GetxController {
-
-  void createForm() {
-    isOutShopCloseFormFilled.value = true;
-    boxStateManagement.put('outShopCloseForm', true);
-  }
-
-  void noForm() {
-    isOutShopCloseFormFilled.value = false;
-    boxStateManagement.put('outShopCloseForm', false);
-  }
-}
-
-
-class CashCountFormManager extends GetxController {
-
-  void createForm() {
-    isCashCountFormFilled.value = true;
-    boxStateManagement.put('cashCountForm ', true);
-  }
-
-  void noForm() {
-    isCashCountFormFilled.value = false;
-    boxStateManagement.put('cashCountForm ', false);
   }
 }
 

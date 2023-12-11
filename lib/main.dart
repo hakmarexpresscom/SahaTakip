@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
+import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/utils/appStateManager.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +48,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  late Widget page = StartWorkMainScreen();
+
   @override
   void initState() {
     super.initState();
@@ -61,9 +66,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    void pageCondition(){
+      if(boxStateManagement.get('isStoreVisit')){
+        page = ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopname / shopname");
+      }
+      else if(boxStateManagement.get('isStartShopVisitWork')){
+        page = (isBS) ? ShopVisitingShopsScreen():ShopVisitingShopsScreenPM();
+      }
+      else if(boxStateManagement.get('isStartExternalTaskWork')){
+        page = ExternalTaskMainScreen();
+      }
+    }
+
+    pageCondition();
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (isLoggedIn)? ((boxStateManagement.get('isStoreVisit')) ? ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopname / shopname"): StartWorkMainScreen()) : LoginMainScreen(),
+      home: (isLoggedIn)? page : LoginMainScreen(),
     );
   }
 }
