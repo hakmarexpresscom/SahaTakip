@@ -28,11 +28,6 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
   late Future<List<InShopCloseControl>> futureInShopCloseControl;
   late Future<List<OutShopCloseControl>> futureOutShopCloseControl;
 
-  int _selectedIndex = 0;
-
-  List<BottomNavigationBarItem> naviBarList = [];
-  List<Widget> pageList = [];
-
   late double deviceHeight;
   late double deviceWidth;
 
@@ -50,43 +45,6 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
 
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
-
-    void userCondition(String user){
-      if(user=="BS"){
-        naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
-          pageList = pagesBS;
-        }
-        else if(isStartShopVisitWorkObs.value){
-          pageList = pagesBS2;
-        }
-        else if(isStartExternalTaskWorkObs.value){
-          pageList = pagesBS3;
-        }
-      }
-      if(user=="PM"){
-        naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
-          pageList = pagesPM;
-        }
-        else if(isStartShopVisitWorkObs.value){
-          pageList = pagesPM2;
-        }
-        else if(isStartExternalTaskWorkObs.value){
-          pageList = pagesPM3;
-        }
-      }
-      if(user=="BM" || user=="GK"){
-        naviBarList = itemListBMandGK;
-        pageList = pagesBMGK;
-      }
-      if(user=="NK"){
-        naviBarList = itemListNK;
-        pageList = pagesNK;
-      }
-    }
-
-    userCondition(userType);
 
     return DefaultTabController(
         initialIndex: 0,
@@ -132,7 +90,6 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                 ),
               ],
             ),
-            bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
         ));
   }
 
@@ -157,7 +114,9 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               },
             ),
           ),
+          SizedBox(height: deviceHeight*0.02,),
           saveButtonInshop(),
+          SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
@@ -183,7 +142,9 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               },
             ),
           ),
+          SizedBox(height: deviceHeight*0.02,),
           saveButtonOutshop(),
+          SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }

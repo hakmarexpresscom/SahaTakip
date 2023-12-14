@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../main.dart';
@@ -36,6 +37,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
 
   late double deviceHeight;
   late double deviceWidth;
+
+  DateTime now = DateTime.now();
 
   late AnimationController controller;
 
@@ -306,8 +309,11 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
               size: 18,
               radius: 20,
               fontWeight: FontWeight.w600,
-              onTaps: (){
+              onTaps: () {
                 shopVisitWorkManager.endShopVisitWork();
+                /*final prefs = await SharedPreferences.getInstance();
+                await prefs.setInt('workHour', (now.hour-startWorkHour));
+                await prefs.setInt('workMinute', (now.hour-startWorkMinute));*/
                 naviStartWorkMainScreen(context);
               },
               borderWidht: 3,

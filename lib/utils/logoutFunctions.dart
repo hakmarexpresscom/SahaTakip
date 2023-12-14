@@ -23,8 +23,6 @@ logout(BuildContext context) async {
   boxStateManagement.put('isReport', false);
   userID=0;
   yoneticiID=0;
-  workDurationHour = 0;
-  workDurationMin = 0;
   userType = "PM";
   isBSorPM = true;
   isBS = false;

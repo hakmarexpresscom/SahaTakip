@@ -90,6 +90,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),

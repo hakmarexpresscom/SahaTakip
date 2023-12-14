@@ -50,9 +50,6 @@ List<XFile> taskPhotos = [];
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
 
-int workDurationHour = 0;
-int workDurationMin = 0;
-
 String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;
 bool isBS = (isLoggedIn)?box.get("isBS"):false;
@@ -62,6 +59,11 @@ List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','
 
 String email="";
 String password="";
+
+int workHour = 0;
+int workMinute = 0;
+int startWorkHour = 0;
+int startWorkMinute = 0;
 
 
 

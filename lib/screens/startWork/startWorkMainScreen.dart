@@ -5,6 +5,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
@@ -125,7 +126,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
 
   Widget workDurationInfo(){
-    return TextWidget(text: "Çalışma Süresi: "+workDurationHour.toString()+" saat "+workDurationMin.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Çalışma Süresi: "+workHour.toString()+" saat "+workMinute.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
@@ -139,9 +140,16 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         radius: 20,
         fontWeight:
         FontWeight.w600,
-        onTaps: (){
+        onTaps: () {
           if(item=="Mağaza Ziyareti" && userType=="BS"){
             shopVisitWorkManager.startShopVisitWork();
+            /*final prefs = await SharedPreferences.getInstance();
+            final startHour = prefs.getInt('startWorkHour') ?? now.hour;
+            final startMinute = prefs.getInt('startWorkMinute') ?? now.minute;
+            setState(() {
+              startWorkHour = startHour;
+              startWorkMinute = startMinute;
+            });*/
             naviShopVisitingShopsScreen(context);
           }
           else if(item=="Mağaza Ziyareti" && userType=="PM"){

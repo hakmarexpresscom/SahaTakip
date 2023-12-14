@@ -23,11 +23,6 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
 
   late Future<Photo> futurePhoto;
 
-  int _selectedIndex = 3;
-
-  List<BottomNavigationBarItem> naviBarList = [];
-  List<Widget> pageList = [];
-
   late double deviceHeight;
   late double deviceWidth;
 
@@ -57,43 +52,6 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
-    void userCondition(String user){
-      if(user=="BS"){
-        naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
-          pageList = pagesBS;
-        }
-        else if(isStartShopVisitWorkObs.value){
-          pageList = pagesBS2;
-        }
-        else if(isStartExternalTaskWorkObs.value){
-          pageList = pagesBS3;
-        }
-      }
-      if(user=="PM"){
-        naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
-          pageList = pagesPM;
-        }
-        else if(isStartShopVisitWorkObs.value){
-          pageList = pagesPM2;
-        }
-        else if(isStartExternalTaskWorkObs.value){
-          pageList = pagesPM3;
-        }
-      }
-      if(user=="BM" || user=="GK"){
-        naviBarList = itemListBMandGK;
-        pageList = pagesBMGK;
-      }
-      if(user=="NK"){
-        naviBarList = itemListNK;
-        pageList = pagesNK;
-      }
-    }
-
-    userCondition(userType);
-
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
@@ -105,7 +63,6 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
             alignment: Alignment.center,
             child: taskDownloadedPhotoScreenUI(),
           ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
   }
 
