@@ -9,9 +9,10 @@ class PastReportCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String reportName;
+  late String createDate;
   final VoidCallback onTaps;
 
-  PastReportCard({Key? key, required this.heightConst,required this.widthConst, required this.reportName, required this.onTaps}): super(key: key);
+  PastReportCard({Key? key, required this.heightConst,required this.widthConst, required this.reportName,required this.createDate, required this.onTaps}): super(key: key);
 
   @override
   State<PastReportCard> createState() => _TaskCardState();
@@ -44,6 +45,8 @@ class _TaskCardState extends State<PastReportCard> {
               children: [Icon(Icons.file_copy,size: 35,),],
             ),
             TextWidget(text: widget.reportName, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
+            SizedBox(height: context.dynamicHeight(0.02),),
+            TextWidget(text: "Oluşturulma tarihi: "+widget.createDate, heightConst: 0, widhtConst: 0, size: 22, fontWeight: FontWeight.w500, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.025),),
             ButtonWidget(text: "Rapor Detayları", heightConst: 0.04, widthConst: 0.35, size: 13, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],

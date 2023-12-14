@@ -8,9 +8,12 @@ class TaskCheckingCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String taskName;
+  late String assignmentDate;
+  late String taskType;
+  late int shopCode;
   final VoidCallback onTaps;
 
-  TaskCheckingCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName, required this.onTaps}): super(key: key);
+  TaskCheckingCard({Key? key, required this.heightConst,required this.widthConst, required this.taskName, required this.assignmentDate, required this.taskType, required this.shopCode, required this.onTaps}): super(key: key);
 
   @override
   State<TaskCheckingCard> createState() => _TaskCardState();
@@ -43,6 +46,10 @@ class _TaskCardState extends State<TaskCheckingCard> {
               children: [Icon(Icons.fact_check_outlined,size: 35,),],
             ),
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
+            (widget.taskType=="Yerinde"||widget.taskType=="Uzaktan")?SizedBox(height: context.dynamicHeight(0.02),):SizedBox(height: context.dynamicHeight(0.00)),
+            (widget.taskType=="Yerinde"||widget.taskType=="Uzaktan")?TextWidget(text: "Mağaza Kodu: "+widget.shopCode.toString(), heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black):SizedBox(height: context.dynamicHeight(0.02),),
+            (widget.taskType=="Yerinde"||widget.taskType=="Uzaktan")?SizedBox(height: context.dynamicHeight(0.02),):SizedBox(height: context.dynamicHeight(0.00)),
+            TextWidget(text: "Görev atama tarihi:\n"+widget.assignmentDate, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.025),),
             ButtonWidget(text: "Görev Detayları", heightConst: 0.04, widthConst: 0.35, size: 13, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
           ],

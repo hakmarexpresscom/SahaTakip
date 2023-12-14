@@ -226,7 +226,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         onTaps: () async {
           reportManager.createReport();
           await countReport("http://172.23.21.112:7042/api/Rapor");
-          await createReport(reportCount+1, userID, widget.shop_code, "http://172.23.21.112:7042/api/Rapor");
+          await createReport(reportCount+1, userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), "http://172.23.21.112:7042/api/Rapor");
           naviVisitingReportMainScreen(context, widget.shop_code);
           },
         borderWidht: 1,
@@ -329,7 +329,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        PastReportCard(heightConst: 0.15, widthConst: 0.95, reportName: "Rapor ${snapshot.data![index].report_id}",onTaps: (){naviPastReportTasksScreen(context,snapshot.data![index].report_id);}),
+                        PastReportCard(heightConst: 0.22, widthConst: 0.95, reportName: "Rapor ${snapshot.data![index].report_id}",createDate: snapshot.data![index].createDate,onTaps: (){naviPastReportTasksScreen(context,snapshot.data![index].report_id);}),
                       ],
                     );
                   },

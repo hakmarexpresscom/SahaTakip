@@ -2,7 +2,7 @@ import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
-class PastReportsDetailCard extends StatefulWidget {
+class PastReportTaskDetailCard extends StatefulWidget {
 
   late double heightConstContainer;
   late double widthConstContainer;
@@ -11,13 +11,13 @@ class PastReportsDetailCard extends StatefulWidget {
   late String personName;
   final double size;
 
-  PastReportsDetailCard({Key? key, required this.heightConstContainer,required this.widthConstContainer, required this.taskName, required this.isCompleted, required this.personName, required this.size}): super(key: key);
+  PastReportTaskDetailCard({Key? key, required this.heightConstContainer,required this.widthConstContainer, required this.taskName, required this.isCompleted, required this.personName, required this.size}): super(key: key);
 
   @override
-  State<PastReportsDetailCard> createState() => _TaskCardState();
+  State<PastReportTaskDetailCard> createState() => _TaskCardState();
 }
 
-class _TaskCardState extends State<PastReportsDetailCard> {
+class _TaskCardState extends State<PastReportTaskDetailCard> {
 
   @override
   Widget build(BuildContext context) {

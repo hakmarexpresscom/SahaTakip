@@ -2,11 +2,13 @@ class Report{
   late int report_id;
   late int pm_id;
   late int shopCode;
+  late String createDate;
 
   Report({
     required this.report_id,
     required this.pm_id,
-    required this.shopCode
+    required this.shopCode,
+    required this.createDate
   });
 
   factory Report.fromJson(Map<String, dynamic> json) {
@@ -14,6 +16,7 @@ class Report{
       report_id: json['rapor_id'],
       pm_id: json['pm_id'],
       shopCode: json['magaza_kodu'],
+      createDate: json['olusturulma_tarihi']
     );
   }
 
