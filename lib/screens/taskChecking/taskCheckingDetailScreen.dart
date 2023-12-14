@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
+import '../../models/completeTask.dart';
 import '../../models/incompleteTask.dart';
 import '../../routing/bottomNavigationBar.dart';
+import '../../services/completeTaskServices.dart';
 import '../../services/inCompleteTaskServices.dart';
+import '../../widgets/cards/completeTaskCheckingDetailCard.dart';
 
 class TaskCheckingDetailScreen extends StatefulWidget {
   int task_id = 0;
@@ -21,6 +24,7 @@ class TaskCheckingDetailScreen extends StatefulWidget {
 class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> with TickerProviderStateMixin {
 
   late Future<IncompleteTask> futureIncompleteTask;
+  late Future<CompleteTask> futureCompleteTask;
 
   int _selectedIndex = 3;
 
@@ -36,6 +40,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
   void initState() {
     super.initState();
     futureIncompleteTask = fetchIncompleteTask2('http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.task_id}');
+    futureCompleteTask = fetchCompleteTask2('http://172.23.21.112:7042/api/TamamlanmisGorev/${widget.task_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -159,26 +164,51 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IncompleteTaskCheckingDetailCard(
-                      heightConst: 0.7,
-                      widthConst: 0.9,
-                      taskName: snapshot.data!.taskTitle,
-                      taskDescription: snapshot.data!.taskDetail!,
-                      taskDeadline: snapshot.data!.taskFinishDate,
-                      taskType: snapshot.data!.taskType,
-                      onTapsShowPhoto: (){naviAnswerDownloadedPhotoScreen(context, snapshot.data!.task_id);},
-                      id: snapshot.data!.task_id,
-                      assignmentDate: snapshot.data!.taskAssigmentDate,
-                      shop_code: snapshot.data!.shopCode,
-                      photo_id: snapshot.data!.photo_id,
+                return Expanded(
+                    child: FutureBuilder<CompleteTask>(
+                      future: futureCompleteTask,
+                      builder: (context,snapshot2){
+                        if(snapshot2.hasData){
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CompleteTaskCheckingDetailCard(
+                                heightConst: 0.7,
+                                widthConst: 0.9,
+                                taskName: snapshot.data!.taskTitle,
+                                taskDescription: snapshot.data!.taskDetail!,
+                                taskDeadline: snapshot.data!.taskFinishDate,
+                                taskType: snapshot.data!.taskType,
+                                onTapsShowPhoto: (){naviAnswerDownloadedPhotoScreen(context, snapshot.data!.task_id);},
+                                id: snapshot.data!.task_id,
+                                assignmentDate: snapshot.data!.taskAssigmentDate,
+                                shop_code: snapshot.data!.shopCode,
+                                photo_id: snapshot.data!.photo_id,
+                                completeDate: snapshot2.data!.taskCompleteDate,
+                              )
+                            ],
+                          );
+                        }
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return Column(
+                              children:[
+                                SizedBox(height: deviceHeight*0.06,),
+                                CircularProgressIndicator(
+                                  value: controller.value,
+                                  semanticsLabel: 'Circular progress indicator',
+                                ),
+                              ]
+                          );
+                        }
+                        else{
+                          return Text("Veri yok");
+                        }
+                      },
                     )
-                  ],
                 );
+
               }
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Column(

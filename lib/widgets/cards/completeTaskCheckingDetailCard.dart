@@ -1,32 +1,30 @@
 import 'package:deneme/styles/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../button_widget.dart';
 import '../text_widget.dart';
 
-class IncompleteTaskCheckingDetailCard extends StatefulWidget {
+class CompleteTaskCheckingDetailCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String taskName;
   late String taskDescription;
   late String taskDeadline;
-  late String completionDate;
-  late String bs_name;
   late String taskType;
   late VoidCallback onTapsShowPhoto;
   late int id;
+  late String assignmentDate;
   late int shop_code;
   late int? photo_id;
-  late XFile? image;
+  late String completeDate;
 
-  IncompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.completionDate, required this.bs_name, required this.taskType, required this.onTapsShowPhoto ,required this.id, required this.shop_code, required this.photo_id,required this.image}): super(key: key);
+  CompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate, required this.shop_code, required this.photo_id,required this.completeDate}): super(key: key);
 
   @override
-  State<IncompleteTaskCheckingDetailCard> createState() => _IncompleteTaskCheckingDetailCardState();
+  State<CompleteTaskCheckingDetailCard> createState() => _IncompleteTaskCheckingDetailCardState();
 }
 
-class _IncompleteTaskCheckingDetailCardState extends State<IncompleteTaskCheckingDetailCard> {
+class _IncompleteTaskCheckingDetailCardState extends State<CompleteTaskCheckingDetailCard> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,16 +33,16 @@ class _IncompleteTaskCheckingDetailCardState extends State<IncompleteTaskCheckin
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
+          SizedBox(height: context.dynamicHeight(0.07),),
+          TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: "Görev Atama Tarihi: ${widget.assignmentDate}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Görev Tamamlanma Tarihi: ${widget.completionDate}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: "Görev Tamamlanma Tarihi: ${widget.completeDate}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Görev Tamamlayan Kişi: ${widget.bs_name}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: "Mağaza Kodu: ${widget.shop_code}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Mağaza Kodu: ${widget.shop_code}", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
-          SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Görev Türü: ${widget.taskType}", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: "Görev Türü: ${widget.taskType}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.1),),
           TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.1),),
