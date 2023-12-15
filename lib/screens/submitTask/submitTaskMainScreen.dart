@@ -226,7 +226,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TextWidget(text: "Yerinde", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
-                  Checkbox(value: inPlace, onChanged: (newvalue){setState(() {inPlace=newvalue!;});})
+                  Checkbox(value: inPlace, onChanged: (newvalue){setState(() {inPlace=newvalue!;remote=!newvalue;});})
                 ],
               ),
               Row(
@@ -235,7 +235,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TextWidget(text: "Uzaktan", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
-                  Checkbox(value: remote, onChanged: (newvalue){setState(() {remote=newvalue!;});})
+                  Checkbox(value: remote, onChanged: (newvalue){setState(() {remote=newvalue!;inPlace=!newvalue;});})
                 ],
               ),
             ],

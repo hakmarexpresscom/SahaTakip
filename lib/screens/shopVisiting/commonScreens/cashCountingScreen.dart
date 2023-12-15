@@ -1,5 +1,7 @@
 import 'package:deneme/constants/constants.dart';
+import 'package:deneme/models/cashCounting.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/services/cashCountingServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_form_field.dart';
@@ -7,6 +9,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
+import '../../../widgets/alert_dialog.dart';
 
 
 class CashCountingScreen extends StatefulWidget {
@@ -31,6 +34,8 @@ class CashCountingScreen extends StatefulWidget {
 
 class _CashCountingScreenState extends State<CashCountingScreen> {
 
+  late Future<List<CashCounting>> futureCashCounting;
+
   late double deviceHeight;
   late double deviceWidth;
 
@@ -47,6 +52,12 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   final farkController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    futureCashCounting = fetchCashCounting('http://172.23.21.112:7042/api/CelikKasaSayimi/filterCashCountingForm?magaza_kodu=5000&kayit_tarihi=15-12-2023');
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
@@ -60,12 +71,21 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           title: const Text('Çelik Kasa Sayımı'),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child:Container(
             alignment: Alignment.center,
-            child: cashCountingScreenUI(),
+            child: FutureBuilder<List<CashCounting>>(
+                    future: futureCashCounting,
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        return Text("Kasa sayımı formunu bu ziyaret için doldurdunuz.");
+                      }
+                      else{
+                        return cashCountingScreenUI();
+                      }
+                    }
+                ),
+          )
           ),
-        ),
     );
   }
 
@@ -127,6 +147,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
               farkController.text,
               "http://172.23.21.112:7042/api/CelikKasaSayimi"
           );
+          showFormFilledDialog(context);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -163,6 +184,21 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  showFormFilledDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialogWidget(
+            title: 'Kontroller Yapıldı',
+            content: 'Kasa sayımı formunu başarıyla doldurdunuz!',
+            onTaps: (){
+              naviCashCountingScreen(context, widget.shop_code, widget.shopName);
+            },
+          );
+        }
     );
   }
 }

@@ -35,7 +35,7 @@ class CashCounting{
       madeni_para_sayimi: json['madeni_para_sayimi'],
       poslar_toplami: json['poslar_toplami'],
       masraflar_tediyeler: json['masraflar_tediyeler'],
-      celik_kasa_mevcudu: json['celik_kasamevcudu'],
+      celik_kasa_mevcudu: json['celik_kasa_mevcudu'],
       kasa_defter_mevcudu: json['kasa_defter_mevcudu'],
       fark: json['fark']
     );

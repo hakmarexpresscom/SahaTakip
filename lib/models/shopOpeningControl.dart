@@ -114,7 +114,7 @@ class OutShopOpenControl{
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],
       alarm: json['alarm'],
-      personel_sayisi: json['presonel_sayisi'],
+      personel_sayisi: json['personel_sayisi'],
       uygun_zaman: json['uygun_zaman'],
       kapi_kepenk: json['kapi_kepenk'],
       anahtar: json['anahtar'],
