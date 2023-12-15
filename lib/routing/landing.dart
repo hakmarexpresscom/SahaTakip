@@ -1,5 +1,6 @@
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/authScreens/loginScreen/forgetPasswordScreen.dart';
@@ -38,6 +39,10 @@ void naviShopVisitingShopsScreen(BuildContext context){
 
 void naviShopVisitingShopsScreenPM(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreenPM()));
+}
+
+void naviShopVisitingMainScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingMainScreen()));
 }
 
 void naviStartWorkMainScreen(BuildContext context){

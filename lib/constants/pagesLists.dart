@@ -7,6 +7,7 @@ import '../screens/navigation/navigationMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/other/otherMainScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
+import '../screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/taskChecking/taskCheckingMainScreen.dart';
@@ -21,7 +22,7 @@ late List<Widget> pagesBS = [
 ];
 
 late List<Widget> pagesBS2 = [
-  ShopVisitingShopsScreen(),
+  ShopVisitingMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   RemoteTaskMainScreen(),
@@ -46,7 +47,7 @@ late List<Widget> pagesPM = [
 ];
 
 late List<Widget> pagesPM2 = [
-  ShopVisitingShopsScreenPM(),
+  ShopVisitingMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   TaskCheckingMainScreen(),

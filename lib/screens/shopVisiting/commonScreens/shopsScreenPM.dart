@@ -38,7 +38,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
   final ReportManager reportManager = Get.put(ReportManager());
-  final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
 
   @override
   void initState() {
@@ -100,7 +99,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Kendi Mağazalarım'),
@@ -111,9 +109,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
               return Column(
                 children: <Widget>[
                   ownShopsScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15),
-                  SizedBox(height: deviceHeight*0.03,),
-                  finishWorkButton(),
-                  SizedBox(height: deviceHeight*0.03,),
                 ],
               );
             }
@@ -121,9 +116,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
               return Column(
                 children: <Widget>[
                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
-                  SizedBox(height: deviceHeight*0.03,),
-                  finishWorkButton(),
-                  SizedBox(height: deviceHeight*0.03,),
                 ],
               );
             }
@@ -131,9 +123,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
               return Column(
                 children: <Widget>[
                   ownShopsScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
-                  SizedBox(height: deviceHeight*0.03,),
-                  finishWorkButton(),
-                  SizedBox(height: deviceHeight*0.03,),
                 ],
               );
             }
@@ -206,25 +195,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                 })
               );
 
-  }
-
-  Widget finishWorkButton(){
-    return ButtonWidget(
-        text: "Mesaiyi Bitir",
-        heightConst: 0.06,
-        widthConst: 0.8,
-        size: 18,
-        radius: 20,
-        fontWeight: FontWeight.w600,
-        onTaps: (){
-          shopVisitWorkManager.endShopVisitWork();
-          naviStartWorkMainScreen(context);
-        },
-        borderWidht: 3,
-        backgroundColor: Colors.orangeAccent,
-        borderColor: Colors.orangeAccent,
-        textColor: Colors.black
-    );
   }
 
 }

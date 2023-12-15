@@ -141,7 +141,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: () {
-          if(item=="Mağaza Ziyareti" && userType=="BS"){
+          if(item=="Mağaza Ziyareti"){
             shopVisitWorkManager.startShopVisitWork();
             /*final prefs = await SharedPreferences.getInstance();
             final startHour = prefs.getInt('startWorkHour') ?? now.hour;
@@ -150,11 +150,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               startWorkHour = startHour;
               startWorkMinute = startMinute;
             });*/
-            naviShopVisitingShopsScreen(context);
-          }
-          else if(item=="Mağaza Ziyareti" && userType=="PM"){
-            shopVisitWorkManager.startShopVisitWork();
-            naviShopVisitingShopsScreenPM(context);
+            naviShopVisitingMainScreen(context);
           }
           else if(item=="Harici İş"){
             externalTaskWorkManager.startExternalTaskWork();

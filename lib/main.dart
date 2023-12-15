@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
         page = ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopname / shopname");
       }
       else if(boxStateManagement.get('isStartShopVisitWork')){
-        page = (isBS) ? ShopVisitingShopsScreen():ShopVisitingShopsScreenPM();
+        page = ShopVisitingMainScreen();
       }
       else if(boxStateManagement.get('isStartExternalTaskWork')){
         page = ExternalTaskMainScreen();

@@ -2,9 +2,9 @@ class Shift{
   late int bs_id;
   late int pm_id;
   late String shiftType;
-  late DateTime shiftDate;
-  late DateTime startTime;
-  late DateTime finishTime;
+  late String shiftDate;
+  late String startTime;
+  late String finishTime;
   late int shopCode;
 
   Shift({

@@ -29,7 +29,7 @@ void createShopTaskPhotoMap(){
 }
 
 void resetShopTaskPhotoMap() {
-  for (int i = 0; i < shopCodes.length; i++) {
+  for (int i = 0; i < box.get("shopCodes").length; i++) {
     box.get("shopTaskPhotoMap")[shopCodes[i]]=["",false];
     //shopTaskPhotoMap[shopCodes[i]] = ["", false];
   }

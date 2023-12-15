@@ -44,7 +44,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
   final ReportManager reportManager = Get.put(ReportManager());
-  final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
 
   @override
   void initState() {
@@ -110,7 +109,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
         child:Scaffold(
          resizeToAvoidBottomInset: true,
          appBar: AppBar(
-           automaticallyImplyLeading: false,
            foregroundColor: Colors.white,
            backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
@@ -218,24 +216,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                 }
               })
           ),
-          SizedBox(height: deviceHeight*0.02,),
-          ButtonWidget(
-              text: "Mesaiyi Bitir",
-              heightConst: 0.06,
-              widthConst: 0.8,
-              size: 18,
-              radius: 20,
-              fontWeight: FontWeight.w600,
-              onTaps: (){
-                shopVisitWorkManager.endShopVisitWork();
-                naviStartWorkMainScreen(context);
-                },
-              borderWidht: 3,
-              backgroundColor: Colors.orangeAccent,
-              borderColor: Colors.orangeAccent,
-              textColor: Colors.black
-          ),
-          SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
@@ -301,27 +281,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                     }
                   })
           ),
-          SizedBox(height: deviceHeight*0.02,),
-          ButtonWidget(
-              text: "Mesaiyi Bitir",
-              heightConst: 0.06,
-              widthConst: 0.8,
-              size: 18,
-              radius: 20,
-              fontWeight: FontWeight.w600,
-              onTaps: () {
-                shopVisitWorkManager.endShopVisitWork();
-                /*final prefs = await SharedPreferences.getInstance();
-                await prefs.setInt('workHour', (now.hour-startWorkHour));
-                await prefs.setInt('workMinute', (now.hour-startWorkMinute));*/
-                naviStartWorkMainScreen(context);
-              },
-              borderWidht: 3,
-              backgroundColor: Colors.orangeAccent,
-              borderColor: Colors.orangeAccent,
-              textColor: Colors.black
-          ),
-          SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }

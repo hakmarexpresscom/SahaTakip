@@ -43,8 +43,10 @@ login(String user, String email, String password, BuildContext context) async {
     urlWorkFilter = box.get("urlWorkFilter");
 
     box.put("shopCodes",[]);
+    shopCodes = box.get("shopCodes");
 
     box.put("shopTaskPhotoMap",{});
+    shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 
     box.put("currentShopName","");
     currentShopName = box.get("currentShopName");
@@ -84,9 +86,11 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("urlWorkFilter","filterHariciIs2?pm_id");
     urlWorkFilter = box.get("urlWorkFilter");
 
-    box.put("shopCodes", []);
+    box.put("shopCodes",[]);
+    shopCodes = box.get("shopCodes");
 
     box.put("shopTaskPhotoMap",{});
+    shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 
     box.put("currentShopName","");
     currentShopName = box.get("currentShopName");
@@ -124,8 +128,10 @@ login(String user, String email, String password, BuildContext context) async {
     urlShopFilter = box.get("urlShopFilter");
 
     box.put("shopCodes",[]);
+    shopCodes = box.get("shopCodes");
 
     box.put("shopTaskPhotoMap",{});
+    shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
