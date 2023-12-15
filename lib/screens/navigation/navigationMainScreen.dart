@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../models/shop.dart';
+import '../../utils/generalFunctions.dart';
 
 class NavigationMainScreen extends StatefulWidget {
   const NavigationMainScreen({super.key});
@@ -19,23 +20,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
 
   TextEditingController shopSearchController = TextEditingController();
   List<String> shopListOnSearch = [];
-  List<String> shopList = [
-    '5000 Esenyalı / PENDİK',
-    '5001 Beylikbaı / GEBZE',
-    '5002 Gözdağı / PENDİK',
-    '5003 Sondurak / KARTAL',
-    '5004 Fatih Esenyalı / PENDİK',
-    '5005 Güzelyalı / PENDİK',
-    '5006 Topselvi / KARTAL',
-    '5007 Soğanlık / KARTAL',
-    '5008 Kemerdere / ÜMRANİYE',
-    '5009 Gülsuyu / MALTEPE',
-    '5010 Yavuz Selim / SULTANBEYLİ',
-    '5011 Çamlık / SULTANBEYLİ',
-    '5012 Şifa 19 Mayıs / TUZLA'
-  ];
-
-  //late Future<List<Shop>> futureShopList;
 
   double textSizeName3 = 0;
 
@@ -52,7 +36,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   @override
   void initState() {
     super.initState();
-    //futureShopList = fetchShop();
+    createShopList("http://172.23.21.112:7042/api/magaza");
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

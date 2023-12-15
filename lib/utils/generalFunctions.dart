@@ -5,6 +5,13 @@ import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+Future createShopList(String url) async{
+  final List<Shop> shops = await fetchShop2(url);
+  for(int i=0; i<shops.length;i++){
+    shopList.add("${shops[i].shopCode} ${shops[i].shopName}");
+  }
+}
+
 Future saveShopCodes(String url) async{
   final List<Shop> shops = await fetchShop2(url);
   for(int i=0; i<shops.length;i++){

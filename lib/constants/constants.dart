@@ -5,6 +5,8 @@ import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+List<String> shopList = [];
+
 RxBool isStartShopVisitWorkObs = isStartShopVisitWork.obs;
 bool isStartShopVisitWork = (isLoggedIn)?boxStateManagement.get('isStartShopVisitWork'):false;
 

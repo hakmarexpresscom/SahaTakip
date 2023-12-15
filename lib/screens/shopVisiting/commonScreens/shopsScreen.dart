@@ -112,6 +112,12 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
            foregroundColor: Colors.white,
            backgroundColor: Colors.indigo,
           title: const Text('Mağaza Ziyareti'),
+           leading: IconButton(
+             icon: Icon(Icons.arrow_back),
+             onPressed: () {
+               naviShopVisitingMainScreen(context);
+             },
+           ),
           bottom: TabBar(
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white30,

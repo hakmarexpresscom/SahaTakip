@@ -102,7 +102,14 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Kendi Mağazalarım'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviShopVisitingMainScreen(context);
+            },
+          ),
         ),
+
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints){
             if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
