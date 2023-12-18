@@ -1,4 +1,5 @@
 class Shift{
+  late int shift_id;
   late int bs_id;
   late int pm_id;
   late String shiftType;
@@ -8,6 +9,7 @@ class Shift{
   late int shopCode;
 
   Shift({
+    required this.shift_id,
     required this.bs_id,
     required this.pm_id,
     required this.shiftType,
@@ -19,6 +21,7 @@ class Shift{
 
   factory Shift.fromJson(Map<String, dynamic> json) {
     return Shift(
+      shift_id: json["mesai_id"],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       shiftType: json['mesai_turu'],
