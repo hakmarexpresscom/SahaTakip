@@ -105,8 +105,8 @@ void naviPastReportTasksScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreen(report_id: id,)));
 }
 
-void naviPastReportTaskDetailScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreen(task_id: id,)));
+void naviPastReportTaskDetailScreen(BuildContext context, id,completionInfo){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreen(task_id: id,completionInfo: completionInfo,)));
 }
 
 void naviSubmitTaskMainScreen(BuildContext context){

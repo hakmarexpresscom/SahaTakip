@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
 
     void pageCondition(){
       if(boxStateManagement.get('isStoreVisit')){
-        page = ShopVisitingProcessesScreen(shop_code: 5000, shopName: "shopname / shopname");
+        page = ShopVisitingProcessesScreen(shop_code: currentShopID, shopName: "shop / shop");
       }
       else if(boxStateManagement.get('isStartShopVisitWork')){
         page = ShopVisitingMainScreen();
