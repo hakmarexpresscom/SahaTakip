@@ -19,8 +19,8 @@ bool isStoreVisit = (isLoggedIn)?boxStateManagement.get('isStoreVisit'):false;
 RxBool isReportCreated = isReport.obs;
 bool isReport = (isLoggedIn)?boxStateManagement.get('isReport'):false;
 
-String currentShopName = (isLoggedIn)?boxStateManagement.get('currentShopName'):"";
-int currentShopID = (isLoggedIn)?boxStateManagement.get('currentShopID'):0;
+String currentShopName = (isLoggedIn)?box.get('currentShopName'):"";
+int currentShopID = (isLoggedIn)?box.get('currentShopID'):0;
 
 class GoogleMapMarkerList {
 
