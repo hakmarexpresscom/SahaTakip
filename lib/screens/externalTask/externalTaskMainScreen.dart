@@ -6,6 +6,7 @@ import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../routing/landing.dart';
+import '../../services/shiftServices.dart';
 import '../../utils/appStateManager.dart';
 import '../../widgets/button_widget.dart';
 
@@ -105,7 +106,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
             SizedBox(height: deviceHeight*0.03,),
             addExternalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
-            stopExternalTaskButton()
+            stopShiftButton()
           ],
         ),
       );
@@ -145,7 +146,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
         borderColor: Colors.orangeAccent,
         textColor: Colors.black);
   }
-  Widget stopExternalTaskButton(){
+  Widget stopShiftButton(){
     return ButtonWidget(
         text: "Mesaiyi Bitir",
         heightConst: 0.06,
@@ -153,8 +154,10 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
+        onTaps: ()async{
           externalTaskWorkManager.endExternalTaskWork();
+          await countShift("http://172.23.21.112:7042/api/Mesai");
+          await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Harici İş",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),startHour.toString()+":"+startMinute.toString()+":"+startSecond.toString(),now.hour.toString()+":"+now.minute.toString()+":"+now.second.toString(),"http://172.23.21.112:7042/api/mesai");
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,

@@ -65,8 +65,7 @@ String password="";
 
 int startHour = 0;
 int startMinute = 0;
-int finishHour = 0;
-int finishMinute = 0;
+int startSecond = 0;
 
 
 

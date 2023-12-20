@@ -6,6 +6,7 @@ import '../../../constants/constants.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../routing/bottomNavigationBar.dart';
 import '../../../routing/landing.dart';
+import '../../../services/shiftServices.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../widgets/button_widget.dart';
 
@@ -103,7 +104,7 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
             SizedBox(height: deviceHeight*0.08,),
             myShopsButton(),
             SizedBox(height: deviceHeight*0.03,),
-            stopExternalTaskButton()
+            stopShiftButton()
           ],
         ),
       );
@@ -127,7 +128,7 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
         borderColor: Colors.lightGreen.withOpacity(0.6),
         textColor: Colors.black);
   }
-  Widget stopExternalTaskButton(){
+  Widget stopShiftButton(){
     return ButtonWidget(
         text: "Mesaiyi Bitir",
         heightConst: 0.06,
@@ -135,8 +136,10 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
+        onTaps: () async{
           shopVisitWorkManager.endShopVisitWork();
+          await countShift("http://172.23.21.112:7042/api/Mesai");
+          await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),startHour.toString()+":"+startMinute.toString()+":"+startSecond.toString(),now.hour.toString()+":"+now.minute.toString()+":"+now.second.toString(),"http://172.23.21.112:7042/api/Mesai");
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,

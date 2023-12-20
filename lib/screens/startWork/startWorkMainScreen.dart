@@ -127,7 +127,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
 
   Widget workDurationInfo(){
-    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(now.year,now.month,now.day,startHour,startMinute,0,0,0),now), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(now.year,now.month,now.day,startHour,startMinute,startSecond,0,0),now), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
@@ -147,8 +147,10 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             setState(() {
               startHour=0;
               startMinute=0;
+              startSecond = 0;
               startHour += now.hour;
               startMinute += now.minute;
+              startSecond += now.second;
             });
             naviShopVisitingMainScreen(context);
           }
@@ -157,8 +159,10 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             setState(() {
               startHour=0;
               startMinute=0;
+              startSecond = 0;
               startHour += now.hour;
               startMinute += now.minute;
+              startSecond += now.second;
             });
             naviExternalTaskMainScreen(context);
           }

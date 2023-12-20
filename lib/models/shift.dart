@@ -1,12 +1,11 @@
 class Shift{
   late int shift_id;
-  late int bs_id;
-  late int pm_id;
+  late int? bs_id;
+  late int? pm_id;
   late String shiftType;
   late String shiftDate;
   late String startTime;
   late String finishTime;
-  late int shopCode;
 
   Shift({
     required this.shift_id,
@@ -16,7 +15,6 @@ class Shift{
     required this.shiftDate,
     required this.startTime,
     required this.finishTime,
-    required this.shopCode
   });
 
   factory Shift.fromJson(Map<String, dynamic> json) {
@@ -27,8 +25,7 @@ class Shift{
       shiftType: json['mesai_turu'],
       shiftDate: json['mesai_tarihi'],
       startTime: json['baslangic_saati'],
-      finishTime: json['bitis_tarihi'],
-      shopCode: json['magaza_kodu'],
+      finishTime: json['bitis_saati'],
     );
   }
 

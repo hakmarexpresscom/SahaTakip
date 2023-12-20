@@ -45,7 +45,7 @@ Future<List<Shift>> fetchShift3(String url) async {
   }
 }
 
-Future<Shift> createShift(int id, int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String finishHour, int shopCode, String url) async {
+Future<Shift> createShift(int id, int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String finishHour, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -59,7 +59,6 @@ Future<Shift> createShift(int id, int? bs_id, int? pm_id, String shiftType, Stri
       "mesai_tarihi" : shiftDate,
       "baslangic_saati" : startHour,
       "bitis_saati" : finishHour,
-      "magaza_kodu" : shopCode,
     }
     ),
   );
