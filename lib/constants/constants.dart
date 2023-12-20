@@ -63,10 +63,10 @@ List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','
 String email="";
 String password="";
 
-int workHour = 0;
-int workMinute = 0;
-int startWorkHour = 0;
-int startWorkMinute = 0;
+int startHour = 0;
+int startMinute = 0;
+int finishHour = 0;
+int finishMinute = 0;
 
 
 

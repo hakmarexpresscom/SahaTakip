@@ -71,5 +71,16 @@ addReportTaskToDatabase(String countTaskUrl, String title, String detail, String
     }
 }
 
+String calculateElapsedTime(DateTime startTime, DateTime endTime) {
+  Duration difference = endTime.difference(startTime);
+
+  int hours = difference.inHours;
+  int minutes = (difference.inMinutes % 60);
+  int seconds = (difference.inSeconds % 60);
+
+  String elapsedTime = '$hours saat $minutes dakika $seconds saniye';
+  return elapsedTime;
+}
+
 
 

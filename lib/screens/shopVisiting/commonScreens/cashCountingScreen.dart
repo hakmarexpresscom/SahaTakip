@@ -9,6 +9,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
+import '../../../main.dart';
 import '../../../widgets/alert_dialog.dart';
 
 
@@ -69,6 +70,12 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Çelik Kasa Sayımı'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviShopVisitingProcessesScreen(context, box.get('currentShopID'), box.get('currentShopName'));
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child:Container(

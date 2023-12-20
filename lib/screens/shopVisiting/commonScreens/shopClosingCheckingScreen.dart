@@ -9,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
+import '../../../main.dart';
 import '../../../models/shopClosingControl.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/appStateManager.dart';
@@ -55,6 +56,12 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               foregroundColor: Colors.white,
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Kapanış Kontrolü'),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  naviShopVisitingProcessesScreen(context, box.get('currentShopID'), box.get('currentShopName'));
+                },
+              ),
               bottom: TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white30,

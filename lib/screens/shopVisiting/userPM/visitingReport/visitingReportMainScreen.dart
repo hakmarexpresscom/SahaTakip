@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../main.dart';
 import '../../../../models/report.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
@@ -19,6 +20,7 @@ import '../../../../services/photoServices.dart';
 import '../../../../services/reportServices.dart';
 import '../../../../utils/appStateManager.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../widgets/alert_dialog.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/pastReportCard.dart';
 import '../../../../widgets/text_form_field.dart';
@@ -148,6 +150,12 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               foregroundColor: Colors.white,
               backgroundColor: Colors.indigo,
               title: const Text('Mağaza Ziyaret Raporu'),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  naviShopVisitingProcessesScreen(context, box.get('currentShopID'), box.get('currentShopName'));
+                },
+              ),
               bottom: TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white30,
@@ -244,6 +252,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
+          await countReport("http://172.23.21.112:7042/api/Rapor");
           await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev");
           await addReportTaskToDatabase(
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
@@ -254,7 +263,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               widget.shop_code,
               photoCount+1,
               "Rapor",
-              reportCount+1,
+              reportCount,
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
               photo_file,
               null,
@@ -264,6 +273,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               "http://172.23.21.112:7042/api/Fotograf/${photoCount+1}"
           );
           //sendTaskMail(email, "Tarafınıza ${widget.shop_code} koduna sahip mağaza ile alakalı yeni bir görev atanmıştır. Görev türü 'Ziyaret Raporu''dur. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
+          showReportTaskSubmitDialog(context);
         },
         borderWidht: 1,
         backgroundColor: Colors.lightGreen.withOpacity(0.6),
@@ -351,6 +361,21 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               }
             }
         )
+    );
+  }
+
+  showReportTaskSubmitDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialogWidget(
+            title: 'Görev Eklendi',
+            content: 'Görev başarılı bir şekilde raproa eklendi!',
+            onTaps: (){
+              naviVisitingReportMainScreen(context, widget.shop_code);
+            },
+          );
+        }
     );
   }
 

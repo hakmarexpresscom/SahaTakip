@@ -10,6 +10,7 @@ import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
+import '../../utils/generalFunctions.dart';
 
 class StartWorkMainScreen extends StatefulWidget {
 
@@ -126,7 +127,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
 
   Widget workDurationInfo(){
-    return TextWidget(text: "Çalışma Süresi: "+workHour.toString()+" saat "+workMinute.toString()+" dk", heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(now.year,now.month,now.day,startHour,startMinute,0,0,0),now), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
@@ -143,17 +144,22 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         onTaps: () {
           if(item=="Mağaza Ziyareti"){
             shopVisitWorkManager.startShopVisitWork();
-            /*final prefs = await SharedPreferences.getInstance();
-            final startHour = prefs.getInt('startWorkHour') ?? now.hour;
-            final startMinute = prefs.getInt('startWorkMinute') ?? now.minute;
             setState(() {
-              startWorkHour = startHour;
-              startWorkMinute = startMinute;
-            });*/
+              startHour=0;
+              startMinute=0;
+              startHour += now.hour;
+              startMinute += now.minute;
+            });
             naviShopVisitingMainScreen(context);
           }
           else if(item=="Harici İş"){
             externalTaskWorkManager.startExternalTaskWork();
+            setState(() {
+              startHour=0;
+              startMinute=0;
+              startHour += now.hour;
+              startMinute += now.minute;
+            });
             naviExternalTaskMainScreen(context);
           }
         },

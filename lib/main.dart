@@ -60,12 +60,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final loggedIn = prefs.getBool('isLoggedIn') ?? false;
-    /*final hour = prefs.getInt('workHour') ?? 0;
-    final minute = prefs.getInt('workMinute') ?? 0;*/
     setState(() {
       isLoggedIn = loggedIn;
-      /*workHour = hour;
-      workMinute = minute;*/
     });
   }
 
@@ -73,13 +69,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     void pageCondition(){
-      if(boxStateManagement.get('isStoreVisit')){
+      if(boxStateManagement.get('isStoreVisit')==true){
         page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
       }
-      else if(boxStateManagement.get('isStartShopVisitWork')){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true){
         page = ShopVisitingMainScreen();
       }
-      else if(boxStateManagement.get('isStartExternalTaskWork')){
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true){
         page = ExternalTaskMainScreen();
       }
     }
