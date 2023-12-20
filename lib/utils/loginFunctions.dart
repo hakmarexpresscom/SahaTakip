@@ -49,10 +49,11 @@ login(String user, String email, String password, BuildContext context) async {
     shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 
     box.put("currentShopName","");
-    currentShopName = box.get("currentShopName");
-
     box.put("currentShopID",0);
-    currentShopID = box.get("currentShopID");
+
+    box.put("startHour",0);
+    box.put("startMinute",0);
+    box.put("startSecond",0);
 
     boxStateManagement.put('isStartShopVisitWork', false);
     isStartShopVisitWork = boxStateManagement.get('isStartShopVisitWork');
@@ -93,10 +94,11 @@ login(String user, String email, String password, BuildContext context) async {
     shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 
     box.put("currentShopName","");
-    currentShopName = box.get("currentShopName");
-
     box.put("currentShopID",0);
-    currentShopID = box.get("currentShopID");
+
+    box.put("startHour",0);
+    box.put("startMinute",0);
+    box.put("startSecond",0);
 
     boxStateManagement.put('isStartShopVisitWork', false);
     isStartShopVisitWork = boxStateManagement.get('isStartShopVisitWork');

@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
@@ -127,7 +128,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
 
   Widget workDurationInfo(){
-    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(now.year,now.month,now.day,startHour,startMinute,startSecond,0,0),now), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime.now()), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
@@ -145,24 +146,24 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           if(item=="Mağaza Ziyareti"){
             shopVisitWorkManager.startShopVisitWork();
             setState(() {
-              startHour=0;
-              startMinute=0;
-              startSecond = 0;
-              startHour += now.hour;
-              startMinute += now.minute;
-              startSecond += now.second;
+              box.put("startHour",0);
+              box.put("startMinute",0);
+              box.put("startSecond",0);
+              box.put("startHour",DateTime.now().hour);
+              box.put("startMinute",DateTime.now().minute);
+              box.put("startSecond",DateTime.now().second);
             });
             naviShopVisitingMainScreen(context);
           }
           else if(item=="Harici İş"){
             externalTaskWorkManager.startExternalTaskWork();
             setState(() {
-              startHour=0;
-              startMinute=0;
-              startSecond = 0;
-              startHour += now.hour;
-              startMinute += now.minute;
-              startSecond += now.second;
+              box.put("startHour",0);
+              box.put("startMinute",0);
+              box.put("startSecond",0);
+              box.put("startHour",DateTime.now().hour);
+              box.put("startMinute",DateTime.now().minute);
+              box.put("startSecond",DateTime.now().second);
             });
             naviExternalTaskMainScreen(context);
           }

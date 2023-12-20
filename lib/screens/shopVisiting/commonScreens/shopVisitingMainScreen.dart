@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/pagesLists.dart';
+import '../../../main.dart';
 import '../../../routing/bottomNavigationBar.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shiftServices.dart';
@@ -139,7 +140,7 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
         onTaps: () async{
           shopVisitWorkManager.endShopVisitWork();
           await countShift("http://172.23.21.112:7042/api/Mesai");
-          await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),startHour.toString()+":"+startMinute.toString()+":"+startSecond.toString(),now.hour.toString()+":"+now.minute.toString()+":"+now.second.toString(),"http://172.23.21.112:7042/api/Mesai");
+          await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),"http://172.23.21.112:7042/api/mesai");
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,
