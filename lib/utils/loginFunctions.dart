@@ -42,6 +42,9 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("urlWorkFilter","filterHariciIs1?bs_id");
     urlWorkFilter = box.get("urlWorkFilter");
 
+    box.put("urlShiftFilter", "byBsIdDate?bs_id");
+    urlShiftFilter = box.get("urlShiftFilter");
+
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
 
@@ -89,6 +92,9 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("urlWorkFilter","filterHariciIs2?pm_id");
     urlWorkFilter = box.get("urlWorkFilter");
+
+    box.put("urlShiftFilter", "byPmIdDate?pm_id");
+    urlShiftFilter = box.get("urlShiftFilter");
 
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");

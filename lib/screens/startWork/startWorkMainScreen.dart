@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/services/shiftServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../main.dart';
+import '../../models/shift.dart';
 import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
@@ -24,6 +26,8 @@ class StartWorkMainScreen extends StatefulWidget {
 
 class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
+  late Future<List<Shift>> futureShift;
+
   String item = shiftType[0];
 
   int _selectedIndex = 0;
@@ -38,6 +42,12 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
   final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
+
+  @override
+  void initState() {
+    super.initState();
+    futureShift = fetchShift('http://172.23.21.112:7042/api/Mesai/${urlShiftFilter}=${userID}&mesai_tarihi='+now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +104,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         title: const Text('Mesaiye Başla'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.14, 0, 0),
+        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.09, 0, 0),
         child:Container(
           alignment: Alignment.center,
           child: startWorkMainScreenUI(),
@@ -128,7 +138,17 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
 
   Widget workDurationInfo(){
-    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return FutureBuilder<List<Shift>>(
+        future: futureShift,
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)),heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+          }
+          else{
+            return TextWidget(text:"En sonki çalışma süreniz:\n0 saat 0 dakika 0 saniye\nBugün hiç mesai başlatmadınız.",heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+          }
+        }
+    );
   }
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);

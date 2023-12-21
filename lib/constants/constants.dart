@@ -41,6 +41,7 @@ bool isCorrectPassword = true;
 
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";
+String urlShiftFilter = (isLoggedIn)?box.get("urlShiftFilter"):"";
 String urlTaskShops ="";
 
 List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
