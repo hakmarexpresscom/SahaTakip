@@ -128,7 +128,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
 
   Widget workDurationInfo(){
-    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime.now()), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Çalışma Süresi: "+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)), heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);

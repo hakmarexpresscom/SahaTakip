@@ -157,6 +157,9 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
         fontWeight: FontWeight.w600,
         onTaps: ()async{
           externalTaskWorkManager.endExternalTaskWork();
+          box.put("finishHour",DateTime.now().hour);
+          box.put("finishMinute",DateTime.now().minute);
+          box.put("finishSecond",DateTime.now().second);
           await countShift("http://172.23.21.112:7042/api/Mesai");
           await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Harici İş",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),"http://172.23.21.112:7042/api/mesai");
           naviStartWorkMainScreen(context);
