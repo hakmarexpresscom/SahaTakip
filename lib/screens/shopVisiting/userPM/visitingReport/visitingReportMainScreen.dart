@@ -124,7 +124,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   @override
   void initState() {
     super.initState();
-    futureReport = fetchReport('http://172.23.21.112:7042/api/Rapor/byMagazaKodu?magaza_kodu=${widget.shop_code}&group_no=${groupNo}');
+    futureReport = fetchReport('http://172.23.21.112:7042/api/Rapor/filterReport1?magaza_kodu=${widget.shop_code}&grup_no=${groupNo}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

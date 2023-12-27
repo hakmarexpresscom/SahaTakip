@@ -9,6 +9,13 @@ import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/cards/taskCheckingCard.dart';
 
+
+// bölge müdürü kullanıcı tipinde drop down ekliycez hangi grubun görevlerini görüntülemek istediğini seçicek
+
+// filterTask3 e grup numarası eklemedik. eğer kullanıcı pm ise grup numarasını constanttan çekicez eğer
+// kullanıcı bm ise grup numarasını dropdowndan çekicez.
+
+
 class TaskCheckingMainScreen extends StatefulWidget {
   const TaskCheckingMainScreen({super.key});
 
