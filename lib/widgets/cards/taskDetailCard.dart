@@ -31,8 +31,9 @@ class TaskDetailCard extends StatefulWidget {
   late XFile? image;
   late String completionDate;
   late int? answer_photo_id;
+  late int group_no;
 
-  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.isCompleted, required this.onTaps, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate,required this.assignmentHour,required this.user_id, required this.shop_code, required this.photo_id,required this.report_id,required this.addPhotoButton, required this.image, required this.completionDate, required this.answer_photo_id}): super(key: key);
+  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.isCompleted, required this.onTaps, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate,required this.assignmentHour,required this.user_id, required this.shop_code, required this.photo_id,required this.report_id,required this.addPhotoButton, required this.image, required this.completionDate, required this.answer_photo_id,required this.group_no}): super(key: key);
 
   @override
   State<TaskDetailCard> createState() => _TaskDetailCardState();
@@ -92,6 +93,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                           widget.taskType,
                           widget.report_id,
                             (widget.isCompleted)?1:0,
+                            widget.group_no,
                             'http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.id}'
                         );
                       }

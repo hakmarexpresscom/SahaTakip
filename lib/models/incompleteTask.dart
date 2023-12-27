@@ -9,6 +9,7 @@ class IncompleteTask{
   late String taskType;
   late int? report_id;
   late int completionInfo;
+  late int group_no;
 
   IncompleteTask({
     required this.task_id,
@@ -20,7 +21,8 @@ class IncompleteTask{
     required this.photo_id,
     required this.taskType,
     required this.report_id,
-    required this.completionInfo
+    required this.completionInfo,
+    required this.group_no
   });
 
   factory IncompleteTask.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class IncompleteTask{
       taskType: json['gorev_turu'],
       report_id: json['rapor_id'],
       completionInfo: json['tamamlandi_bilgisi'],
+      group_no: json['grup_no']
     );
   }
 

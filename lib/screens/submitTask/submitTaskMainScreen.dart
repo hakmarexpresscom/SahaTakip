@@ -155,6 +155,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
               null,
               (inPlace==true)?"Yerinde":"Uzaktan",
               null,
+              groupNo,
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
               "http://172.23.21.112:7042/api/Fotograf",
               (isBS)?userID:null,

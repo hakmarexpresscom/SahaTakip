@@ -8,6 +8,7 @@ import '../routing/landing.dart';
 logout(BuildContext context) async {
   box.put("userID",0);
   box.put("yoneticiID",0);
+  box.put("groupNo",0);
   box.put("userType","PM");
   box.put("isBSorPM",true);
   box.put("isBS",false);

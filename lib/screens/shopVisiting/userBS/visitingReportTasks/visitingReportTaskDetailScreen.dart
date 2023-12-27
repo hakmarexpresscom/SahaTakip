@@ -190,6 +190,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
                       image: image,
                       completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
                       answer_photo_id: (photoCount==0)?null:photoCount+1,
+                      group_no: snapshot.data!.group_no,
                     ),
                     //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
                   ],

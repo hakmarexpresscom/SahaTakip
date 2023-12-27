@@ -36,9 +36,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("isBS",true);
     isBS=box.get("isBS");
 
-    box.put("urlShopFilter","/byBsId?bs_id");
-    urlShopFilter = box.get("urlShopFilter");
-
     box.put("urlWorkFilter","filterHariciIs1?bs_id");
     urlWorkFilter = box.get("urlWorkFilter");
 
@@ -166,6 +163,9 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("userID",users[i].bs_id);
       userID=box.get("userID");
 
+      box.put("groupNo",users[i].group_no);
+      groupNo=box.get("groupNo");
+
       sayac=i;
     }
   }
@@ -185,7 +185,10 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
     box.put("yoneticiID",users[sayac].manager_id);
     yoneticiID=box.get("yoneticiID");
 
-    await saveShopCodes("http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}");
+    (users[sayac].group_no==0)?box.put("urlShopFilter","/byBsId?bs_id"):box.put("urlShopFilter","/byBsManavId?bs_manav_id");
+    urlShopFilter = box.get("urlShopFilter");
+
+    await saveShopCodes("http://172.23.21.112:7042/api/magaza${urlShopFilter}=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
@@ -201,6 +204,9 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
 
       box.put("userID",users[i].pm_id);
       userID=box.get("userID");
+
+      box.put("groupNo",users[i].group_no);
+      groupNo=box.get("groupNo");
 
       sayac=i;
     }
@@ -221,7 +227,10 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
     box.put("yoneticiID",users[sayac].manager_id);
     yoneticiID=box.get("yoneticiID");
 
-    await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    (users[sayac].group_no==0)?box.put("urlShopFilter","/byPmId?pm_id"):box.put("urlShopFilter","/byPmManavId?pm_manav_id");
+    urlShopFilter = box.get("urlShopFilter");
+
+    await saveShopCodes("http://172.23.21.112:7042/api/magaza${urlShopFilter}=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);

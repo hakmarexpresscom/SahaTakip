@@ -47,7 +47,7 @@ Future<List<Report>> fetchReport3(String url) async {
   }
 }
 
-Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, String url) async {
+Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, int group_no, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -57,7 +57,8 @@ Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, 
       "rapor_id": id,
       "pm_id": pm_id,
       "magaza_kodu": shopCode,
-      "olusturulma_tarihi":createDate
+      "olusturulma_tarihi":createDate,
+      "grup_no":group_no
     }
     ),
   );

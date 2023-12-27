@@ -5,7 +5,7 @@ class UserPM{
   late String email;
   late int manager_id;
   late String userType;
-  late int isManav;
+  late int group_no;
 
 
   UserPM({
@@ -15,7 +15,7 @@ class UserPM{
     required this.email,
     required this.manager_id,
     required this.userType,
-    required this.isManav
+    required this.group_no
   });
 
   factory UserPM.fromJson(Map<String, dynamic> json) {
@@ -26,7 +26,7 @@ class UserPM{
       email: json['email'],
       manager_id: json['yonetici_id'],
       userType: json['kullanici_turu'],
-      isManav: json['isManav'],
+      group_no: json['grup_no'],
     );
   }
 

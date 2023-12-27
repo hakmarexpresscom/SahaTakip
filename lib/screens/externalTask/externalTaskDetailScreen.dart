@@ -143,6 +143,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       image: null,
                       answer_photo_id: 0,
                       completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                      group_no: groupNo,
                     )
                   ],
                 );

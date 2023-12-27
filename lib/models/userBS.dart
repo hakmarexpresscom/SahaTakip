@@ -5,7 +5,7 @@ class UserBS{
   late String email;
   late int manager_id;
   late String userType;
-  late int isManav;
+  late int group_no;
 
 
   UserBS({
@@ -15,7 +15,7 @@ class UserBS{
     required this.email,
     required this.manager_id,
     required this.userType,
-    required this.isManav
+    required this.group_no
   });
 
   factory UserBS.fromJson(Map<String, dynamic> json) {
@@ -26,7 +26,7 @@ class UserBS{
       email: json['email'],
       manager_id: json['yonetici_id'],
       userType: json['kullanici_turu'],
-      isManav: json['isManav'],
+      group_no: json['grup_no'],
     );
   }
 

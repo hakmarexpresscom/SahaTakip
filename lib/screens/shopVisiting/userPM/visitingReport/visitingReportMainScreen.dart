@@ -124,7 +124,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   @override
   void initState() {
     super.initState();
-    futureReport = fetchReport('http://172.23.21.112:7042/api/Rapor/byMagazaKodu?magaza_kodu=${widget.shop_code}');
+    futureReport = fetchReport('http://172.23.21.112:7042/api/Rapor/byMagazaKodu?magaza_kodu=${widget.shop_code}&group_no=${groupNo}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -234,7 +234,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         onTaps: () async {
           reportManager.createReport();
           await countReport("http://172.23.21.112:7042/api/Rapor");
-          await createReport(reportCount+1, userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), "http://172.23.21.112:7042/api/Rapor");
+          await createReport(reportCount+1, userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "http://172.23.21.112:7042/api/Rapor");
           naviVisitingReportMainScreen(context, widget.shop_code);
           },
         borderWidht: 1,
@@ -264,6 +264,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               photoCount+1,
               "Rapor",
               reportCount,
+              groupNo,
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
               photo_file,
               null,

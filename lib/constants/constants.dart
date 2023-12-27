@@ -50,6 +50,7 @@ List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
+int groupNo = (isLoggedIn)?box.get("groupNo"):0;
 
 String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;

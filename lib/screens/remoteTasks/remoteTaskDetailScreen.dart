@@ -234,6 +234,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                           image: image,
                           completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
                           answer_photo_id: (photoCount==0)?null:photoCount+1,
+                          group_no: snapshot.data!.group_no,
                         ),
                       ],
                     );

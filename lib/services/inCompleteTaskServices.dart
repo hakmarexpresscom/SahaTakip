@@ -45,7 +45,7 @@ Future<List<IncompleteTask>> fetchIncompleteTask3(String url) async {
   }
 }
 
-Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, String url) async {
+Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -61,7 +61,8 @@ Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,S
       "foto_id": photo_id,
       "gorev_turu": taskType,
       "rapor_id": report_id,
-      "tamamlandi_bilgisi": 0
+      "tamamlandi_bilgisi": 0,
+      "grup_no": group_no
     }
     ),
   );
@@ -72,7 +73,7 @@ Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,S
   }
 }
 
-Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int completionInfo, String url) async {
+Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int completionInfo, int group_no, String url) async {
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -88,7 +89,8 @@ Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,St
       "foto_id": photo_id,
       "gorev_turu": taskType,
       "rapor_id": report_id,
-      "tamamlandi_bilgisi": completionInfo
+      "tamamlandi_bilgisi": completionInfo,
+      "grup_no": group_no
     }
     ),
   );
@@ -99,7 +101,7 @@ Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,St
   }
 }
 
-Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, String url) async {
+Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String url) async {
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -115,34 +117,8 @@ Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? d
       "foto_id": photo_id,
       "gorev_turu": taskType,
       "rapor_id": report_id,
-      "tamamlandi_bilgisi": 0
-    }
-    ),
-  );
-  if (response.statusCode == 200) {
-    return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to update Incomplete Task');
-  }
-}
-
-Future<IncompleteTask> updateReportIDIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, String url) async {
-  final response = await http.put(Uri.parse(url),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, dynamic>
-    {
-      "gorev_id": id,
-      "gorev_tanimi": title,
-      "gorev_detayi": detail,
-      "gorev_atama_tarihi": assignmentDate,
-      "gorev_bitis_tarihi": finishDate,
-      "magaza_kodu": shopCode,
-      "foto_id": photo_id,
-      "gorev_turu": taskType,
-      "rapor_id": report_id,
-      "tamamlandi_bilgisi": 0
+      "tamamlandi_bilgisi": 0,
+      "grup_no": group_no
     }
     ),
   );
