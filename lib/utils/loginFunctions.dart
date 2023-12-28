@@ -45,9 +45,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
 
-    box.put("shopTaskPhotoMap",{});
-    shopTaskPhotoMap = box.get("shopTaskPhotoMap");
-
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
@@ -96,9 +93,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
 
-    box.put("shopTaskPhotoMap",{});
-    shopTaskPhotoMap = box.get("shopTaskPhotoMap");
-
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
@@ -140,9 +134,6 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
-
-    box.put("shopTaskPhotoMap",{});
-    shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
@@ -246,6 +237,9 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
       box.put("userID",users[i].bm_id);
       userID=box.get("userID");
 
+      box.put("groupNo",0);
+      groupNo=box.get("groupNo");
+
       isCorrectEmail=true;
 
       sayac = i;
@@ -268,6 +262,7 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
   if(listEquals(binaryHashedPassword, hashedPassword)){
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);

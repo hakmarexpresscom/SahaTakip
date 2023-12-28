@@ -45,8 +45,6 @@ String urlShiftFilter = (isLoggedIn)?box.get("urlShiftFilter"):"";
 String urlTaskShops ="";
 
 List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
-Map<dynamic, dynamic> shopTaskPhotoMap = (isLoggedIn)?box.get("shopTaskPhotoMap"):{};
-//generalfunction dosyasındaki yerler değiştirildiğinde silinicek
 List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;

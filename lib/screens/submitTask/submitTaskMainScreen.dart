@@ -254,6 +254,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           title: 'Görev Atandı',
           content: 'Görev başarıyla atandı!',
           onTaps: (){
+            createShopTaskPhotoMap();
             resetTaskPhotos();
             naviSubmitTaskMainScreen(context);
           },

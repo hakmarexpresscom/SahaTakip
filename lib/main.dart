@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
+import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenBS.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   late Widget page = StartWorkMainScreen();
+  late Widget page2 = NavigationMainScreen();
 
   @override
   void initState() {
@@ -91,7 +93,7 @@ class _MyAppState extends State<MyApp> {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (isLoggedIn)? page : LoginMainScreen(),
+      home: (isLoggedIn)? (isBSorPM?page:page2) : LoginMainScreen(),
     );
   }
 }

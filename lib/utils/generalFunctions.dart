@@ -38,12 +38,12 @@ void resetTaskPhotos(){
 
 Future<void> addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl, String updateTaskUrl) async{
   for(int i=0;i<shopCodes.length;i++){
-    if(shopTaskPhotoMap[shopCodes[i]][1]==true){
+    if(boxShopTaskPhoto.get(shopCodes[i].toString())[1]==true){
       await countIncompleteTask(countTaskUrl);
       await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photo_id, taskType, report_id,group_no, createTaskUrl);
-      if(shopTaskPhotoMap[shopCodes[i]][0]!=null){
+      if(boxShopTaskPhoto.get(shopCodes[i].toString())[0]!=""){
         await countPhoto(countPhotoUrl);
-        await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, shopTaskPhotoMap[shopCodes[i]][0],null, createPhotoUrl);
+        await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
         await updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, group_no, updateTaskUrl);
       }
     }
