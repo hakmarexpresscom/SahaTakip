@@ -18,11 +18,13 @@ import 'constants/constants.dart';
 
 var appConstants = Hive.box('appConstants');
 var stateManagementConstants = Hive.box('stateManagementConstants');
+var shopTaskPhotoConstants = Hive.box('shopTaskPhotoConstants');
 
 bool isLoggedIn = false;
 
 var box;
 var boxStateManagement;
+var boxShopTaskPhoto;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +38,11 @@ void main() async{
   Hive.init(appDocumentDir2.path,backendPreference: HiveStorageBackendPreference.native);
   var hiveStateManagement = await Hive.openBox<bool>('stateManagementConstants');
   boxStateManagement = hiveStateManagement;
+
+  final appDocumentDir3 = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir3.path,backendPreference: HiveStorageBackendPreference.native);
+  var hiveShopTaskPhoto = await Hive.openBox('shopTaskPhotoConstants');
+  boxShopTaskPhoto = hiveShopTaskPhoto;
 
   runApp(MyApp());
 }

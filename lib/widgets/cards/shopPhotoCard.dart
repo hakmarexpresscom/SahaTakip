@@ -2,6 +2,7 @@ import 'package:deneme/styles/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/constants.dart';
+import '../../main.dart';
 import '../button_widget.dart';
 import '../text_widget.dart';
 
@@ -58,7 +59,7 @@ class _ShopPhotoCardState extends State<ShopPhotoCard> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Checkbox(value: shopTaskPhotoMap[widget.shopCode]?[1], onChanged: (newvalue){setState(() {shopTaskPhotoMap[widget.shopCode]?[1]=newvalue!;});}),
+                Checkbox(value: boxShopTaskPhoto.get(widget.shopCode.toString())[1], onChanged: (newvalue){setState(() {boxShopTaskPhoto.get(widget.shopCode.toString())[1]=newvalue!;});}),
                 TextWidget(text: "${widget.shopCode}", heightConst: 0, widhtConst: 0, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: Colors.black),
               ],
             ),

@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../models/shop.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../services/shopServices.dart';
@@ -46,7 +47,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
     final bytes = File(img!.path).readAsBytesSync();
     photo_file = photo_file+base64Encode(bytes);
     setState(() {
-      shopTaskPhotoMap[shopCode]?[0] = shopTaskPhotoMap[shopCode]?[0]+photo_file;
+      boxShopTaskPhoto.get(shopCode.toString())[0] = boxShopTaskPhoto.get(shopCode.toString())[0]+photo_file;
     });
     taskPhotos.add(img);
   }
@@ -206,7 +207,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                         addPhoto(snapshot.data![index].shopCode);
                         },
                       onShowPhotoTaps: (){
-                        naviTaskPhotoScreen(context, shopTaskPhotoMap[snapshot.data![index].shopCode]?[0]);
+                        naviTaskPhotoScreen(context, boxShopTaskPhoto.get(snapshot.data![index].shopCode.toString())[0]);
                       },
                     ),
                   ],

@@ -268,7 +268,6 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
   if(listEquals(binaryHashedPassword, hashedPassword)){
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
-    createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);

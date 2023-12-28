@@ -23,24 +23,13 @@ Future saveShopCodes(String url) async{
     }
     box.get("shopCodes").add(shops[i].shopCode);
     shopCodes = box.get("shopCodes");
-    //shopCodes.add(shops[i].shopCode);
   }
 }
 
 void createShopTaskPhotoMap(){
   for(int i=0;i<box.get("shopCodes").length;i++){
-    box.get("shopTaskPhotoMap")[box.get("shopCodes")[i]]=["",false];
-    //shopTaskPhotoMap[shopCodes[i]]=["",false];
+    boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false]);
   }
-  shopTaskPhotoMap = box.get("shopTaskPhotoMap");
-}
-
-void resetShopTaskPhotoMap() {
-  for (int i = 0; i < box.get("shopCodes").length; i++) {
-    box.get("shopTaskPhotoMap")[shopCodes[i]]=["",false];
-    //shopTaskPhotoMap[shopCodes[i]] = ["", false];
-  }
-  shopTaskPhotoMap = box.get("shopTaskPhotoMap");
 }
 
 void resetTaskPhotos(){
