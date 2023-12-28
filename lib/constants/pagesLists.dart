@@ -1,6 +1,6 @@
 import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenBS.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:flutter/cupertino.dart';
 import '../screens/navigation/navigationMainScreen.dart';
@@ -10,7 +10,8 @@ import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
-import '../screens/taskChecking/taskCheckingMainScreen.dart';
+import '../screens/taskChecking/taskCheckingMainScreenBM.dart';
+import '../screens/taskChecking/taskCheckingMainScreenPM.dart';
 import 'constants.dart';
 
 late List<Widget> pagesBS = [
@@ -41,7 +42,7 @@ late List<Widget> pagesPM = [
   StartWorkMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreen(),
+  TaskCheckingMainScreenPM(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];
@@ -50,7 +51,7 @@ late List<Widget> pagesPM2 = [
   ShopVisitingMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreen(),
+  TaskCheckingMainScreenPM(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];
@@ -59,7 +60,7 @@ late List<Widget> pagesPM3 = [
   ExternalTaskMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreen(),
+  TaskCheckingMainScreenPM(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];
@@ -67,7 +68,7 @@ late List<Widget> pagesPM3 = [
 late List<Widget> pagesBMGK = [
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreen(),
+  TaskCheckingMainScreenBM(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];

@@ -3,7 +3,7 @@ import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreen.dart';
+import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenBS.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/utils/appStateManager.dart';

@@ -9,21 +9,14 @@ import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/cards/taskCheckingCard.dart';
 
-
-// bölge müdürü kullanıcı tipinde drop down ekliycez hangi grubun görevlerini görüntülemek istediğini seçicek
-
-// filterTask3 e grup numarası eklemedik. eğer kullanıcı pm ise grup numarasını constanttan çekicez eğer
-// kullanıcı bm ise grup numarasını dropdowndan çekicez.
-
-
-class TaskCheckingMainScreen extends StatefulWidget {
-  const TaskCheckingMainScreen({super.key});
+class TaskCheckingMainScreenPM extends StatefulWidget {
+  const TaskCheckingMainScreenPM({super.key});
 
   @override
-  State<TaskCheckingMainScreen> createState() => _TaskCheckingMainScreenState();
+  State<TaskCheckingMainScreenPM> createState() => _TaskCheckingMainScreenPMState();
 }
 
-class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with TickerProviderStateMixin  {
+class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> with TickerProviderStateMixin  {
 
   late Future<List<IncompleteTask>> futureIncompleteTask;
   late Future<List<IncompleteTask>> futureIncompleteTask2;
@@ -41,8 +34,8 @@ class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with Ti
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0');
-    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo}');
+    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

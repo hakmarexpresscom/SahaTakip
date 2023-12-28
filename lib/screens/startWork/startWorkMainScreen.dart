@@ -150,9 +150,11 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         }
     );
   }
+
   Widget shiftTypeInfo(){
     return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
+
   Widget startWorkButton(){
     return ButtonWidget(
         text: "Mesaiye Başla",

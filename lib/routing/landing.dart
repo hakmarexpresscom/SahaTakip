@@ -18,7 +18,7 @@ import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
 import '../screens/shopVisiting/commonScreens/processesScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
-import '../screens/shopVisiting/commonScreens/shopsScreen.dart';
+import '../screens/shopVisiting/commonScreens/shopsScreenBS.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart';
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
@@ -31,6 +31,7 @@ import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/submitTask/submitTaskShopPhotoSelectionScreen.dart';
 import '../screens/taskChecking/taskCheckingDetailScreen.dart';
+import '../screens/taskChecking/taskCheckingMainScreenBM.dart';
 
 
 void naviShopVisitingShopsScreen(BuildContext context){
@@ -155,4 +156,8 @@ void naviTaskPhotoGalleryView(BuildContext context, imageList){
 
 void naviTaskCheckingDetailScreen(BuildContext context, id, completionInfo){
   Navigator.push(context, MaterialPageRoute(builder: (context) => TaskCheckingDetailScreen(task_id: id,completionInfo: completionInfo,)));
+}
+
+void naviTaskCheckingMainScreenBM(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => TaskCheckingMainScreenBM()));
 }

@@ -58,6 +58,9 @@ bool isBS = (isLoggedIn)?box.get("isBS"):false;
 
 List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü'];
+List<String> groupListCompleteTask = <String>['Standart', 'Manav'];
+List<String> groupListIncompleteTask = <String>['Standart', 'Manav'];
+double kItemExtent = 32.0;
 
 String email="";
 String password="";
