@@ -4,6 +4,7 @@ class UserNK{
   late String userSurname;
   late String email;
   late String userType;
+  late int isActive;
 
   UserNK({
     required this.nk_id,
@@ -11,6 +12,7 @@ class UserNK{
     required this.userSurname,
     required this.email,
     required this.userType,
+    required this.isActive
   });
 
   factory UserNK.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class UserNK{
       userSurname: json['kullanici_soyismi'],
       email: json['email'],
       userType: json['kullanici_turu'],
+      isActive: json['isActive']
     );
   }
 

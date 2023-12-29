@@ -76,4 +76,5 @@ late List<Widget> pagesBMGK = [
 late List<Widget> pagesNK = [
   NavigationMainScreen(),
   NearShopsMainScreen(),
+  OtherMainScreen()
 ];

@@ -8,16 +8,20 @@ import '../constants/constants.dart';
 import '../main.dart';
 import '../models/bmPassword.dart';
 import '../models/bsPassword.dart';
+import '../models/nkPassword.dart';
 import '../models/pmPassword.dart';
 import '../models/userBM.dart';
 import '../models/userBS.dart';
+import '../models/userNK.dart';
 import '../models/userPM.dart';
 import '../routing/landing.dart';
 import '../services/bmPasswordServices.dart';
 import '../services/bsPasswordServices.dart';
+import '../services/nkPasswordServices.dart';
 import '../services/pmPasswordServices.dart';
 import '../services/userBMServices.dart';
 import '../services/userBSServices.dart';
+import '../services/userNKServices.dart';
 import '../services/userPMServices.dart';
 import 'package:crypto/crypto.dart';
 
@@ -144,6 +148,20 @@ login(String user, String email, String password, BuildContext context) async {
     checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
     checkPasswordBM(password,'http://172.23.21.112:7042/api/KullaniciBM', sayac,context);
   }
+
+  else if(user=="Normal Kullanıcı"){
+    box.put("userType","NK");
+    userType=box.get("userType");
+
+    box.put("isBSorPM",false);
+    isBSorPM=box.get("isBSorPM");
+
+    box.put("isBS",false);
+    isBS=box.get("isBS");
+
+    checkEmailNK(email, 'http://172.23.21.112:7042/api/KullaniciNK', context);
+    checkPasswordNK(password,'http://172.23.21.112:7042/api/KullaniciNK', sayac,context);
+  }
 }
 
 Future checkEmailBS(String email, String url,BuildContext context) async {
@@ -263,6 +281,39 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
 
     await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
     createShopTaskPhotoMap();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
+  }
+}
+
+Future checkEmailNK(String email, String url,BuildContext context) async {
+  final List<UserNK> users = await fetchUserNK2(url);
+  for(int i=0; i<users.length;i++){
+    if(users[i].email==email&&users[i].isActive==1){
+
+      box.put("userID",users[i].nk_id);
+      userID=box.get("userID");
+
+      isCorrectEmail=true;
+
+      sayac = i;
+    }
+  }
+  if(sayac==0) {
+    isCorrectEmail = false;
+  }
+}
+
+Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext context) async {
+  final NKPassword hashedPw = await fetchNKPassword2('http://172.23.21.112:7042/api/NKSifre/${userID}');
+
+  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+  var bytes = utf8.encode(password);
+  var digest = sha256.convert(bytes);
+  var hashedPassword = digest.bytes;
+
+  if(listEquals(binaryHashedPassword, hashedPassword)){
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);

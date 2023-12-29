@@ -83,4 +83,8 @@ late List<BottomNavigationBarItem> itemListNK = [
     icon: Icon(Icons.near_me),
     label: 'Çevre Mağazalar',
   ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.menu),
+    label: 'Diğer',
+  ),
 ];
