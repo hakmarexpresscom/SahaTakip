@@ -145,7 +145,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev");
           await addIncompleteTaskToDatabase(
               "http://172.23.21.112:7042/api/TamamlanmamisGorev",
               taskNameController.text,
@@ -163,7 +162,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
               (isBSorPM==false)?userID:null,
                 (inPlace==true)?"Yerinde":"Uzaktan",
               "http://172.23.21.112:7042/api/Fotograf",
-              "http://172.23.21.112:7042/api/TamamlanmamisGorev/${incompleteTaskCount+1}"
           );
           //sendTaskMail(email, "Tarafınıza yeni bir görev atanmıştır. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
           Future.delayed(Duration.zero, () {

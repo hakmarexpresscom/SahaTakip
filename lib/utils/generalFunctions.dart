@@ -36,7 +36,7 @@ void resetTaskPhotos(){
   taskPhotos=[];
 }
 
-Future<void> addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl, String updateTaskUrl) async{
+addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl) async{
   for(int i=0;i<shopCodes.length;i++){
     if(boxShopTaskPhoto.get(shopCodes[i].toString())[1]==true){
       await countIncompleteTask(countTaskUrl);
@@ -44,7 +44,7 @@ Future<void> addIncompleteTaskToDatabase(String countTaskUrl, String title, Stri
       if(boxShopTaskPhoto.get(shopCodes[i].toString())[0]!=""){
         await countPhoto(countPhotoUrl);
         await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
-        await updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, group_no, updateTaskUrl);
+        updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, group_no, "http://172.23.21.112:7042/api/TamamlanmamisGorev/${incompleteTaskCount+1}");
       }
     }
   }

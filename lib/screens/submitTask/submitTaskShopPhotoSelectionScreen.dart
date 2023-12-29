@@ -204,6 +204,9 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                       textSizeButton: 15,
                       textSizeName: 18,
                       onAddPhotoTaps: (){
+                        setState(() {
+                          photo_file = "";
+                        });
                         addPhoto(snapshot.data![index].shopCode);
                         },
                       onShowPhotoTaps: (){

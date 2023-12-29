@@ -6,6 +6,7 @@ class UserBM{
   late int manager_id;
   late String userType;
   late int regionCode;
+  late int isActive;
 
 
   UserBM({
@@ -15,7 +16,8 @@ class UserBM{
     required this.email,
     required this.manager_id,
     required this.userType,
-    required this.regionCode
+    required this.regionCode,
+    required this.isActive
   });
 
   factory UserBM.fromJson(Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ class UserBM{
       manager_id: json['yonetici_id'],
       userType: json['kullanici_turu'],
       regionCode: json['bolge_kodu'],
+      isActive: json['isActive']
     );
   }
 

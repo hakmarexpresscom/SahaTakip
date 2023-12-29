@@ -149,7 +149,7 @@ login(String user, String email, String password, BuildContext context) async {
 Future checkEmailBS(String email, String url,BuildContext context) async {
   final List<UserBS> users = await fetchUserBS2(url);
   for(int i=0; i<users.length;i++){
-    if(users[i].email==email){
+    if(users[i].email==email&&users[i].isActive==1){
 
       box.put("userID",users[i].bs_id);
       userID=box.get("userID");
@@ -191,7 +191,7 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
 Future checkEmailPM(String email, String url,BuildContext context) async {
   final List<UserPM> users = await fetchUserPM2(url);
   for(int i=0; i<users.length;i++){
-    if(users[i].email==email){
+    if(users[i].email==email&&users[i].isActive==1){
 
       box.put("userID",users[i].pm_id);
       userID=box.get("userID");
@@ -232,7 +232,7 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
 Future checkEmailBM(String email, String url,BuildContext context) async {
   final List<UserBM> users = await fetchUserBM2(url);
   for(int i=0; i<users.length;i++){
-    if(users[i].email==email){
+    if(users[i].email==email&&users[i].isActive==1){
 
       box.put("userID",users[i].bm_id);
       userID=box.get("userID");
