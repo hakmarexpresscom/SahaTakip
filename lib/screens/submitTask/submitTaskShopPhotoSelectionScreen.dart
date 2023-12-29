@@ -14,6 +14,7 @@ import '../../models/shop.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../services/shopServices.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/text_widget.dart';
 
 class SubmitTaskShopPhotoSelectionScreen extends StatefulWidget {
   const SubmitTaskShopPhotoSelectionScreen({super.key});
@@ -166,6 +167,27 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: deviceHeight*0.02,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Checkbox(
+                  value: allSelected,
+                  onChanged: (newvalue){
+                    setState(() {
+                      allSelected = newvalue!;
+                      var list = boxShopTaskPhoto.keys.toList();
+                      for(int i=0; i<list.length;i++){
+                        boxShopTaskPhoto.get(list[i])[1]=newvalue;
+                      }
+                    });
+                  }
+              ),
+              TextWidget(text: "Tümünü Seç", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+            ],
+          ),
+          SizedBox(height: deviceHeight*0.02,),
           submitTaskShopPhotoSelectionScreen(),
           SizedBox(height: deviceHeight*0.02,),
           shopPhotoSelectionButton(),
@@ -200,7 +222,8 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                       sizedBoxConst4: 0.01,
                       shopName: snapshot.data![index].shopName,
                       shopCode: snapshot.data![index].shopCode,
-                      icon: Icons.store, textSizeCode: 20,
+                      icon: Icons.store,
+                      textSizeCode: 20,
                       textSizeButton: 15,
                       textSizeName: 18,
                       onAddPhotoTaps: (){

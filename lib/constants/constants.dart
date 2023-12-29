@@ -5,6 +5,8 @@ import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+bool allSelected = false;
+
 List<String> shopList = [];
 
 RxBool isStartShopVisitWorkObs = isStartShopVisitWork.obs;
