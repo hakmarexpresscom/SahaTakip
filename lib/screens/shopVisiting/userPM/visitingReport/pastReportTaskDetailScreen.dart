@@ -44,6 +44,12 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
@@ -66,8 +72,8 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
   }
 
   Widget incompletePastReportTaskDetailScreen(){
-    return Expanded(
-        child: FutureBuilder<IncompleteTask>(
+    return Column(
+        children: [FutureBuilder<IncompleteTask>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -109,7 +115,7 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 

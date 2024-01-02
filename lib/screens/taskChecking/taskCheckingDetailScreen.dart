@@ -52,6 +52,12 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
@@ -113,8 +119,8 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
   }
 
   Widget incompleteTaskCheckingDetailScreen(){
-    return Expanded(
-        child: FutureBuilder<IncompleteTask>(
+    return Column(
+        children: [FutureBuilder<IncompleteTask>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -154,13 +160,13 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 
   Widget completeTaskCheckingDetailScreen(){
-    return Expanded(
-        child: FutureBuilder<IncompleteTask>(
+    return Column(
+        children: [FutureBuilder<IncompleteTask>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -225,7 +231,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 }

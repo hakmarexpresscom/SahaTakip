@@ -47,6 +47,12 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
@@ -111,8 +117,20 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
             ),
             body: TabBarView(
               children: <Widget>[
-                completeTasksScreenUI(),
-                incompleteTasksScreenUI(),
+                SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: completeTasksScreenUI(),
+                  ),
+                ),
+                SingleChildScrollView(
+                  padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: incompleteTasksScreenUI(),
+                  ),
+                ),
               ],
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
@@ -120,8 +138,8 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   }
 
   Widget incompleteTasksScreenUI(){
-    return Expanded(
-        child: FutureBuilder<List<IncompleteTask>>(
+    return Column(
+        children: [FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -173,13 +191,13 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 
   Widget completeTasksScreenUI(){
-    return Expanded(
-        child: FutureBuilder<List<IncompleteTask>>(
+    return Column(
+        children: [FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask2,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -220,7 +238,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 

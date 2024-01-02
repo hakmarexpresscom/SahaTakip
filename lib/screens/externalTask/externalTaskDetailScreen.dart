@@ -99,6 +99,12 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Harici İş Detayı'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviExternalTasksListScreen(context);
+            },
+          ),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
@@ -112,8 +118,8 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
   }
 
   Widget externalTaskDetailScreenUI(){
-    return Expanded(
-        child: FutureBuilder<ExternalWork>(
+    return Column(
+        children: [FutureBuilder<ExternalWork>(
             future: futureExternalWork,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -163,7 +169,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 }

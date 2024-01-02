@@ -166,10 +166,16 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Görev Detayı'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviRemoteTasksMainScreen(context);
+            },
+          ),
         ),
-        body: SingleChildScrollView(
+        body:SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
-          child:Container(
+          child: Container(
             alignment: Alignment.center,
             child: remoteTaskDetailScreenUI(),
           ),
@@ -179,8 +185,8 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
   }
 
   Widget remoteTaskDetailScreenUI(){
-    return Expanded(
-        child: FutureBuilder<IncompleteTask>(
+    return Column(
+        children: [FutureBuilder<IncompleteTask>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -254,8 +260,8 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                 return Text("Veri yok");
               }
             }
-        )
-    );
+        )]
+   );
   }
 }
 

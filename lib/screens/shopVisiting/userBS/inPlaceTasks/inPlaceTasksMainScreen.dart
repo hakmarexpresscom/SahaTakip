@@ -3,6 +3,7 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
@@ -42,6 +43,12 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
@@ -53,6 +60,12 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Yerinde Görevler'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviShopVisitingProcessesScreen(context,box.get("currentShopID"),box.get("currentShopName"));
+            },
+          ),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

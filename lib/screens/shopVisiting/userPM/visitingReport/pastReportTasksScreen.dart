@@ -4,6 +4,7 @@ import 'package:deneme/widgets/cards/pastReportsTaskDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
@@ -44,6 +45,12 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
@@ -55,6 +62,12 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Rapor Görevleri'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviVisitingReportMainScreen(context,box.get("currentShopID"));
+            },
+          ),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

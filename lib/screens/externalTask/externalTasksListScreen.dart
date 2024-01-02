@@ -46,6 +46,12 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
@@ -95,6 +101,12 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Harici İşlerim'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviExternalTaskMainScreen(context);
+            },
+          ),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

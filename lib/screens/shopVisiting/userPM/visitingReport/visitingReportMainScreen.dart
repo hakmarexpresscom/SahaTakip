@@ -136,6 +136,12 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;
@@ -324,8 +330,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   }
 
   Widget pastReportsMainScreenUI(){
-    return Expanded(
-        child: FutureBuilder<List<Report>>(
+    return Column(
+        children: [FutureBuilder<List<Report>>(
             future: futureReport,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -361,7 +367,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 

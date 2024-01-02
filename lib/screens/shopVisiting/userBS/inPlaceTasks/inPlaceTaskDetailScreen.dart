@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../constants/bottomNaviBarLists.dart';
 import '../../../../constants/pagesLists.dart';
+import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/completeTaskServices.dart';
@@ -125,6 +126,12 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
           title: const Text('Görev Detayı'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviInPlaceTaskMainScreen(context,box.get("currentShopID"));
+            },
+          ),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
@@ -137,8 +144,8 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
   }
 
   Widget inPlaceTaskDetailScreenUI(){
-    return Expanded(
-        child: FutureBuilder<IncompleteTask>(
+    return Column(
+        children: [FutureBuilder<IncompleteTask>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -213,7 +220,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 }
