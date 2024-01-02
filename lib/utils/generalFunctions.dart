@@ -15,10 +15,10 @@ Future createShopList(String url) async{
 Future saveShopCodes(String url) async{
   final List<Shop> shops = await fetchShop2(url);
   for(int i=0; i<shops.length;i++){
-    if(i==shops.length-1){
+    if(i==shops.length-1&&shops[i].isActive==1){
       urlTaskShops=urlTaskShops+"magaza_kodu=${shops[i].shopCode}";
     }
-    else{
+    else if(shops[i].isActive==1){
       urlTaskShops=urlTaskShops+"magaza_kodu=${shops[i].shopCode}&";
     }
     box.get("shopCodes").add(shops[i].shopCode);

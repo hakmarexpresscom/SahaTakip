@@ -161,14 +161,19 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
-                    return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children:<Widget>[
-                          ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
-                        ]
-                    );
+                    if(snapshot.data![index].isActive==1){
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children:<Widget>[
+                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                          ]
+                      );
+                    }
+                    else{
+                      return Container();
+                    }
                   },
                 );
               }
@@ -178,7 +183,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index){
-                    if(shopListOnSearch.contains(snapshot.data![index].shopCode.toString()+" "+snapshot.data![index].shopName)){
+                    if(shopListOnSearch.contains(snapshot.data![index].shopCode.toString()+" "+snapshot.data![index].shopName)&&snapshot.data![index].isActive==1){
                       return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,

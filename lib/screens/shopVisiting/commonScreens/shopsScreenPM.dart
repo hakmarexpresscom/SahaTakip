@@ -153,7 +153,8 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index){
-                        return Row(
+                        if(snapshot.data![index].isActive==1){
+                        return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -182,6 +183,10 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                   )
                             ]
                         );
+                        }
+                        else{
+                          return Container();
+                        }
                       },
                     );
                   }

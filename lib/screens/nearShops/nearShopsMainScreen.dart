@@ -246,14 +246,19 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                 if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0){
                   GoogleMapMarkerList.list.add({"id":snapshot.data![index].shopCode.toString(),"lat":snapshot.data![index].Lat, "long":snapshot.data![index].Long, });
                 }
-                return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children:<Widget>[
-                      (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(child: (index==snapshot.data!.length-1)?Text("Yakında Mağaza Yok"):Text(""),),
-                    ]
-                );
+                if(snapshot.data![index].isActive==1){
+                  return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children:<Widget>[
+                        (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0) ? ShopCard(icon: Icons.near_me,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long):Container(child: (index==snapshot.data!.length-1)?Text("Yakında Mağaza Yok"):Text(""),),
+                      ]
+                  );
+                }
+                else{
+                  return Container();
+                }
               },
             );
           }

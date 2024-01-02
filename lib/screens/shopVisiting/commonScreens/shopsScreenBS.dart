@@ -176,12 +176,13 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index){
-                        return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children:<Widget>[
-                              VisitingShopCard(
+                        if(snapshot.data![index].isActive==1){
+                          return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children:<Widget>[
+                                VisitingShopCard(
                                   icon: Icons.store,
                                   sizedBoxConst1: sizedBoxConst1,
                                   sizedBoxConst2: sizedBoxConst2,
@@ -200,9 +201,14 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     box.put("currentShopName", snapshot.data![index].shopName);
                                     box.put("currentShopID",snapshot.data![index].shopCode);
                                     naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
-                                  })
-                            ]
-                        );
+                                  }
+                                )
+                              ]
+                          );
+                        }
+                        else{
+                          return Container();
+                        }
                       },
                     );
                 }
@@ -240,12 +246,13 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                VisitingShopCard(
+                          if(snapshot.data![index].isActive==1){
+                            return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  VisitingShopCard(
                                     icon: Icons.store,
                                     sizedBoxConst1: sizedBoxConst1,
                                     sizedBoxConst2: sizedBoxConst2,
@@ -265,9 +272,13 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       box.put("currentShopID",snapshot.data![index].shopCode);
                                       naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
                                     }
-                                    )
-                              ]
-                          );
+                                  )
+                                ]
+                            );
+                          }
+                          else{
+                            return Container();
+                          }
                         },
                       );
                     }
