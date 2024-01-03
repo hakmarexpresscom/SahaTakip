@@ -200,7 +200,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
   }
   Widget stopVisitingButton(){
     return ButtonWidget(
-        text: "Ziyareti Durdur",
+        text: "Ziyareti Bitir",
         heightConst: 0.05,
         widthConst: 0.22,
         size: 15,

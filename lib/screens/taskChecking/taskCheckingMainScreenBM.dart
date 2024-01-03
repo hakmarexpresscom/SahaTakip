@@ -51,6 +51,12 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
     controller.repeat(reverse: true);
   }
 
+  @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,

@@ -170,8 +170,8 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
-                return Expanded(
-                    child: FutureBuilder<CompleteTask>(
+                return Column(
+                  children: [FutureBuilder<CompleteTask>(
                       future: futureCompleteTask,
                       builder: (context,snapshot2){
                         if(snapshot2.hasData){
@@ -212,7 +212,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                           return Text("Veri yok");
                         }
                       },
-                    )
+                    )]
                 );
 
               }

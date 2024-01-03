@@ -68,7 +68,10 @@ class _AnswerDownloadedPhotoScreenState extends State<AnswerDownloadedPhotoScree
     );
   }
   Widget answerDownloadedPhotoScreenUI(){
-    return Expanded(
+    return Flex(
+        direction: Axis.vertical,
+        children:[
+      Expanded(
         child: FutureBuilder<List<Photo>>(
             future: futurePhoto,
             builder: (context, snapshot){
@@ -97,6 +100,6 @@ class _AnswerDownloadedPhotoScreenState extends State<AnswerDownloadedPhotoScree
               }
             }
         )
-    );
+    )]);
   }
 }

@@ -67,35 +67,40 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
   }
 
   Widget taskDownloadedPhotoScreenUI(){
-    return Expanded(
-        child: FutureBuilder<Photo>(
-            future: futurePhoto,
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                base64photo = snapshot.data!.photo_file;
-                Uint8List photoBytes = base64Decode(base64photo);
-                ImageProvider imageProvider = MemoryImage(photoBytes);
-                return PhotoView(
-                      imageProvider: imageProvider,
-                      minScale: PhotoViewComputedScale.contained,
-                      maxScale: PhotoViewComputedScale.covered * 2,);
-              }
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Column(
-                    children:[
-                      SizedBox(height: deviceHeight*0.06,),
-                      CircularProgressIndicator(
-                        value: controller.value,
-                        semanticsLabel: 'Circular progress indicator',
-                      ),
-                    ]
-                );
-              }
-              else{
-                return Text("Bu görev için yüklenen fotoğraf yok.");
-              }
-            }
-        )
+    return Flex(
+        direction: Axis.vertical,
+        children:[
+          Expanded(
+            child: FutureBuilder<Photo>(
+                future: futurePhoto,
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    base64photo = snapshot.data!.photo_file;
+                    Uint8List photoBytes = base64Decode(base64photo);
+                    ImageProvider imageProvider = MemoryImage(photoBytes);
+                    return PhotoView(
+                          imageProvider: imageProvider,
+                          minScale: PhotoViewComputedScale.contained,
+                          maxScale: PhotoViewComputedScale.covered * 2,);
+                  }
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return Column(
+                        children:[
+                          SizedBox(height: deviceHeight*0.06,),
+                          CircularProgressIndicator(
+                            value: controller.value,
+                            semanticsLabel: 'Circular progress indicator',
+                          ),
+                        ]
+                    );
+                  }
+                  else{
+                    return Text("Bu görev için yüklenen fotoğraf yok.");
+                  }
+                }
+            )
+          )
+        ]
     );
   }
 }

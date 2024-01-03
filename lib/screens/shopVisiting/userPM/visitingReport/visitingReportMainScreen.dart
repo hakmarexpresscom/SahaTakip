@@ -377,7 +377,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         builder: (BuildContext context) {
           return AlertDialogWidget(
             title: 'Görev Eklendi',
-            content: 'Görev başarılı bir şekilde raproa eklendi!',
+            content: 'Görev başarılı bir şekilde rapora eklendi!',
             onTaps: (){
               naviVisitingReportMainScreen(context, widget.shop_code);
             },

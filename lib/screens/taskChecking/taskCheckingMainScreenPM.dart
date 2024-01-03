@@ -117,19 +117,17 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: completeTasksScreenUI(),
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [completeTasksScreenUI()],
                 ),
-                SingleChildScrollView(
-                  padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: incompleteTasksScreenUI(),
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [incompleteTasksScreenUI()],
                 ),
               ],
             ),
@@ -138,8 +136,8 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   }
 
   Widget incompleteTasksScreenUI(){
-    return Column(
-        children: [FutureBuilder<List<IncompleteTask>>(
+    return Expanded(
+        child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -191,13 +189,13 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                 return Text("Veri yok");
               }
             }
-        )]
+        )
     );
   }
 
   Widget completeTasksScreenUI(){
-    return Column(
-        children: [FutureBuilder<List<IncompleteTask>>(
+    return Expanded(
+        child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask2,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -238,7 +236,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                 return Text("Veri yok");
               }
             }
-        )]
+        )
     );
   }
 
