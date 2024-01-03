@@ -168,8 +168,10 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
                             (photo_file.isEmpty)?null:photoCount+1,
                             'http://172.23.21.112:7042/api/TamamlanmisGorev'
                         );
-                        updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "RaporCevap", photo_file, snapshot.data!.task_id, 'http://172.23.21.112:7042/api/Fotograf/${photoCount+1}');
-                        naviRemoteTasksMainScreen(context);
+                        if(photo_file.isNotEmpty){
+                          updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "RaporCevap", photo_file, snapshot.data!.task_id, 'http://172.23.21.112:7042/api/Fotograf/${photoCount+1}');
+                        }
+                        naviVisitingReportTaskMainScreen(context, box.get("currentShopID"));
                       },
                       onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
                       id: snapshot.data!.task_id,

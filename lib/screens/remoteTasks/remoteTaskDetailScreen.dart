@@ -211,7 +211,9 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                                 (photo_file.isEmpty)?null:photoCount+1,
                                 'http://172.23.21.112:7042/api/TamamlanmisGorev'
                             );
-                            updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", photo_file, snapshot.data!.task_id, 'http://172.23.21.112:7042/api/Fotograf/${photoCount+1}');
+                            if(photo_file.isNotEmpty){
+                              updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", photo_file, snapshot.data!.task_id, 'http://172.23.21.112:7042/api/Fotograf/${photoCount+1}');
+                            }
                             naviRemoteTasksMainScreen(context);
                             },
                           onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
