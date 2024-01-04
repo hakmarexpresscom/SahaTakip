@@ -120,13 +120,13 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
   }
 
   Widget completePastReportTaskDetailScreen(){
-    return Expanded(
-        child: FutureBuilder<IncompleteTask>(
+    return Column(
+        children: [FutureBuilder<IncompleteTask>(
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
-                return Expanded(
-                    child: FutureBuilder<CompleteTask>(
+                return Column(
+                  children: [FutureBuilder<CompleteTask>(
                       future: futureCompleteTask,
                       builder: (context,snapshot2){
                         if(snapshot2.hasData){
@@ -168,7 +168,7 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
                           return Text("Veri yok");
                         }
                       },
-                    )
+                    )]
                 );
 
               }
@@ -187,7 +187,7 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
                 return Text("Veri yok");
               }
             }
-        )
+        )]
     );
   }
 }
