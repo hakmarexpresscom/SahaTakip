@@ -137,7 +137,7 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].workTitle, taskType: "Harici", shop_code: 0, onTaps: (){naviExternalTaskDetailScreen(context,snapshot.data![index].external_work_id);}),
+                        TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].workTitle, taskAssignmentDate: "", taskType: "Harici", shop_code: 0, onTaps: (){naviExternalTaskDetailScreen(context,snapshot.data![index].external_work_id);}),
                         SizedBox(height: deviceHeight*0.005,),
                       ],
                     );

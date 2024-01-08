@@ -259,7 +259,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: deviceHeight*0.01,),
-                          TaskCheckingCard(heightConst: 0.3, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                          TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
                         ],
                       );
                     }
@@ -270,7 +270,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: deviceHeight*0.01,),
-                          TaskCheckingCard(heightConst: 0.3, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                          TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
                         ],
                       );
                     }
@@ -317,7 +317,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: deviceHeight*0.01,),
-                          TaskCheckingCard(heightConst: 0.3, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                          TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
                         ],
                       );
                     }
@@ -328,7 +328,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: deviceHeight*0.01,),
-                          TaskCheckingCard(heightConst: 0.3, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                          TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
                         ],
                       );
                     }
