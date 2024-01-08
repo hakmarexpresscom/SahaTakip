@@ -209,6 +209,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                                 userID,
                                 now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
                                 (photo_file.isEmpty)?null:photoCount+1,
+                                TaskDetailCard.answerNoteController.text,
                                 'http://172.23.21.112:7042/api/TamamlanmisGorev'
                             );
                             if(photo_file.isNotEmpty){
@@ -226,7 +227,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                           report_id: snapshot.data!.report_id,
                           addPhotoButton:
                           ButtonWidget(
-                              text: "Fotoğraf Ekle",
+                              text: "Cevap Fotoğrafı Ekle",
                               heightConst: 0.06,
                               widthConst: 0.8,
                               size: 18,

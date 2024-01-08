@@ -5,6 +5,7 @@ import '../button_widget.dart';
 import '../text_widget.dart';
 
 class CompleteTaskCheckingDetailCard extends StatefulWidget {
+
   late double heightConst;
   late double widthConst;
   late String taskName;
@@ -17,8 +18,9 @@ class CompleteTaskCheckingDetailCard extends StatefulWidget {
   late int shop_code;
   late int? photo_id;
   late String completeDate;
+  late String? answerNote;
 
-  CompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate, required this.shop_code, required this.photo_id,required this.completeDate}): super(key: key);
+  CompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate, required this.shop_code, required this.photo_id,required this.completeDate, required this.answerNote}): super(key: key);
 
   @override
   State<CompleteTaskCheckingDetailCard> createState() => _IncompleteTaskCheckingDetailCardState();
@@ -46,6 +48,8 @@ class _IncompleteTaskCheckingDetailCardState extends State<CompleteTaskCheckingD
           SizedBox(height: context.dynamicHeight(0.1),),
           TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.1),),
+          (widget.answerNote==""||widget.answerNote==null) ? TextWidget(text: "Cevap Notu: Cevap notu girilmemiş.", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black) : TextWidget(text: "Cevap Notu: ${widget.answerNote}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+          SizedBox(height: context.dynamicHeight(0.05),),
           ButtonWidget(text: "Cevap Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
         ]
     );

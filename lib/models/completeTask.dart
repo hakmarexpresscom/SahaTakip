@@ -3,6 +3,7 @@ class CompleteTask{
   late int bs_id;
   late String taskCompleteDate;
   late int? photo_id;
+  late String? answerNote;
   late int completionInfo;
 
   CompleteTask({
@@ -10,6 +11,7 @@ class CompleteTask{
     required this.bs_id,
     required this.taskCompleteDate,
     required this.photo_id,
+    required this.answerNote,
     required this.completionInfo
   });
 
@@ -19,6 +21,7 @@ class CompleteTask{
       bs_id: json['bs_id'],
       taskCompleteDate: json['tamamlanma_tarihi'],
       photo_id: json['foto_id'],
+      answerNote: json['cevap_notu'],
       completionInfo: json['tamamlandi_bilgisi'],
     );
   }

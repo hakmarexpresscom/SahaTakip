@@ -193,6 +193,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                                 shop_code: snapshot.data!.shopCode,
                                 photo_id: snapshot.data!.photo_id,
                                 completeDate: snapshot2.data!.taskCompleteDate,
+                                answerNote: snapshot2.data!.answerNote,
                               )
                             ],
                           );

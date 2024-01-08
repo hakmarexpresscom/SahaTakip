@@ -44,7 +44,7 @@ Future<List<CompleteTask>> fetchCompleteTask3(String url) async {
   }
 }
 
-Future<CompleteTask> createCompleteTask(int id, int bs_id, String completionDate, int? photo_id, String url) async {
+Future<CompleteTask> createCompleteTask(int id, int bs_id, String completionDate, int? photo_id, String? answerNote, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -55,6 +55,7 @@ Future<CompleteTask> createCompleteTask(int id, int bs_id, String completionDate
       "bs_id": bs_id,
       "tamamlanma_tarihi": completionDate,
       "foto_id": photo_id,
+      "cevap_notu": answerNote,
       "tamamlandi_bilgisi": 1
     }
     ),

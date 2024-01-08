@@ -330,8 +330,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   }
 
   Widget pastReportsMainScreenUI(){
-    return Column(
-        children: [FutureBuilder<List<Report>>(
+    return Expanded(
+        child: FutureBuilder<List<Report>>(
             future: futureReport,
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -367,7 +367,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
                 return Text("Veri yok");
               }
             }
-        )]
+        )
     );
   }
 

@@ -42,7 +42,7 @@ class _TaskCardState extends State<TaskCard> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Icon(Icons.task_alt,size: 35,),],
+              children: [Icon(Icons.assignment,size: 35,),],
             ),
             TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.02),),

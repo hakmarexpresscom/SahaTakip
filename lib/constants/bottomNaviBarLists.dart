@@ -15,7 +15,7 @@ late List<BottomNavigationBarItem> itemListBS = [
     label: 'Çevre Mağazalar',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.task_alt),
+    icon: Icon(Icons.assignment),
     label: 'Uzaktan Görevler',
   ),
   BottomNavigationBarItem(

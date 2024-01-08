@@ -9,7 +9,11 @@ import '../../services/externalWorkServices.dart';
 import '../../services/inCompleteTaskServices.dart';
 import 'dart:io';
 
+import '../text_form_field.dart';
+
 class TaskDetailCard extends StatefulWidget {
+
+  static var answerNoteController = TextEditingController();
 
   late double heightConst;
   late double widthConst;
@@ -57,6 +61,21 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             SizedBox(height: context.dynamicHeight(0.05),),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
             SizedBox(height: context.dynamicHeight(0.1),),
+            Container(
+              width: context.dynamicWidth(0.85),
+              child: TextFormFieldWidget(
+                  text: "Cevap Notu",
+                  borderWidht: 2,
+                  titleColor: Colors.black,
+                  borderColor: Colors.black,
+                  controller: TaskDetailCard.answerNoteController,
+                  value: TaskDetailCard.answerNoteController.text,
+                  paddingValue: 5,
+                  maxLines: 6
+              ),
+            ),
+
+            SizedBox(height: context.dynamicHeight(0.03),),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
