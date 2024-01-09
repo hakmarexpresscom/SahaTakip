@@ -2,6 +2,7 @@ import 'package:deneme/styles/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../button_widget.dart';
+import '../rich_text_widget.dart';
 import '../text_widget.dart';
 
 class IncompleteTaskCheckingDetailCard extends StatefulWidget {
@@ -31,19 +32,26 @@ class _IncompleteTaskCheckingDetailCardState extends State<IncompleteTaskCheckin
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
-          SizedBox(height: context.dynamicHeight(0.07),),
-          TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          RichTextWidget(title: " Görev İsmi: ", text: widget.taskName, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Görev Atama Tarihi: ${widget.assignmentDate}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          RichTextWidget(title: " Görev Bitiş Tarihi: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Mağaza Kodu: ${widget.shop_code}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          RichTextWidget(title: " Görev Atama Tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
           SizedBox(height: context.dynamicHeight(0.02),),
-          TextWidget(text: "Görev Türü: ${widget.taskType}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
-          SizedBox(height: context.dynamicHeight(0.1),),
-          TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
-          SizedBox(height: context.dynamicHeight(0.1),),
-          ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+          RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shop_code}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
+          SizedBox(height: context.dynamicHeight(0.02),),
+          RichTextWidget(title: " Görev Türü: ", text: widget.taskType, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
+          SizedBox(height: context.dynamicHeight(0.02),),
+          RichTextWidget(title: " Görev Detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
+          SizedBox(height: context.dynamicHeight(0.05),),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+            ],
+          ),
         ]
     );
   }

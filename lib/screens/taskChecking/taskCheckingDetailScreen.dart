@@ -124,12 +124,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
             future: futureIncompleteTask,
             builder: (context, snapshot){
               if(snapshot.hasData){
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IncompleteTaskCheckingDetailCard(
+                return IncompleteTaskCheckingDetailCard(
                         heightConst: 0.7,
                         widthConst: 0.9,
                         taskName: snapshot.data!.taskTitle,
@@ -141,8 +136,6 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                         assignmentDate: snapshot.data!.taskAssigmentDate,
                         shop_code: snapshot.data!.shopCode,
                         photo_id: snapshot.data!.photo_id,
-                    )
-                  ],
                 );
               }
               if(snapshot.connectionState == ConnectionState.waiting){
@@ -175,14 +168,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                       future: futureCompleteTask,
                       builder: (context,snapshot2){
                         if(snapshot2.hasData){
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CompleteTaskCheckingDetailCard(
-                                heightConst: 0.7,
-                                widthConst: 0.9,
+                          return CompleteTaskCheckingDetailCard(
                                 taskName: snapshot.data!.taskTitle,
                                 taskDescription: snapshot.data!.taskDetail!,
                                 taskDeadline: snapshot.data!.taskFinishDate,
@@ -194,8 +180,6 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                                 photo_id: snapshot.data!.photo_id,
                                 completeDate: snapshot2.data!.taskCompleteDate,
                                 answerNote: snapshot2.data!.answerNote,
-                              )
-                            ],
                           );
                         }
                         if(snapshot.connectionState == ConnectionState.waiting){

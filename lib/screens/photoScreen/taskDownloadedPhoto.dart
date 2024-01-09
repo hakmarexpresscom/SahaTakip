@@ -47,6 +47,12 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;

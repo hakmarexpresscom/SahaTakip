@@ -50,6 +50,12 @@ class _AnswerDownloadedPhotoScreenState extends State<AnswerDownloadedPhotoScree
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
