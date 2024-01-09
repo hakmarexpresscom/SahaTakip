@@ -4,15 +4,6 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/constants.dart';
 import '../../../routing/landing.dart';
-import '../../../utils/loginFunctions.dart';
-
-// hashlenmiş şifre çözülmüyormuş o yüzden var olan şifreni sql'den
-// çekip çözüp mail atamıyoruz
-
-// şifremi unuttum yerine yeni şifre oluştur özelliği getirilecek
-// fakat şu anda askıya alınmış durumda
-
-// yeni şife random sayılardan oluşacak ve mail olarak iletilecek
 
 class ForgetPasswordScreen extends StatefulWidget {
 

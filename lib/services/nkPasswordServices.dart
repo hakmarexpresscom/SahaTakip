@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/bsPassword.dart';
 import '../models/nkPassword.dart';
 
 Future<List<NKPassword>> parseJsonList(String jsonBody) async{

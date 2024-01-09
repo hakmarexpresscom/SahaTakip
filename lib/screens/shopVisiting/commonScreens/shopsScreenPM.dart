@@ -12,7 +12,6 @@ import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
 import '../../../utils/appStateManager.dart';
-import '../../../widgets/button_widget.dart';
 
 class ShopVisitingShopsScreenPM extends StatefulWidget {
   const ShopVisitingShopsScreenPM({super.key});

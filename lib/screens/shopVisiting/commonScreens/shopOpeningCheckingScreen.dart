@@ -1,19 +1,13 @@
 import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
 import 'package:deneme/services/shopOpeningControlServices.dart';
 import 'package:deneme/widgets/alert_dialog.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '../../../constants/bottomNaviBarLists.dart';
-import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
 import '../../../main.dart';
 import '../../../models/shopOpeningControl.dart';
-import '../../../utils/appStateManager.dart';
 
 class ShopOpeningCheckingScreen extends StatefulWidget {
   int shop_code = 0;

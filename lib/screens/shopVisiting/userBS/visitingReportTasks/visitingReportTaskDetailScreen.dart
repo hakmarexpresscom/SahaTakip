@@ -1,13 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../constants/bottomNaviBarLists.dart';
-import '../../../../constants/pagesLists.dart';
 import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';

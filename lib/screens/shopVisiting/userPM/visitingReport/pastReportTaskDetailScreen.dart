@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../models/completeTask.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';

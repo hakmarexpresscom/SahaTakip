@@ -6,16 +6,12 @@ import 'package:deneme/widgets/cards/visitingShopCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../main.dart';
 import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
-import '../../../widgets/button_widget.dart';
-import '../../startWork/startWorkMainScreen.dart';
 
 class ShopVisitingShopsScreen extends StatefulWidget {
   const ShopVisitingShopsScreen({super.key});

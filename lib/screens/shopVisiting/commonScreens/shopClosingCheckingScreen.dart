@@ -1,18 +1,12 @@
 import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/services/shopClosingControlServices.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '../../../constants/bottomNaviBarLists.dart';
-import '../../../constants/pagesLists.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
 import '../../../main.dart';
 import '../../../models/shopClosingControl.dart';
 import '../../../routing/landing.dart';
-import '../../../utils/appStateManager.dart';
 import '../../../widgets/alert_dialog.dart';
 
 class ShopClosingCheckingScreen extends StatefulWidget {

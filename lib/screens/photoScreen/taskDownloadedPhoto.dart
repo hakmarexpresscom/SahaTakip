@@ -1,11 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-import '../../../constants/bottomNaviBarLists.dart';
-import '../../../constants/pagesLists.dart';
 import '../../models/photo.dart';
 import '../../services/photoServices.dart';
 

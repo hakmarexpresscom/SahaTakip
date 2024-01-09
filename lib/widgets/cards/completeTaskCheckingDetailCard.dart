@@ -3,7 +3,6 @@ import 'package:deneme/widgets/rich_text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../button_widget.dart';
-import '../text_widget.dart';
 
 class CompleteTaskCheckingDetailCard extends StatefulWidget {
 

@@ -1,17 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/utils/sendTaskMailFuncstions.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import '../../../../constants/bottomNaviBarLists.dart';
-import '../../../../constants/pagesLists.dart';
 import '../../../../main.dart';
 import '../../../../models/report.dart';
 import '../../../../routing/landing.dart';

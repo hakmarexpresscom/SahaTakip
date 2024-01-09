@@ -3,7 +3,6 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class VisitingShopCard extends StatefulWidget {
 
   late double heightConst;

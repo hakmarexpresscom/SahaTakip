@@ -1,13 +1,10 @@
 import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopVisitingProcessCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../../constants/bottomNaviBarLists.dart';
-import '../../../constants/pagesLists.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/appStateManager.dart';
 

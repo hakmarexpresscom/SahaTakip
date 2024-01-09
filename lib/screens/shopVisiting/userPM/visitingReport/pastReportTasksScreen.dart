@@ -1,14 +1,8 @@
-import 'package:deneme/constants/constants.dart';
-import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/widgets/cards/pastReportsTaskDetailCard.dart';
 import 'package:flutter/material.dart';
-import '../../../../constants/bottomNaviBarLists.dart';
-import '../../../../constants/pagesLists.dart';
 import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
-import '../../../../widgets/cards/taskCard.dart';
 import '../../../../widgets/cards/taskCheckingCard.dart';
 
 

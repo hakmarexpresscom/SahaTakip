@@ -1,13 +1,11 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/models/incompleteTask.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/screens/remoteTasks/remoteTaskDetailScreen.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
-import '../../utils/generalFunctions.dart';
 import '../../widgets/cards/taskCard.dart';
 
 class RemoteTaskMainScreen extends StatefulWidget {

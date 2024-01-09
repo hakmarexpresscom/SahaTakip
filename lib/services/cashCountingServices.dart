@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/cashCounting.dart';
-import '../models/shopOpeningControl.dart';
 
 Future<List<CashCounting>> parseJsonListOut(String jsonBody) async{
   List<dynamic> responseList = jsonDecode(jsonBody);

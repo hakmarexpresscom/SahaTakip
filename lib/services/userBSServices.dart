@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:deneme/models/userBS.dart';
 import 'package:http/http.dart' as http;
 
-
 Future<List<UserBS>> parseJsonList(String jsonBody) async{
   List<dynamic> responseList = jsonDecode(jsonBody);
   List<UserBS> returnList = [];

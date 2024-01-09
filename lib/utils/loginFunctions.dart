@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';

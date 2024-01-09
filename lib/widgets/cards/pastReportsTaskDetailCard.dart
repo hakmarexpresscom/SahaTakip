@@ -1,7 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
-import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../button_widget.dart';
 import '../rich_text_widget.dart';
 

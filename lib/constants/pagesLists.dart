@@ -1,7 +1,4 @@
 import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenBS.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:flutter/cupertino.dart';
 import '../screens/navigation/navigationMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';

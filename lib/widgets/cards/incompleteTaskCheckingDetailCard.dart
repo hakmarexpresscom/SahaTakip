@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../button_widget.dart';
 import '../rich_text_widget.dart';
-import '../text_widget.dart';
 
 class IncompleteTaskCheckingDetailCard extends StatefulWidget {
   late double heightConst;

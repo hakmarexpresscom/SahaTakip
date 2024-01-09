@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:deneme/routing/landing.dart';
 import 'package:deneme/widgets/cards/shopPhotoCard.dart';
 import 'package:flutter/cupertino.dart';
