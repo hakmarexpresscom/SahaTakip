@@ -127,6 +127,7 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
+              TaskDetailCard.answerNoteController.clear();
               naviVisitingReportTaskMainScreen(context,box.get("currentShopID"));
             },
           ),

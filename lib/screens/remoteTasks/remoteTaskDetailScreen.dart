@@ -169,6 +169,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
+              TaskDetailCard.answerNoteController.clear();
               naviRemoteTasksMainScreen(context);
             },
           ),

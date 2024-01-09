@@ -129,6 +129,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
+              TaskDetailCard.answerNoteController.clear();
               naviInPlaceTaskMainScreen(context,box.get("currentShopID"));
             },
           ),
