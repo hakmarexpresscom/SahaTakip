@@ -41,7 +41,7 @@ class _ShopVisitingProcessCardState extends State<ShopVisitingProcessCard> {
               SizedBox(height: context.dynamicHeight(0.03),),
               Icon(widget.processIcon,size: 50,),
               SizedBox(height: context.dynamicHeight(0.04),),
-              TextWidget(text: widget.processName, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+              TextWidget(text: widget.processName, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
             ],
           ),
         onTap: ()=>{widget.onTaps()})

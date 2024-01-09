@@ -99,7 +99,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             SizedBox(height: deviceHeight*0.03,),
             title(),
             SizedBox(height: deviceHeight*0.04,),
-            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: deviceHeight*0.02,),
             userTypeDropDown(),
             SizedBox(height: deviceHeight*0.03,),
@@ -180,7 +180,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         textColor: Colors.black);
   }
   Widget title(){
-    return TextWidget(text: "Şifremi Unuttum", heightConst: 0, widhtConst: 0, size: 35, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Yeni Şifre Al", size: 35, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget logo(){
     return Container(

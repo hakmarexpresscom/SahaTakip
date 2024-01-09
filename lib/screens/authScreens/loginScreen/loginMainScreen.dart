@@ -93,7 +93,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
             SizedBox(height: deviceHeight*0.03,),
             title(),
             SizedBox(height: deviceHeight*0.04,),
-            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 17, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: deviceHeight*0.02,),
             userTypeDropDown(),
             SizedBox(height: deviceHeight*0.03,),
@@ -203,11 +203,11 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   }
 
   Widget title(){
-    return TextWidget(text: "Kullanıcı Girişi", heightConst: 0, widhtConst: 0, size: 35, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Kullanıcı Girişi", size: 35, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget forgetPasswordButton(double heightConst, double widthConst){
     return ButtonWidget(
-        text: "Şifremi Unuttum",
+        text: "Yeni Şifre Al",
         heightConst: heightConst,
         widthConst: widthConst,
         size: 18,

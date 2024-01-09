@@ -193,10 +193,10 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
 
 
   Widget shopNameInfo(){
-    return TextWidget(text: splittedName[0]+"\n"+splittedName[1], heightConst: 0, widhtConst: 0, size: 18, fontWeight: FontWeight.w600, color: Colors.black);
+    return TextWidget(text: splittedName[0]+"\n"+splittedName[1], size: 18, fontWeight: FontWeight.w600, color: Colors.black);
   }
   Widget shopCodeInfo(){
-    return TextWidget(text: "${widget.shop_code}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black);
+    return TextWidget(text: "${widget.shop_code}", size: 20, fontWeight: FontWeight.w600, color: Colors.black);
   }
   Widget stopVisitingButton(){
     return ButtonWidget(

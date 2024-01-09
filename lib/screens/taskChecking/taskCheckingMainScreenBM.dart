@@ -326,7 +326,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
   }
 
   Widget groupTypeInfo(){
-    return TextWidget(text: "Hangi grup çalışanın görevlerini\ngörüntülemek istediğinizi seçiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Hangi grup çalışanın görevlerini\ngörüntülemek istediğinizi seçiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
   }
 
 

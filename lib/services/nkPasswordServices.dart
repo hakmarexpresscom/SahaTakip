@@ -35,3 +35,23 @@ Future<NKPassword> fetchNKPassword2(String url) async {
   }
 }
 
+Future<NKPassword> updateNKPassword(int nk_id, String hashedPW, String url) async {
+  final response = await http.put(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>
+    {
+      "nk_id": nk_id,
+      "hashed_pw": hashedPW
+    }
+    ),
+  );
+  if (response.statusCode == 201) {
+    return NKPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to update NKPassword.');
+  }
+}
+
+

@@ -142,17 +142,17 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         future: futureShift,
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)),heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)), size: 25, fontWeight: FontWeight.w400, color: Colors.black);
           }
           else{
-            return TextWidget(text:"En sonki çalışma süreniz:\n0 saat 0 dakika 0 saniye\nBugün hiç mesai başlatmadınız.",heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+            return TextWidget(text:"En sonki çalışma süreniz:\n0 saat 0 dakika 0 saniye\nBugün hiç mesai başlatmadınız.", size: 25, fontWeight: FontWeight.w400, color: Colors.black);
           }
         }
     );
   }
 
   Widget shiftTypeInfo(){
-    return TextWidget(text: "Mesai Türünüzü Seçiniz", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Mesai Türünüzü Seçiniz", size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
 
   Widget startWorkButton(){

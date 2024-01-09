@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
+import 'package:deneme/routing/landing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -7,12 +10,15 @@ import '../models/bsPassword.dart';
 import '../models/pmPassword.dart';
 import '../models/userBM.dart';
 import '../models/userBS.dart';
+import '../models/userNK.dart';
 import '../models/userPM.dart';
 import '../services/bmPasswordServices.dart';
 import '../services/bsPasswordServices.dart';
+import '../services/nkPasswordServices.dart';
 import '../services/pmPasswordServices.dart';
 import '../services/userBMServices.dart';
 import '../services/userBSServices.dart';
+import '../services/userNKServices.dart';
 import '../services/userPMServices.dart';
 
 int temporaryUserID = 0;
@@ -26,10 +32,10 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].bs_id;
       }
     }
-    final BSPassword base64password = await fetchBSPassword2("http://172.23.21.112:7042/api/BSSifre/${temporaryUserID}");
-    String decodedSPassword = ascii.decode(base64.decode(base64password.hashed_pw));
-    temporaryPassword = decodedSPassword;
-    sendPasswordMail(email, decodedSPassword);
+    String newPW = generateRandomString();
+    sendPasswordMail(email, newPW);
+    updateBSPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/BSSifre/${temporaryUserID}");
+    naviLoginMainScreen(context);
   }
   else if(user=="Pazarlama Müdürü") {
     final List<UserPM> users = await fetchUserPM2('http://172.23.21.112:7042/api/KullaniciPM');
@@ -38,10 +44,10 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].pm_id;
       }
     }
-    final PMPassword base64password = await fetchPMPassword2("http://172.23.21.112:7042/api/PMSifre/${temporaryUserID}");
-    String decodedSPassword = ascii.decode(base64.decode(base64password.hashed_pw));
-    temporaryPassword = decodedSPassword;
-    sendPasswordMail(email, decodedSPassword);
+    String newPW = generateRandomString();
+    sendPasswordMail(email, newPW);
+    updatePMPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/PMSifre/${temporaryUserID}");
+    naviLoginMainScreen(context);
   }
   else if(user=="Bölge Müdürü") {
     final List<UserBM> users = await fetchUserBM2('http://172.23.21.112:7042/api/KullaniciBM');
@@ -50,10 +56,22 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].bm_id;
       }
     }
-    final BMPassword base64password = await fetchBMPassword2("http://172.23.21.112:7042/api/BSSifre/${temporaryUserID}");
-    String decodedSPassword = ascii.decode(base64.decode(base64password.hashed_pw));
-    temporaryPassword = decodedSPassword;
-    sendPasswordMail(email, decodedSPassword);
+    String newPW = generateRandomString();
+    sendPasswordMail(email, newPW);
+    updateBMPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/BMSifre/${temporaryUserID}");
+    naviLoginMainScreen(context);
+  }
+  else if(user=="Normal Kullanıcı") {
+    final List<UserNK> users = await fetchUserNK2('http://172.23.21.112:7042/api/KullaniciNK');
+    for(int i=0; i<users.length;i++){
+      if(users[i].email==email){
+        temporaryUserID=users[i].nk_id;
+      }
+    }
+    String newPW = generateRandomString();
+    sendPasswordMail(email, newPW);
+    updateNKPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/NKSifre/${temporaryUserID}");
+    naviLoginMainScreen(context);
   }
 }
 
@@ -82,6 +100,24 @@ sendPasswordMail(String email, String password) async {
   var connection = PersistentConnection(smtpServer);
   await connection.send(message);
   await connection.close();
+}
+
+String generateRandomString() {
+  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  Random random = Random();
+  String result = '';
+  for (int i = 0; i < 9; i++) {
+    int randomIndex = random.nextInt(characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+}
+
+String hashPassword(String password) {
+  var bytes = utf8.encode(password);
+  var digest = sha256.convert(bytes);
+  var base64EncodedPassword = base64.encode(digest.bytes);
+  return base64EncodedPassword;
 }
 
 

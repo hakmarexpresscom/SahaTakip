@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 class TextWidget extends StatefulWidget{
   final String text;
-  final double heightConst;
-  final double widhtConst;
   final double size;
   final FontWeight fontWeight;
   final Color color;
@@ -11,8 +9,6 @@ class TextWidget extends StatefulWidget{
   const TextWidget({
     Key? key,
     required this.text,
-    required this.heightConst,
-    required this.widhtConst,
     required this.size,
     required this.fontWeight,
     required this.color

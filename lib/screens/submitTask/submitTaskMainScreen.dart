@@ -213,7 +213,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          TextWidget(text: "Yerinde yada Uzaktan?", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: "Yerinde yada Uzaktan?", size: 20, fontWeight: FontWeight.w600, color: Colors.black),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -224,7 +224,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextWidget(text: "Yerinde", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                  TextWidget(text: "Yerinde", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
                   Checkbox(value: inPlace, onChanged: (newvalue){setState(() {inPlace=newvalue!;remote=!newvalue;});})
                 ],
               ),
@@ -233,7 +233,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextWidget(text: "Uzaktan", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                  TextWidget(text: "Uzaktan", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
                   Checkbox(value: remote, onChanged: (newvalue){setState(() {remote=newvalue!;inPlace=!newvalue;});})
                 ],
               ),

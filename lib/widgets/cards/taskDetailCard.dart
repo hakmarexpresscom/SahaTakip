@@ -53,11 +53,11 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextWidget(text: widget.taskName, heightConst: 0, widhtConst: 0, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
+            TextWidget(text: widget.taskName, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.02),),
-            (widget.taskType=="Harici")?TextWidget(text: "Bitiş Saati: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black): TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", heightConst: 0, widhtConst: 0, size: 23, fontWeight: FontWeight.w600, color: Colors.black),
+            (widget.taskType=="Harici")?TextWidget(text: "Bitiş Saati: ${widget.taskDeadline}", size: 23, fontWeight: FontWeight.w600, color: Colors.black): TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", size: 23, fontWeight: FontWeight.w600, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.1),),
-            TextWidget(text: widget.taskDescription, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: widget.taskDescription, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
             SizedBox(height: context.dynamicHeight(0.05),),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
             SizedBox(height: context.dynamicHeight(0.1),),
@@ -81,7 +81,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextWidget(text: "Tamamlandı", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Tamamlandı", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
                 Checkbox(
                     value: widget.isCompleted,
                     onChanged: (newvalue){

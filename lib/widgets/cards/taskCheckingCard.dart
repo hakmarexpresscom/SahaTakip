@@ -4,6 +4,8 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../rich_text_widget.dart';
+
 class TaskCheckingCard extends StatefulWidget {
 
   late double heightConst;
@@ -48,11 +50,11 @@ class _TaskCardState extends State<TaskCheckingCard> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [Icon(Icons.assignment,size: 35,),],
               ),
-              TextWidget(text: "  ${widget.taskName}", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
+              TextWidget(text: " ${widget.taskName}", size: 20, fontWeight: FontWeight.w500, color: Colors.black),
               SizedBox(height: context.dynamicHeight(0.02),),
-              TextWidget(text: "  Mağaza Kodu: "+widget.shopCode.toString(), heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
+              RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shopCode}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
               SizedBox(height: context.dynamicHeight(0.02),),
-              TextWidget(text: "  Görev atama tarihi: "+widget.assignmentDate, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
+              RichTextWidget(title: " Görev atama tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black)
             ],
           ),
         ),

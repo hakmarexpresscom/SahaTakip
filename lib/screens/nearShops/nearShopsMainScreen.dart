@@ -188,7 +188,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
                     SizedBox(height: deviceHeight*0.03,),
                     nearShopsMainScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15),
                     SizedBox(height: deviceHeight*0.02,),
@@ -201,7 +201,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
                     SizedBox(height: deviceHeight*0.03,),
                     ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
                     SizedBox(height: deviceHeight*0.02,),
@@ -214,7 +214,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
                     SizedBox(height: deviceHeight*0.03,),
                     nearShopsMainScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
                     SizedBox(height: deviceHeight*0.02,),

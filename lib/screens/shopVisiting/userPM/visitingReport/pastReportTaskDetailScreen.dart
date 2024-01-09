@@ -96,6 +96,7 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
                       photo_id: snapshot.data!.photo_id,
                       completeDate: "",
                       completionInfo: snapshot.data!.completionInfo,
+                      answerNote: "",
                     )
                   ],
                 );
@@ -149,6 +150,7 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
                                 photo_id: snapshot.data!.photo_id,
                                 completeDate: snapshot2.data!.taskCompleteDate,
                                 completionInfo: snapshot.data!.completionInfo,
+                                answerNote: snapshot2.data!.answerNote,
                               )
                             ],
                           );

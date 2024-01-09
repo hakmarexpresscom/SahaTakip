@@ -34,3 +34,23 @@ Future<BMPassword> fetchBMPassword2(String url) async {
   }
 }
 
+Future<BMPassword> updateBMPassword(int bm_id, String hashedPW, String url) async {
+  final response = await http.put(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>
+    {
+      "bm_id": bm_id,
+      "hashed_pw": hashedPW
+    }
+    ),
+  );
+  if (response.statusCode == 201) {
+    return BMPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to update BMPassword.');
+  }
+}
+
+

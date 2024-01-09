@@ -108,7 +108,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
@@ -120,7 +120,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
@@ -132,7 +132,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", heightConst: 0, widhtConst: 0, size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),

@@ -126,10 +126,10 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   }
 
   Widget shopNameInfo(){
-    return TextWidget(text: widget.shopName, heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: widget.shopName, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget shopCodeInfo(){
-    return TextWidget(text: widget.shop_code.toString(), heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: widget.shop_code.toString(), size: 20, fontWeight: FontWeight.w400, color: Colors.black);
   }
   Widget saveButton(){
     return ButtonWidget(

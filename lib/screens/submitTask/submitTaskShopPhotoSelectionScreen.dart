@@ -184,7 +184,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                     });
                   }
               ),
-              TextWidget(text: "Tümünü Seç", heightConst: 0, widhtConst: 0, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+              TextWidget(text: "Tümünü Seç", size: 20, fontWeight: FontWeight.w600, color: Colors.black),
             ],
           ),
           SizedBox(height: deviceHeight*0.02,),
