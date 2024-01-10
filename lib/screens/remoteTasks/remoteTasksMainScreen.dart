@@ -38,7 +38,7 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${boxShopTaskPhoto.keys.toList()[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -161,18 +161,23 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
                         onSelectedItemChanged: (int selectedItem) {
                           setState(() {
                             shop = selectedItem;
-                            futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${boxShopTaskPhoto.keys.toList()[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                            if(shop==0){
+                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                            }
+                            else{
+                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                            }
                           });
                         },
                         children:
-                        List<Widget>.generate(boxShopTaskPhoto.keys.toList().length, (int index) {
-                          return Center(child: Text(boxShopTaskPhoto.keys.toList()[index]));
+                        List<Widget>.generate(createShopFilterList().length, (int index) {
+                          return Center(child: Text(createShopFilterList()[index]));
                         }),
                       ),
                     ),
                     // This displays the selected fruit name.
                     child: Text(
-                      "Mağaza Kodu: "+boxShopTaskPhoto.keys.toList()[shop],
+                      "Mağaza Kodu: "+createShopFilterList()[shop],
                       style: const TextStyle(
                         fontSize: 20.0,
                       ),

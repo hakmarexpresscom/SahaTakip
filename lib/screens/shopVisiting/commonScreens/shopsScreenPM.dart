@@ -298,7 +298,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
         builder: (BuildContext context) {
           return AlertDialogWidget(
             title: 'Mesafe Kontrolü',
-            content: 'Ziyaret etmek istediğiniz mağazanın en az 50 metre yakınında olmanız gerekmektedir!',
+            content: 'Ziyaret etmek istediğiniz mağazanın en az 200 metre yakınında olmanız gerekmektedir!',
             onTaps: (){
               naviShopVisitingShopsScreenPM(context);
             },

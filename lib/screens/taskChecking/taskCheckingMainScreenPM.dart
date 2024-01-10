@@ -156,7 +156,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                     taskTypeInfo(),
                     SizedBox(height: deviceHeight*0.02,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -209,6 +209,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             ),
                           )
                         ),
+                        SizedBox(width: deviceWidth*0.04,),
                         Card(
                           //color: Colors.lightGreen.withOpacity(0.6),
                           shape: RoundedRectangleBorder(
@@ -251,7 +252,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             ),
                             // This displays the selected fruit name.
                             child: Text(
-                              createShopFilterList()[shop],
+                              (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
                               style: const TextStyle(
                                 fontSize: 20.0,
                               ),
@@ -273,7 +274,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                     taskTypeInfo(),
                     SizedBox(height: deviceHeight*0.02,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -326,6 +327,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             ),
                           )
                         ),
+                        SizedBox(width: deviceWidth*0.04,),
                         Card(
                           //color: Colors.lightGreen.withOpacity(0.6),
                           shape: RoundedRectangleBorder(
@@ -368,7 +370,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             ),
                             // This displays the selected fruit name.
                             child: Text(
-                              createShopFilterList()[shop2],
+                              (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
                               style: const TextStyle(
                                 fontSize: 20.0,
                               ),
