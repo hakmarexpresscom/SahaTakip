@@ -2,11 +2,14 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/models/incompleteTask.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../widgets/cards/taskCard.dart';
+import '../../widgets/text_widget.dart';
 
 class RemoteTaskMainScreen extends StatefulWidget {
   const RemoteTaskMainScreen({super.key});
@@ -19,6 +22,8 @@ class RemoteTaskMainScreen extends StatefulWidget {
 class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with TickerProviderStateMixin {
 
   late Future<List<IncompleteTask>> futureIncompleteTask;
+
+  int shop = 0;
 
   int _selectedIndex = 3;
 
@@ -33,7 +38,7 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${boxShopTaskPhoto.keys.toList()[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -48,6 +53,27 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
   void dispose() {
     controller.dispose(); // AnimationController'ı temizle
     super.dispose();
+  }
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override
@@ -106,6 +132,53 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: deviceHeight*0.03,),
+              shopTypeInfo(),
+              SizedBox(height: deviceHeight*0.02,),
+              Card(
+                //color: Colors.lightGreen.withOpacity(0.6),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side: BorderSide(
+                          color: Colors.orangeAccent,
+                          width: 1.5
+                      )
+                  ),
+                  child: CupertinoButton(
+                    padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                    // Display a CupertinoPicker with list of fruits.
+                    onPressed: () => _showDialog(
+                      CupertinoPicker(
+                        magnification: 1.22,
+                        squeeze: 1.2,
+                        useMagnifier: true,
+                        itemExtent: kItemExtent,
+                        // This sets the initial item.
+                        scrollController: FixedExtentScrollController(
+                          initialItem: shop,
+                        ),
+                        // This is called when selected item is changed.
+                        onSelectedItemChanged: (int selectedItem) {
+                          setState(() {
+                            shop = selectedItem;
+                            futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${boxShopTaskPhoto.keys.toList()[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                          });
+                        },
+                        children:
+                        List<Widget>.generate(boxShopTaskPhoto.keys.toList().length, (int index) {
+                          return Center(child: Text(boxShopTaskPhoto.keys.toList()[index]));
+                        }),
+                      ),
+                    ),
+                    // This displays the selected fruit name.
+                    child: Text(
+                      "Mağaza Kodu: "+boxShopTaskPhoto.keys.toList()[shop],
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  )
+              ),
               SizedBox(height: deviceHeight*0.02,),
               remoteTaskMainScreenUI()
             ],
@@ -154,5 +227,9 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
           }
       )
     );
+  }
+
+  Widget shopTypeInfo(){
+    return TextWidget(text: "Görevleri görüntülerken mağaza kodunu aşağıdaki\nbutona basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
   }
 }

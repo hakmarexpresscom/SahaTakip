@@ -189,7 +189,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             });
             naviExternalTaskMainScreen(context);
           }
-          else if(now.hour<=8||21<=now.hour){
+          else if(now.hour<8||21<now.hour){
             showShiftTimeDialog(context);
           }
         },

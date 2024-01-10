@@ -167,8 +167,18 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             ),
             body: TabBarView(
               children: <Widget>[
-                SingleChildScrollView(child:(isReportCreated.value)?enterVisitingReportScreenUI():createReportButtonUI(),),
-                pastReportsMainScreenUI(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [(isReportCreated.value)?enterVisitingReportScreenUI():createReportButtonUI(),],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [pastReportsMainScreenUI()],
+                ),
               ],
             ),
         ));

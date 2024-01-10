@@ -109,6 +109,12 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // AnimationController'ı temizle
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     deviceHeight = MediaQuery.of(context).size.height;

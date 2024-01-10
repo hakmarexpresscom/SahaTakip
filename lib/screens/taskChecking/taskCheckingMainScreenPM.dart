@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../models/incompleteTask.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../routing/landing.dart';
 import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/cards/taskCheckingCard.dart';
+import '../../widgets/text_widget.dart';
 
 class TaskCheckingMainScreenPM extends StatefulWidget {
   const TaskCheckingMainScreenPM({super.key});
@@ -20,6 +22,12 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
 
   late Future<List<IncompleteTask>> futureIncompleteTask;
   late Future<List<IncompleteTask>> futureIncompleteTask2;
+
+  int taskType = 0;
+  int taskType2 = 0;
+
+  int shop = 0;
+  int shop2 = 0;
 
   int _selectedIndex = 3;
 
@@ -34,8 +42,9 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo}');
-    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskListCompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -50,6 +59,27 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   void dispose() {
     controller.dispose(); // AnimationController'ı temizle
     super.dispose();
+  }
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override
@@ -121,13 +151,235 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [completeTasksScreenUI()],
+                  children: [
+                    SizedBox(height: deviceHeight*0.03,),
+                    taskTypeInfo(),
+                    SizedBox(height: deviceHeight*0.02,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Card(
+                          //color: Colors.lightGreen.withOpacity(0.6),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide(
+                                  color: Colors.orangeAccent,
+                                  width: 1.5
+                              )
+                          ),
+                          child: CupertinoButton(
+                            padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                            // Display a CupertinoPicker with list of fruits.
+                            onPressed: () => _showDialog(
+                              CupertinoPicker(
+                                magnification: 1.22,
+                                squeeze: 1.2,
+                                useMagnifier: true,
+                                itemExtent: kItemExtent,
+                                // This sets the initial item.
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: taskType,
+                                ),
+                                // This is called when selected item is changed.
+                                onSelectedItemChanged: (int selectedItem) {
+                                  setState(() {
+                                    taskType = selectedItem;
+                                    if(shop==0){
+                                      futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                    else{
+                                      futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                  });
+                                },
+                                children:
+                                List<Widget>.generate(taskListCompleteTask.length, (int index) {
+                                  return Center(child: Text(taskListCompleteTask[index]));
+                                }),
+                              ),
+                            ),
+                            // This displays the selected fruit name.
+                            child: Text(
+                              taskListCompleteTask[taskType],
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          )
+                        ),
+                        Card(
+                          //color: Colors.lightGreen.withOpacity(0.6),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide(
+                                  color: Colors.orangeAccent,
+                                  width: 1.5
+                              )
+                          ),
+                          child: CupertinoButton(
+                            padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                            // Display a CupertinoPicker with list of fruits.
+                            onPressed: () => _showDialog(
+                              CupertinoPicker(
+                                magnification: 1.22,
+                                squeeze: 1.2,
+                                useMagnifier: true,
+                                itemExtent: kItemExtent,
+                                // This sets the initial item.
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: shop,
+                                ),
+                                // This is called when selected item is changed.
+                                onSelectedItemChanged: (int selectedItem) {
+                                  setState(() {
+                                    shop = selectedItem;
+                                    if(shop==0){
+                                      futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                    else{
+                                      futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                  });
+                                },
+                                children:
+                                List<Widget>.generate(createShopFilterList().length, (int index) {
+                                  return Center(child: Text(createShopFilterList()[index]));
+                                }),
+                              ),
+                            ),
+                            // This displays the selected fruit name.
+                            child: Text(
+                              createShopFilterList()[shop],
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: deviceHeight*0.02,),
+                    completeTasksScreenUI()
+                  ],
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [incompleteTasksScreenUI()],
+                  children: [
+                    SizedBox(height: deviceHeight*0.03,),
+                    taskTypeInfo(),
+                    SizedBox(height: deviceHeight*0.02,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Card(
+                          //color: Colors.lightGreen.withOpacity(0.6),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide(
+                                  color: Colors.orangeAccent,
+                                  width: 1.5
+                              )
+                          ),
+                          child: CupertinoButton(
+                            padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                            // Display a CupertinoPicker with list of fruits.
+                            onPressed: () => _showDialog(
+                              CupertinoPicker(
+                                magnification: 1.22,
+                                squeeze: 1.2,
+                                useMagnifier: true,
+                                itemExtent: kItemExtent,
+                                // This sets the initial item.
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: taskType2,
+                                ),
+                                // This is called when selected item is changed.
+                                onSelectedItemChanged: (int selectedItem) {
+                                  setState(() {
+                                    taskType2 = selectedItem;
+                                    if(shop2==0){
+                                      futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskListCompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                    else{
+                                      futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskListCompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                  });
+                                },
+                                children:
+                                List<Widget>.generate(taskListIncompleteTask.length, (int index) {
+                                  return Center(child: Text(taskListIncompleteTask[index]));
+                                }),
+                              ),
+                            ),
+                            // This displays the selected fruit name.
+                            child: Text(
+                              taskListIncompleteTask[taskType2],
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          )
+                        ),
+                        Card(
+                          //color: Colors.lightGreen.withOpacity(0.6),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide(
+                                  color: Colors.orangeAccent,
+                                  width: 1.5
+                              )
+                          ),
+                          child: CupertinoButton(
+                            padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                            // Display a CupertinoPicker with list of fruits.
+                            onPressed: () => _showDialog(
+                              CupertinoPicker(
+                                magnification: 1.22,
+                                squeeze: 1.2,
+                                useMagnifier: true,
+                                itemExtent: kItemExtent,
+                                // This sets the initial item.
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: shop2,
+                                ),
+                                // This is called when selected item is changed.
+                                onSelectedItemChanged: (int selectedItem) {
+                                  setState(() {
+                                    shop2 = selectedItem;
+                                    if(shop2==0){
+                                      futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskListCompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                    else{
+                                      futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskListCompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+                                    }
+                                  });
+                                },
+                                children:
+                                List<Widget>.generate(createShopFilterList().length, (int index) {
+                                  return Center(child: Text(createShopFilterList()[index]));
+                                }),
+                              ),
+                            ),
+                            // This displays the selected fruit name.
+                            child: Text(
+                              createShopFilterList()[shop2],
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: deviceHeight*0.02,),
+                    incompleteTasksScreenUI()
+                  ],
                 ),
               ],
             ),
@@ -135,7 +387,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
         ));
   }
 
-  Widget incompleteTasksScreenUI(){
+  Widget completeTasksScreenUI(){
     return Expanded(
         child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask,
@@ -177,7 +429,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
     );
   }
 
-  Widget completeTasksScreenUI(){
+  Widget incompleteTasksScreenUI(){
     return Expanded(
         child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask2,
@@ -217,6 +469,10 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
             }
         )
     );
+  }
+
+  Widget taskTypeInfo(){
+    return TextWidget(text: "Görevleri görüntülerken görev türünü ve mağaza\nkodunu aşağıdaki butonlara basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
   }
 
 }

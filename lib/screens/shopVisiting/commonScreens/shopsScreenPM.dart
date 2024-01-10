@@ -218,73 +218,78 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
 
   Widget ownShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
     return Expanded(
-            child: FutureBuilder<List<Shop>>(
-                future: futureOwnShopListPM,
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index){
-                        if(snapshot.data![index].isActive==1){
-                        return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children:<Widget>[
-                              VisitingShopCard(
-                                  icon: Icons.store,
-                                  sizedBoxConst1: sizedBoxConst1,
-                                  sizedBoxConst2: sizedBoxConst2,
-                                  sizedBoxConst3: sizedBoxConst3,
-                                  heightConst: heightConst,
-                                  widthConst: widthConst,
-                                  textSizeCode: textSizeCode,
-                                  textSizeName: textSizeName,
-                                  textSizeButton: textSizeButton,
-                                  shopName: snapshot.data![index].shopName,
-                                  shopCode: snapshot.data![index].shopCode.toString(),
-                                  lat: snapshot.data![index].Lat,
-                                  long: snapshot.data![index].Long,
-                                  onTaps: (){
-                                    if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=50.0) {
-                                      storeVisitManager.startStoreVisit();
-                                      reportManager.noReport();
-                                      box.put("currentShopName", snapshot.data![index].shopName);
-                                      box.put("currentShopID", snapshot.data![index].shopCode);
-                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                    }
-                                    else{
-                                      showShopDistanceDialog(context);
-                                    }
+        child: FutureBuilder<List<Shop>>(
+            future: futureOwnShopListPM,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    if(snapshot.data![index].isActive==1){
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children:<Widget>[
+                            VisitingShopCard(
+                                icon: Icons.store,
+                                sizedBoxConst1: sizedBoxConst1,
+                                sizedBoxConst2: sizedBoxConst2,
+                                sizedBoxConst3: sizedBoxConst3,
+                                heightConst: heightConst,
+                                widthConst: widthConst,
+                                textSizeCode: textSizeCode,
+                                textSizeName: textSizeName,
+                                textSizeButton: textSizeButton,
+                                shopName: snapshot.data![index].shopName,
+                                shopCode: snapshot.data![index].shopCode.toString(),
+                                lat: snapshot.data![index].Lat,
+                                long: snapshot.data![index].Long,
+                                onTaps: (){
+                                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) {
+                                    storeVisitManager.startStoreVisit();
+                                    reportManager.noReport();
+                                    box.put("currentShopName", snapshot.data![index].shopName);
+                                    box.put("currentShopID", snapshot.data![index].shopCode);
+                                    naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                   }
-                                  )
-                            ]
-                        );
-                        }
-                        else{
-                          return Container();
-                        }
-                      },
-                    );
-                  }
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                    return Column(
-                        children:[
-                          SizedBox(height: deviceHeight*0.06),
-                          CircularProgressIndicator(
-                            value: controller.value,
-                            semanticsLabel: 'Circular progress indicator',
-                          ),
-                        ]
-                    );
-                  }
-                  else{
-                    return Text("Veri yok");
-                  }
-                })
-              );
+                                  else{
+                                    showShopDistanceDialog(context);
+                                  }
+                                  /*storeVisitManager.startStoreVisit();
+                                  reportManager.noReport();
+                                  box.put("currentShopName", snapshot.data![index].shopName);
+                                  box.put("currentShopID", snapshot.data![index].shopCode);
+                                  naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);*/
+                                }
+                            )
+                          ]
+                      );
+                    }
+                    else{
+                      return Container();
+                    }
+                  },
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            })
+    );
   }
 
   showShopDistanceDialog(BuildContext context) {
@@ -303,5 +308,4 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
   }
 
 }
-
 

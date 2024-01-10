@@ -18,6 +18,7 @@ class PastReportTasksScreen extends StatefulWidget {
 class _PastReportTasksScreenState extends State<PastReportTasksScreen> with TickerProviderStateMixin {
 
   late Future<List<IncompleteTask>> futureIncompleteTask;
+  late Future<List<IncompleteTask>> futureIncompleteTask2;
 
   late double deviceHeight;
   late double deviceWidth;
@@ -27,7 +28,8 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/byReportId?rapor_id=${widget.report_id}');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask2?tamamlandi_bilgisi=0&rapor_id=${widget.report_id}');
+    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask2?tamamlandi_bilgisi=1&rapor_id=${widget.report_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -50,32 +52,51 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
-          title: const Text('Rapor Görevleri'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              naviVisitingReportMainScreen(context,box.get("currentShopID"));
-            },
+    return DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.indigo,
+            title: const Text('Rapor Görevleri'),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                naviVisitingReportMainScreen(context,box.get("currentShopID"));
+              },
+            ),
+            bottom: TabBar(
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white30,
+              tabs: [
+                Tab(text: "Tamamlanmış Görevler"),
+                Tab(text: "Tamamlanmamış Görevler")
+              ],
+            ),
           ),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: deviceHeight*0.02,),
-            pastReportDetailScreenUI()
-          ],
-        ),
+          body: TabBarView(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [completePastReportTasksScreenUI()],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [incompletePastResportTasksScreenUI()],
+              ),
+            ],
+          ),
+      )
     );
   }
 
-  Widget pastReportDetailScreenUI(){
+  Widget incompletePastResportTasksScreenUI(){
     return Expanded(
         child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask,
@@ -91,8 +112,50 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviPastReportTaskDetailScreen(context,snapshot.data![index].task_id,snapshot.data![index].completionInfo);}),
-                        SizedBox(height: deviceHeight*0.005,),
+                        SizedBox(height: deviceHeight*0.01,),
+                        TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                      ],
+                    );
+                  },
+                );
+              }
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Column(
+                    children:[
+                      SizedBox(height: deviceHeight*0.06,),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ]
+                );
+              }
+              else{
+                return Text("Veri yok");
+              }
+            }
+        )
+    );
+  }
+
+  Widget completePastReportTasksScreenUI(){
+    return Expanded(
+        child: FutureBuilder<List<IncompleteTask>>(
+            future: futureIncompleteTask2,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: deviceHeight*0.01,),
+                        TaskCheckingCard(heightConst: 0.2, widthConst: 0.95, taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
                       ],
                     );
                   },

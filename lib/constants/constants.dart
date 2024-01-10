@@ -57,11 +57,19 @@ String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;
 bool isBS = (isLoggedIn)?box.get("isBS"):false;
 
-List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
+List<String> shiftType = <String>['Mağaza Ziyareti'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü',"Normal Kullanıcı"];
 List<String> groupListCompleteTask = <String>['Standart', 'Manav'];
 List<String> groupListIncompleteTask = <String>['Standart', 'Manav'];
+List<String> taskListCompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Rapor Görevleri'];
+List<String> taskListIncompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Rapor Görevleri'];
 double kItemExtent = 32.0;
+
+List<dynamic> createShopFilterList() {
+  List<dynamic> allShopFilterList = boxShopTaskPhoto.keys.toList();
+  allShopFilterList.insert(0, "Tüm mağazalar");
+  return allShopFilterList;
+}
 
 String email="";
 String password="";
