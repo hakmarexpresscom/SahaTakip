@@ -13,6 +13,7 @@ import '../../models/shift.dart';
 import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
+import '../../widgets/alert_dialog.dart';
 
 class StartWorkMainScreen extends StatefulWidget {
 
@@ -164,7 +165,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: () {
-          if(item=="Mağaza Ziyareti"){
+          if(item=="Mağaza Ziyareti"&&8<=now.hour&&now.hour<=21){
             shopVisitWorkManager.startShopVisitWork();
             setState(() {
               box.put("startHour",0);
@@ -176,7 +177,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             });
             naviShopVisitingMainScreen(context);
           }
-          else if(item=="Harici İş"){
+          else if(item=="Harici İş"&&8<=now.hour&&now.hour<=21){
             externalTaskWorkManager.startExternalTaskWork();
             setState(() {
               box.put("startHour",0);
@@ -187,6 +188,9 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               box.put("startSecond",DateTime.now().second);
             });
             naviExternalTaskMainScreen(context);
+          }
+          else if(now.hour<=8||21<=now.hour){
+            showShiftTimeDialog(context);
           }
         },
         borderWidht: 1,
@@ -207,6 +211,21 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
       dropdownMenuEntries: shiftType.map<DropdownMenuEntry<String>>((String value) {
         return DropdownMenuEntry<String>(value: value, label: value);
       }).toList(),
+    );
+  }
+
+  showShiftTimeDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialogWidget(
+            title: 'Mesai Saati Kontrolü',
+            content: '08.00-21.00 saatleri arasında mesai başlatabilirsiniz!',
+            onTaps: (){
+              naviStartWorkMainScreen(context);
+            },
+          );
+        }
     );
   }
 }

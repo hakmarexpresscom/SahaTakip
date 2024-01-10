@@ -4,6 +4,7 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/utils/appStateManager.dart';
 import 'package:deneme/widgets/cards/visitingShopCard.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
@@ -12,6 +13,8 @@ import '../../../main.dart';
 import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
+import '../../../utils/distanceFunctions.dart';
+import '../../../widgets/alert_dialog.dart';
 
 class ShopVisitingShopsScreen extends StatefulWidget {
   const ShopVisitingShopsScreen({super.key});
@@ -41,6 +44,13 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
   final ReportManager reportManager = Get.put(ReportManager());
 
+  bool servicestatus = false;
+  bool haspermission = false;
+  late LocationPermission permission;
+  late Position position;
+  String long = "1", lat = "1";
+  late StreamSubscription<Position> positionStream;
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +64,71 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     )..addListener(() {
     });
     controller.repeat(reverse: true);
+  }
+
+  checkGps() async {
+    servicestatus = await Geolocator.isLocationServiceEnabled();
+    if(servicestatus){
+      permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permissions are denied');
+        }else if(permission == LocationPermission.deniedForever){
+          print("'Location permissions are permanently denied");
+        }else{
+          haspermission = true;
+        }
+      }else{
+        haspermission = true;
+      }
+
+      if(haspermission){
+        setState(() {
+          //refresh the UI
+        });
+
+        getLocation();
+      }
+    }else{
+      print("GPS Service is not enabled, turn on GPS location");
+    }
+
+    setState(() {
+      //refresh the UI
+    });
+  }
+
+  getLocation() async {
+    position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude);
+    print(position.latitude);
+
+    long = position.longitude.toString();
+    lat = position.latitude.toString();
+
+    setState(() {
+      //refresh UI
+    });
+
+    LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+    );
+
+    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(
+        locationSettings: locationSettings).listen((Position position) {
+      print(position.longitude);
+      print(position.latitude);
+
+      long = position.longitude.toString();
+      lat = position.latitude.toString();
+
+      setState(() {
+        //refresh UI on update
+      });
+    });
   }
 
   @override
@@ -193,10 +268,15 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: (){
-                                    storeVisitManager.startStoreVisit();
-                                    box.put("currentShopName", snapshot.data![index].shopName);
-                                    box.put("currentShopID",snapshot.data![index].shopCode);
-                                    naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
+                                    if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=50.0) {
+                                      storeVisitManager.startStoreVisit();
+                                      box.put("currentShopName", snapshot.data![index].shopName);
+                                      box.put("currentShopID", snapshot.data![index].shopCode);
+                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                    }
+                                    else{
+                                      showShopDistanceDialog(context);
+                                    }
                                   }
                                 )
                               ]
@@ -263,10 +343,15 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     lat: snapshot.data![index].Lat,
                                     long: snapshot.data![index].Long,
                                     onTaps: (){
-                                      storeVisitManager.startStoreVisit();
-                                      box.put("currentShopName", snapshot.data![index].shopName);
-                                      box.put("currentShopID",snapshot.data![index].shopCode);
-                                      naviShopVisitingProcessesScreen(context,snapshot.data![index].shopCode,snapshot.data![index].shopName);
+                                      if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=50.0) {
+                                        storeVisitManager.startStoreVisit();
+                                        box.put("currentShopName", snapshot.data![index].shopName);
+                                        box.put("currentShopID", snapshot.data![index].shopCode);
+                                        naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                      }
+                                      else{
+                                        showShopDistanceDialog(context);
+                                      }
                                     }
                                   )
                                 ]
@@ -295,6 +380,21 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                   })
           ),
         ]
+    );
+  }
+
+  showShopDistanceDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialogWidget(
+            title: 'Mesafe Kontrolü',
+            content: 'Ziyaret etmek istediğiniz mağazanın en az 50 metre yakınında olmanız gerekmektedir!',
+            onTaps: (){
+              naviShopVisitingShopsScreen(context);
+            },
+          );
+        }
     );
   }
 
