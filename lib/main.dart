@@ -4,17 +4,12 @@ import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenBS.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
-import 'package:deneme/utils/appStateManager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'constants/constants.dart';
 
 var appConstants = Hive.box('appConstants');

@@ -162,10 +162,10 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
                           setState(() {
                             shop = selectedItem;
                             if(shop==0){
-                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
                             }
                             else{
-                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
                             }
                           });
                         },
@@ -177,7 +177,7 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
                     ),
                     // This displays the selected fruit name.
                     child: Text(
-                      "Mağaza Kodu: "+createShopFilterList()[shop],
+                      (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
                       style: const TextStyle(
                         fontSize: 20.0,
                       ),
