@@ -165,7 +165,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: () {
-          if(item=="Mağaza Ziyareti"&&8<=now.hour&&now.hour<=21){
+          if(item=="Mağaza Ziyareti"&&8<=now.hour&&now.hour<=18){
             shopVisitWorkManager.startShopVisitWork();
             setState(() {
               box.put("startHour",0);
@@ -177,7 +177,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             });
             naviShopVisitingMainScreen(context);
           }
-          else if(item=="Harici İş"&&8<=now.hour&&now.hour<=21){
+          else if(item=="Harici İş"&&8<=now.hour&&now.hour<=18){
             externalTaskWorkManager.startExternalTaskWork();
             setState(() {
               box.put("startHour",0);
@@ -189,7 +189,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             });
             naviExternalTaskMainScreen(context);
           }
-          else if(now.hour<8||21<now.hour){
+          else if(now.hour<8||18<now.hour){
             showShiftTimeDialog(context);
           }
         },

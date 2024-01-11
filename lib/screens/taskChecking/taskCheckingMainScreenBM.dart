@@ -38,8 +38,8 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
-    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -167,7 +167,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                           onSelectedItemChanged: (int selectedItem) {
                             setState(() {
                               groupNo = selectedItem;
-                              futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                              futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
                             });
                           },
                           children:
@@ -213,7 +213,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                               onSelectedItemChanged: (int selectedItem) {
                                 setState(() {
                                   groupNo2 = selectedItem;
-                                  futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                  futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                 });
                               },
                               children:
@@ -240,7 +240,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
         ));
   }
 
-  Widget incompleteTasksScreenUI(){
+  Widget completeTasksScreenUI(){
     return Expanded(
         child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask,
@@ -282,7 +282,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
     );
   }
 
-  Widget completeTasksScreenUI(){
+  Widget incompleteTasksScreenUI(){
     return Expanded(
         child: FutureBuilder<List<IncompleteTask>>(
             future: futureIncompleteTask2,
@@ -325,7 +325,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
   }
 
   Widget groupTypeInfo(){
-    return TextWidget(text: "Hangi grup çalışanın görevlerini\ngörüntülemek istediğinizi seçiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Görevleri görüntülerken çalışan grubunu ve mağaza\nkodunu aşağıdaki butonlara basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
   }
 
 
