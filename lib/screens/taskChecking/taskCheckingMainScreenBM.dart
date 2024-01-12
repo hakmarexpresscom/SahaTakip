@@ -303,10 +303,10 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                       setState(() {
                                         groupNo2 = selectedItem;
                                         if(shop2==0){
-                                          futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo2}');
+                                          futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                         }
                                         else{
-                                          futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=1&grup_no=${groupNo2}');
+                                          futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                         }
                                       });
                                     },
@@ -318,7 +318,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                 ),
                                 // This displays the selected fruit name.
                                 child: Text(
-                                  groupListIncompleteTask[groupNo],
+                                  groupListIncompleteTask[groupNo2],
                                   style: const TextStyle(
                                     fontSize: 22.0,
                                   ),

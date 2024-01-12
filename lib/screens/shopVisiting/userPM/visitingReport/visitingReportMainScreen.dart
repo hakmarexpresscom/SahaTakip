@@ -149,7 +149,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             appBar: AppBar(
               foregroundColor: Colors.white,
               backgroundColor: Colors.indigo,
-              title: const Text('Mağaza Ziyaret Raporu'),
+              title: const Text('Ziyaret Tespit Raporu'),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -235,7 +235,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
 
   Widget createReportButton(){
     return ButtonWidget(
-        text: "Rapor Oluştur",
+        text: "Tespit Raporu Oluştur",
         heightConst: 0.06,
         widthConst: 0.8,
         size: 18,
@@ -350,7 +350,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        PastReportCard(heightConst: 0.22, widthConst: 0.95, reportName: "Rapor ${snapshot.data![index].report_id}",createDate: snapshot.data![index].createDate,onTaps: (){naviPastReportTasksScreen(context,snapshot.data![index].report_id);}),
+                        PastReportCard(heightConst: 0.21, widthConst: 0.95, reportName: "Tespit Raporu ${snapshot.data![index].report_id}",createDate: snapshot.data![index].createDate,onTaps: (){naviPastReportTasksScreen(context,snapshot.data![index].report_id);}),
                       ],
                     );
                   },

@@ -49,9 +49,9 @@ class _TaskCardState extends State<TaskCheckingCard> {
               ),
               TextWidget(text: " ${widget.taskName}", size: 20, fontWeight: FontWeight.w500, color: Colors.black),
               SizedBox(height: context.dynamicHeight(0.02),),
-              RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shopCode}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black),
+              RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shopCode}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
               SizedBox(height: context.dynamicHeight(0.02),),
-              RichTextWidget(title: " Görev atama tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black)
+              RichTextWidget(title: " Görev atama tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start)
             ],
           ),
         ),

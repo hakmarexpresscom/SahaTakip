@@ -60,7 +60,7 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
           appBar: AppBar(
             foregroundColor: Colors.white,
             backgroundColor: Colors.indigo,
-            title: const Text('Rapor Görevleri'),
+            title: const Text('Ziyaret Tespit Raporu Görevleri'),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {

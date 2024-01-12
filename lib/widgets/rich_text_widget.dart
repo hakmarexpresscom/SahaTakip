@@ -7,6 +7,8 @@ class RichTextWidget extends StatefulWidget{
   final FontWeight fontWeightTitle;
   final FontWeight fontWeightText;
   final Color color;
+  final Alignment alignment;
+  final TextAlign textAlign;
 
   const RichTextWidget({
     Key? key,
@@ -15,7 +17,9 @@ class RichTextWidget extends StatefulWidget{
     required this.size,
     required this.fontWeightTitle,
     required this.fontWeightText,
-    required this.color
+    required this.color,
+    required this.alignment,
+    required this.textAlign
   }) : super(key: key);
 
   @override
@@ -27,9 +31,9 @@ class _RichTextWidgetState extends State<RichTextWidget> {
   @override
   Widget build(BuildContext context){
     return Container(
-      alignment: Alignment.bottomLeft,
+      alignment: widget.alignment,
         child:RichText(
-          textAlign: TextAlign.start,
+          textAlign: widget.textAlign,
           text: TextSpan(
             children: [
               TextSpan(

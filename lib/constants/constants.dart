@@ -61,8 +61,10 @@ List<String> shiftType = <String>['Mağaza Ziyareti'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü',"Normal Kullanıcı"];
 List<String> groupListCompleteTask = <String>['Standart', 'Manav'];
 List<String> groupListIncompleteTask = <String>['Standart', 'Manav'];
-List<String> taskListCompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Rapor Görevleri'];
-List<String> taskListIncompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Rapor Görevleri'];
+List<String> taskListCompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Tespit Raporu Görevleri'];
+List<String> taskListIncompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Tespit Raporu Görevleri'];
+List<String> taskTypeListCompleteTask = <String>['Yerinde', 'Uzaktan', 'Rapor'];
+List<String> taskTypeListIncompleteTask = <String>['Yerinde', 'Uzaktan', 'Rapor'];
 double kItemExtent = 32.0;
 
 List<dynamic> createShopFilterList() {
