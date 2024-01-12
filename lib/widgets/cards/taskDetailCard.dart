@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../services/externalWorkServices.dart';
 import '../../services/inCompleteTaskServices.dart';
 import 'dart:io';
+import '../rich_text_widget.dart';
 import '../text_form_field.dart';
 
 class TaskDetailCard extends StatefulWidget {
@@ -50,11 +51,11 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextWidget(text: widget.taskName, size: 25, fontWeight: FontWeight.w600, color: Colors.black),
+            RichTextWidget(title: " Görev ismi: ", text: widget.taskName, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
             SizedBox(height: context.dynamicHeight(0.02),),
-            (widget.taskType=="Harici")?TextWidget(text: "Bitiş Saati: ${widget.taskDeadline}", size: 23, fontWeight: FontWeight.w600, color: Colors.black): TextWidget(text: "Bitiş Tarihi: ${widget.taskDeadline}", size: 23, fontWeight: FontWeight.w600, color: Colors.black),
-            SizedBox(height: context.dynamicHeight(0.1),),
-            TextWidget(text: widget.taskDescription, size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+            (widget.taskType=="Harici")? RichTextWidget(title: " Görev bitiş saati: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start): RichTextWidget(title: " Görev bitiş tarihi: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+            SizedBox(height: context.dynamicHeight(0.02),),
+            RichTextWidget(title: " Görev detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
             SizedBox(height: context.dynamicHeight(0.05),),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
             SizedBox(height: context.dynamicHeight(0.1),),

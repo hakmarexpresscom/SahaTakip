@@ -163,7 +163,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
-                                  color: Colors.orangeAccent,
+                                  color: Colors.indigo,
                                   width: 1.5
                               )
                           ),
@@ -213,7 +213,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
-                                  color: Colors.orangeAccent,
+                                  color: Colors.indigo,
                                   width: 1.5
                               )
                           ),
@@ -281,7 +281,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                   side: BorderSide(
-                                      color: Colors.orangeAccent,
+                                      color: Colors.indigo,
                                       width: 1.5
                                   )
                               ),
@@ -331,7 +331,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                   side: BorderSide(
-                                      color: Colors.orangeAccent,
+                                      color: Colors.indigo,
                                       width: 1.5
                                   )
                               ),

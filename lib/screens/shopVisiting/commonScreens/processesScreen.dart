@@ -70,7 +70,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           children: <Widget>[
             Container(
               color: Colors.grey.withOpacity(0.4),
-              height: deviceHeight*0.18,
+              height: deviceHeight*0.13,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
@@ -138,7 +138,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
             children: <Widget>[
               Container(
                 color: Colors.grey.withOpacity(0.4),
-                height: deviceHeight*0.18,
+                height: deviceHeight*0.13,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
