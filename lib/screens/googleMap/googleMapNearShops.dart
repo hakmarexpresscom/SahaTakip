@@ -18,7 +18,7 @@ class _MyAppState extends State<MapScreenNearShops> {
 
   Completer<GoogleMapController> _controller = Completer();
 
-  Iterable markers = [];
+  List<dynamic> markers = [];
 
   final Iterable _markers = Iterable.generate(GoogleMapMarkerList.list.length, (index) {
     return Marker(
@@ -35,7 +35,18 @@ class _MyAppState extends State<MapScreenNearShops> {
   @override
   void initState() {
     setState(() {
-      markers = _markers;
+      markers.add(
+        Marker(
+          markerId: MarkerId("currentLocation"),
+          position: LatLng(
+            double.parse(widget.currentLat),
+            double.parse(widget.currentLong),
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue), // Custom marker icon
+          infoWindow: InfoWindow(title: "Şu anki konumun"),
+        ),
+      );
+      markers.addAll(_markers);
     });
     super.initState();
   }
