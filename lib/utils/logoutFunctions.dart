@@ -23,6 +23,7 @@ logout(BuildContext context) async {
   box.put("finishHour",0);
   box.put("finishMinute",0);
   box.put("finishSecond",0);
+  box.put("shiftDate","");
   boxStateManagement.put('isStartShopVisitWork', false);
   boxStateManagement.put('isStartExternalTaskWork', false);
   boxStateManagement.put("isStoreVisit", false);

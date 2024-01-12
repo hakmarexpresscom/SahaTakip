@@ -5,6 +5,7 @@ import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
 import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
+import 'package:deneme/screens/warning/warningScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -55,6 +56,8 @@ class _MyAppState extends State<MyApp> {
   late Widget page = StartWorkMainScreen();
   late Widget page2 = NavigationMainScreen();
 
+  DateTime now = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -76,11 +79,17 @@ class _MyAppState extends State<MyApp> {
       if(boxStateManagement.get('isStoreVisit')==true){
         page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
       }
-      else if(boxStateManagement.get('isStartShopVisitWork')==true){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true&&8<=now.hour&&now.hour<=18){
         page = ShopVisitingMainScreen();
       }
-      else if(boxStateManagement.get('isStartExternalTaskWork')==true){
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true&&8<=now.hour&&now.hour<=18){
         page = ExternalTaskMainScreen();
+      }
+      else if(boxStateManagement.get('isStartShopVisitWork')==true&&18<now.hour&&box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+      else if(boxStateManagement.get('isStartShopVisitWork')==true&&box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
       }
     }
 

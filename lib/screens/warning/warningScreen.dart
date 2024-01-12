@@ -24,6 +24,7 @@ class _WarningScreenState extends State<WarningScreen> {
   DateTime now = DateTime.now();
 
   final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
+  final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +56,12 @@ class _WarningScreenState extends State<WarningScreen> {
             title: 'Mesai Saati Kontrolü',
             content: 'Mağaza ziyaretini durdurmayı unuttuğunuz için uygulama ziyareti otomatik olarak durdurmuştur!',
             onTaps: () async{
+              if(boxStateManagement.get('isStoreVisit')==true){
+                storeVisitManager.endStoreVisit();
+              }
               shopVisitWorkManager.endShopVisitWork();
               await countShift("http://172.23.21.112:7042/api/Mesai");
-              await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),"21:0:0","http://172.23.21.112:7042/api/mesai");
+              await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),"18:30:0","http://172.23.21.112:7042/api/mesai");
               naviStartWorkMainScreen(context);
             },
           );

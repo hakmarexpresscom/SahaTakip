@@ -174,6 +174,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               box.put("startHour",DateTime.now().hour);
               box.put("startMinute",DateTime.now().minute);
               box.put("startSecond",DateTime.now().second);
+              box.put("shiftDate",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
             });
             naviShopVisitingMainScreen(context);
           }
@@ -186,6 +187,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               box.put("startHour",DateTime.now().hour);
               box.put("startMinute",DateTime.now().minute);
               box.put("startSecond",DateTime.now().second);
+              box.put("shiftDate",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
             });
             naviExternalTaskMainScreen(context);
           }

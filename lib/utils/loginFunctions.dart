@@ -57,6 +57,7 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("finishHour",0);
     box.put("finishMinute",0);
     box.put("finishSecond",0);
+    box.put("shiftDate","");
 
     boxStateManagement.put('isStartShopVisitWork', false);
     isStartShopVisitWork = boxStateManagement.get('isStartShopVisitWork');
@@ -105,6 +106,7 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("finishHour",0);
     box.put("finishMinute",0);
     box.put("finishSecond",0);
+    box.put("shiftDate","");
 
     boxStateManagement.put('isStartShopVisitWork', false);
     isStartShopVisitWork = boxStateManagement.get('isStartShopVisitWork');
