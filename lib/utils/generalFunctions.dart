@@ -72,5 +72,15 @@ String calculateElapsedTime(DateTime startTime, DateTime endTime) {
   return elapsedTime;
 }
 
+int calculateDaysBetweenDates(DateTime startDate, DateTime endDate) {
+  // Tarih arasındaki farkı bulun
+  Duration difference = endDate.difference(startDate);
+
+  // Farkı gün cinsine çevirin ve gün sayısını alın
+  int days = difference.inDays;
+
+  return days;
+}
+
 
 
