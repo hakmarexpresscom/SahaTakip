@@ -88,7 +88,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.08,),
+            SizedBox(height: deviceHeight*0.06,),
             logo(),
             SizedBox(height: deviceHeight*0.03,),
             title(),
@@ -223,8 +223,8 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   }
   Widget logo(){
     return Container(
-      height: deviceHeight*0.25,
-      width: deviceWidth*0.50,
+      height: deviceHeight*0.28,
+      width: deviceWidth*0.56,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
