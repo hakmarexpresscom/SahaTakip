@@ -5,6 +5,7 @@ import 'package:deneme/routing/landing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import '../constants/constants.dart';
 import '../models/userBM.dart';
 import '../models/userBS.dart';
 import '../models/userNK.dart';
@@ -23,7 +24,7 @@ String temporaryPassword = "";
 
 findPassword(String user, String email,BuildContext context) async {
   if(user=="Bölge Sorumlusu") {
-    final List<UserBS> users = await fetchUserBS2('http://172.23.21.112:7042/api/KullaniciBS');
+    final List<UserBS> users = await fetchUserBS2('${constUrl}api/KullaniciBS');
     for(int i=0; i<users.length;i++){
       if(users[i].email==email){
         temporaryUserID=users[i].bs_id;
@@ -31,11 +32,11 @@ findPassword(String user, String email,BuildContext context) async {
     }
     String newPW = generateRandomString();
     sendPasswordMail(email, newPW);
-    updateBSPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/BSSifre/${temporaryUserID}");
+    updateBSPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/BSSifre/${temporaryUserID}");
     naviLoginMainScreen(context);
   }
   else if(user=="Pazarlama Müdürü") {
-    final List<UserPM> users = await fetchUserPM2('http://172.23.21.112:7042/api/KullaniciPM');
+    final List<UserPM> users = await fetchUserPM2('${constUrl}api/KullaniciPM');
     for(int i=0; i<users.length;i++){
       if(users[i].email==email){
         temporaryUserID=users[i].pm_id;
@@ -43,11 +44,11 @@ findPassword(String user, String email,BuildContext context) async {
     }
     String newPW = generateRandomString();
     sendPasswordMail(email, newPW);
-    updatePMPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/PMSifre/${temporaryUserID}");
+    updatePMPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/PMSifre/${temporaryUserID}");
     naviLoginMainScreen(context);
   }
   else if(user=="Bölge Müdürü") {
-    final List<UserBM> users = await fetchUserBM2('http://172.23.21.112:7042/api/KullaniciBM');
+    final List<UserBM> users = await fetchUserBM2('${constUrl}api/KullaniciBM');
     for(int i=0; i<users.length;i++){
       if(users[i].email==email){
         temporaryUserID=users[i].bm_id;
@@ -55,11 +56,11 @@ findPassword(String user, String email,BuildContext context) async {
     }
     String newPW = generateRandomString();
     sendPasswordMail(email, newPW);
-    updateBMPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/BMSifre/${temporaryUserID}");
+    updateBMPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/BMSifre/${temporaryUserID}");
     naviLoginMainScreen(context);
   }
   else if(user=="Normal Kullanıcı") {
-    final List<UserNK> users = await fetchUserNK2('http://172.23.21.112:7042/api/KullaniciNK');
+    final List<UserNK> users = await fetchUserNK2('${constUrl}api/KullaniciNK');
     for(int i=0; i<users.length;i++){
       if(users[i].email==email){
         temporaryUserID=users[i].nk_id;
@@ -67,7 +68,7 @@ findPassword(String user, String email,BuildContext context) async {
     }
     String newPW = generateRandomString();
     sendPasswordMail(email, newPW);
-    updateNKPassword(temporaryUserID,hashPassword(newPW),"http://172.23.21.112:7042/api/NKSifre/${temporaryUserID}");
+    updateNKPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/NKSifre/${temporaryUserID}");
     naviLoginMainScreen(context);
   }
 }

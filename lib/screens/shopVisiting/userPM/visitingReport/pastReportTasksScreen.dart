@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../constants/constants.dart';
 import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
@@ -28,8 +29,8 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask2?tamamlandi_bilgisi=0&rapor_id=${widget.report_id}');
-    futureIncompleteTask2 = fetchIncompleteTask('http://172.23.21.112:7042/api/TamamlanmamisGorev/filterTask2?tamamlandi_bilgisi=1&rapor_id=${widget.report_id}');
+    futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask2?tamamlandi_bilgisi=0&rapor_id=${widget.report_id}');
+    futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask2?tamamlandi_bilgisi=1&rapor_id=${widget.report_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

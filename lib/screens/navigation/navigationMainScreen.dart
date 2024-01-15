@@ -36,7 +36,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   @override
   void initState() {
     super.initState();
-    createShopList("http://172.23.21.112:7042/api/magaza");
+    createShopList("${constUrl}api/magaza");
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

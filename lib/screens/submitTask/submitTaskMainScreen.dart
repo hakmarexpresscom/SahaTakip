@@ -144,7 +144,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         fontWeight: FontWeight.w600,
         onTaps: () async {
           await addIncompleteTaskToDatabase(
-              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+              "${constUrl}api/TamamlanmamisGorev",
               taskNameController.text,
               taskDescriptionController.text,
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
@@ -153,13 +153,13 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
               (inPlace==true)?"Yerinde":"Uzaktan",
               null,
               groupNo,
-              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
-              "http://172.23.21.112:7042/api/Fotograf",
+              "${constUrl}api/TamamlanmamisGorev",
+              "${constUrl}api/Fotograf",
               (isBS)?userID:null,
               (isBS==false && isBSorPM==true)?userID:null,
               (isBSorPM==false)?userID:null,
                 (inPlace==true)?"Yerinde":"Uzaktan",
-              "http://172.23.21.112:7042/api/Fotograf",
+              "${constUrl}api/Fotograf",
           );
           //sendTaskMail(email, "Tarafınıza yeni bir görev atanmıştır. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
           Future.delayed(Duration.zero, () {

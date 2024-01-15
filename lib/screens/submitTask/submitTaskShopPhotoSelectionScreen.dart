@@ -97,7 +97,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   @override
   void initState() {
     super.initState();
-    futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza${urlShopFilter}=${userID}');
+    futureShopList = fetchShop('${constUrl}api/magaza${urlShopFilter}=${userID}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

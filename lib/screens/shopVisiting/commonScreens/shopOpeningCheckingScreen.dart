@@ -31,8 +31,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
   @override
   void initState() {
     super.initState();
-    futureInShopOpenControl = fetchInShopOpenControl('http://172.23.21.112:7042/api/AcilisKontroluMagazaIci/filterInShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
-    futureOutShopOpenControl = fetchOutShopOpenControl('http://172.23.21.112:7042/api/AcilisKontroluMagazaDisi/filterOutShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureInShopOpenControl = fetchInShopOpenControl('${constUrl}api/AcilisKontroluMagazaIci/filterInShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureOutShopOpenControl = fetchOutShopOpenControl('${constUrl}api/AcilisKontroluMagazaDisi/filterOutShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
   }
 
   @override
@@ -186,7 +186,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               inShopOpeningCheckingList.values.toList()[18],
               inShopOpeningCheckingList.values.toList()[19],
               inShopOpeningCheckingList.values.toList()[20],
-              "http://172.23.21.112:7042/api/AcilisKontroluMagazaIci"
+              "${constUrl}api/AcilisKontroluMagazaIci"
           );
           showFormFilledDialog(context,inShopOpeningCheckingList);
         },
@@ -215,7 +215,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               outShopOpeningCheckingList.values.toList()[2],
               outShopOpeningCheckingList.values.toList()[3],
               outShopOpeningCheckingList.values.toList()[4],
-              "http://172.23.21.112:7042/api/AcilisKontroluMagazaDisi"
+              "${constUrl}api/AcilisKontroluMagazaDisi"
           );
           showFormFilledDialog(context,outShopOpeningCheckingList);
         },

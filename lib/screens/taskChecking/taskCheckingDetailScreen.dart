@@ -39,8 +39,8 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask2('http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.task_id}');
-    futureCompleteTask = fetchCompleteTask2('http://172.23.21.112:7042/api/TamamlanmisGorev/${widget.task_id}');
+    futureIncompleteTask = fetchIncompleteTask2('${constUrl}api/TamamlanmamisGorev/${widget.task_id}');
+    futureCompleteTask = fetchCompleteTask2('${constUrl}api/TamamlanmisGorev/${widget.task_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

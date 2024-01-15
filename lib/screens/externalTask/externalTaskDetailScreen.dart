@@ -38,7 +38,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
   @override
   void initState() {
     super.initState();
-    futureExternalWork = fetchExternalWork2('http://172.23.21.112:7042/api/HariciIs/${widget.work_id}');
+    futureExternalWork = fetchExternalWork2('${constUrl}api/HariciIs/${widget.work_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

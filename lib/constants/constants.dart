@@ -5,6 +5,8 @@ import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
 
+String constUrl = "https://bizz.hakmarexpress.com/";
+
 bool allSelected = false;
 
 List<String> shopList = [];
@@ -30,7 +32,7 @@ class GoogleMapMarkerList {
   ];
 }
 
-Future<List<Shop>> futureShopList = fetchShop('http://172.23.21.112:7042/api/magaza');
+Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/magaza');
 
 int externalTaskCount = 0;
 int incompleteTaskCount = 0;

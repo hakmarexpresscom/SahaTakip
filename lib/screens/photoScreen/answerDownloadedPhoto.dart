@@ -38,7 +38,7 @@ class _AnswerDownloadedPhotoScreenState extends State<AnswerDownloadedPhotoScree
   @override
   void initState() {
     super.initState();
-    futurePhoto = fetchPhoto('http://172.23.21.112:7042/api/Fotograf/byTamamlanmisGorevID?tamamlanmis_gorev_id=${widget.complete_task_id}');
+    futurePhoto = fetchPhoto('${constUrl}api/Fotograf/byTamamlanmisGorevID?tamamlanmis_gorev_id=${widget.complete_task_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

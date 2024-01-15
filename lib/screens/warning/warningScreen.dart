@@ -60,8 +60,8 @@ class _WarningScreenState extends State<WarningScreen> {
                 storeVisitManager.endStoreVisit();
               }
               shopVisitWorkManager.endShopVisitWork();
-              await countShift("http://172.23.21.112:7042/api/Mesai");
-              await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),"18:30:0","http://172.23.21.112:7042/api/mesai");
+              await countShift("${constUrl}api/Mesai");
+              await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),"18:30:0","${constUrl}api/mesai");
               naviStartWorkMainScreen(context);
             },
           );

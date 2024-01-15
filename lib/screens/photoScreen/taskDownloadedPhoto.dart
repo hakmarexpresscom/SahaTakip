@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import '../../constants/constants.dart';
 import '../../models/photo.dart';
 import '../../services/photoServices.dart';
 
@@ -31,7 +32,7 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
   @override
   void initState() {
     super.initState();
-    futurePhoto = fetchPhoto2('http://172.23.21.112:7042/api/Fotograf/${widget.photo_id}');
+    futurePhoto = fetchPhoto2('${constUrl}api/Fotograf/${widget.photo_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

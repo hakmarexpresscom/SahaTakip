@@ -46,7 +46,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
   @override
   void initState() {
     super.initState();
-    futureShift = fetchShift('http://172.23.21.112:7042/api/Mesai/${urlShiftFilter}=${userID}&mesai_tarihi='+now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
+    futureShift = fetchShift('${constUrl}api/Mesai/${urlShiftFilter}=${userID}&mesai_tarihi='+now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
   }
 
   @override

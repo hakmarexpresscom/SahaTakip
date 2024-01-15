@@ -118,7 +118,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
   @override
   void initState() {
     super.initState();
-    futureReport = fetchReport('http://172.23.21.112:7042/api/Rapor/filterReport1?magaza_kodu=${widget.shop_code}&grup_no=${groupNo}');
+    futureReport = fetchReport('${constUrl}api/Rapor/filterReport1?magaza_kodu=${widget.shop_code}&grup_no=${groupNo}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -243,8 +243,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         fontWeight: FontWeight.w600,
         onTaps: () async {
           reportManager.createReport();
-          await countReport("http://172.23.21.112:7042/api/Rapor");
-          await createReport(reportCount+1, userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "http://172.23.21.112:7042/api/Rapor");
+          await countReport("${constUrl}api/Rapor");
+          await createReport(reportCount+1, userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "${constUrl}api/Rapor");
           naviVisitingReportMainScreen(context, widget.shop_code);
           },
         borderWidht: 1,
@@ -262,10 +262,10 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          await countReport("http://172.23.21.112:7042/api/Rapor");
-          await countIncompleteTask("http://172.23.21.112:7042/api/TamamlanmamisGorev");
+          await countReport("${constUrl}api/Rapor");
+          await countIncompleteTask("${constUrl}api/TamamlanmamisGorev");
           await addReportTaskToDatabase(
-              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+              "${constUrl}api/TamamlanmamisGorev",
               taskNameController.text,
               taskDescriptionController.text,
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
@@ -275,13 +275,13 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               "Rapor",
               reportCount,
               groupNo,
-              "http://172.23.21.112:7042/api/TamamlanmamisGorev",
+              "${constUrl}api/TamamlanmamisGorev",
               photo_file,
               null,
               userID,
               null,
               "Rapor",
-              "http://172.23.21.112:7042/api/Fotograf/${photoCount+1}"
+              "${constUrl}api/Fotograf/${photoCount+1}"
           );
           //sendTaskMail(email, "Tarafınıza ${widget.shop_code} koduna sahip mağaza ile alakalı yeni bir görev atanmıştır. Görev türü 'Ziyaret Raporu''dur. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
           showReportTaskSubmitDialog(context);
@@ -301,7 +301,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: (){
-          addPhoto(null, widget.shop_code, null, userID, null, "Rapor", null, 'http://172.23.21.112:7042/api/Fotograf');
+          addPhoto(null, widget.shop_code, null, userID, null, "Rapor", null, '${constUrl}api/Fotograf');
           },
         borderWidht: 3,
         backgroundColor: Colors.orangeAccent,

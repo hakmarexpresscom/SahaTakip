@@ -33,7 +33,7 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
   @override
   void initState() {
     super.initState();
-    futureExternalWork = fetchExternalWork('http://172.23.21.112:7042/api/HariciIs/$urlWorkFilter=${userID}&tamamlandi_bilgisi=0');
+    futureExternalWork = fetchExternalWork('${constUrl}api/HariciIs/$urlWorkFilter=${userID}&tamamlandi_bilgisi=0');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].

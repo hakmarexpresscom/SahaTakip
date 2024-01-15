@@ -31,8 +31,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
   @override
   void initState() {
     super.initState();
-    futureInShopCloseControl = fetchInShopCloseControl('http://172.23.21.112:7042/api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
-    futureOutShopCloseControl = fetchOutShopCloseControl('http://172.23.21.112:7042/api/KapanisKontroluMagazaDisi/filterOutShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureInShopCloseControl = fetchInShopCloseControl('${constUrl}api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureOutShopCloseControl = fetchOutShopCloseControl('${constUrl}api/KapanisKontroluMagazaDisi/filterOutShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
   }
 
   @override
@@ -184,7 +184,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               inShopClosingCheckingList.values.toList()[17],
               inShopClosingCheckingList.values.toList()[18],
               inShopClosingCheckingList.values.toList()[19],
-              "http://172.23.21.112:7042/api/KapanisKontroluMagazaIci"
+              "${constUrl}api/KapanisKontroluMagazaIci"
           );
           showFormFilledDialog(context,inShopClosingCheckingList);
         },
@@ -216,7 +216,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               outShopClosingCheckingList.values.toList()[5],
               outShopClosingCheckingList.values.toList()[6],
               outShopClosingCheckingList.values.toList()[7],
-              "http://172.23.21.112:7042/api/KapanisKontroluMagazaDisi"
+              "${constUrl}api/KapanisKontroluMagazaDisi"
           );
           showFormFilledDialog(context,outShopClosingCheckingList);
         },

@@ -152,7 +152,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          await countExternalTask("http://172.23.21.112:7042/api/HariciIs", context);
+          await countExternalTask("${constUrl}api/HariciIs", context);
           await createExternalWork(
             externalTaskCount+1,
             taskNameController.text,
@@ -162,7 +162,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.hour.toString()+"."+now.minute.toString(),
-              "http://172.23.21.112:7042/api/HariciIs"
+              "${constUrl}api/HariciIs"
           );
           naviExternalTasksListScreen(context);
         },

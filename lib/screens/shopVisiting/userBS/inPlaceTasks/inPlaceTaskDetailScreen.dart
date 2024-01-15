@@ -98,7 +98,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask2('http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.task_id}');
+    futureIncompleteTask = fetchIncompleteTask2('${constUrl}api/TamamlanmamisGorev/${widget.task_id}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -166,10 +166,10 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                             now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
                             (photo_file.isEmpty)?null:photoCount+1,
                             TaskDetailCard.answerNoteController.text,
-                            'http://172.23.21.112:7042/api/TamamlanmisGorev'
+                            '${constUrl}api/TamamlanmisGorev'
                         );
                         if(photo_file.isNotEmpty){
-                          updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", photo_file, snapshot.data!.task_id, 'http://172.23.21.112:7042/api/Fotograf/${photoCount+1}');
+                          updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
                         }
                         naviInPlaceTaskMainScreen(context, box.get("currentShopID"));
                       },
@@ -190,7 +190,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                           radius: 20,
                           fontWeight: FontWeight.w600,
                           onTaps: (){
-                            addPhoto(null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", null, 'http://172.23.21.112:7042/api/Fotograf');
+                            addPhoto(null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", null, '${constUrl}api/Fotograf');
                           },
                           borderWidht: 3,
                           backgroundColor: Colors.orangeAccent,

@@ -71,8 +71,8 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
 
-    checkEmailBS(email, 'http://172.23.21.112:7042/api/KullaniciBS', context);
-    checkPasswordBS(password,'http://172.23.21.112:7042/api/KullaniciBS', sayac,context);
+    checkEmailBS(email, '${constUrl}api/KullaniciBS', context);
+    checkPasswordBS(password,'${constUrl}api/KullaniciBS', sayac,context);
   }
   else if(user=="Pazarlama Müdürü") {
 
@@ -120,8 +120,8 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
 
-    checkEmailPM(email, 'http://172.23.21.112:7042/api/KullaniciPM', context);
-    checkPasswordPM(password,'http://172.23.21.112:7042/api/KullaniciPM', sayac,context);
+    checkEmailPM(email, '${constUrl}api/KullaniciPM', context);
+    checkPasswordPM(password,'${constUrl}api/KullaniciPM', sayac,context);
   }
   else if(user=="Bölge Müdürü") {
 
@@ -146,8 +146,8 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
 
-    checkEmailBM(email, 'http://172.23.21.112:7042/api/KullaniciBM', context);
-    checkPasswordBM(password,'http://172.23.21.112:7042/api/KullaniciBM', sayac,context);
+    checkEmailBM(email, '${constUrl}api/KullaniciBM', context);
+    checkPasswordBM(password,'${constUrl}api/KullaniciBM', sayac,context);
   }
 
   else if(user=="Normal Kullanıcı"){
@@ -160,8 +160,8 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("isBS",false);
     isBS=box.get("isBS");
 
-    checkEmailNK(email, 'http://172.23.21.112:7042/api/KullaniciNK', context);
-    checkPasswordNK(password,'http://172.23.21.112:7042/api/KullaniciNK', sayac,context);
+    checkEmailNK(email, '${constUrl}api/KullaniciNK', context);
+    checkPasswordNK(password,'${constUrl}api/KullaniciNK', sayac,context);
   }
 }
 
@@ -183,7 +183,7 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
 
 Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext context) async {
   final List<UserBS> users = await fetchUserBS2(urlUser);
-  final BSPassword hashedPw = await fetchBSPassword2('http://172.23.21.112:7042/api/BSSifre/${userID}');
+  final BSPassword hashedPw = await fetchBSPassword2('${constUrl}api/BSSifre/${userID}');
 
   List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
   var bytes = utf8.encode(password);
@@ -198,7 +198,7 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
     (users[sayac].group_no==0)?box.put("urlShopFilter","/byBsId?bs_id"):box.put("urlShopFilter","/byBsManavId?bs_manav_id");
     urlShopFilter = box.get("urlShopFilter");
 
-    await saveShopCodes("http://172.23.21.112:7042/api/magaza${urlShopFilter}=${userID}");
+    await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
@@ -225,7 +225,7 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
 
 Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext context) async {
   final List<UserPM> users = await fetchUserPM2(urlUser);
-  final PMPassword hashedPw = await fetchPMPassword2('http://172.23.21.112:7042/api/PMSifre/${userID}');
+  final PMPassword hashedPw = await fetchPMPassword2('${constUrl}api/PMSifre/${userID}');
 
   List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
   var bytes = utf8.encode(password);
@@ -240,7 +240,7 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
     (users[sayac].group_no==0)?box.put("urlShopFilter","/byPmId?pm_id"):box.put("urlShopFilter","/byPmManavId?pm_manav_id");
     urlShopFilter = box.get("urlShopFilter");
 
-    await saveShopCodes("http://172.23.21.112:7042/api/magaza${urlShopFilter}=${userID}");
+    await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
@@ -271,7 +271,7 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
 
 Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext context) async {
   final List<UserBM> users = await fetchUserBM2(urlUser);
-  final BMPassword hashedPw = await fetchBMPassword2('http://172.23.21.112:7042/api/BMSifre/${userID}');
+  final BMPassword hashedPw = await fetchBMPassword2('${constUrl}api/BMSifre/${userID}');
 
   List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
   var bytes = utf8.encode(password);
@@ -280,7 +280,7 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
 
   if(listEquals(binaryHashedPassword, hashedPassword)){
 
-    await saveShopCodes("http://172.23.21.112:7042/api/magaza$urlShopFilter=${userID}");
+    await saveShopCodes("${constUrl}api/magaza$urlShopFilter=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
@@ -307,7 +307,7 @@ Future checkEmailNK(String email, String url,BuildContext context) async {
 }
 
 Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext context) async {
-  final NKPassword hashedPw = await fetchNKPassword2('http://172.23.21.112:7042/api/NKSifre/${userID}');
+  final NKPassword hashedPw = await fetchNKPassword2('${constUrl}api/NKSifre/${userID}');
 
   List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
   var bytes = utf8.encode(password);

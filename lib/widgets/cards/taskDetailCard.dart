@@ -3,6 +3,7 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../constants/constants.dart';
 import '../../services/externalWorkServices.dart';
 import '../../services/inCompleteTaskServices.dart';
 import 'dart:io';
@@ -95,7 +96,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                             null,
                           (widget.isCompleted)?1:0,
                           widget.assignmentHour,
-                          'http://172.23.21.112:7042/api/HariciIs/${widget.id}'
+                          '${constUrl}api/HariciIs/${widget.id}'
                         );
                       }
                       else if(widget.taskType=="Uzaktan"||widget.taskType=="Yerinde"||widget.taskType=="Rapor"){
@@ -111,7 +112,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                           widget.report_id,
                             (widget.isCompleted)?1:0,
                             widget.group_no,
-                            'http://172.23.21.112:7042/api/TamamlanmamisGorev/${widget.id}'
+                            '${constUrl}api/TamamlanmamisGorev/${widget.id}'
                         );
                       }
                     }

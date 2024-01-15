@@ -51,7 +51,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   @override
   void initState() {
     super.initState();
-    futureCashCounting = fetchCashCounting('http://172.23.21.112:7042/api/CelikKasaSayimi/filterCashCountingForm?magaza_kodu=5000&kayit_tarihi=15-12-2023');
+    futureCashCounting = fetchCashCounting('${constUrl}api/CelikKasaSayimi/filterCashCountingForm?magaza_kodu=5000&kayit_tarihi=15-12-2023');
   }
 
   @override
@@ -148,7 +148,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
               celikKasaMevcuduController.text,
               kasaDefterMevcuduController.text,
               farkController.text,
-              "http://172.23.21.112:7042/api/CelikKasaSayimi"
+              "${constUrl}api/CelikKasaSayimi"
           );
           showFormFilledDialog(context);
         },

@@ -54,8 +54,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
   @override
   void initState() {
     super.initState();
-    futureOwnShopListBS = fetchShop('http://172.23.21.112:7042/api/magaza/byBsId?bs_id=${userID}');
-    futurePartnerShopList = fetchShop('http://172.23.21.112:7042/api/magaza/byPmId?pm_id=${yoneticiID}');
+    futureOwnShopListBS = fetchShop('${constUrl}api/magaza/byBsId?bs_id=${userID}');
+    futurePartnerShopList = fetchShop('${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
