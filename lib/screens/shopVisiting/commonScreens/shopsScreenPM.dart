@@ -51,7 +51,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
   @override
   void initState() {
     super.initState();
-    futureOwnShopListPM = fetchShop('${constUrl}api/magaza/byPmId?pm_id=${userID}');
+    futureOwnShopListPM = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
