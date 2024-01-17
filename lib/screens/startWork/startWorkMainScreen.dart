@@ -222,7 +222,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         builder: (BuildContext context) {
           return AlertDialogWidget(
             title: 'Mesai Saati Kontrolü',
-            content: '08.00-21.00 saatleri arasında mesai başlatabilirsiniz!',
+            content: '08.00-18.00 saatleri arasında mesai başlatabilirsiniz!',
             onTaps: (){
               naviStartWorkMainScreen(context);
             },
