@@ -182,7 +182,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
          appBar: AppBar(
            foregroundColor: Colors.white,
            backgroundColor: Colors.indigo,
-          title: const Text('Mağaza Ziyareti'),
+          title: const Text('Mağaza Listesi'),
            leading: IconButton(
              icon: Icon(Icons.arrow_back),
              onPressed: () {

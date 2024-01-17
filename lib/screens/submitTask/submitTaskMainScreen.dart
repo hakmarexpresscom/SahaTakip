@@ -27,6 +27,8 @@ class SubmitTaskMainScreen extends StatefulWidget {
 
 class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
 
+  bool _isSubmitting = false; // Variable to track whether the task is being submitted
+
   int _selectedIndex = 4;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -110,67 +112,97 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
     );
   }
 
-  Widget submitTaskMainScreenUI(){
-    return Builder(builder: (BuildContext context){
+  Widget submitTaskMainScreenUI() {
+    return Builder(builder: (BuildContext context) {
       return Container(
-        child: Column(
+        child: (_isSubmitting)?
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:[
+            TextWidget(text: "Görev atanıyor lütfen bekleyiniz.", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+            SizedBox(height: deviceHeight * 0.03,),
+            CircularProgressIndicator()
+          ]
+        ):
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.02,),
+            SizedBox(height: deviceHeight * 0.02,),
             inputForm(),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight * 0.03,),
             inPlaceOrRemoteTaskCheckbox(),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight * 0.03,),
             showAddedPhotoButton(),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight * 0.03,),
             shopSelectionButton(),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight * 0.03,),
+            // Show a loading spinner while _isSubmitting is true
             submitTaskButton(),
+            SizedBox(height: deviceHeight * 0.03,),
           ],
         ),
       );
     });
   }
 
-  Widget submitTaskButton(){
+
+  Widget submitTaskButton() {
     return ButtonWidget(
-        text: "Görevi Ata",
-        heightConst: 0.06,
-        widthConst: 0.8,
-        size: 18,
-        radius: 20,
-        fontWeight: FontWeight.w600,
-        onTaps: () async {
+      text: "Görevi Ata",
+      heightConst: 0.06,
+      widthConst: 0.8,
+      size: 18,
+      radius: 20,
+      fontWeight: FontWeight.w600,
+      onTaps: () async {
+        // Set _isSubmitting to true when the button is pressed
+        setState(() {
+          _isSubmitting = true;
+        });
+
+        try {
+          // Wait for the completion of addIncompleteTaskToDatabase
           await addIncompleteTaskToDatabase(
-              "${constUrl}api/TamamlanmamisGorev",
-              taskNameController.text,
-              taskDescriptionController.text,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-              taskDeadlineController.text,
-              null,
-              (inPlace==true)?"Yerinde":"Uzaktan",
-              null,
-              groupNo,
-              "${constUrl}api/TamamlanmamisGorev",
-              "${constUrl}api/Fotograf",
-              (isBS)?userID:null,
-              (isBS==false && isBSorPM==true)?userID:null,
-              (isBSorPM==false)?userID:null,
-                (inPlace==true)?"Yerinde":"Uzaktan",
-              "${constUrl}api/Fotograf",
+            "${constUrl}api/TamamlanmamisGorev",
+            taskNameController.text,
+            taskDescriptionController.text,
+            now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
+            taskDeadlineController.text,
+            null,
+            (inPlace == true) ? "Yerinde" : "Uzaktan",
+            null,
+            groupNo,
+            "${constUrl}api/TamamlanmamisGorev",
+            "${constUrl}api/Fotograf",
+            (isBS) ? userID : null,
+            (isBS == false && isBSorPM == true) ? userID : null,
+            (isBSorPM == false) ? userID : null,
+            (inPlace == true) ? "Yerinde" : "Uzaktan",
+            "${constUrl}api/Fotograf",
           );
-          //sendTaskMail(email, "Tarafınıza yeni bir görev atanmıştır. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
+
+          // Show the success dialog when the task is successfully submitted
           Future.delayed(Duration.zero, () {
             showTaskSubmittedDialog(context);
           });
-        },
-        borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        } finally {
+          // Set _isSubmitting to false after addIncompleteTaskToDatabase is completed
+          setState(() {
+            _isSubmitting = false;
+          });
+        }
+      },
+      borderWidht: 1,
+      backgroundColor: Colors.lightGreen.withOpacity(0.6),
+      borderColor: Colors.lightGreen.withOpacity(0.6),
+      textColor: Colors.black,
+    );
   }
+
 
   Widget shopSelectionButton(){
     return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);

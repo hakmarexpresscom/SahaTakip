@@ -81,7 +81,7 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
           automaticallyImplyLeading: false,
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
-          title: const Text('Mağaza Ziyareti'),
+          title: const Text('Mağaza Ziyareti Mesaisi'),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),

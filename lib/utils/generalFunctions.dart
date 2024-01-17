@@ -44,7 +44,7 @@ addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, St
       if(boxShopTaskPhoto.get(shopCodes[i].toString())[0]!=""){
         await countPhoto(countPhotoUrl);
         await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
-        updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, group_no, "http://172.23.21.112:7042/api/TamamlanmamisGorev/${incompleteTaskCount+1}");
+        updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, group_no, "https://bizz.hakmarexpress.com/api/TamamlanmamisGorev/${incompleteTaskCount+1}");
       }
     }
   }

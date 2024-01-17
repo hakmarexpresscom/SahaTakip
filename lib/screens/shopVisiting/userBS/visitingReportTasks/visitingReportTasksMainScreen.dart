@@ -56,7 +56,7 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
         appBar: AppBar(
           foregroundColor: Colors.white,
           backgroundColor: Colors.indigo,
-          title: const Text('Ziyaret Raporu GÖrevleri'),
+          title: const Text('Ziyaret Raporu Görevleri'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
