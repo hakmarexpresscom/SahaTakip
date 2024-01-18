@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-              color: Colors.orangeAccent,
+              color: primaryColor,
               width: 3
           )
       ),
@@ -67,11 +68,11 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
               children: [Icon(widget.icon,size: 35,),],
             ),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst1),),
-            TextWidget(text: widget.shopCode, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: Colors.black),
+            TextWidget(text: widget.shopCode, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
-            TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Ziyarete Başla", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Ziyarete Başla", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
           ],
         ),
       ),

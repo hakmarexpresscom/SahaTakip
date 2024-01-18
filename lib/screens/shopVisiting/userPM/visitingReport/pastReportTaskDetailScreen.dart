@@ -6,6 +6,7 @@ import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/completeTaskServices.dart';
 import '../../../../services/inCompleteTaskServices.dart';
+import '../../../../styles/styleConst.dart';
 import '../../../../widgets/cards/pastReportsTaskDetailCard.dart';
 
 class PastReportTaskDetailScreen extends StatefulWidget {
@@ -57,8 +58,8 @@ class _PastReportTaskDetailScreenState extends State<PastReportTaskDetailScreen>
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Görev Detayı'),
         ),
         body: SingleChildScrollView(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:deneme/routing/landing.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/cards/shopPhotoCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -162,8 +163,8 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.indigo,
+        foregroundColor: appbarForeground,
+        backgroundColor: appbarBackground,
         title: const Text('Görev Atama Mağaza Seçimi'),
       ),
       body: Column(
@@ -189,7 +190,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                     });
                   }
               ),
-              TextWidget(text: "Tümünü Seç", size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+              TextWidget(text: "Tümünü Seç", size: 20, fontWeight: FontWeight.w600, color: textColor),
             ],
           ),
           SizedBox(height: deviceHeight*0.02,),
@@ -270,7 +271,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   }
 
   Widget shopPhotoSelectionButton(){
-    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.pop(context);}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.pop(context);}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor);
   }
 
 }

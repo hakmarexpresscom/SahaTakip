@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _TaskCardState extends State<PastReportCard> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-              color: Colors.orangeAccent,
+              color: primaryColor,
               width: 3
           )
       ),
@@ -45,11 +46,11 @@ class _TaskCardState extends State<PastReportCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [Icon(Icons.file_copy,size: 35,),],
             ),
-            TextWidget(text: widget.reportName, size: 20, fontWeight: FontWeight.w500, color: Colors.black),
+            TextWidget(text: widget.reportName, size: 20, fontWeight: FontWeight.w500, color: textColor),
             SizedBox(height: context.dynamicHeight(0.02),),
-            RichTextWidget(title: " Oluşturulma tarihi: ", text: widget.createDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.center,textAlign: TextAlign.center),
+            RichTextWidget(title: " Oluşturulma tarihi: ", text: widget.createDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.center,textAlign: TextAlign.center),
             SizedBox(height: context.dynamicHeight(0.025),),
-            ButtonWidget(text: "Rapor Detayları", heightConst: 0.04, widthConst: 0.35, size: 13, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Rapor Detayları", heightConst: 0.04, widthConst: 0.35, size: 13, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
           ],
         ),
       ),

@@ -8,6 +8,7 @@ import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../main.dart';
 import '../../routing/landing.dart';
+import '../../styles/styleConst.dart';
 import '../../widgets/cards/taskCard.dart';
 import '../../widgets/text_widget.dart';
 
@@ -123,8 +124,8 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Uzaktan Görevler'),
         ),
         body: Column(
@@ -136,11 +137,10 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
               shopTypeInfo(),
               SizedBox(height: deviceHeight*0.02,),
               Card(
-                //color: Colors.lightGreen.withOpacity(0.6),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                       side: BorderSide(
-                          color: Colors.orangeAccent,
+                          color: Colors.indigo,
                           width: 1.5
                       )
                   ),
@@ -235,6 +235,6 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
   }
 
   Widget shopTypeInfo(){
-    return TextWidget(text: "Görevleri görüntülerken mağaza kodunu aşağıdaki\nbutona basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Görevleri görüntülerken mağaza kodunu aşağıdaki\nbutona basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor);
   }
 }

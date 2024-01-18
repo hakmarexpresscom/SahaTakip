@@ -4,6 +4,7 @@ import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
+import '../../../../styles/styleConst.dart';
 import '../../../../widgets/cards/taskCard.dart';
 
 
@@ -54,8 +55,8 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Yerinde Görevler'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),

@@ -7,6 +7,7 @@ import 'package:deneme/widgets/text_form_field.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../main.dart';
+import '../../../styles/styleConst.dart';
 import '../../../widgets/alert_dialog.dart';
 
 class CashCountingScreen extends StatefulWidget {
@@ -63,8 +64,8 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Çelik Kasa Sayımı'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -122,10 +123,10 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   }
 
   Widget shopNameInfo(){
-    return TextWidget(text: widget.shopName, size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: widget.shopName, size: 20, fontWeight: FontWeight.w400, color: textColor);
   }
   Widget shopCodeInfo(){
-    return TextWidget(text: widget.shop_code.toString(), size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: widget.shop_code.toString(), size: 20, fontWeight: FontWeight.w400, color: textColor);
   }
   Widget saveButton(){
     return ButtonWidget(
@@ -153,9 +154,9 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           showFormFilledDialog(context);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   Widget inputForm(){
@@ -171,19 +172,19 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Kağıt Para Sayımı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: kagitParaSayimiController, value: CashCountingScreen.kagitParaSayimi, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Kağıt Para Sayımı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: kagitParaSayimiController, value: CashCountingScreen.kagitParaSayimi, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Madeni Para Sayımı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: madeniParaSsayimiController, value: CashCountingScreen.madeniParaSsayimi, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Madeni Para Sayımı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: madeniParaSsayimiController, value: CashCountingScreen.madeniParaSsayimi, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "POS'lar Toplamı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: POSlarToplamiController, value: CashCountingScreen.POSlarToplami, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "POS'lar Toplamı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: POSlarToplamiController, value: CashCountingScreen.POSlarToplami, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Masraflar ve Tediyeler", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: masraflarTediyelerController, value: CashCountingScreen.masraflarTediyeler, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Masraflar ve Tediyeler", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: masraflarTediyelerController, value: CashCountingScreen.masraflarTediyeler, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Çelik Kasa Mevcudu", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: celikKasaMevcuduController, value: CashCountingScreen.celikKasaMevcudu, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Çelik Kasa Mevcudu", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: celikKasaMevcuduController, value: CashCountingScreen.celikKasaMevcudu, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Kasa Defter Mevcudu", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: kasaDefterMevcuduController, value: CashCountingScreen.kasaDefterMevcudu, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Kasa Defter Mevcudu", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: kasaDefterMevcuduController, value: CashCountingScreen.kasaDefterMevcudu, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Fark", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: farkController, value: CashCountingScreen.fark, paddingValue: 5,maxLines: 1)
+            TextFormFieldWidget(text: "Fark", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: farkController, value: CashCountingScreen.fark, paddingValue: 5,maxLines: 1)
           ],
         ),
       ),

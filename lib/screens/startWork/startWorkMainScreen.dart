@@ -1,6 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/services/shiftServices.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -99,8 +100,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.indigo,
+        foregroundColor: appbarForeground,
+        backgroundColor: appbarBackground,
         title: const Text('Mesaiye Başla'),
       ),
       body: SingleChildScrollView(
@@ -142,17 +143,17 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         future: futureShift,
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)), size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)), size: 25, fontWeight: FontWeight.w400, color: textColor);
           }
           else{
-            return TextWidget(text:"En sonki çalışma süreniz:\n0 saat 0 dakika 0 saniye\nBugün hiç mesai başlatmadınız.", size: 25, fontWeight: FontWeight.w400, color: Colors.black);
+            return TextWidget(text:"En sonki çalışma süreniz:\n0 saat 0 dakika 0 saniye\nBugün hiç mesai başlatmadınız.", size: 25, fontWeight: FontWeight.w400, color: textColor);
           }
         }
     );
   }
 
   Widget shiftTypeInfo(){
-    return TextWidget(text: "Mesai Türünüzü Seçiniz", size: 20, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Mesai Türünüzü Seçiniz", size: 20, fontWeight: FontWeight.w400, color: textColor);
   }
 
   Widget startWorkButton(){
@@ -165,7 +166,12 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: () {
-          if(item=="Mağaza Ziyareti"&&8<=now.hour&&now.hour<=18){
+          DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
+          DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
+
+          bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
+
+          if(item=="Mağaza Ziyareti"&& isWithinTimeRange){
             shopVisitWorkManager.startShopVisitWork();
             setState(() {
               box.put("startHour",0);
@@ -178,7 +184,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             });
             naviShopVisitingMainScreen(context);
           }
-          else if(item=="Harici İş"&&8<=now.hour&&now.hour<=18){
+          else if(item=="Harici İş" && isWithinTimeRange){
             externalTaskWorkManager.startExternalTaskWork();
             setState(() {
               box.put("startHour",0);
@@ -191,14 +197,14 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             });
             naviExternalTaskMainScreen(context);
           }
-          else if(now.hour<8||18<now.hour){
+          else if(isWithinTimeRange==false){
             showShiftTimeDialog(context);
           }
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
     );
   }
 
@@ -222,7 +228,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         builder: (BuildContext context) {
           return AlertDialogWidget(
             title: 'Mesai Saati Kontrolü',
-            content: '08.00-18.00 saatleri arasında mesai başlatabilirsiniz!',
+            content: '08.30-18.30 saatleri arasında mesai başlatabilirsiniz!',
             onTaps: (){
               naviStartWorkMainScreen(context);
             },

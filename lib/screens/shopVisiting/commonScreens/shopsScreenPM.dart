@@ -12,6 +12,7 @@ import '../../../main.dart';
 import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
+import '../../../styles/styleConst.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../utils/distanceFunctions.dart';
 import '../../../widgets/alert_dialog.dart';
@@ -173,8 +174,8 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Kendi Mağazalarım'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),

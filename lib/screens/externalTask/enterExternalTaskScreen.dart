@@ -1,6 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -86,8 +87,8 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Harici İş Girişi'),
         ),
         body: SingleChildScrollView(
@@ -132,11 +133,11 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskNameController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Bitiş Saati", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDeadlineController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Bitiş Saati", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDeadlineController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8),
           ],
         ),
       ),
@@ -167,9 +168,10 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           naviExternalTasksListScreen(context);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
   }
 
 }

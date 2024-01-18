@@ -6,6 +6,7 @@ import '../../constants/pagesLists.dart';
 import '../../models/externalWork.dart';
 import '../../routing/landing.dart';
 import '../../services/externalWorkServices.dart';
+import '../../styles/styleConst.dart';
 import '../../widgets/cards/taskCard.dart';
 
 class ExternalTasksListScreen extends StatefulWidget {
@@ -98,8 +99,8 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Harici İşlerim'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),

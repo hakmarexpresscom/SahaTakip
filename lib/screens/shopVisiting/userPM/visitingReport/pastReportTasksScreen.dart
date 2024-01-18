@@ -4,6 +4,7 @@ import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
 import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
+import '../../../../styles/styleConst.dart';
 import '../../../../widgets/cards/taskCheckingCard.dart';
 
 
@@ -59,8 +60,8 @@ class _PastReportTasksScreenState extends State<PastReportTasksScreen> with Tick
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.indigo,
+            foregroundColor: appbarForeground,
+            backgroundColor: appbarBackground,
             title: const Text('Ziyaret Tespit Raporu Görevleri'),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),

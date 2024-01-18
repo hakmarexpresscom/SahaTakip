@@ -1,3 +1,4 @@
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -88,12 +89,12 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.06,),
-            logo(),
             SizedBox(height: deviceHeight*0.03,),
+            logo(),
+            SizedBox(height: deviceHeight*0.01,),
             title(),
             SizedBox(height: deviceHeight*0.04,),
-            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: deviceHeight*0.02,),
             userTypeDropDown(),
             SizedBox(height: deviceHeight*0.03,),
@@ -139,7 +140,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
               controller: emailController,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(5),
-                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 2)),
+                border: OutlineInputBorder(borderSide: BorderSide(color: textColor, width: 2)),
                 hintText: "Email",
               ),
             ),
@@ -165,7 +166,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
               obscureText: !_isVisible,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(5),
-                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 2)),
+                border: OutlineInputBorder(borderSide: BorderSide(color: textColor, width: 2)),
                 labelText: 'Şifre',
                 suffixIcon: IconButton(
                   icon: Icon(_isVisible ? Icons.visibility_off : Icons.visibility),
@@ -192,9 +193,9 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                   }*/
                   },
                 borderWidht: 1,
-                backgroundColor: Colors.lightGreen.withOpacity(0.6),
-                borderColor: Colors.lightGreen.withOpacity(0.6),
-                textColor: Colors.black
+                backgroundColor: secondaryColor,
+                borderColor: secondaryColor,
+                textColor: textColor
             )
     ],
         ),
@@ -203,7 +204,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   }
 
   Widget title(){
-    return TextWidget(text: "Kullanıcı Girişi", size: 35, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Kullanıcı Girişi", size: 35, fontWeight: FontWeight.w400, color: textColor);
   }
   Widget forgetPasswordButton(double heightConst, double widthConst){
     return ButtonWidget(
@@ -217,9 +218,9 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
           naviForgetPasswordScreen(context);
         },
         borderWidht: 3,
-        backgroundColor: Colors.orangeAccent,
-        borderColor: Colors.orangeAccent,
-        textColor: Colors.black);
+        backgroundColor: primaryColor,
+        borderColor: primaryColor,
+        textColor: textColor);
   }
   Widget logo(){
     return Container(

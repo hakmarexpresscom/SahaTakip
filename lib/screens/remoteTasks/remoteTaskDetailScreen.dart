@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/services/photoServices.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -162,8 +163,8 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Görev Detayı'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -237,9 +238,9 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                                 addPhoto(null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", null, '${constUrl}api/Fotograf');
                               },
                               borderWidht: 3,
-                              backgroundColor: Colors.orangeAccent,
-                              borderColor: Colors.orangeAccent,
-                              textColor: Colors.black),
+                              backgroundColor: primaryColor,
+                              borderColor: primaryColor,
+                              textColor: textColor),
                           image: image,
                           completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
                           answer_photo_id: (photoCount==0)?null:photoCount+1,

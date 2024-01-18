@@ -10,6 +10,7 @@ import '../../models/incompleteTask.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../services/completeTaskServices.dart';
 import '../../services/inCompleteTaskServices.dart';
+import '../../styles/styleConst.dart';
 import '../../widgets/cards/completeTaskCheckingDetailCard.dart';
 
 class TaskCheckingDetailScreen extends StatefulWidget {
@@ -103,8 +104,8 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Görev Detayı'),
         ),
         body: SingleChildScrollView(

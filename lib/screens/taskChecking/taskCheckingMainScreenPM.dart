@@ -1,3 +1,4 @@
+import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -133,8 +134,8 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.indigo,
+              foregroundColor: appbarForeground,
+              backgroundColor: appbarBackground,
               title: const Text('Görev Kontrol'),
               bottom: TabBar(
                 labelColor: Colors.white,
@@ -161,7 +162,6 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Card(
-                          //color: Colors.lightGreen.withOpacity(0.6),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
@@ -211,7 +211,6 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                         ),
                         SizedBox(width: deviceWidth*0.04,),
                         Card(
-                          //color: Colors.lightGreen.withOpacity(0.6),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
@@ -279,7 +278,6 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Card(
-                          //color: Colors.lightGreen.withOpacity(0.6),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
@@ -329,7 +327,6 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                         ),
                         SizedBox(width: deviceWidth*0.04,),
                         Card(
-                          //color: Colors.lightGreen.withOpacity(0.6),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
@@ -474,7 +471,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   }
 
   Widget taskTypeInfo(){
-    return TextWidget(text: "Görevleri görüntülerken görev türünü ve mağaza\nkodunu aşağıdaki butonlara basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Görevleri görüntülerken görev türünü ve mağaza\nkodunu aşağıdaki butonlara basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor);
   }
 
 }

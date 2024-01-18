@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
+import '../../styles/styleConst.dart';
+
 class MapScreen extends StatefulWidget {
 
   late String targetLat;
@@ -32,8 +34,8 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.indigo,
+        foregroundColor: appbarForeground,
+        backgroundColor: appbarBackground,
         title: const Text('Mağaza Konumu'),
       ),
       body: Container(

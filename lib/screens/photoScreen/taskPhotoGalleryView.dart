@@ -7,6 +7,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
+import '../../styles/styleConst.dart';
 
 class TaskPhotoGalleryView extends StatefulWidget {
   List<XFile> imageList;
@@ -73,8 +74,8 @@ class _TaskPhotoGalleryViewState extends State<TaskPhotoGalleryView> {
 
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.indigo,
+        foregroundColor: appbarForeground,
+        backgroundColor: appbarBackground,
         title: const Text('Görev İçin Yüklenen Fotoğraflar'),
       ),
       body: (widget.imageList.isEmpty)?Text("Bu görev için yüklenen fotoğraf yok."):
@@ -89,7 +90,7 @@ class _TaskPhotoGalleryViewState extends State<TaskPhotoGalleryView> {
         },
         itemCount: widget.imageList.length,
         backgroundDecoration: BoxDecoration(
-          color: Colors.black,
+          color: textColor,
         ),
         pageController: PageController(initialPage: 0),
       ),

@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:deneme/widgets/alert_dialog.dart';
 import 'package:deneme/widgets/button_widget.dart';
@@ -97,8 +98,8 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Görev Atama'),
         ),
         body: SingleChildScrollView(
@@ -121,7 +122,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children:[
-            TextWidget(text: "Görev atanıyor lütfen bekleyiniz.", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: "Görev atanıyor lütfen bekleyiniz.", size: 20, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: deviceHeight * 0.03,),
             CircularProgressIndicator()
           ]
@@ -197,19 +198,19 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         }
       },
       borderWidht: 1,
-      backgroundColor: Colors.lightGreen.withOpacity(0.6),
-      borderColor: Colors.lightGreen.withOpacity(0.6),
-      textColor: Colors.black,
+      backgroundColor: secondaryColor,
+      borderColor: secondaryColor,
+      textColor: textColor,
     );
   }
 
 
   Widget shopSelectionButton(){
-    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Mağaza Seçimi", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviSubmitTaskShopPhotoSelectionScreen(context);}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor);
   }
 
   Widget showAddedPhotoButton(){
-    return ButtonWidget(text: "Eklenen Fotoğrafları Gör", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviTaskPhotoGalleryView(context, taskPhotos);}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black);
+    return ButtonWidget(text: "Eklenen Fotoğrafları Gör", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){naviTaskPhotoGalleryView(context, taskPhotos);}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor);
   }
 
   Widget inputForm(){
@@ -225,11 +226,11 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, value: SubmitTaskMainScreen.taskName, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskNameController, value: SubmitTaskMainScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, dateController: taskDeadlineController, value: SubmitTaskMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
+            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, dateController: taskDeadlineController, value: SubmitTaskMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, value: SubmitTaskMainScreen.taskDescription, paddingValue: 5,maxLines: 8),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskDescriptionController, value: SubmitTaskMainScreen.taskDescription, paddingValue: 5,maxLines: 8),
           ],
         ),
       ),
@@ -243,7 +244,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          TextWidget(text: "Yerinde yada Uzaktan?", size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          TextWidget(text: "Yerinde yada Uzaktan?", size: 20, fontWeight: FontWeight.w600, color: textColor),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -254,7 +255,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextWidget(text: "Yerinde", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                  TextWidget(text: "Yerinde", size: 20, fontWeight: FontWeight.w400, color: textColor),
                   Checkbox(value: inPlace, onChanged: (newvalue){setState(() {inPlace=newvalue!;remote=!newvalue;});})
                 ],
               ),
@@ -263,7 +264,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextWidget(text: "Uzaktan", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                  TextWidget(text: "Uzaktan", size: 20, fontWeight: FontWeight.w400, color: textColor),
                   Checkbox(value: remote, onChanged: (newvalue){setState(() {remote=newvalue!;inPlace=!newvalue;});})
                 ],
               ),

@@ -1,3 +1,4 @@
+import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -79,8 +80,8 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Mağaza Ziyareti Mesaisi'),
         ),
         body: SingleChildScrollView(
@@ -125,9 +126,9 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
           (isBS) ? naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
   Widget stopShiftButton(){
     return ButtonWidget(
@@ -147,9 +148,9 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,
-        backgroundColor: Colors.red.withOpacity(0.6),
-        borderColor: Colors.red.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: redColor,
+        borderColor: redColor,
+        textColor: textColor);
   }
 
 }

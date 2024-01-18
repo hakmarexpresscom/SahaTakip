@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _ShopVisitingProcessCardState extends State<ShopVisitingProcessCard> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-              color: Colors.orangeAccent,
+              color: primaryColor,
               width: 3
           )
       ),
@@ -40,7 +41,7 @@ class _ShopVisitingProcessCardState extends State<ShopVisitingProcessCard> {
               SizedBox(height: context.dynamicHeight(0.03),),
               Icon(widget.processIcon,size: 50,),
               SizedBox(height: context.dynamicHeight(0.04),),
-              TextWidget(text: widget.processName, size: 20, fontWeight: FontWeight.w600, color: Colors.black),
+              TextWidget(text: widget.processName, size: 20, fontWeight: FontWeight.w600, color: textColor),
             ],
           ),
         onTap: ()=>{widget.onTaps()})

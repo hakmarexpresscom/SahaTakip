@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/googleMap/googleMapNearShops.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/utils/distanceFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopCard.dart';
@@ -178,8 +179,8 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Çevre Mağazalar'),
         ),
         body: LayoutBuilder(
@@ -188,7 +189,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     nearShopsMainScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15),
                     SizedBox(height: deviceHeight*0.02,),
@@ -201,7 +202,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
                     SizedBox(height: deviceHeight*0.02,),
@@ -214,7 +215,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     nearShopsMainScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
                     SizedBox(height: deviceHeight*0.02,),
@@ -279,7 +280,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
   }
 
   Widget seeAllShops(){
-    return ButtonWidget(text: "Tümünü Haritada Görüntüle", heightConst: 0.06, widthConst: 0.7, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreenNearShops(currentLat: lat, currentLong: long,)));}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black);
+    return ButtonWidget(text: "Tümünü Haritada Görüntüle", heightConst: 0.06, widthConst: 0.7, size: 15, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreenNearShops(currentLat: lat, currentLong: long,)));}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor);
   }
 
 

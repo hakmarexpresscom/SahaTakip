@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -98,8 +99,8 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Navigasyon'),
         ),
         body: LayoutBuilder(
@@ -108,7 +109,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
@@ -120,7 +121,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
@@ -132,7 +133,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Column(
                   children: [
                     SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: Colors.black),
+                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),

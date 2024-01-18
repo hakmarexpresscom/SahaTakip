@@ -1,3 +1,4 @@
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/utils/forgetPasswordFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -85,9 +86,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.08,),
-            logo(),
             SizedBox(height: deviceHeight*0.03,),
+            logo(),
+            SizedBox(height: deviceHeight*0.01,),
             title(),
             SizedBox(height: deviceHeight*0.04,),
             TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: Colors.black),
@@ -144,9 +145,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   //sendPasswordMail(emailController.text,"M1234567.");
                 },
                 borderWidht: 1,
-                backgroundColor: Colors.lightGreen.withOpacity(0.6),
-                borderColor: Colors.lightGreen.withOpacity(0.6),
-                textColor: Colors.black
+                backgroundColor: secondaryColor,
+                borderColor: secondaryColor,
+                textColor: textColor
             )
           ],
         ),
@@ -166,17 +167,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           naviLoginMainScreen(context);
         },
         borderWidht: 3,
-        backgroundColor: Colors.orangeAccent,
-        borderColor: Colors.orangeAccent,
-        textColor: Colors.black);
+        backgroundColor: primaryColor,
+        borderColor: primaryColor,
+        textColor: textColor);
   }
   Widget title(){
-    return TextWidget(text: "Yeni Şifre Al", size: 35, fontWeight: FontWeight.w400, color: Colors.black);
+    return TextWidget(text: "Yeni Şifre Al", size: 35, fontWeight: FontWeight.w400, color: textColor);
   }
   Widget logo(){
     return Container(
-      height: deviceHeight*0.25,
-      width: deviceWidth*0.50,
+      height: deviceHeight*0.28,
+      width: deviceWidth*0.56,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(

@@ -12,6 +12,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../services/photoServices.dart';
 import '../../../../services/reportServices.dart';
+import '../../../../styles/styleConst.dart';
 import '../../../../utils/appStateManager.dart';
 import '../../../../utils/generalFunctions.dart';
 import '../../../../widgets/alert_dialog.dart';
@@ -147,8 +148,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         child:Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.indigo,
+              foregroundColor: appbarForeground,
+              backgroundColor: appbarBackground,
               title: const Text('Ziyaret Tespit Raporu'),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -248,9 +249,9 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           naviVisitingReportMainScreen(context, widget.shop_code);
           },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   Widget saveExternalTaskButton(){
@@ -287,9 +288,9 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           showReportTaskSubmitDialog(context);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   Widget addPhotoButton(){
@@ -304,9 +305,9 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           addPhoto(null, widget.shop_code, null, userID, null, "Rapor", null, '${constUrl}api/Fotograf');
           },
         borderWidht: 3,
-        backgroundColor: Colors.orangeAccent,
-        borderColor: Colors.orangeAccent,
-        textColor: Colors.black);
+        backgroundColor: primaryColor,
+        borderColor: primaryColor,
+        textColor: textColor);
   }
 
   Widget inputForm(){
@@ -322,11 +323,11 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskNameController, value: VisitingRaportMainScreen.taskName, paddingValue: 5,maxLines: 1),
+            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskNameController, value: VisitingRaportMainScreen.taskName, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, dateController: taskDeadlineController, value: VisitingRaportMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
+            TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, dateController: taskDeadlineController, value: VisitingRaportMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: Colors.black, borderColor: Colors.black, controller: taskDescriptionController, value: VisitingRaportMainScreen.taskDescription, paddingValue: 5,maxLines: 8),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskDescriptionController, value: VisitingRaportMainScreen.taskDescription, paddingValue: 5,maxLines: 8),
           ],
         ),
       ),

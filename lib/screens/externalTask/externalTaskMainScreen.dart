@@ -1,3 +1,4 @@
+import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -79,8 +80,8 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Harici İş'),
         ),
         body: SingleChildScrollView(
@@ -127,9 +128,9 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           naviExternalTasksListScreen(context);
           },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
   Widget addExternalWorkButton(){
     return ButtonWidget(
@@ -143,9 +144,9 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           naviEnterExternalTaskScreen(context);
           },
         borderWidht: 3,
-        backgroundColor: Colors.orangeAccent,
-        borderColor: Colors.orangeAccent,
-        textColor: Colors.black);
+        backgroundColor: primaryColor,
+        borderColor: primaryColor,
+        textColor: textColor);
   }
   Widget stopShiftButton(){
     return ButtonWidget(
@@ -165,9 +166,9 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,
-        backgroundColor: Colors.red.withOpacity(0.6),
-        borderColor: Colors.red.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: redColor,
+        borderColor: redColor,
+        textColor: textColor);
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -52,21 +53,21 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            RichTextWidget(title: " Görev ismi: ", text: widget.taskName, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+            RichTextWidget(title: " Görev ismi: ", text: widget.taskName, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
             SizedBox(height: context.dynamicHeight(0.02),),
-            (widget.taskType=="Harici")? RichTextWidget(title: " Görev bitiş saati: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start): RichTextWidget(title: " Görev bitiş tarihi: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+            (widget.taskType=="Harici")? RichTextWidget(title: " Görev bitiş saati: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start): RichTextWidget(title: " Görev bitiş tarihi: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
             SizedBox(height: context.dynamicHeight(0.02),),
-            RichTextWidget(title: " Görev detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+            RichTextWidget(title: " Görev detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
             SizedBox(height: context.dynamicHeight(0.05),),
-            (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+            (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor),
             SizedBox(height: context.dynamicHeight(0.1),),
             Container(
               width: context.dynamicWidth(0.85),
               child: TextFormFieldWidget(
                   text: "Cevap Notu",
                   borderWidht: 2,
-                  titleColor: Colors.black,
-                  borderColor: Colors.black,
+                  titleColor: textColor,
+                  borderColor: textColor,
                   controller: TaskDetailCard.answerNoteController,
                   value: TaskDetailCard.answerNoteController.text,
                   paddingValue: 5,
@@ -80,7 +81,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextWidget(text: "Tamamlandı", size: 20, fontWeight: FontWeight.w400, color: Colors.black),
+                TextWidget(text: "Tamamlandı", size: 20, fontWeight: FontWeight.w400, color: textColor),
                 Checkbox(
                     value: widget.isCompleted,
                     onChanged: (newvalue){
@@ -135,7 +136,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.00)):SizedBox(height: context.dynamicHeight(0.03)),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):widget.addPhotoButton,
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.00)):SizedBox(height: context.dynamicHeight(0.03)),
-            ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.lightGreen.withOpacity(0.6), textColor: Colors.black),
+            ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor),
           ]
     );
   }

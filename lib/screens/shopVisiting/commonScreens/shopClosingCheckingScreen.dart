@@ -1,5 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/shopClosingControlServices.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +48,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         child:Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.indigo,
+              foregroundColor: appbarForeground,
+              backgroundColor: appbarBackground,
               title: const Text('Mağaza Kapanış Kontrolü'),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -189,9 +190,9 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
           showFormFilledDialog(context,inShopClosingCheckingList);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   Widget saveButtonOutshop(){
@@ -221,9 +222,9 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
           showFormFilledDialog(context,outShopClosingCheckingList);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   showFormFilledDialog(BuildContext context, Map<String, int>list) {

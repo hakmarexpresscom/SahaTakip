@@ -1,4 +1,5 @@
 import 'package:deneme/constants/constants.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopVisitingProcessCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -46,8 +47,8 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Mağaza Ziyareti'),
         ),
         body: SingleChildScrollView(
@@ -190,10 +191,10 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
 
 
   Widget shopNameInfo(){
-    return TextWidget(text: splittedName[0]+"\n"+splittedName[1], size: 18, fontWeight: FontWeight.w600, color: Colors.black);
+    return TextWidget(text: splittedName[0]+"\n"+splittedName[1], size: 18, fontWeight: FontWeight.w600, color: textColor);
   }
   Widget shopCodeInfo(){
-    return TextWidget(text: "${widget.shop_code}", size: 20, fontWeight: FontWeight.w600, color: Colors.black);
+    return TextWidget(text: "${widget.shop_code}", size: 20, fontWeight: FontWeight.w600, color: textColor);
   }
   Widget stopVisitingButton(){
     return ButtonWidget(
@@ -208,9 +209,9 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
           },
         borderWidht: 1,
-        backgroundColor: Colors.red.withOpacity(0.6),
-        borderColor: Colors.red.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: redColor,
+        borderColor: redColor,
+        textColor: textColor);
   }
 
 }

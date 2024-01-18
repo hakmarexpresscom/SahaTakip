@@ -6,6 +6,7 @@ import '../../constants/constants.dart';
 import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../services/shiftServices.dart';
+import '../../styles/styleConst.dart';
 import '../../utils/appStateManager.dart';
 import '../../widgets/alert_dialog.dart';
 
@@ -36,8 +37,8 @@ class _WarningScreenState extends State<WarningScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Uyarı Ekranı'),
         ),
         body: Container(

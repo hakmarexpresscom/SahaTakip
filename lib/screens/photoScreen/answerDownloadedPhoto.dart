@@ -11,6 +11,7 @@ import '../../constants/pagesLists.dart';
 import '../../models/photo.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../services/photoServices.dart';
+import '../../styles/styleConst.dart';
 
 class AnswerDownloadedPhotoScreen extends StatefulWidget {
 
@@ -63,8 +64,8 @@ class _AnswerDownloadedPhotoScreenState extends State<AnswerDownloadedPhotoScree
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Cevap Fotoğrafı'),
         ),
         body: Container(

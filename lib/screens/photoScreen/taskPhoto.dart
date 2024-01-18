@@ -7,6 +7,7 @@ import 'package:photo_view/photo_view.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../models/photo.dart';
+import '../../styles/styleConst.dart';
 
 class TaskPhotoScreen extends StatefulWidget {
 
@@ -106,8 +107,8 @@ class _TaskPhotoScreenState extends State<TaskPhotoScreen> with TickerProviderSt
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Mağaza İçin Yüklenen Fotoğraf'),
         ),
         body: Container(

@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../rich_text_widget.dart';
@@ -29,7 +30,7 @@ class _TaskCardState extends State<TaskCard> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(
-                color: Colors.orangeAccent,
+                color: primaryColor,
                 width: 3
             )
         ),
@@ -47,11 +48,11 @@ class _TaskCardState extends State<TaskCard> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [Icon(Icons.assignment,size: 35,),],
               ),
-              TextWidget(text: " ${widget.taskName}", size: 20, fontWeight: FontWeight.w500, color: Colors.black),
+              TextWidget(text: " ${widget.taskName}", size: 20, fontWeight: FontWeight.w500, color: textColor),
               SizedBox(height: context.dynamicHeight(0.02),),
-              (widget.taskType=="Uzaktan") ? RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shop_code}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
+              (widget.taskType=="Uzaktan") ? RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shop_code}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
               (widget.taskType=="Uzaktan") ? SizedBox(height: context.dynamicHeight(0.02),) : SizedBox(height: context.dynamicHeight(0.00),),
-              RichTextWidget(title: " Görev atama tarihi: ", text: widget.taskAssignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start)
+              RichTextWidget(title: " Görev atama tarihi: ", text: widget.taskAssignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start)
             ],
           ),
         ),

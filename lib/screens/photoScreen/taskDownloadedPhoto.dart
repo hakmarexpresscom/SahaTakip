@@ -5,6 +5,7 @@ import 'package:photo_view/photo_view.dart';
 import '../../constants/constants.dart';
 import '../../models/photo.dart';
 import '../../services/photoServices.dart';
+import '../../styles/styleConst.dart';
 
 class TaskDownloadedPhotoScreen extends StatefulWidget {
 
@@ -58,8 +59,8 @@ class _TaskDownloadedPhotoScreenState extends State<TaskDownloadedPhotoScreen> w
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Görev Fotoğrafı'),
         ),
         body: Container(

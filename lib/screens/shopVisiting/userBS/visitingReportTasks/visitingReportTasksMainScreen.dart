@@ -1,4 +1,5 @@
 import 'package:deneme/constants/constants.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/material.dart';
 import '../../../../main.dart';
 import '../../../../models/incompleteTask.dart';
@@ -54,8 +55,8 @@ class _VisitingReportTaskMainScreenState extends State<VisitingReportTaskMainScr
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Ziyaret Raporu Görevleri'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),

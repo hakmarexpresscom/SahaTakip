@@ -2,6 +2,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/models/externalWork.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -96,8 +97,8 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Harici İş Detayı'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -145,7 +146,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       shop_code: 0,
                       report_id: 0,
                       photo_id: 0,
-                      addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+                      addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor),
                       image: null,
                       answer_photo_id: 0,
                       completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),

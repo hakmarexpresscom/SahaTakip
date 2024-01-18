@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
@@ -34,7 +35,7 @@ class _ShopPhotoCardState extends State<ShopPhotoCard> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-              color: Colors.orangeAccent,
+              color: primaryColor,
               width: 3
           )
       ),
@@ -59,15 +60,15 @@ class _ShopPhotoCardState extends State<ShopPhotoCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Checkbox(value: boxShopTaskPhoto.get(widget.shopCode.toString())[1], onChanged: (newvalue){setState(() {boxShopTaskPhoto.get(widget.shopCode.toString())[1]=newvalue!;});}),
-                TextWidget(text: "${widget.shopCode}", size: widget.textSizeCode, fontWeight: FontWeight.w600, color: Colors.black),
+                TextWidget(text: "${widget.shopCode}", size: widget.textSizeCode, fontWeight: FontWeight.w600, color: textColor),
               ],
             ),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
-            TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: Colors.black),
+            TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onAddPhotoTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onAddPhotoTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst4),),
-            ButtonWidget(text: "Fotoğrafı Gör", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onShowPhotoTaps();}, borderWidht: 1, backgroundColor: Colors.lightGreen.withOpacity(0.6), borderColor: Colors.transparent, textColor: Colors.black),
+            ButtonWidget(text: "Fotoğrafı Gör", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onShowPhotoTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
           ],
         ),
       ),

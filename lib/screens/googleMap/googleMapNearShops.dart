@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../constants/constants.dart';
+import '../../styles/styleConst.dart';
 
 class MapScreenNearShops extends StatefulWidget {
 
@@ -55,8 +56,8 @@ class _MyAppState extends State<MapScreenNearShops> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.indigo,
+          foregroundColor: appbarForeground,
+          backgroundColor: appbarBackground,
           title: const Text('Yakın Mağazaların Konumu'),
         ),
         body: GoogleMap(

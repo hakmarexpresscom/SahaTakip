@@ -1,4 +1,5 @@
 import 'package:deneme/styles/context_extension.dart';
+import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/material.dart';
 import '../button_widget.dart';
 import '../rich_text_widget.dart';
@@ -34,21 +35,21 @@ class _IncompleteTaskCheckingDetailCardState extends State<PastReportTaskDetailC
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          RichTextWidget(title: " Görev İsmi: ", text: widget.taskName, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev İsmi: ", text: widget.taskName, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          RichTextWidget(title: " Görev Bitiş Tarihi: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev Bitiş Tarihi: ", text: widget.taskDeadline, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          RichTextWidget(title: " Görev Atama Tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev Atama Tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          (widget.completionInfo==1)? RichTextWidget(title: " Görev Tamamlanma Tarihi: ", text: widget.completeDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
+          (widget.completionInfo==1)? RichTextWidget(title: " Görev Tamamlanma Tarihi: ", text: widget.completeDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
           (widget.completionInfo==1)?SizedBox(height: context.dynamicHeight(0.02),):SizedBox(height: context.dynamicHeight(0.0),),
-          RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shop_code}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shop_code}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          RichTextWidget(title: " Görev Türü: ", text: widget.taskType, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev Türü: ", text: widget.taskType, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          RichTextWidget(title: " Görev Detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev Detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          (widget.completionInfo==1)? (widget.answerNote==""||widget.answerNote==null) ? RichTextWidget(title: " Cevap Notu: ", text: "Cevap notu girilmemiş.", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : RichTextWidget(title: " Cevap Notu: ", text: widget.answerNote!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: Colors.black, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
+          (widget.completionInfo==1)? (widget.answerNote==""||widget.answerNote==null) ? RichTextWidget(title: " Cevap Notu: ", text: "Cevap notu girilmemiş.", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : RichTextWidget(title: " Cevap Notu: ", text: widget.answerNote!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
           (widget.completionInfo==1)?SizedBox(height: context.dynamicHeight(0.02),):SizedBox(height: context.dynamicHeight(0.0),),
           SizedBox(height: context.dynamicHeight(0.05),),
           Row(
@@ -56,7 +57,7 @@ class _IncompleteTaskCheckingDetailCardState extends State<PastReportTaskDetailC
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              (widget.completionInfo==1)?ButtonWidget(text: "Cevap Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: Colors.orangeAccent, borderColor: Colors.orangeAccent, textColor: Colors.black),
+              (widget.completionInfo==1)?ButtonWidget(text: "Cevap Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor),
             ],
           ),
         ]

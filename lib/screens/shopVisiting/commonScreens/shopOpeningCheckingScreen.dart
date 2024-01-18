@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/shopOpenCloseChekingLists.dart';
 import '../../../main.dart';
 import '../../../models/shopOpeningControl.dart';
+import '../../../styles/styleConst.dart';
 
 class ShopOpeningCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -47,8 +48,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         child:Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.indigo,
+              foregroundColor: appbarForeground,
+              backgroundColor: appbarBackground,
               title: const Text('Mağaza Açılış Kontrolü'),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -191,9 +192,9 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
           showFormFilledDialog(context,inShopOpeningCheckingList);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   Widget saveButtonOutshop(){
@@ -220,9 +221,9 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
           showFormFilledDialog(context,outShopOpeningCheckingList);
         },
         borderWidht: 1,
-        backgroundColor: Colors.lightGreen.withOpacity(0.6),
-        borderColor: Colors.lightGreen.withOpacity(0.6),
-        textColor: Colors.black);
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor);
   }
 
   showFormFilledDialog(BuildContext context, Map<String, int>list) {

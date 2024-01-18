@@ -76,19 +76,29 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     void pageCondition(){
+      DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
+      DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
+
+      bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
+
+      DateTime startTime2 = DateTime(now.year, now.month, now.day, 18, 31);
+      DateTime endTime2 = DateTime(now.year, now.month, now.day, 23, 59);
+
+      bool isWithinTimeRange2 = now.isAfter(startTime2) && now.isBefore(endTime2);
+
       if(boxStateManagement.get('isStoreVisit')==true){
         page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
       }
-      else if(boxStateManagement.get('isStartShopVisitWork')==true&&8<=now.hour&&now.hour<=18){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ShopVisitingMainScreen();
       }
-      else if(boxStateManagement.get('isStartExternalTaskWork')==true&&8<=now.hour&&now.hour<=18){
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ExternalTaskMainScreen();
       }
-      else if(boxStateManagement.get('isStartShopVisitWork')==true&&18<now.hour&&box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
-      else if(boxStateManagement.get('isStartShopVisitWork')==true&&box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
     }
