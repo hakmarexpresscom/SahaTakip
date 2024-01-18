@@ -46,7 +46,7 @@ class _TaskCardState extends State<PastReportCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [Icon(Icons.file_copy,size: 35,),],
             ),
-            TextWidget(text: widget.reportName, size: 20, fontWeight: FontWeight.w500, color: textColor),
+            TextWidget(text: widget.reportName, size: 20, fontWeight: FontWeight.w600, color: textColor),
             SizedBox(height: context.dynamicHeight(0.02),),
             RichTextWidget(title: " Oluşturulma tarihi: ", text: widget.createDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.center,textAlign: TextAlign.center),
             SizedBox(height: context.dynamicHeight(0.025),),

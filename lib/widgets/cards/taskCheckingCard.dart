@@ -48,7 +48,7 @@ class _TaskCardState extends State<TaskCheckingCard> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [Icon(Icons.assignment,size: 35,),],
               ),
-              TextWidget(text: " ${widget.taskName}", size: 20, fontWeight: FontWeight.w500, color: textColor),
+              TextWidget(text: " ${widget.taskName}", size: 20, fontWeight: FontWeight.w600, color: textColor),
               SizedBox(height: context.dynamicHeight(0.02),),
               RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shopCode}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
               SizedBox(height: context.dynamicHeight(0.02),),
