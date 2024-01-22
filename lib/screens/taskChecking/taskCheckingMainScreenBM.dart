@@ -202,7 +202,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                             child: Text(
                               groupListCompleteTask[groupNo],
                               style: const TextStyle(
-                                fontSize: 22.0,
+                                fontSize: 17,
                               ),
                             ),
                           ),
@@ -251,7 +251,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                             child: Text(
                               (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
                               style: const TextStyle(
-                                fontSize: 22.0,
+                                fontSize: 17,
                               ),
                             ),
                           ),
@@ -318,7 +318,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                 child: Text(
                                   groupListIncompleteTask[groupNo2],
                                   style: const TextStyle(
-                                    fontSize: 22.0,
+                                    fontSize: 17,
                                   ),
                                 ),
                               ),
@@ -367,7 +367,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                 child: Text(
                                   (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
                                   style: const TextStyle(
-                                    fontSize: 22.0,
+                                    fontSize: 17,
                                   ),
                                 ),
                               ),

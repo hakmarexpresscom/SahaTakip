@@ -263,12 +263,33 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
+          if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
+            // Show an alert dialog if either taskName or taskDeadline is empty
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Uyarı"),
+                  content: Text("Görev adı ve bitiş tarihi boş olamaz."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Tamam"),
+                    ),
+                  ],
+                );
+              },
+            );
+            return; // Exit the function if either field is empty
+          }
           await countReport("${constUrl}api/Rapor");
           await countIncompleteTask("${constUrl}api/TamamlanmamisGorev");
           await addReportTaskToDatabase(
               "${constUrl}api/TamamlanmamisGorev",
               taskNameController.text,
-              taskDescriptionController.text,
+              taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
               taskDeadlineController.text,
               widget.shop_code,

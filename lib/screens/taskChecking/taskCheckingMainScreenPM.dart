@@ -204,7 +204,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             child: Text(
                               taskListCompleteTask[taskType],
                               style: const TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17,
                               ),
                             ),
                           )
@@ -253,7 +253,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             child: Text(
                               (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
                               style: const TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17,
                               ),
                             ),
                           )
@@ -320,7 +320,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             child: Text(
                               taskListIncompleteTask[taskType2],
                               style: const TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17,
                               ),
                             ),
                           )
@@ -369,7 +369,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                             child: Text(
                               (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
                               style: const TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17,
                               ),
                             ),
                           )

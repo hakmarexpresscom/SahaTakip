@@ -36,7 +36,7 @@ void resetTaskPhotos(){
   taskPhotos=[];
 }
 
-addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl) async{
+addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl) async{
   for(int i=0;i<shopCodes.length;i++){
     if(boxShopTaskPhoto.get(shopCodes[i].toString())[1]==true){
       await countIncompleteTask(countTaskUrl);
@@ -50,7 +50,7 @@ addIncompleteTaskToDatabase(String countTaskUrl, String title, String detail, St
   }
 }
 
-addReportTaskToDatabase(String countTaskUrl, String title, String detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType, String updatePhotoUrl) async{
+addReportTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType, String updatePhotoUrl) async{
     await countIncompleteTask(countTaskUrl);
     if(photo_file.isNotEmpty){
       await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, photoCount+1, taskType, report_id, group_no, createTaskUrl);

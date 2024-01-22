@@ -166,11 +166,34 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         });
 
         try {
+
+          if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
+            // Show an alert dialog if either taskName or taskDeadline is empty
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Uyarı"),
+                  content: Text("Görev adı ve bitiş tarihi boş olamaz."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Tamam"),
+                    ),
+                  ],
+                );
+              },
+            );
+            return; // Exit the function if either field is empty
+          }
+
           // Wait for the completion of addIncompleteTaskToDatabase
           await addIncompleteTaskToDatabase(
             "${constUrl}api/TamamlanmamisGorev",
             taskNameController.text,
-            taskDescriptionController.text,
+            taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
             now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
             taskDeadlineController.text,
             null,
