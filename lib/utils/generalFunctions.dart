@@ -1,6 +1,7 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
 import 'package:deneme/services/photoServices.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import '../models/shop.dart';
 import '../services/shopServices.dart';
@@ -82,5 +83,14 @@ int calculateDaysBetweenDates(DateTime startDate, DateTime endDate) {
   return days;
 }
 
-
+void openAppleMaps(double latitude, double longitude) async {
+  // Apple Maps için bir URL oluşturun
+  final Uri appleMapsUrl = Uri.parse('https://maps.apple.com/?q=$latitude,$longitude');
+  // URL'yi başlatın
+  if (await canLaunchUrl(appleMapsUrl)) {
+    await launchUrl(appleMapsUrl);
+  } else {
+    throw 'Apple Maps açılamadı';
+  }
+}
 

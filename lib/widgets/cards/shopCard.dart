@@ -4,6 +4,8 @@ import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+import '../../utils/generalFunctions.dart';
 
 class ShopCard extends StatefulWidget {
 
@@ -30,14 +32,15 @@ class ShopCard extends StatefulWidget {
 class _ShopCardState extends State<ShopCard> {
 
   @override
+
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: primaryColor,
-          width: 3
-        )
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
+              color: primaryColor,
+              width: 3
+          )
       ),
       child: Container(
         height: context.dynamicHeight(widget.heightConst),
@@ -47,19 +50,37 @@ class _ShopCardState extends State<ShopCard> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Icon(widget.icon,size: 35,),],
-          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [Icon(widget.icon,size: 35,),],
+            ),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst1),),
-          TextWidget(text: widget.shopCode, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: textColor),
+            TextWidget(text: widget.shopCode, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
-          TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
+            TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Haritada Gör", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(targetLat: widget.lat, targetLong: widget.long)));}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
-        ],
+            ButtonWidget(
+                text: "Haritada Gör",
+                heightConst: 0.04,
+                widthConst: 0.35,
+                size: widget.textSizeButton,
+                radius: 20,
+                fontWeight: FontWeight.w500,
+                onTaps: (){
+                  if(Platform.isAndroid){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(targetLat: widget.lat, targetLong: widget.long)));
+                  }
+                  else if (Platform.isIOS){
+                    openAppleMaps(double.parse(widget.lat), double.parse(widget.long));
+                  }
+                },
+                borderWidht: 1,
+                backgroundColor: secondaryColor,
+                borderColor: Colors.transparent,
+                textColor: textColor),
+          ],
         ),
       ),
     );
