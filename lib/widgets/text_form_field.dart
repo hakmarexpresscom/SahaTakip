@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFormFieldWidget extends StatefulWidget{
   final String text;
@@ -9,6 +10,8 @@ class TextFormFieldWidget extends StatefulWidget{
   late String value;
   final double paddingValue;
   final int maxLines;
+  final int maxLength;
+  final String controllerString;
 
   TextFormFieldWidget({
     Key? key,
@@ -19,7 +22,9 @@ class TextFormFieldWidget extends StatefulWidget{
     required this.controller,
     required this.value,
     required this.paddingValue,
-    required this.maxLines
+    required this.maxLines,
+    required this.maxLength,
+    required this.controllerString
   }) : super(key: key);
 
   @override
@@ -31,6 +36,9 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   @override
   Widget build(BuildContext context){
     return TextFormField(
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(widget.maxLength),
+      ],
       maxLines: widget.maxLines,
       controller: widget.controller,
       autocorrect: false,
@@ -44,6 +52,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         contentPadding: EdgeInsets.all(widget.paddingValue),
         border: OutlineInputBorder(borderSide: BorderSide(color: widget.borderColor, width: widget.borderWidht)),
         hintText: widget.text,
+        counterText: '${widget.controllerString.length}/${widget.maxLength}',
       ),
       validator: (String? value) {
         if (value == null || value.isEmpty) {

@@ -8,13 +8,11 @@ import '../rich_text_widget.dart';
 
 class PastReportCard extends StatefulWidget {
 
-  late double heightConst;
-  late double widthConst;
   late String reportName;
   late String createDate;
   final VoidCallback onTaps;
 
-  PastReportCard({Key? key, required this.heightConst,required this.widthConst, required this.reportName,required this.createDate, required this.onTaps}): super(key: key);
+  PastReportCard({Key? key, required this.reportName,required this.createDate, required this.onTaps}): super(key: key);
 
   @override
   State<PastReportCard> createState() => _TaskCardState();
@@ -32,10 +30,7 @@ class _TaskCardState extends State<PastReportCard> {
               width: 3
           )
       ),
-      child: Container(
-        height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidth(widget.widthConst),
-        child: Column(
+      child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,8 +46,8 @@ class _TaskCardState extends State<PastReportCard> {
             RichTextWidget(title: " Oluşturulma tarihi: ", text: widget.createDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.center,textAlign: TextAlign.center),
             SizedBox(height: context.dynamicHeight(0.025),),
             ButtonWidget(text: "Rapor Detayları", heightConst: 0.04, widthConst: 0.35, size: 13, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
+            SizedBox(height: context.dynamicHeight(0.02),),
           ],
-        ),
       ),
     );
   }

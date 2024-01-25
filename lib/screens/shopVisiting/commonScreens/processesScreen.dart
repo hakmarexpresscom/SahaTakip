@@ -178,7 +178,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nTespit Raporu\nGirişi", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context,widget.shop_code);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret Tespit\nRaporu Girişi", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context,widget.shop_code);}),
                         ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa\nSayımı", processIcon: Icons.price_check,onTaps: (){naviCashCountingScreen(context, widget.shop_code, widget.shopName);}),
                       ]
                   ):Container(),
@@ -199,8 +199,8 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
   Widget stopVisitingButton(){
     return ButtonWidget(
         text: "Ziyareti Bitir",
-        heightConst: 0.05,
-        widthConst: 0.22,
+        heightConst: 0.055,
+        widthConst: 0.25,
         size: 15,
         radius: 20,
         fontWeight: FontWeight.w600,

@@ -22,7 +22,7 @@ class _TextWidgetState extends State<TextWidget> {
 
   @override
   Widget build(BuildContext context){
-    return Text(widget.text,style: TextStyle(fontSize: widget.size, fontWeight: widget.fontWeight, color: widget.color,),textAlign: TextAlign.center,);
+    return Text(widget.text,style: TextStyle(fontSize: widget.size, fontWeight: widget.fontWeight, color: widget.color,),textAlign: TextAlign.start,);
   }
 
 }

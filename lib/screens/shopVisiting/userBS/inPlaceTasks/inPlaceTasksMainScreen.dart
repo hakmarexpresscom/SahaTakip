@@ -93,7 +93,7 @@ class _InPlaceTaskMainScreenState extends State<InPlaceTaskMainScreen> with Tick
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TaskCard(heightConst: 0.15, widthConst: 0.95, taskName: snapshot.data![index].taskTitle, taskAssignmentDate: snapshot.data![index].taskAssigmentDate, taskType: snapshot.data![index].taskType , shop_code:snapshot.data![index].shopCode, onTaps: (){naviInPlaceTaskDetailScreen(context,snapshot.data![index].task_id);}),
+                        TaskCard(taskName: snapshot.data![index].taskTitle, taskAssignmentDate: snapshot.data![index].taskAssigmentDate, taskType: snapshot.data![index].taskType , shop_code:snapshot.data![index].shopCode, onTaps: (){naviInPlaceTaskDetailScreen(context,snapshot.data![index].task_id);}),
                         SizedBox(height: deviceHeight*0.005,),
                       ],
                     );

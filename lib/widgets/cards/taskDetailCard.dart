@@ -71,7 +71,9 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                   controller: TaskDetailCard.answerNoteController,
                   value: TaskDetailCard.answerNoteController.text,
                   paddingValue: 5,
-                  maxLines: 6
+                  maxLines: 6,
+                  maxLength: 300,
+                  controllerString: TaskDetailCard.answerNoteController.text
               ),
             ),
 

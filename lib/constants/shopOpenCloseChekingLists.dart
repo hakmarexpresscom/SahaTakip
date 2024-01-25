@@ -9,7 +9,7 @@ Map<String, int> inShopOpeningCheckingList = {
   "Kasa altı ve etrafında resmi evrak\nvar mı?":0,
   "WC ve lavabo muslukları kapalı mı?":0,
   "Kasalar temizlenmiş mi?":0,
-  "Mağaza anahtarları ilgili sorumluda mı?":0,
+  "Mağaza anahtarları ilgili\nsorumluda mı?":0,
   "Mutfak- lavabo temizliği yapılmış mı?":0,
   "Mağaza düzeni sabah satış için\nhazır mı?":0,
   "Ofis ve depo çöpkeri dökülmüş mü?":0,
@@ -24,10 +24,10 @@ Map<String, int> inShopOpeningCheckingList = {
 
 Map<String, int> outShopOpeningCheckingList = {
   "Alarm kurularak mağazaya giriş\nyapılıyor mu?":0,
-  "Mağaza yeterli personel ile açıldı mı?":0,
+  "Mağaza yeterli personel ile\naçıldı mı?":0,
   "Mağaza açılışından önce uygun\nzamanda gelindi mi?":0,
-  "Giriş-çıkış kapısı, kepenkler ve depo\nkapısı kapalı mı?":0,
-  "Mağaza anahtarları ilgili sorumluda mı?":0,
+  "Giriş-çıkış kapısı, kepenkler\nve depo kapısı kapalı mı?":0,
+  "Mağaza anahtarları ilgili\nsorumluda mı?":0,
 };
 
 Map<String, int> inShopClosingCheckingList = {
@@ -60,6 +60,6 @@ Map<String, int> outShopClosingCheckingList = {
   "Dolap aydınlatmaları ve perdeler\nkapatıldı mı?":0,
   "Çalışanlar mağazayı aynı anda mı\nterk ediyor?":0,
   "Giriş kapısı ve kepenkler zamanında\nkapatılıyor mu?":0,
-  "Son müşteri çıkışına eşlik ediliyor mu?":0,
+  "Son müşteri çıkışına eşlik ediliyor\nmu?":0,
   "Kasa çıkışları zamanında sorumlu\neşliğinde alınıyor mu?":0,
 };
