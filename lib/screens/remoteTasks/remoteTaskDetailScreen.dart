@@ -211,7 +211,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text("Uyarı"),
-                                    content: Text("Tamamlandı kutucuğunu işaretlemeniz gerekiyor!"),
+                                    content: Text("Görev Tamamlandı kutucuğunu işaretlemeniz gerekiyor!"),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
@@ -226,7 +226,6 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                               return;
                             }
                             else if(taskIsCompleted==true){
-                              print("elifffff");
                               createCompleteTask(
                                   snapshot.data!.task_id,
                                   userID,

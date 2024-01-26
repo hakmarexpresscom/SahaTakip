@@ -61,6 +61,51 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             SizedBox(height: context.dynamicHeight(0.05),),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):ButtonWidget(text: "Fotoğrafı Görüntüle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTapsShowPhoto();}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor),
             SizedBox(height: context.dynamicHeight(0.1),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextWidget(text: "Görev Tamamlandı", size: 20, fontWeight: FontWeight.w400, color: textColor),
+                Checkbox(
+                    value: widget.isCompleted,
+                    onChanged: (newvalue){
+                      setState(() {widget.isCompleted=newvalue!;taskIsCompleted=newvalue;});
+                      if(widget.taskType=="Harici"){
+                        updateCompletionInfoExternalWork(
+                            widget.id,
+                            widget.taskName,
+                            widget.taskDescription,
+                            widget.assignmentDate,
+                            widget.taskDeadline,
+                            widget.user_id,
+                            null,
+                            (widget.isCompleted)?1:0,
+                            widget.assignmentHour,
+                            '${constUrl}api/HariciIs/${widget.id}'
+                        );
+                      }
+                      else if(widget.taskType=="Uzaktan"||widget.taskType=="Yerinde"||widget.taskType=="Rapor"){
+                        updateCompletionInfoIncompleteTask(
+                            widget.id,
+                            widget.taskName,
+                            widget.taskDescription,
+                            widget.assignmentDate,
+                            widget.taskDeadline,
+                            widget.shop_code,
+                            widget.photo_id,
+                            widget.taskType,
+                            widget.report_id,
+                            (widget.isCompleted)?1:0,
+                            widget.group_no,
+                            '${constUrl}api/TamamlanmamisGorev/${widget.id}'
+                        );
+                      }
+                    }
+                )
+              ],
+            ),
+            SizedBox(height: context.dynamicHeight(0.02),),
             Container(
               width: context.dynamicWidth(0.85),
               child: TextFormFieldWidget(
@@ -71,58 +116,12 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                   controller: TaskDetailCard.answerNoteController,
                   value: TaskDetailCard.answerNoteController.text,
                   paddingValue: 5,
-                  maxLines: 6,
-                  maxLength: 300,
+                  maxLines: 8,
+                  maxLength: 250,
                   controllerString: TaskDetailCard.answerNoteController.text
               ),
             ),
-
-            SizedBox(height: context.dynamicHeight(0.03),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextWidget(text: "Tamamlandı", size: 20, fontWeight: FontWeight.w400, color: textColor),
-                Checkbox(
-                    value: widget.isCompleted,
-                    onChanged: (newvalue){
-                      setState(() {widget.isCompleted=newvalue!;taskIsCompleted=newvalue;});
-                      if(widget.taskType=="Harici"){
-                        updateCompletionInfoExternalWork(
-                          widget.id,
-                          widget.taskName,
-                          widget.taskDescription,
-                          widget.assignmentDate,
-                          widget.taskDeadline,
-                            widget.user_id,
-                            null,
-                          (widget.isCompleted)?1:0,
-                          widget.assignmentHour,
-                          '${constUrl}api/HariciIs/${widget.id}'
-                        );
-                      }
-                      else if(widget.taskType=="Uzaktan"||widget.taskType=="Yerinde"||widget.taskType=="Rapor"){
-                        updateCompletionInfoIncompleteTask(
-                          widget.id,
-                          widget.taskName,
-                          widget.taskDescription,
-                          widget.assignmentDate,
-                          widget.taskDeadline,
-                          widget.shop_code,
-                          widget.photo_id,
-                          widget.taskType,
-                          widget.report_id,
-                            (widget.isCompleted)?1:0,
-                            widget.group_no,
-                            '${constUrl}api/TamamlanmamisGorev/${widget.id}'
-                        );
-                      }
-                    }
-                    )
-              ],
-            ),
-            SizedBox(height: context.dynamicHeight(0.05)),
+            SizedBox(height: context.dynamicHeight(0.03)),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.00)):widget.image != null ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ClipRRect(
@@ -138,7 +137,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.00)):SizedBox(height: context.dynamicHeight(0.03)),
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.03),):widget.addPhotoButton,
             (widget.taskType=="Harici")?SizedBox(height: context.dynamicHeight(0.00)):SizedBox(height: context.dynamicHeight(0.03)),
-            ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor),
+            ButtonWidget(text: "Görevi Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor),
           ]
     );
   }

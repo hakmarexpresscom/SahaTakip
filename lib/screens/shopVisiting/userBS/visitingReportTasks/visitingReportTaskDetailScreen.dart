@@ -159,18 +159,43 @@ class _VisitingReportTaskDetailScreenState extends State<VisitingReportTaskDetai
                       taskType: snapshot.data!.taskType,
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                       onTaps: (){
-                        createCompleteTask(
-                            snapshot.data!.task_id,
-                            userID,
-                            now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                            (photo_file.isEmpty)?null:photoCount+1,
-                            TaskDetailCard.answerNoteController.text,
-                            '${constUrl}api/TamamlanmisGorev'
-                        );
-                        if(photo_file.isNotEmpty){
-                          updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "RaporCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
+                        if(taskIsCompleted==false){
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Uyarı"),
+                                content: Text("Görev Tamamlandı kutucuğunu işaretlemeniz gerekiyor!"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Tamam"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          return;
                         }
-                        naviVisitingReportTaskMainScreen(context, box.get("currentShopID"));
+                        else if(taskIsCompleted==true){
+                          createCompleteTask(
+                              snapshot.data!.task_id,
+                              userID,
+                              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                              (photo_file.isEmpty)?null:photoCount+1,
+                              TaskDetailCard.answerNoteController.text,
+                              '${constUrl}api/TamamlanmisGorev'
+                          );
+                          if(photo_file.isNotEmpty){
+                            updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "RaporCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
+                          }
+                          setState(() {
+                            taskIsCompleted=false;
+                          });
+                          naviVisitingReportTaskMainScreen(context, box.get("currentShopID"));
+                        }
                       },
                       onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
                       id: snapshot.data!.task_id,

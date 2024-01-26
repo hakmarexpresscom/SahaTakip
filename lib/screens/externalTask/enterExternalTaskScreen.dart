@@ -137,7 +137,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
             SizedBox(height: deviceHeight*0.03,),
             TextFormFieldWidget(text: "Görev Bitiş Saati", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDeadlineController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1,maxLength: 5,controllerString: taskNameController.text),
             SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 300,controllerString: taskNameController.text),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 250,controllerString: taskNameController.text),
           ],
         ),
       ),
