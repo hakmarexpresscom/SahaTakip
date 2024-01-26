@@ -78,6 +78,8 @@ List<dynamic> createShopFilterList() {
 String email="";
 String password="";
 
+bool taskIsCompleted = false;
+
 
 
 

@@ -87,7 +87,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                 Checkbox(
                     value: widget.isCompleted,
                     onChanged: (newvalue){
-                      setState(() {widget.isCompleted=newvalue!;});
+                      setState(() {widget.isCompleted=newvalue!;taskIsCompleted=newvalue;});
                       if(widget.taskType=="Harici"){
                         updateCompletionInfoExternalWork(
                           widget.id,
