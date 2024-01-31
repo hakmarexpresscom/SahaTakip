@@ -1,4 +1,3 @@
-import 'package:deneme/screens/googleMap/googleMap.dart';
 import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
@@ -9,8 +8,6 @@ import '../../utils/generalFunctions.dart';
 
 class ShopCard extends StatefulWidget {
 
-  late double heightConst;
-  late double widthConst;
   late double sizedBoxConst1;
   late double sizedBoxConst2;
   late double sizedBoxConst3;
@@ -23,7 +20,7 @@ class ShopCard extends StatefulWidget {
   late double textSizeName;
   late double textSizeButton;
 
-  ShopCard({Key? key, required this.heightConst,required this.widthConst, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3,required this.shopName, required this.shopCode, required this.lat, required this.long, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName}): super(key: key);
+  ShopCard({Key? key, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3,required this.shopName, required this.shopCode, required this.lat, required this.long, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName}): super(key: key);
 
   @override
   State<ShopCard> createState() => _ShopCardState();
@@ -42,10 +39,7 @@ class _ShopCardState extends State<ShopCard> {
               width: 3
           )
       ),
-      child: Container(
-        height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidth(widget.widthConst),
-        child: Column(
+      child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +64,7 @@ class _ShopCardState extends State<ShopCard> {
                 fontWeight: FontWeight.w500,
                 onTaps: (){
                   if(Platform.isAndroid){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(targetLat: widget.lat, targetLong: widget.long)));
+                    openGoogleMaps(double.parse(widget.lat), double.parse(widget.long));
                   }
                   else if (Platform.isIOS){
                     openAppleMaps(double.parse(widget.lat), double.parse(widget.long));
@@ -79,9 +73,10 @@ class _ShopCardState extends State<ShopCard> {
                 borderWidht: 1,
                 backgroundColor: secondaryColor,
                 borderColor: Colors.transparent,
-                textColor: textColor),
+                textColor: textColor
+            ),
+            SizedBox(height: context.dynamicHeight(0.02),),
           ],
-        ),
       ),
     );
   }

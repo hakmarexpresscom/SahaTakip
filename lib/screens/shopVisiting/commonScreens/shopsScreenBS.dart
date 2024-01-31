@@ -204,24 +204,24 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
              if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
                return TabBarView(
                  children: <Widget>[
-                   ownShopsScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15),
-                   partnerShopsScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15)
+                   ownShopsScreenUI(0.00, 0.015, 0.02, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.015, 0.02, 20, 18, 15)
                  ],
                );
              }
              else if(651<constraints.maxWidth && constraints.maxWidth<1000){
                return TabBarView(
                  children: <Widget>[
-                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
-                   ((deviceHeight-deviceWidth)<150) ? partnerShopsScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : partnerShopsScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
+                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
+                   ((deviceHeight-deviceWidth)<150) ? partnerShopsScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : partnerShopsScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
                  ],
                );
              }
              else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
                return TabBarView(
                  children: <Widget>[
-                   ownShopsScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
-                   partnerShopsScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
+                   ownShopsScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
+                   partnerShopsScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
                  ],
                );
              }
@@ -234,7 +234,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     ));
   }
 
-  Widget ownShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
+  Widget ownShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double textSizeCode, double textSizeName, double textSizeButton){
     return Flex(
         direction: Axis.vertical,
         children:[
@@ -259,8 +259,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   sizedBoxConst1: sizedBoxConst1,
                                   sizedBoxConst2: sizedBoxConst2,
                                   sizedBoxConst3: sizedBoxConst3,
-                                  heightConst: heightConst,
-                                  widthConst: widthConst,
                                   textSizeCode: textSizeCode,
                                   textSizeName: textSizeName,
                                   textSizeButton: textSizeButton,
@@ -269,7 +267,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: (){
-                                    /*if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=50.0) {
+                                    if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=50.0) {
                                       storeVisitManager.startStoreVisit();
                                       box.put("currentShopName", snapshot.data![index].shopName);
                                       box.put("currentShopID", snapshot.data![index].shopCode);
@@ -277,11 +275,11 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     }
                                     else{
                                       showShopDistanceDialog(context);
-                                    }*/
-                                    storeVisitManager.startStoreVisit();
+                                    }
+                                    /*storeVisitManager.startStoreVisit();
                                     box.put("currentShopName", snapshot.data![index].shopName);
                                     box.put("currentShopID", snapshot.data![index].shopCode);
-                                    naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                    naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);*/
                                   }
                                 )
                               ]
@@ -313,7 +311,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     );
   }
 
-  Widget partnerShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton) {
+  Widget partnerShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double textSizeCode, double textSizeName, double textSizeButton) {
     return Flex(
         direction: Axis.vertical,
         children: [
@@ -338,8 +336,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     sizedBoxConst1: sizedBoxConst1,
                                     sizedBoxConst2: sizedBoxConst2,
                                     sizedBoxConst3: sizedBoxConst3,
-                                    heightConst: heightConst,
-                                    widthConst: widthConst,
                                     textSizeCode: textSizeCode,
                                     textSizeName: textSizeName,
                                     textSizeButton: textSizeButton,
@@ -348,7 +344,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     lat: snapshot.data![index].Lat,
                                     long: snapshot.data![index].Long,
                                     onTaps: (){
-                                      /*if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) {
+                                      if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) {
                                         storeVisitManager.startStoreVisit();
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);
@@ -356,11 +352,11 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       }
                                       else{
                                         showShopDistanceDialog(context);
-                                      }*/
-                                      storeVisitManager.startStoreVisit();
+                                      }
+                                      /*storeVisitManager.startStoreVisit();
                                       box.put("currentShopName", snapshot.data![index].shopName);
                                       box.put("currentShopID", snapshot.data![index].shopCode);
-                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);*/
                                     }
                                   )
                                 ]

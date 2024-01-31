@@ -13,6 +13,7 @@ import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../models/shop.dart';
 import '../../services/shopServices.dart';
+import '../../widgets/cards/nearShopCard.dart';
 
 class NearShopsMainScreen extends StatefulWidget {
   const NearShopsMainScreen({super.key});
@@ -191,7 +192,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     SizedBox(height: deviceHeight*0.03,),
                     TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
-                    nearShopsMainScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15),
+                    nearShopsMainScreenUI(0.00, 0.015, 0.015, 0.02, 20, 18, 15),
                     SizedBox(height: deviceHeight*0.02,),
                     seeAllShops(),
                     SizedBox(height: deviceHeight*0.02,),
@@ -204,7 +205,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     SizedBox(height: deviceHeight*0.03,),
                     TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
-                    ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
+                    ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.02, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.015, 30, 25, 20),
                     SizedBox(height: deviceHeight*0.02,),
                     seeAllShops(),
                     SizedBox(height: deviceHeight*0.02,),
@@ -217,7 +218,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     SizedBox(height: deviceHeight*0.03,),
                     TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
-                    nearShopsMainScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
+                    nearShopsMainScreenUI(0.00, 0.01, 0.01, 0.015, 20, 18, 15),
                     SizedBox(height: deviceHeight*0.02,),
                     seeAllShops(),
                     SizedBox(height: deviceHeight*0.02,),
@@ -234,7 +235,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
   }
 
 
-  Widget nearShopsMainScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
+  Widget nearShopsMainScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double sizedBoxConst4, double textSizeCode, double textSizeName, double textSizeButton){
     return Expanded(child: FutureBuilder<List<Shop>>(
         future: futureShopList,
         builder: (context, snapshot){
@@ -251,7 +252,21 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:<Widget>[
-                        ShopCard(icon: Icons.near_me,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long),
+                        NearShopCard(
+                            icon: Icons.near_me,
+                            sizedBoxConst1: sizedBoxConst1,
+                            sizedBoxConst2: sizedBoxConst2,
+                            sizedBoxConst3: sizedBoxConst3,
+                            sizedBoxConst4: sizedBoxConst4,
+                            textSizeCode: textSizeCode,
+                            textSizeName: textSizeName,
+                            textSizeButton: textSizeButton,
+                            shopName: snapshot.data![index].shopName,
+                            shopCode: snapshot.data![index].shopCode.toString(),
+                            lat: snapshot.data![index].Lat,
+                            long: snapshot.data![index].Long,
+                            distance: ((getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))/1000.0)+1.0).toStringAsFixed(2).toString()
+                        ),
                       ]
                   );
                 }

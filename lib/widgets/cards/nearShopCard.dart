@@ -3,12 +3,15 @@ import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+import '../../utils/generalFunctions.dart';
 
-class VisitingShopCard extends StatefulWidget {
+class NearShopCard extends StatefulWidget {
 
   late double sizedBoxConst1;
   late double sizedBoxConst2;
   late double sizedBoxConst3;
+  late double sizedBoxConst4;
   late String shopName;
   late String shopCode;
   late String lat;
@@ -17,29 +20,18 @@ class VisitingShopCard extends StatefulWidget {
   late double textSizeCode;
   late double textSizeName;
   late double textSizeButton;
-  final VoidCallback onTaps;
+  late String distance;
 
-  VisitingShopCard({Key? key,
-    required this.sizedBoxConst1,
-    required this.sizedBoxConst2,
-    required this.sizedBoxConst3,
-    required this.shopName,
-    required this.shopCode,
-    required this.lat,
-    required this.long,
-    required this.icon,
-    required this.textSizeCode,
-    required this.textSizeButton,
-    required this.textSizeName,
-    required this.onTaps}): super(key: key);
+  NearShopCard({Key? key, required this.sizedBoxConst1, required this.sizedBoxConst2, required this.sizedBoxConst3,required this.sizedBoxConst4,required this.shopName, required this.shopCode, required this.lat, required this.long, required this.icon, required this.textSizeCode, required this.textSizeButton, required this.textSizeName, required this.distance}): super(key: key);
 
   @override
-  State<VisitingShopCard> createState() => _VisitingShopCardState();
+  State<NearShopCard> createState() => _ShopCardState();
 }
 
-class _VisitingShopCardState extends State<VisitingShopCard> {
+class _ShopCardState extends State<NearShopCard> {
 
   @override
+
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -65,11 +57,31 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
             TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Ziyarete Başla", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
+            TextWidget(text: "Mağazaya uzaklığınız: ${widget.distance} km", size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
+            SizedBox(height: context.dynamicHeight(widget.sizedBoxConst4),),
+            ButtonWidget(
+                text: "Haritada Gör",
+                heightConst: 0.04,
+                widthConst: 0.35,
+                size: widget.textSizeButton,
+                radius: 20,
+                fontWeight: FontWeight.w500,
+                onTaps: (){
+                  if(Platform.isAndroid){
+                    openGoogleMaps(double.parse(widget.lat), double.parse(widget.long));
+                  }
+                  else if (Platform.isIOS){
+                    openAppleMaps(double.parse(widget.lat), double.parse(widget.long));
+                  }
+                },
+                borderWidht: 1,
+                backgroundColor: secondaryColor,
+                borderColor: Colors.transparent,
+                textColor: textColor
+            ),
             SizedBox(height: context.dynamicHeight(0.02),),
           ],
-      ),
+        ),
     );
   }
 }
-

@@ -94,3 +94,14 @@ void openAppleMaps(double latitude, double longitude) async {
   }
 }
 
+void openGoogleMaps(double latitude, double longitude) async {
+  // Google Maps URL'sini oluşturun
+  final Uri googleMapsUrl = Uri.parse('https://www.google.com/maps/place/$latitude,$longitude');
+  // URL'yi başlat
+  if (await canLaunchUrl(googleMapsUrl)) {
+    await launchUrl(googleMapsUrl);
+  } else {
+    throw 'Google Maps\'i başlatılamıyor.';
+  }
+}
+

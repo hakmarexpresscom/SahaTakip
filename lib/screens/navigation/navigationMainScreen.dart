@@ -113,7 +113,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
-                    navigationMainScreenUI(0.00, 0.015, 0.02, 0.22, 0.80, 20, 18, 15)
+                    navigationMainScreenUI(0.00, 0.015, 0.02, 20, 18, 15)
                   ]
               );
             }
@@ -125,7 +125,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
-                    ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 0.22, 0.60, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 0.19, 0.70, 30, 25, 20),
+                    ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
                   ]
               );
             }
@@ -137,7 +137,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                     SizedBox(height: deviceHeight*0.03,),
                     searchBar(),
                     SizedBox(height: deviceHeight*0.03,),
-                    navigationMainScreenUI(0.00, 0.01, 0.015, 0.19, 0.80, 20, 18, 15),
+                    navigationMainScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
                   ]
               );
             }
@@ -150,7 +150,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
     );
   }
   
-  Widget navigationMainScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double heightConst, double widthConst, double textSizeCode, double textSizeName, double textSizeButton){
+  Widget navigationMainScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double textSizeCode, double textSizeName, double textSizeButton){
     return Expanded(
         child: FutureBuilder<List<Shop>>(
           future: futureShopList,
@@ -168,7 +168,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children:<Widget>[
-                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                           ]
                       );
                     }
@@ -190,7 +190,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children:<Widget>[
-                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3,heightConst: heightConst, widthConst: widthConst, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
                           ]
                       );
                     }
