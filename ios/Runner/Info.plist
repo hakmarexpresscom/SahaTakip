@@ -3,7 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Your location description goes here</string>
+    <string>We need access to your location for providing location-based services.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your gallery for uploading photos.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera for taking photos.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to your microphone (about camera)</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need access to your gallery for uploading photos.</string>
     <key>io.flutter.embedded_views_preview</key>
     <string>YES</string>
 	<key>CFBundleDevelopmentRegion</key>
