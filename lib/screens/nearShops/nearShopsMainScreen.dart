@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/screens/googleMap/googleMapNearShops.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/utils/distanceFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
-import 'package:deneme/widgets/cards/shopCard.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -193,9 +193,9 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     nearShopsMainScreenUI(0.00, 0.015, 0.015, 0.02, 20, 18, 15),
-                    SizedBox(height: deviceHeight*0.02,),
-                    seeAllShops(),
-                    SizedBox(height: deviceHeight*0.02,),
+                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                    (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
+                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
                   ]
               );
             }
@@ -207,8 +207,9 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     SizedBox(height: deviceHeight*0.03,),
                     ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.02, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.015, 30, 25, 20),
                     SizedBox(height: deviceHeight*0.02,),
-                    seeAllShops(),
-                    SizedBox(height: deviceHeight*0.02,),
+                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                    (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
+                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
                   ]
               );
             }
@@ -219,9 +220,9 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                     TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                     SizedBox(height: deviceHeight*0.03,),
                     nearShopsMainScreenUI(0.00, 0.01, 0.01, 0.015, 20, 18, 15),
-                    SizedBox(height: deviceHeight*0.02,),
-                    seeAllShops(),
-                    SizedBox(height: deviceHeight*0.02,),
+                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                    (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
+                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
                   ]
               );
             }
