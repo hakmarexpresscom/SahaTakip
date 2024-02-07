@@ -17,6 +17,12 @@ logout(BuildContext context) async {
   boxShopTaskPhoto.clear();
   box.put('currentShopName', "");
   box.put('currentShopID', 0);
+  box.put("visitingStartHour", 0);
+  box.put("visitingStartMinute", 0);
+  box.put("visitingStartSecond", 0);
+  box.put("visitingFinishHour", 0);
+  box.put("visitingFinishMinute", 0);
+  box.put("visitingFinishSecond", 0);
   box.put("startHour",0);
   box.put("startMinute",0);
   box.put("startSecond",0);

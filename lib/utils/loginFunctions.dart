@@ -51,6 +51,13 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
+    box.put("visitingStartHour",0);
+    box.put("visitingStartMinute",0);
+    box.put("visitingStartSecond",0);
+    box.put("visitingFinishHour",0);
+    box.put("visitingFinishMinute",0);
+    box.put("visitingFinishSecond",0);
+
     box.put("startHour",0);
     box.put("startMinute",0);
     box.put("startSecond",0);
@@ -85,9 +92,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("isBS",false);
     isBS=box.get("isBS");
 
-    box.put("urlShopFilter","/byPmId?pm_id");
-    urlShopFilter = box.get("urlShopFilter");
-
     box.put("urlWorkFilter","filterHariciIs2?pm_id");
     urlWorkFilter = box.get("urlWorkFilter");
 
@@ -99,6 +103,13 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("currentShopName","");
     box.put("currentShopID",0);
+
+    box.put("visitingStartHour",0);
+    box.put("visitingStartMinute",0);
+    box.put("visitingStartSecond",0);
+    box.put("visitingFinishHour",0);
+    box.put("visitingFinishMinute",0);
+    box.put("visitingFinishSecond",0);
 
     box.put("startHour",0);
     box.put("startMinute",0);

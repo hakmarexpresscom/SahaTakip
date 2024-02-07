@@ -1,4 +1,5 @@
 import 'package:deneme/constants/constants.dart';
+import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/shopVisitingProcessCard.dart';
@@ -6,6 +7,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import '../../../main.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/appStateManager.dart';
 
@@ -204,8 +206,13 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
         size: 15,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
+        onTaps: () async{
           storeVisitManager.endStoreVisit();
+          box.put("visitingFinishHour",DateTime.now().hour);
+          box.put("visitingFinishMinute",DateTime.now().minute);
+          box.put("visitingFinishSecond",DateTime.now().second);
+          await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+          await createVisitingDurations(box.get('currentShopID'), (isBS==true)?userID:null, (isBS==true)?null:userID, box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(), box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(), "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}", "${constUrl}api/ZiyaretSureleri");
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
           },
         borderWidht: 1,

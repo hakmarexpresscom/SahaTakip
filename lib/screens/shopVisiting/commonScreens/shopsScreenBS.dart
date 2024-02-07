@@ -38,8 +38,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
   late double deviceHeight;
   late double deviceWidth;
 
-  DateTime now = DateTime.now();
-
   late AnimationController controller;
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
@@ -271,15 +269,17 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       storeVisitManager.startStoreVisit();
                                       box.put("currentShopName", snapshot.data![index].shopName);
                                       box.put("currentShopID", snapshot.data![index].shopCode);
+                                      box.put("visitingStartHour", 0);
+                                      box.put("visitingStartMinute", 0);
+                                      box.put("visitingStartSecond", 0);
+                                      box.put("visitingStartHour", DateTime.now().hour);
+                                      box.put("visitingStartMinute", DateTime.now().minute);
+                                      box.put("visitingStartSecond", DateTime.now().second);
                                       naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                     }
                                     else{
                                       showShopDistanceDialog(context);
                                     }
-                                    /*storeVisitManager.startStoreVisit();
-                                    box.put("currentShopName", snapshot.data![index].shopName);
-                                    box.put("currentShopID", snapshot.data![index].shopCode);
-                                    naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);*/
                                   }
                                 )
                               ]
