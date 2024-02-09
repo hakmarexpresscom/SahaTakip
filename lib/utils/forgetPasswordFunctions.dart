@@ -73,17 +73,19 @@ findPassword(String user, String email,BuildContext context) async {
   }
 }
 
-sendPasswordMail(String email, String password) async {
-  String username = 'bizzuygulamasi@hakmarmagazacilik.com.tr';
+sendPasswordMail(String email, String newPW) async {
 
-  final smtpServer = SmtpServer("172.23.21.41",port: 25, ssl: false,ignoreBadCertificate: true);
+  String username = 'bizz@hakmarmagazacilik.com.tr';
+  String password = 'Qur11738';
+
+  final smtpServer = hotmail(username, password);
 
   final message = Message()
     ..from = Address(username, 'Bizz Uygulaması')
     ..recipients.add(email)
     ..subject = 'Uygulama Şifreniz'
     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-    ..html = "<p>Bizz uygulaması şifreniz: $password </p>";
+    ..html = "<p>Bizz uygulaması şifreniz: $newPW </p>";
 
   try {
     final sendReport = await send(message, smtpServer);
