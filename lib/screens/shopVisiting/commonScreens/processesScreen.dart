@@ -10,6 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../main.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/appStateManager.dart';
+import '../../../utils/generalFunctions.dart';
 
 class ShopVisitingProcessesScreen extends StatefulWidget {
   int shop_code = 0;
@@ -211,8 +212,18 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           box.put("visitingFinishHour",DateTime.now().hour);
           box.put("visitingFinishMinute",DateTime.now().minute);
           box.put("visitingFinishSecond",DateTime.now().second);
+          List<dynamic> tarih = box.get("shiftDate").split("-");
           await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-          await createVisitingDurations(box.get('currentShopID'), (isBS==true)?userID:null, (isBS==true)?null:userID, box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(), box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(), "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}", "${constUrl}api/ZiyaretSureleri");
+          await createVisitingDurations(
+              box.get('currentShopID'),
+              (isBS==true)?userID:null,
+              (isBS==true)?null:userID,
+              box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(),
+              box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(),
+              box.get("shiftDate"),
+              calculateElapsedTime(DateTime(tarih[0],tarih[1],tarih[2],box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(tarih[0],tarih[1],tarih[2],box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0)),
+              "${constUrl}api/ZiyaretSureleri"
+              );
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
           },
         borderWidht: 1,

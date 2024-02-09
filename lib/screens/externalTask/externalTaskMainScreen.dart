@@ -162,7 +162,17 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           box.put("finishMinute",DateTime.now().minute);
           box.put("finishSecond",DateTime.now().second);
           await countShift("${constUrl}api/Mesai");
-          await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Harici İş",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),"${constUrl}api/mesai");
+          await createShift(
+              shiftCount+1,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              "Harici İş",
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
+              DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),
+              "sure",
+              "${constUrl}api/mesai"
+          );
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,

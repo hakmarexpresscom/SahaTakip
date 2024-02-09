@@ -177,6 +177,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               box.put("startHour",0);
               box.put("startMinute",0);
               box.put("startSecond",0);
+              box.put("shiftDate","");
               box.put("startHour",DateTime.now().hour);
               box.put("startMinute",DateTime.now().minute);
               box.put("startSecond",DateTime.now().second);
@@ -190,6 +191,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               box.put("startHour",0);
               box.put("startMinute",0);
               box.put("startSecond",0);
+              box.put("shiftDate","");
               box.put("startHour",DateTime.now().hour);
               box.put("startMinute",DateTime.now().minute);
               box.put("startSecond",DateTime.now().second);

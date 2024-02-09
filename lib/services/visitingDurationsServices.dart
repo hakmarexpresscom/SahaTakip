@@ -45,7 +45,7 @@ Future<List<VisitingDurations>> fetchVisitingDurations3(String url) async {
   }
 }
 
-Future<VisitingDurations> createVisitingDurations(int shop_code, int? bs_id, int? pm_id, String startHour, String finishHour, String date, String url) async {
+Future<VisitingDurations> createVisitingDurations(int shop_code, int? bs_id, int? pm_id, String startHour, String finishHour, String date, String workDuration, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -58,6 +58,7 @@ Future<VisitingDurations> createVisitingDurations(int shop_code, int? bs_id, int
       "baslangic_saati" : startHour,
       "bitis_saati" : finishHour,
       "tarih" : date,
+      "calisma_suresi" : workDuration
     }
     ),
   );

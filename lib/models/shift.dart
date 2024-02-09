@@ -6,6 +6,7 @@ class Shift{
   late String shiftDate;
   late String startTime;
   late String finishTime;
+  late String workDuration;
 
   Shift({
     required this.shift_id,
@@ -15,6 +16,7 @@ class Shift{
     required this.shiftDate,
     required this.startTime,
     required this.finishTime,
+    required this.workDuration
   });
 
   factory Shift.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Shift{
       shiftDate: json['mesai_tarihi'],
       startTime: json['baslangic_saati'],
       finishTime: json['bitis_saati'],
+      workDuration: json['calisma_suresi']
     );
   }
 

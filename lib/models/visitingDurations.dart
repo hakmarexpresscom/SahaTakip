@@ -5,6 +5,7 @@ class VisitingDurations{
   late String startTime;
   late String finishTime;
   late String date;
+  late String workDuration;
 
   VisitingDurations({
     required this.shopCode,
@@ -12,7 +13,8 @@ class VisitingDurations{
     required this.pm_id,
     required this.startTime,
     required this.finishTime,
-    required this.date
+    required this.date,
+    required this.workDuration
   });
 
   factory VisitingDurations.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class VisitingDurations{
       startTime: json['baslangic_saati'],
       finishTime: json['bitis_saati'],
       date: json['tarih'],
+      workDuration: json['calisma_suresi']
     );
   }
 

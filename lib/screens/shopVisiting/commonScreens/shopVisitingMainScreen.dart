@@ -10,6 +10,7 @@ import '../../../routing/bottomNavigationBar.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shiftServices.dart';
 import '../../../utils/appStateManager.dart';
+import '../../../utils/generalFunctions.dart';
 import '../../../widgets/button_widget.dart';
 
 class ShopVisitingMainScreen extends StatefulWidget {
@@ -143,8 +144,19 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
           box.put("finishHour",DateTime.now().hour);
           box.put("finishMinute",DateTime.now().minute);
           box.put("finishSecond",DateTime.now().second);
+          List<dynamic> tarih = box.get("shiftDate").split("-");
           await countShift("${constUrl}api/Mesai");
-          await createShift(shiftCount+1,(isBS)?userID:null,(isBS)?null:userID,"Mağaza Ziyareti",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),"${constUrl}api/mesai");
+          await createShift(
+              shiftCount+1,
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              "Mağaza Ziyareti",
+              box.get("shiftDate"),
+              box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
+              DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),
+              calculateElapsedTime(DateTime(tarih[0],tarih[1],tarih[2],box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(tarih[0],tarih[1],tarih[2],box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)),
+              "${constUrl}api/mesai"
+          );
           naviStartWorkMainScreen(context);
         },
         borderWidht: 1,
