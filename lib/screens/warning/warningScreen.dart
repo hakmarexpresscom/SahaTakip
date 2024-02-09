@@ -72,7 +72,7 @@ class _WarningScreenState extends State<WarningScreen> {
                   box.get("shiftDate"),
                   box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
                   "18:30:0",
-                  calculateElapsedTime(DateTime(tarih[0],tarih[1],tarih[2],box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(tarih[0],tarih[1],tarih[2],18,30,0,0,0)),
+                  calculateElapsedTime(DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),18,30,0,0,0)),
                   "${constUrl}api/mesai"
               );
               naviStartWorkMainScreen(context);

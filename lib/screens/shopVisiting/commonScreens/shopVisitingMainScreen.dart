@@ -154,7 +154,7 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
               box.get("shiftDate"),
               box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
               DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),
-              calculateElapsedTime(DateTime(tarih[0],tarih[1],tarih[2],box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(tarih[0],tarih[1],tarih[2],box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)),
+              calculateElapsedTime(DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)),
               "${constUrl}api/mesai"
           );
           naviStartWorkMainScreen(context);

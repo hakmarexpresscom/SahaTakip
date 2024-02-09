@@ -221,7 +221,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
               box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(),
               box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(),
               box.get("shiftDate"),
-              calculateElapsedTime(DateTime(tarih[0],tarih[1],tarih[2],box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(tarih[0],tarih[1],tarih[2],box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0)),
+              calculateElapsedTime(DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0)),
               "${constUrl}api/ZiyaretSureleri"
               );
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);

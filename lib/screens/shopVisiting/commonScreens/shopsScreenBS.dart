@@ -359,10 +359,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       else{
                                         showShopDistanceDialog(context);
                                       }
-                                      /*storeVisitManager.startStoreVisit();
-                                      box.put("currentShopName", snapshot.data![index].shopName);
-                                      box.put("currentShopID", snapshot.data![index].shopCode);
-                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);*/
                                     }
                                   )
                                 ]
