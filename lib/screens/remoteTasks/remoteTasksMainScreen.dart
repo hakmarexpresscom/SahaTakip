@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
-import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../styles/styleConst.dart';
 import '../../widgets/cards/taskCard.dart';

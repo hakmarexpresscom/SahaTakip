@@ -93,7 +93,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
       }
     }
 
-    userCondition(userType); //utils dosyasındaki fonksiyonu çekmiyor sebebine bakılacak
+    userCondition(userType);
 
 
     return Scaffold(

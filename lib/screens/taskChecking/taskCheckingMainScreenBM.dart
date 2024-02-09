@@ -66,13 +66,10 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
       builder: (BuildContext context) => Container(
         height: 216,
         padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system navigation bar.
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        // Provide a background color for the popup.
         color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
         child: SafeArea(
           top: false,
           child: child,
@@ -176,11 +173,9 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                 squeeze: 1.2,
                                 useMagnifier: true,
                                 itemExtent: kItemExtent,
-                                // This sets the initial item.
                                 scrollController: FixedExtentScrollController(
                                   initialItem: groupNo,
                                 ),
-                                // This is called when selected item is changed.
                                 onSelectedItemChanged: (int selectedItem) {
                                   setState(() {
                                     groupNo = selectedItem;
@@ -198,7 +193,6 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                 }),
                               ),
                             ),
-                            // This displays the selected fruit name.
                             child: Text(
                               groupListCompleteTask[groupNo],
                               style: const TextStyle(
@@ -218,18 +212,15 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                           ),
                           child: CupertinoButton(
                             padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                            // Display a CupertinoPicker with list of fruits.
                             onPressed: () => _showDialog(
                               CupertinoPicker(
                                 magnification: 1.22,
                                 squeeze: 1.2,
                                 useMagnifier: true,
                                 itemExtent: kItemExtent,
-                                // This sets the initial item.
                                 scrollController: FixedExtentScrollController(
                                   initialItem: groupNo,
                                 ),
-                                // This is called when selected item is changed.
                                 onSelectedItemChanged: (int selectedItem) {
                                   setState(() {
                                     shop = selectedItem;
@@ -247,7 +238,6 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                 }),
                               ),
                             ),
-                            // This displays the selected fruit name.
                             child: Text(
                               (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
                               style: const TextStyle(
@@ -285,18 +275,15 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                               ),
                               child: CupertinoButton(
                                 padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                                // Display a CupertinoPicker with list of fruits.
                                 onPressed: () => _showDialog(
                                   CupertinoPicker(
                                     magnification: 1.22,
                                     squeeze: 1.2,
                                     useMagnifier: true,
                                     itemExtent: kItemExtent,
-                                    // This sets the initial item.
                                     scrollController: FixedExtentScrollController(
                                       initialItem: groupNo,
                                     ),
-                                    // This is called when selected item is changed.
                                     onSelectedItemChanged: (int selectedItem) {
                                       setState(() {
                                         groupNo2 = selectedItem;
@@ -314,7 +301,6 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                     }),
                                   ),
                                 ),
-                                // This displays the selected fruit name.
                                 child: Text(
                                   groupListIncompleteTask[groupNo2],
                                   style: const TextStyle(
@@ -334,18 +320,15 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                               ),
                               child: CupertinoButton(
                                 padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                                // Display a CupertinoPicker with list of fruits.
                                 onPressed: () => _showDialog(
                                   CupertinoPicker(
                                     magnification: 1.22,
                                     squeeze: 1.2,
                                     useMagnifier: true,
                                     itemExtent: kItemExtent,
-                                    // This sets the initial item.
                                     scrollController: FixedExtentScrollController(
                                       initialItem: groupNo,
                                     ),
-                                    // This is called when selected item is changed.
                                     onSelectedItemChanged: (int selectedItem) {
                                       setState(() {
                                         shop2 = selectedItem;
@@ -363,7 +346,6 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                     }),
                                   ),
                                 ),
-                                // This displays the selected fruit name.
                                 child: Text(
                                   (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
                                   style: const TextStyle(

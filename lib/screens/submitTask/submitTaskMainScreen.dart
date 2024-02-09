@@ -28,7 +28,7 @@ class SubmitTaskMainScreen extends StatefulWidget {
 
 class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
 
-  bool _isSubmitting = false; // Variable to track whether the task is being submitted
+  bool _isSubmitting = false;
 
   int _selectedIndex = 4;
 
@@ -141,7 +141,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             SizedBox(height: deviceHeight * 0.03,),
             shopSelectionButton(),
             SizedBox(height: deviceHeight * 0.03,),
-            // Show a loading spinner while _isSubmitting is true
             submitTaskButton(),
             SizedBox(height: deviceHeight * 0.03,),
           ],
@@ -160,7 +159,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
       radius: 20,
       fontWeight: FontWeight.w600,
       onTaps: () async {
-        // Set _isSubmitting to true when the button is pressed
         setState(() {
           _isSubmitting = true;
         });
@@ -186,10 +184,10 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
                 );
               },
             );
-            return; // Exit the function if either field is empty
+            return;
           }
 
-          // Wait for the completion of addIncompleteTaskToDatabase
+
           await addIncompleteTaskToDatabase(
             "${constUrl}api/TamamlanmamisGorev",
             taskNameController.text,
@@ -214,7 +212,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             showTaskSubmittedDialog(context);
           });
         } finally {
-          // Set _isSubmitting to false after addIncompleteTaskToDatabase is completed
           setState(() {
             _isSubmitting = false;
           });

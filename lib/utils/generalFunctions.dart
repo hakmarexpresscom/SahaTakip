@@ -74,19 +74,13 @@ String calculateElapsedTime(DateTime startTime, DateTime endTime) {
 }
 
 int calculateDaysBetweenDates(DateTime startDate, DateTime endDate) {
-  // Tarih arasındaki farkı bulun
   Duration difference = endDate.difference(startDate);
-
-  // Farkı gün cinsine çevirin ve gün sayısını alın
   int days = difference.inDays;
-
   return days;
 }
 
 void openAppleMaps(double latitude, double longitude) async {
-  // Apple Maps için bir URL oluşturun
   final Uri appleMapsUrl = Uri.parse('https://maps.apple.com/?q=$latitude,$longitude');
-  // URL'yi başlatın
   if (await canLaunchUrl(appleMapsUrl)) {
     await launchUrl(appleMapsUrl);
   } else {
@@ -95,9 +89,7 @@ void openAppleMaps(double latitude, double longitude) async {
 }
 
 void openGoogleMaps(double latitude, double longitude) async {
-  // Google Maps URL'sini oluşturun
   final Uri googleMapsUrl = Uri.parse('https://www.google.com/maps/place/$latitude,$longitude');
-  // URL'yi başlat
   if (await canLaunchUrl(googleMapsUrl)) {
     await launchUrl(googleMapsUrl);
   } else {

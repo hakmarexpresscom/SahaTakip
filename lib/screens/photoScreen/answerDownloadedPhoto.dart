@@ -1,15 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-
-import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
-import '../../constants/pagesLists.dart';
 import '../../models/photo.dart';
-import '../../routing/bottomNavigationBar.dart';
 import '../../services/photoServices.dart';
 import '../../styles/styleConst.dart';
 
@@ -52,7 +47,7 @@ class _AnswerDownloadedPhotoScreenState extends State<AnswerDownloadedPhotoScree
 
   @override
   void dispose() {
-    controller.dispose(); // AnimationController'ı temizle
+    controller.dispose();
     super.dispose();
   }
 

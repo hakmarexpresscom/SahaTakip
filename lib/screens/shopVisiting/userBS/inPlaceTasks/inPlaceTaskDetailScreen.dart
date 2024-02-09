@@ -40,7 +40,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
 
   String photo_file = "";
 
-  //we can upload image from camera or from gallery based on parameter
+
   Future getImage(ImageSource media, int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) async {
     var img = await picker.pickImage(source: media);
     final bytes = File(img!.path).readAsBytesSync();
@@ -64,7 +64,6 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
               child: Column(
                 children: [
                   ElevatedButton(
-                    //if user click this button, user can upload image from gallery
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.gallery,task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);
@@ -77,7 +76,6 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                     ),
                   ),
                   ElevatedButton(
-                    //if user click this button. user can upload image from camera
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.camera, task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);

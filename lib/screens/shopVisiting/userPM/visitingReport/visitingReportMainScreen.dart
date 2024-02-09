@@ -60,7 +60,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
 
   String photo_file = "";
 
-  //we can upload image from camera or from gallery based on parameter
   Future getImage(ImageSource media, int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) async {
     var img = await picker.pickImage(source: media);
     final bytes = File(img!.path).readAsBytesSync();
@@ -84,7 +83,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               child: Column(
                 children: [
                   ElevatedButton(
-                    //if user click this button, user can upload image from gallery
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.gallery,task_id, shopCode, bs_id, pm_id, bm_id, photoType, completeTask_id, url);
@@ -264,7 +262,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         fontWeight: FontWeight.w600,
         onTaps: () async {
           if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
-            // Show an alert dialog if either taskName or taskDeadline is empty
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -282,7 +279,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
                 );
               },
             );
-            return; // Exit the function if either field is empty
+            return;
           }
           await countReport("${constUrl}api/Rapor");
           await countIncompleteTask("${constUrl}api/TamamlanmamisGorev");
