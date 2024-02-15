@@ -161,9 +161,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           box.put("finishHour",DateTime.now().hour);
           box.put("finishMinute",DateTime.now().minute);
           box.put("finishSecond",DateTime.now().second);
-          await countShift("${constUrl}api/Mesai");
           await createShift(
-              shiftCount+1,
               (isBS)?userID:null,
               (isBS)?null:userID,
               "Harici İş",

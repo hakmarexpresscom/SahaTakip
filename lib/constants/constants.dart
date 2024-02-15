@@ -38,7 +38,6 @@ int externalTaskCount = 0;
 int incompleteTaskCount = 0;
 int photoCount = 0;
 int reportCount = 0;
-int shiftCount = 0;
 int visitingDurationsCount = 0;
 
 bool isCorrectEmail = true;

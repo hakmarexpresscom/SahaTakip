@@ -63,16 +63,15 @@ class _WarningScreenState extends State<WarningScreen> {
               }
               shopVisitWorkManager.endShopVisitWork();
               List<dynamic> tarih = box.get("shiftDate").split("-");
-              await countShift("${constUrl}api/Mesai");
+              String workDuration = calculateElapsedTime(DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),18,30,0,0,0));
               await createShift(
-                  shiftCount+1,
                   (isBS)?userID:null,
                   (isBS)?null:userID,
                   "Mağaza Ziyareti",
                   box.get("shiftDate"),
                   box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
                   "18:30:0",
-                  calculateElapsedTime(DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),18,30,0,0,0)),
+                  workDuration,
                   "${constUrl}api/mesai"
               );
               naviStartWorkMainScreen(context);
@@ -82,6 +81,4 @@ class _WarningScreenState extends State<WarningScreen> {
       );
     });
   }
-
-
 }

@@ -45,14 +45,13 @@ Future<List<Shift>> fetchShift3(String url) async {
   }
 }
 
-Future<Shift> createShift(int id, int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String finishHour, String workDuration, String url) async {
+Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String finishHour, String workDuration, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>
     {
-      "mesai_id" : id,
       "bs_id": bs_id,
       "pm_id": pm_id,
       "mesai_turu" : shiftType,
@@ -68,10 +67,4 @@ Future<Shift> createShift(int id, int? bs_id, int? pm_id, String shiftType, Stri
   } else {
     throw Exception('Failed to create Shift.');
   }
-}
-
-Future countShift(String url) async {
-  shiftCount = 0;
-  final List<Shift> shift = await fetchShift3(url);
-  shiftCount = shiftCount + shift.length;
 }
