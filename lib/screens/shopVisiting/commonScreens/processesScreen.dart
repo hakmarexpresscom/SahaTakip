@@ -213,6 +213,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           box.put("visitingFinishMinute",DateTime.now().minute);
           box.put("visitingFinishSecond",DateTime.now().second);
           List<dynamic> tarih = box.get("shiftDate").split("-");
+          String visitingDuration = calculateElapsedTime(DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0));
           await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
           await createVisitingDurations(
               box.get('currentShopID'),
@@ -221,7 +222,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
               box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(),
               box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(),
               box.get("shiftDate"),
-              calculateElapsedTime(DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(int.parse(tarih[0]),int.parse(tarih[1]),int.parse(tarih[2]),box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0)),
+              visitingDuration,
               "${constUrl}api/ZiyaretSureleri"
               );
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
