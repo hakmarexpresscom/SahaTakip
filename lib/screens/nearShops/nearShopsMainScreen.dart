@@ -25,8 +25,6 @@ class NearShopsMainScreen extends StatefulWidget {
 
 class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerProviderStateMixin {
 
-  late List<Map<String, String>> coordinates;
-
   late Future<List<Shop>> futureShopList;
 
   int _selectedIndex = 2;
@@ -48,7 +46,6 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
 
   @override
   void initState() {
-    coordinates = [{"lat":"","long":""}];
     futureShopList = fetchShop('${constUrl}api/magaza');
     checkGps();
     controller = AnimationController(
@@ -266,7 +263,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
                             shopCode: snapshot.data![index].shopCode.toString(),
                             lat: snapshot.data![index].Lat,
                             long: snapshot.data![index].Long,
-                            distance: ((getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))/1000.0)+1.0).toStringAsFixed(2).toString()
+                            distance: (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))/1000.0).toStringAsFixed(2).toString()
                         ),
                       ]
                   );

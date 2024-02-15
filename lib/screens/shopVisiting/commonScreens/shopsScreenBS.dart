@@ -55,6 +55,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     super.initState();
     futureOwnShopListBS = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
     futurePartnerShopList = (groupNo==0)?fetchShop('${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}'):fetchShop('${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}');
+    checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -265,7 +266,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: (){
-                                    if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) {
+                                    if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
                                       storeVisitManager.startStoreVisit();
                                       box.put("currentShopName", snapshot.data![index].shopName);
                                       box.put("currentShopID", snapshot.data![index].shopCode);
@@ -344,7 +345,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     lat: snapshot.data![index].Lat,
                                     long: snapshot.data![index].Long,
                                     onTaps: (){
-                                      if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) {
+                                      if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
                                         storeVisitManager.startStoreVisit();
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);

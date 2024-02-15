@@ -53,6 +53,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
   void initState() {
     super.initState();
     futureOwnShopListPM = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
+    checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -247,7 +248,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                 lat: snapshot.data![index].Lat,
                                 long: snapshot.data![index].Long,
                                 onTaps: (){
-                                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=200.0) {
+                                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
                                     storeVisitManager.startStoreVisit();
                                     reportManager.noReport();
                                     box.put("currentShopName", snapshot.data![index].shopName);
