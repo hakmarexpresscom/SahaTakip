@@ -73,32 +73,3 @@ Future<ExternalWork> createExternalWork(int? bs_id, int? pm_id, String title, St
     throw Exception('Failed to create External Task.');
   }
 }
-
-Future<ExternalWork> updateCompletionInfoExternalWork(int id,int? bs_id, int? pm_id, String title, String? detail, String? startHour, String finishHour, String assignmentDate, int completionInfo, String workPlace, String lat, String long, String url) async {
-  final response = await http.put(Uri.parse(url),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, dynamic>
-    {
-      "harici_is_id": id,
-      "bs_id": bs_id,
-      "pm_id": pm_id,
-      "is_tanimi": title,
-      "is_detayi": detail,
-      "baslangic_saati": startHour,
-      "bitis_saati": finishHour,
-      "is_atama_tarihi": assignmentDate,
-      "tamamlandi_bilgisi": completionInfo,
-      "is_yeri": workPlace,
-      "Lat": lat,
-      "Long": long
-    }
-    ),
-  );
-  if (response.statusCode == 200) {
-    return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to update External Task.');
-  }
-}

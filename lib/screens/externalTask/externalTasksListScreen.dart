@@ -7,6 +7,7 @@ import '../../models/externalWork.dart';
 import '../../routing/landing.dart';
 import '../../services/externalWorkServices.dart';
 import '../../styles/styleConst.dart';
+import '../../widgets/cards/externalWorkCard.dart';
 import '../../widgets/cards/taskCard.dart';
 
 class ExternalTasksListScreen extends StatefulWidget {
@@ -138,15 +139,14 @@ class _ExternalTasksListScreenState extends State<ExternalTasksListScreen> with 
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TaskCard(
+                        ExternalWorkCard(
                           taskName: snapshot.data![index].workTitle,
                           taskAssignmentDate: snapshot.data![index].workAssignmentDate,
-                            taskType: "Harici",
-                          shop_code: 0,
+                          workPlace: snapshot.data![index].workPlace,
                           onTaps: (){
                             naviExternalTaskDetailScreen(context,snapshot.data![index].external_work_id);
                           }
-                        ),
+                        ) ,
                         SizedBox(height: deviceHeight*0.005,),
                       ],
                     );

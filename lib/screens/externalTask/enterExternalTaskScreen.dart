@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
+import '../../widgets/alert_dialog.dart';
 import '../../widgets/text_form_field.dart';
 
 class EnterExternalTaskScreen extends StatefulWidget {
@@ -28,6 +29,8 @@ class EnterExternalTaskScreen extends StatefulWidget {
 }
 
 class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
+
+  bool _isSubmitting = false;
 
   int _selectedIndex = 0;
 
@@ -269,32 +272,82 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          await createExternalWork(
-            (isBS)?userID:null,
-            (isBS)?null:userID,
-            taskNameController.text,
-            taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
-            startHourController.text,
-            finishHourController.text,
-            now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-            0,
-            (showOtherTextField)?workPlaceTextFieldController.text:workPlace2,
-            lat,
-            long,
-            "${constUrl}api/HariciIs"
-          );
+
+          setState(() {
+            _isSubmitting = true;
+          });
+
+          try {
+
+            if (taskNameController.text.isEmpty || startHourController.text.isEmpty || finishHourController.text.isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
+              // Show an alert dialog if either taskName or taskDeadline is empty
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Uyarı"),
+                    content: Text("Görev adı, görev başlangıç saati, görev bitiş saati ve görev yeri boş olamaz."),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Tamam"),
+                      ),
+                    ],
+                  );
+                },
+              );
+              return;
+            }
+            await createExternalWork(
+              (isBS)?userID:null,
+              (isBS)?null:userID,
+              taskNameController.text,
+              taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
+              startHourController.text,
+              finishHourController.text,
+              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              0,
+              (showOtherTextField)?workPlaceTextFieldController.text:workPlace2,
+              lat,
+              long,
+              "${constUrl}api/HariciIs"
+            );
+            Future.delayed(Duration.zero, () {
+              showWorkSubmittedDialog(context);
+            });
+          } finally {
+            setState(() {
+              _isSubmitting = false;
+            });
+          }
           setState(() {
             workPlace = "";
             workPlace2="";
             workPlaceTextFieldController.text = "";
             showOtherTextField = false;
           });
-          naviExternalTasksListScreen(context);
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor
+    );
+  }
+
+  showWorkSubmittedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialogWidget(
+          title: 'Görev Atandı',
+          content: 'Görev başarıyla atandı!',
+          onTaps: (){
+            naviExternalTasksListScreen(context);
+          },
+        );
+      },
     );
   }
 
