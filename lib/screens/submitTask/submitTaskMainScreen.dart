@@ -247,9 +247,9 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskNameController, value: SubmitTaskMainScreen.taskName, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: taskNameController.text),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight*0.02,),
             TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, dateController: taskDeadlineController, value: SubmitTaskMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
-            SizedBox(height: deviceHeight*0.03,),
+            SizedBox(height: deviceHeight*0.02,),
             TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskDescriptionController, value: SubmitTaskMainScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 250,controllerString: taskDescriptionController.text),
           ],
         ),

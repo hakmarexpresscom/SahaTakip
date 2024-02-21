@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../main.dart';
@@ -34,7 +35,6 @@ class GoogleMapMarkerList {
 
 Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/magaza');
 
-int externalTaskCount = 0;
 int incompleteTaskCount = 0;
 int photoCount = 0;
 int reportCount = 0;
@@ -59,7 +59,7 @@ String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;
 bool isBS = (isLoggedIn)?box.get("isBS"):false;
 
-List<String> shiftType = <String>['Mağaza Ziyareti'];
+List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü',"Normal Kullanıcı"];
 List<String> groupListCompleteTask = <String>['Standart', 'Manav'];
 List<String> groupListIncompleteTask = <String>['Standart', 'Manav'];
@@ -80,11 +80,7 @@ String password="";
 
 bool taskIsCompleted = false;
 
-
-
-
-
-
-
-
-
+bool showOtherTextField = false;
+String workPlace = "";
+String workPlace2 = "";
+final workPlaceTextFieldController = TextEditingController();

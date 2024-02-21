@@ -8,6 +8,7 @@ import '../screens/externalTask/enterExternalTaskScreen.dart';
 import '../screens/externalTask/externalTaskDetailScreen.dart';
 import '../screens/externalTask/externalTaskMainScreen.dart';
 import '../screens/externalTask/externalTasksListScreen.dart';
+import '../screens/externalTask/externalWorkPlaceSelectionScreen.dart';
 import '../screens/photoScreen/answerDownloadedPhoto.dart';
 import '../screens/photoScreen/taskDownloadedPhoto.dart';
 import '../screens/photoScreen/taskPhoto.dart';
@@ -160,4 +161,8 @@ void naviTaskCheckingDetailScreen(BuildContext context, id, completionInfo){
 
 void naviTaskCheckingMainScreenBM(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => TaskCheckingMainScreenBM()));
+}
+
+void naviPlaceSelectionScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => PlaceSelectionScreen()));
 }

@@ -12,7 +12,7 @@ Map<String, int> inShopOpeningCheckingList = {
   "Mağaza anahtarları ilgili\nsorumluda mı?":0,
   "Mutfak- lavabo temizliği yapılmış mı?":0,
   "Mağaza düzeni sabah satış için\nhazır mı?":0,
-  "Ofis ve depo çöpkeri dökülmüş mü?":0,
+  "Ofis ve depo çöpleri dökülmüş mü?":0,
   "Prizlerde takılı herhangi bir cihaz\nvar mı?":0,
   "Kameralar kayıt yapıyor mu?":0,
   "Zemin temizliği doğru yapılmış mı?":0,
@@ -31,7 +31,7 @@ Map<String, int> outShopOpeningCheckingList = {
 };
 
 Map<String, int> inShopClosingCheckingList = {
-  "Prizlere yakılı herhangi bir cihaz\nvar mı?":0,
+  "Prizlere takılı herhangi bir cihaz\nvar mı?":0,
   "Dolap aydınlatmaları ve perdeler\nkapalı mı?":0,
   "Kameralar kayıt yapıyor mu?":0,
   "Mutfak, lavabo temizliği yapılmış mı?":0,
@@ -44,7 +44,7 @@ Map<String, int> inShopClosingCheckingList = {
   "Zemin temizliği doğru yapılmış mı?":0,
   "Ofis ve depo kapıları kilitli mi?":0,
   "Isıtıcı ve klimalar kapalı mı?":0,
-  "Ofis ve depo çöpleri dkülmüş mü?":0,
+  "Ofis ve depo çöpleri dökülmüş mü?":0,
   "Kasa altı ve etrafında resmi evrak\nvar mı?":0,
   "Kasalar temizlenmiş mi?":0,
   "Kasiyer defteri verileri işlenmiş mi?":0,

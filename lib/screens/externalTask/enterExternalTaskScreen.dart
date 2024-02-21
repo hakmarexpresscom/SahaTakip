@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
@@ -12,8 +15,10 @@ import '../../widgets/text_form_field.dart';
 class EnterExternalTaskScreen extends StatefulWidget {
 
   static var taskName = "";
-  static var taskDeadline = "";
+  static var starthour = "";
+  static var finishHour = "";
   static var taskDescription = "";
+  static var date = "";
 
   const EnterExternalTaskScreen({super.key});
 
@@ -34,11 +39,90 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
 
   DateTime now = DateTime.now();
 
+  bool servicestatus = false;
+  bool haspermission = false;
+  late LocationPermission permission;
+  late Position position;
+  String long = "1", lat = "1";
+  late StreamSubscription<Position> positionStream;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final taskNameController = TextEditingController();
-  final taskDeadlineController = TextEditingController();
+  final startHourController = TextEditingController();
+  final finishHourController = TextEditingController();
   final taskDescriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    checkGps();
+  }
+
+  checkGps() async {
+    servicestatus = await Geolocator.isLocationServiceEnabled();
+    if(servicestatus){
+      permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permissions are denied');
+        }else if(permission == LocationPermission.deniedForever){
+          print("'Location permissions are permanently denied");
+        }else{
+          haspermission = true;
+        }
+      }else{
+        haspermission = true;
+      }
+
+      if(haspermission){
+        setState(() {
+          //refresh the UI
+        });
+
+        getLocation();
+      }
+    }else{
+      print("GPS Service is not enabled, turn on GPS location");
+    }
+
+    setState(() {
+      //refresh the UI
+    });
+  }
+
+  getLocation() async {
+    position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude);
+    print(position.latitude);
+
+    long = position.longitude.toString();
+    lat = position.latitude.toString();
+
+    setState(() {
+      //refresh UI
+    });
+
+    LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+    );
+
+    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(
+        locationSettings: locationSettings).listen((Position position) {
+      print(position.longitude);
+      print(position.latitude);
+
+      long = position.longitude.toString();
+      lat = position.latitude.toString();
+
+      setState(() {
+        //refresh UI on update
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +194,12 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.07,),
+            SizedBox(height: deviceHeight*0.04,),
             inputForm(),
             SizedBox(height: deviceHeight*0.03,),
-            saveExternalTaskButton()
+            selectWorkPlaceButton(),
+            SizedBox(height: deviceHeight*0.03,),
+            saveExternalTaskButton(),
           ],
         ),
       );
@@ -134,13 +220,43 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskNameController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: taskNameController.text),
-            SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Bitiş Saati", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDeadlineController, value: EnterExternalTaskScreen.taskName, paddingValue: 5,maxLines: 1,maxLength: 5,controllerString: taskNameController.text),
-            SizedBox(height: deviceHeight*0.03,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 250,controllerString: taskNameController.text),
+            SizedBox(height: deviceHeight*0.02,),
+            TextField(
+              enabled: false,
+              controller: TextEditingController(
+                  text: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()),
+              decoration: InputDecoration(
+                labelText: 'Tarih',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: deviceHeight*0.02,),
+            TextFormFieldWidget(text: "Görev Başlangıç Saati (Örn: 13:30)", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: startHourController, value: EnterExternalTaskScreen.starthour, paddingValue: 5,maxLines: 1,maxLength: 5,controllerString: startHourController.text),
+            SizedBox(height: deviceHeight*0.02,),
+            TextFormFieldWidget(text: "Görev Bitiş Saati (Örn: 13:30)", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: finishHourController, value: EnterExternalTaskScreen.finishHour, paddingValue: 5,maxLines: 1,maxLength: 5,controllerString: startHourController.text),
+            SizedBox(height: deviceHeight*0.02,),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 5,maxLength: 250,controllerString: taskDescriptionController.text),
           ],
         ),
       ),
+    );
+  }
+
+  Widget selectWorkPlaceButton(){
+    return ButtonWidget(
+        text: "Yer Seç",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          naviPlaceSelectionScreen(context);
+        },
+        borderWidht: 1,
+        backgroundColor: primaryColor,
+        borderColor: primaryColor,
+        textColor: textColor
     );
   }
 
@@ -153,18 +269,26 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          await countExternalTask("${constUrl}api/HariciIs", context);
           await createExternalWork(
-            externalTaskCount+1,
+            (isBS)?userID:null,
+            (isBS)?null:userID,
             taskNameController.text,
-            taskDescriptionController.text,
+            taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
+            startHourController.text,
+            finishHourController.text,
             now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-            taskDeadlineController.text,
-              (isBS)?userID:null,
-              (isBS)?null:userID,
-              now.hour.toString()+"."+now.minute.toString(),
-              "${constUrl}api/HariciIs"
+            0,
+            (showOtherTextField)?workPlaceTextFieldController.text:workPlace2,
+            lat,
+            long,
+            "${constUrl}api/HariciIs"
           );
+          setState(() {
+            workPlace = "";
+            workPlace2="";
+            workPlaceTextFieldController.text = "";
+            showOtherTextField = false;
+          });
           naviExternalTasksListScreen(context);
         },
         borderWidht: 1,

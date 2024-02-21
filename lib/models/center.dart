@@ -1,18 +1,18 @@
-class Center{
+class RegionCenter{
   late int centerCode;
   late String centerName;
   late String Lat;
   late String Long;
 
-  Center({
+  RegionCenter({
     required this.centerCode,
     required this.centerName,
     required this.Lat,
     required this.Long,
   });
 
-  factory Center.fromJson(Map<String, dynamic> json) {
-    return Center(
+  factory RegionCenter.fromJson(Map<String, dynamic> json) {
+    return RegionCenter(
       centerCode: json['merkez_kodu'],
       centerName: json['merkez_ismi'],
       Lat: json['lat'],

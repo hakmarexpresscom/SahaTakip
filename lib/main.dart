@@ -89,16 +89,33 @@ class _MyAppState extends State<MyApp> {
       if(boxStateManagement.get('isStoreVisit')==true){
         page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
       }
+
       else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ShopVisitingMainScreen();
       }
+
       else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ExternalTaskMainScreen();
       }
+
       else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
       else if(boxStateManagement.get('isStartShopVisitWork')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+
+      else if(boxStateManagement.get('isStoreVisit')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+      else if(boxStateManagement.get('isStoreVisit')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
     }
@@ -113,3 +130,4 @@ class _MyAppState extends State<MyApp> {
 }
 
 // ----------------------------------------------------------------------
+

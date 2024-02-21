@@ -3,6 +3,7 @@ import 'package:deneme/models/externalWork.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
 import 'package:deneme/styles/styleConst.dart';
+import 'package:deneme/widgets/cards/externalWorkDetailCard.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -129,28 +130,21 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TaskDetailCard(
+                    ExternalWorkDetailCard(
                       heightConst: 0.7,
-                      taskDeadline: snapshot.data!.workFinishHour,
-                      taskDescription: snapshot.data!.workDetail!,
-                      taskName: snapshot.data!.workTitle,
                       widthConst: 0.9,
-                      taskType: "Harici",
+                      taskName: snapshot.data!.workTitle,
+                      taskDescription: snapshot.data!.workDetail!,
+                      startHour: snapshot.data!.workStartHour,
+                      finishHour: snapshot.data!.workFinishHour,
+                      workPlace: snapshot.data!.workPlace,
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
-                      onTaps: (){naviExternalTasksListScreen(context);},
-                      onTapsShowPhoto: (){},
                       id: snapshot.data!.external_work_id,
                       user_id: userID,
                       assignmentDate: snapshot.data!.workAssignmentDate,
-                      assignmentHour: snapshot.data!.workAssignmentHour,
-                      shop_code: 0,
-                      report_id: 0,
-                      photo_id: 0,
-                      addPhotoButton: ButtonWidget(text: "Fotoğraf Ekle", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){}, borderWidht: 3, backgroundColor: primaryColor, borderColor: primaryColor, textColor: textColor),
-                      image: null,
-                      answer_photo_id: 0,
-                      completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                      group_no: groupNo,
+                      onTaps: (){naviExternalTasksListScreen(context);},
+                      lat: snapshot.data!.Lat,
+                      long: snapshot.data!.Long,
                     )
                   ],
                 );

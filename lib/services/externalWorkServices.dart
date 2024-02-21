@@ -46,22 +46,24 @@ Future<List<ExternalWork>> fetchExternalWork3(String url) async {
   }
 }
 
-Future<ExternalWork> createExternalWork(int id,String title,String? detail,String assignmentDate, String finishHour, int? bs_id, int? pm_id,String assignmentHour, url) async {
+Future<ExternalWork> createExternalWork(int? bs_id, int? pm_id, String title, String? detail, String? startHour, String finishHour, String assignmentDate, int completionInfo, String workPlace, String lat, String long, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>
     {
-      "harici_is_id":id,
-      "is_tanimi": title,
-      "is_detayi": detail,
-      "is_atama_tarihi": assignmentDate,
-      "is_bitis_saati": finishHour,
       "bs_id": bs_id,
       "pm_id": pm_id,
-      "tamamlandi_bilgisi": 0,
-      "is_atama_saati": assignmentHour
+      "is_tanimi": title,
+      "is_detayi": detail,
+      "baslangic_saati": startHour,
+      "bitis_saati": finishHour,
+      "is_atama_tarihi": assignmentDate,
+      "tamamlandi_bilgisi": completionInfo,
+      "is_yeri": workPlace,
+      "Lat": lat,
+      "Long": long
     }
     ),
   );
@@ -72,22 +74,25 @@ Future<ExternalWork> createExternalWork(int id,String title,String? detail,Strin
   }
 }
 
-Future<ExternalWork> updateCompletionInfoExternalWork(int id,String title,String? detail,String assignmentDate, String finishHour, int? bs_id, int? pm_id,int completionInfo, String? assignmentHour,String url) async {
+Future<ExternalWork> updateCompletionInfoExternalWork(int id,int? bs_id, int? pm_id, String title, String? detail, String? startHour, String finishHour, String assignmentDate, int completionInfo, String workPlace, String lat, String long, String url) async {
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>
     {
-      "harici_is_id":id,
-      "is_tanimi": title,
-      "is_detayi": detail,
-      "is_atama_tarihi": assignmentDate,
-      "is_bitis_saati": finishHour,
+      "harici_is_id": id,
       "bs_id": bs_id,
       "pm_id": pm_id,
+      "is_tanimi": title,
+      "is_detayi": detail,
+      "baslangic_saati": startHour,
+      "bitis_saati": finishHour,
+      "is_atama_tarihi": assignmentDate,
       "tamamlandi_bilgisi": completionInfo,
-      "is_atama_saati": assignmentHour
+      "is_yeri": workPlace,
+      "Lat": lat,
+      "Long": long
     }
     ),
   );
@@ -96,10 +101,4 @@ Future<ExternalWork> updateCompletionInfoExternalWork(int id,String title,String
   } else {
     throw Exception('Failed to update External Task.');
   }
-}
-
-Future countExternalTask(String url,BuildContext context) async {
-  externalTaskCount = 0;
-  final List<ExternalWork> externalTasks = await fetchExternalWork3(url);
-  externalTaskCount = externalTaskCount + externalTasks.length;
 }

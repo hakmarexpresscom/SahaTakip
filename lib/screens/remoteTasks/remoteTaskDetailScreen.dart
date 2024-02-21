@@ -247,7 +247,6 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                           id: snapshot.data!.task_id,
                           user_id: userID,
                           assignmentDate: snapshot.data!.taskAssigmentDate,
-                          assignmentHour: null,
                           shop_code: snapshot.data!.shopCode,
                           photo_id: snapshot.data!.photo_id,
                           report_id: snapshot.data!.report_id,
