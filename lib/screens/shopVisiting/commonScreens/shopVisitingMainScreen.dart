@@ -141,18 +141,15 @@ class _ShopVisitingMainScreenState extends State<ShopVisitingMainScreen> {
         fontWeight: FontWeight.w600,
         onTaps: () async{
           shopVisitWorkManager.endShopVisitWork();
-          box.put("finishHour",DateTime.now().hour);
-          box.put("finishMinute",DateTime.now().minute);
-          box.put("finishSecond",DateTime.now().second);
-          List<dynamic> tarih = box.get("shiftDate").split("-");
-          String workDuration = calculateElapsedTime(DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0));
+          box.put("finishTime",DateTime.now());
+          String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
           await createShift(
               (isBS)?userID:null,
               (isBS)?null:userID,
               "Mağaza Ziyareti",
               box.get("shiftDate"),
-              box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
-              DateTime.now().hour.toString()+":"+DateTime.now().minute.toString()+":"+DateTime.now().second.toString(),
+              box.get("startTime").toIso8601String(),
+              box.get("finishTime").toIso8601String(),
               workDuration,
               "${constUrl}api/mesai"
           );

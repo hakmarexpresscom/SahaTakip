@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../constants/constants.dart';
 import '../models/nkPassword.dart';
 
 Future<List<NKPassword>> parseJsonList(String jsonBody) async{
@@ -12,7 +13,12 @@ Future<List<NKPassword>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<NKPassword>> fetchNKPassword(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<NKPassword> users = jsonResponse.map((data) {
@@ -25,8 +31,12 @@ Future<List<NKPassword>> fetchNKPassword(String url) async {
 }
 
 Future<NKPassword> fetchNKPassword2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return NKPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -38,6 +48,7 @@ Future<NKPassword> updateNKPassword(int nk_id, String hashedPW, String url) asyn
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

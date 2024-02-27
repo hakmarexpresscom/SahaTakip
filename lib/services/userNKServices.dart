@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../constants/constants.dart';
 import '../models/userNK.dart';
 
 Future<List<UserNK>> parseJsonList(String jsonBody) async{
@@ -13,7 +14,12 @@ Future<List<UserNK>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<UserNK>> fetchUserNK(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -22,7 +28,12 @@ Future<List<UserNK>> fetchUserNK(String url) async {
 }
 
 Future<List<UserNK>> fetchUserNK2(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<UserNK> users = jsonResponse.map((data) {

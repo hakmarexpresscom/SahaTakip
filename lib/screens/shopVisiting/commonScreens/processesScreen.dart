@@ -209,22 +209,18 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
         fontWeight: FontWeight.w600,
         onTaps: () async{
           storeVisitManager.endStoreVisit();
-          box.put("visitingFinishHour",DateTime.now().hour);
-          box.put("visitingFinishMinute",DateTime.now().minute);
-          box.put("visitingFinishSecond",DateTime.now().second);
-          List<dynamic> tarih = box.get("shiftDate").split("-");
-          String visitingDuration = calculateElapsedTime(DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0));
-          await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+          box.put("visitingFinishTime",DateTime.now());
+          String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
           await createVisitingDurations(
               box.get('currentShopID'),
               (isBS==true)?userID:null,
               (isBS==true)?null:userID,
-              box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(),
-              box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(),
+              box.get("visitingStartTime").toIso8601String(),
+              box.get("visitingFinishTime").toIso8601String(),
               box.get("shiftDate"),
               visitingDuration,
               "${constUrl}api/ZiyaretSureleri"
-              );
+          );
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
           },
         borderWidht: 1,

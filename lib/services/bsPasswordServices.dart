@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../constants/constants.dart';
 import '../models/bsPassword.dart';
 
 Future<List<BSPassword>> parseJsonList(String jsonBody) async{
@@ -12,7 +13,12 @@ Future<List<BSPassword>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<BSPassword>> fetchBSPassword(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<BSPassword> users = jsonResponse.map((data) {
@@ -25,8 +31,12 @@ Future<List<BSPassword>> fetchBSPassword(String url) async {
 }
 
 Future<BSPassword> fetchBSPassword2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return BSPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -38,6 +48,7 @@ Future<BSPassword> updateBSPassword(int bs_id, String hashedPW, String url) asyn
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../constants/constants.dart';
 import '../models/userPM.dart';
 
 Future<List<UserPM>> parseJsonList(String jsonBody) async{
@@ -13,8 +14,12 @@ Future<List<UserPM>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<UserPM>> fetchUserPM(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -23,7 +28,12 @@ Future<List<UserPM>> fetchUserPM(String url) async {
 }
 
 Future<List<UserPM>> fetchUserPM2(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<UserPM> users = jsonResponse.map((data) {

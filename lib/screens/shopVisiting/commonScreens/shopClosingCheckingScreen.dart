@@ -32,8 +32,8 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
   @override
   void initState() {
     super.initState();
-    futureInShopCloseControl = fetchInShopCloseControl('${constUrl}api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
-    futureOutShopCloseControl = fetchOutShopCloseControl('${constUrl}api/KapanisKontroluMagazaDisi/filterOutShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureInShopCloseControl = fetchInShopCloseControl('${constUrl}api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=5000&kayit_tarihi=2024-02-27T07:14:29.080');
+    futureOutShopCloseControl = fetchOutShopCloseControl('${constUrl}api/KapanisKontroluMagazaDisi/filterOutShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
   }
 
   @override
@@ -164,7 +164,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               widget.shop_code,
               (isBS)?userID:null,
               (isBS)?null:userID,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              now.toIso8601String(),
               inShopClosingCheckingList.values.toList()[0],
               inShopClosingCheckingList.values.toList()[1],
               inShopClosingCheckingList.values.toList()[2],
@@ -208,7 +208,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               widget.shop_code,
               (isBS)?userID:null,
               (isBS)?null:userID,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              now.toIso8601String(),
               outShopClosingCheckingList.values.toList()[0],
               outShopClosingCheckingList.values.toList()[1],
               outShopClosingCheckingList.values.toList()[2],

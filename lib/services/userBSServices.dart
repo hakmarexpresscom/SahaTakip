@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:deneme/models/userBS.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/constants.dart';
+
 Future<List<UserBS>> parseJsonList(String jsonBody) async{
   List<dynamic> responseList = jsonDecode(jsonBody);
   List<UserBS> returnList = [];
@@ -13,7 +15,12 @@ Future<List<UserBS>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<UserBS>> fetchUserBS(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -22,7 +29,12 @@ Future<List<UserBS>> fetchUserBS(String url) async {
 }
 
 Future<List<UserBS>> fetchUserBS2(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<UserBS> users = jsonResponse.map((data) {

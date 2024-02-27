@@ -248,7 +248,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                 lat: snapshot.data![index].Lat,
                                 long: snapshot.data![index].Long,
                                 onTaps: (){
-                                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
+                                  /*if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
                                     storeVisitManager.startStoreVisit();
                                     reportManager.noReport();
                                     box.put("currentShopName", snapshot.data![index].shopName);
@@ -263,7 +263,13 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                   }
                                   else{
                                     showShopDistanceDialog(context);
-                                  }
+                                  }*/
+                                  storeVisitManager.startStoreVisit();
+                                  reportManager.noReport();
+                                  box.put("currentShopName", snapshot.data![index].shopName);
+                                  box.put("currentShopID", snapshot.data![index].shopCode);
+                                  box.put("visitingStartTime",DateTime.now());
+                                  naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                 }
                             )
                           ]

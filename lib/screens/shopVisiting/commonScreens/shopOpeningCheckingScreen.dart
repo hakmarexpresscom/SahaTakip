@@ -32,8 +32,8 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
   @override
   void initState() {
     super.initState();
-    futureInShopOpenControl = fetchInShopOpenControl('${constUrl}api/AcilisKontroluMagazaIci/filterInShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
-    futureOutShopOpenControl = fetchOutShopOpenControl('${constUrl}api/AcilisKontroluMagazaDisi/filterOutShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()}');
+    futureInShopOpenControl = fetchInShopOpenControl('${constUrl}api/AcilisKontroluMagazaIci/filterInShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
+    futureOutShopOpenControl = fetchOutShopOpenControl('${constUrl}api/AcilisKontroluMagazaDisi/filterOutShopOpenForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
   }
 
   @override
@@ -160,12 +160,11 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: (){
-          print(inShopOpeningCheckingList.values.toList());
           createInShopOpenControl(
               widget.shop_code,
               (isBS)?userID:null,
               (isBS)?null:userID,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              now.toIso8601String(),
               inShopOpeningCheckingList.values.toList()[0],
               inShopOpeningCheckingList.values.toList()[1],
               inShopOpeningCheckingList.values.toList()[2],
@@ -210,7 +209,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               widget.shop_code,
               (isBS)?userID:null,
               (isBS)?null:userID,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              now.toIso8601String(),
               outShopOpeningCheckingList.values.toList()[0],
               outShopOpeningCheckingList.values.toList()[1],
               outShopOpeningCheckingList.values.toList()[2],

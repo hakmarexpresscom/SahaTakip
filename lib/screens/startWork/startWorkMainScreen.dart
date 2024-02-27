@@ -47,7 +47,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
   @override
   void initState() {
     super.initState();
-    futureShift = fetchShift('${constUrl}api/Mesai/${urlShiftFilter}=${userID}&mesai_tarihi='+now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
+    futureShift = fetchShift('${constUrl}api/Mesai/${urlShiftFilter}=${userID}&mesai_tarihi=${DateTime.now().toIso8601String()}');
   }
 
   @override
@@ -143,7 +143,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         future: futureShift,
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,box.get("finishHour"),box.get("finishMinute"),box.get("finishSecond"),0,0)), size: 25, fontWeight: FontWeight.w400, color: textColor);
+            return TextWidget(text:"En son kaydettiğiniz mesai süreniz:\n"+calculateElapsedTime(box.get("startTime"),box.get("finishTime")), size: 25, fontWeight: FontWeight.w400, color: textColor);
           }
           else{
             return TextWidget(text:"En sonki çalışma süreniz:\n0 saat 0 dakika 0 saniye\nBugün hiç mesai başlatmadınız.", size: 25, fontWeight: FontWeight.w400, color: textColor);
@@ -174,28 +174,18 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           if(item=="Mağaza Ziyareti"&& isWithinTimeRange){
             shopVisitWorkManager.startShopVisitWork();
             setState(() {
-              box.put("startHour",0);
-              box.put("startMinute",0);
-              box.put("startSecond",0);
+              box.put("startTime",DateTime.now());
               box.put("shiftDate","");
-              box.put("startHour",DateTime.now().hour);
-              box.put("startMinute",DateTime.now().minute);
-              box.put("startSecond",DateTime.now().second);
-              box.put("shiftDate",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
+              box.put("shiftDate",now.toIso8601String());
             });
             naviShopVisitingMainScreen(context);
           }
           else if(item=="Harici İş" && isWithinTimeRange){
             externalTaskWorkManager.startExternalTaskWork();
             setState(() {
-              box.put("startHour",0);
-              box.put("startMinute",0);
-              box.put("startSecond",0);
+              box.put("startTime",DateTime.now());
               box.put("shiftDate","");
-              box.put("startHour",DateTime.now().hour);
-              box.put("startMinute",DateTime.now().minute);
-              box.put("startSecond",DateTime.now().second);
-              box.put("shiftDate",now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString());
+              box.put("shiftDate",now.toIso8601String());
             });
             naviExternalTaskMainScreen(context);
           }

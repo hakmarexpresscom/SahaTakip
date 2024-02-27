@@ -86,36 +86,39 @@ class _MyAppState extends State<MyApp> {
 
       bool isWithinTimeRange2 = now.isAfter(startTime2) && now.isBefore(endTime2);
 
+      List<dynamic> dateTime = box.get("shiftDate").split("T");
+      List<dynamic> tarih = dateTime[0].split("-");
+
       if(boxStateManagement.get('isStoreVisit')==true){
         page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
       }
 
-      else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ShopVisitingMainScreen();
       }
 
-      else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ExternalTaskMainScreen();
       }
 
-      else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true && isWithinTimeRange2 && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
-      else if(boxStateManagement.get('isStartShopVisitWork')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        page = WarningScreen();
-      }
-
-      else if(boxStateManagement.get('isStoreVisit')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        page = WarningScreen();
-      }
-      else if(boxStateManagement.get('isStoreVisit')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStartShopVisitWork')==true && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
 
-      else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange2 && box.get("shiftDate")==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStoreVisit')==true && isWithinTimeRange2 && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
-      else if(boxStateManagement.get('isStartExternalTaskWork')==true && box.get("shiftDate")!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(boxStateManagement.get('isStoreVisit')==true && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true && isWithinTimeRange2 && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = WarningScreen();
+      }
+      else if(boxStateManagement.get('isStartExternalTaskWork')==true && "${int.parse(tarih[2])}-${int.parse(tarih[1])}-${int.parse(tarih[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
     }

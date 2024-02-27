@@ -52,7 +52,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   @override
   void initState() {
     super.initState();
-    futureCashCounting = fetchCashCounting('${constUrl}api/CelikKasaSayimi/filterCashCountingForm?magaza_kodu=5000&kayit_tarihi=15-12-2023');
+    futureCashCounting = fetchCashCounting('${constUrl}api/CelikKasaSayimi/filterCashCountingForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
   }
 
   @override
@@ -141,7 +141,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
               widget.shop_code,
               (isBS)?userID:null,
               (isBS)?null:userID,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+              now.toIso8601String(),
               kagitParaSayimiController.text,
               madeniParaSsayimiController.text,
               POSlarToplamiController.text,

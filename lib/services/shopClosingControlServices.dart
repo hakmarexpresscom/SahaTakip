@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../constants/constants.dart';
 import '../models/shopClosingControl.dart';
 
 Future<List<InShopCloseControl>> parseJsonListIn(String jsonBody) async{
@@ -12,8 +13,12 @@ Future<List<InShopCloseControl>> parseJsonListIn(String jsonBody) async{
 }
 
 Future<List<InShopCloseControl>> fetchInShopCloseControl(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonListIn(response.body);
   } else {
@@ -22,8 +27,12 @@ Future<List<InShopCloseControl>> fetchInShopCloseControl(String url) async {
 }
 
 Future<InShopCloseControl> fetchInShopCloseControl2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return InShopCloseControl.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -32,7 +41,12 @@ Future<InShopCloseControl> fetchInShopCloseControl2(String url) async {
 }
 
 Future<List<InShopCloseControl>> fetchInShopCloseControl3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<InShopCloseControl> inShopCloseControls = jsonResponse.map((data) {
@@ -44,10 +58,11 @@ Future<List<InShopCloseControl>> fetchInShopCloseControl3(String url) async {
   }
 }
 
-Future<InShopCloseControl> createInShopCloseControl(int shopCode,int? bs_id, int? pm_id, String? savingDate, int priz_cihaz, int dolap_aydinlatma, int kamera_kayit, int mutfak_wc_temizlik, int kasa_cekmece, int kasa_alti_poset, int kasa_etrafi_duzeni, int magaza_duzeni, int wc_musluk, int gunluk_evrak, int zemin_temizligi, int ofis_depo_kapi, int isitici_klima, int ofis_depo_cop, int kasa_alti_resmi_evrak, int kasa_temizligi, int kasiyer_defteri, int stk_kontrolu, int manav_duzeni, int kasa_alti_cop, String url) async {
+Future<InShopCloseControl> createInShopCloseControl(int shopCode,int? bs_id, int? pm_id, String savingDate, int priz_cihaz, int dolap_aydinlatma, int kamera_kayit, int mutfak_wc_temizlik, int kasa_cekmece, int kasa_alti_poset, int kasa_etrafi_duzeni, int magaza_duzeni, int wc_musluk, int gunluk_evrak, int zemin_temizligi, int ofis_depo_kapi, int isitici_klima, int ofis_depo_cop, int kasa_alti_resmi_evrak, int kasa_temizligi, int kasiyer_defteri, int stk_kontrolu, int manav_duzeni, int kasa_alti_cop, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
       {
@@ -61,7 +76,7 @@ Future<InShopCloseControl> createInShopCloseControl(int shopCode,int? bs_id, int
         "mutfak_wc_temizlik": mutfak_wc_temizlik,
         "kasa_cekmece": kasa_cekmece,
         "kasa_alti_poset": kasa_alti_poset,
-        "kasa_etrafi_duzen": kasa_etrafi_duzeni,
+        "kasa_etrafi_duzeni": kasa_etrafi_duzeni,
         "magaza_duzeni": magaza_duzeni,
         "wc_musluk" : wc_musluk,
         "gunluk_evrak" : gunluk_evrak,
@@ -98,8 +113,12 @@ Future<List<OutShopCloseControl>> parseJsonListOut(String jsonBody) async{
 }
 
 Future<List<OutShopCloseControl>> fetchOutShopCloseControl(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonListOut(response.body);
   } else {
@@ -108,8 +127,12 @@ Future<List<OutShopCloseControl>> fetchOutShopCloseControl(String url) async {
 }
 
 Future<OutShopCloseControl> fetchOutShopCloseControl2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return OutShopCloseControl.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -118,7 +141,12 @@ Future<OutShopCloseControl> fetchOutShopCloseControl2(String url) async {
 }
 
 Future<List<OutShopCloseControl>> fetchOutShopCloseControl3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<OutShopCloseControl> outShopCloseControls = jsonResponse.map((data) {
@@ -130,10 +158,11 @@ Future<List<OutShopCloseControl>> fetchOutShopCloseControl3(String url) async {
   }
 }
 
-Future<OutShopCloseControl> createOutShopCloseControl(int shopCode, int? bs_id, int? pm_id, String? savingDate, int magaza_karartma, int zemin_temizligi, int alarm, int dolap_perde, int calisan_ayrilma_zamani, int kapi_kepenk, int son_musteri, int kasa_cikisi, String url) async {
+Future<OutShopCloseControl> createOutShopCloseControl(int shopCode, int? bs_id, int? pm_id, String savingDate, int magaza_karartma, int zemin_temizligi, int alarm, int dolap_perde, int calisan_ayrilma_zamani, int kapi_kepenk, int son_musteri, int kasa_cikisi, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
       {

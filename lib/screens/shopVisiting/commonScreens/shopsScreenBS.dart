@@ -266,21 +266,21 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: (){
-                                    if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
-                                      storeVisitManager.startStoreVisit();
-                                      box.put("currentShopName", snapshot.data![index].shopName);
-                                      box.put("currentShopID", snapshot.data![index].shopCode);
-                                      box.put("visitingStartHour", 0);
-                                      box.put("visitingStartMinute", 0);
-                                      box.put("visitingStartSecond", 0);
-                                      box.put("visitingStartHour", DateTime.now().hour);
-                                      box.put("visitingStartMinute", DateTime.now().minute);
-                                      box.put("visitingStartSecond", DateTime.now().second);
-                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                    }
+                                    /*if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
+                                        storeVisitManager.startStoreVisit();
+                                        box.put("currentShopName", snapshot.data![index].shopName);
+                                        box.put("currentShopID", snapshot.data![index].shopCode);
+                                        box.put("visitingStartTime",DateTime.now());
+                                        naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                      }
                                     else{
                                       showShopDistanceDialog(context);
-                                    }
+                                    }*/
+                                    storeVisitManager.startStoreVisit();
+                                    box.put("currentShopName", snapshot.data![index].shopName);
+                                    box.put("currentShopID", snapshot.data![index].shopCode);
+                                    box.put("visitingStartTime",DateTime.now());
+                                    naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                   }
                                 )
                               ]
@@ -345,21 +345,21 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     lat: snapshot.data![index].Lat,
                                     long: snapshot.data![index].Long,
                                     onTaps: (){
-                                      if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
+                                      /*if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
                                         storeVisitManager.startStoreVisit();
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);
-                                        box.put("visitingStartHour", 0);
-                                        box.put("visitingStartMinute", 0);
-                                        box.put("visitingStartSecond", 0);
-                                        box.put("visitingStartHour", DateTime.now().hour);
-                                        box.put("visitingStartMinute", DateTime.now().minute);
-                                        box.put("visitingStartSecond", DateTime.now().second);
+                                        box.put("visitingStartTime",DateTime.now());
                                         naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                       }
                                       else{
                                         showShopDistanceDialog(context);
-                                      }
+                                      }*/
+                                      storeVisitManager.startStoreVisit();
+                                      box.put("currentShopName", snapshot.data![index].shopName);
+                                      box.put("currentShopID", snapshot.data![index].shopCode);
+                                      box.put("visitingStartTime",DateTime.now());
+                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                     }
                                   )
                                 ]

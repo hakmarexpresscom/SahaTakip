@@ -13,8 +13,12 @@ Future<List<VisitingDurations>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<VisitingDurations>> fetchVisitingDurations(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -23,8 +27,12 @@ Future<List<VisitingDurations>> fetchVisitingDurations(String url) async {
 }
 
 Future<VisitingDurations> fetchVisitingDurations2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return VisitingDurations.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -33,7 +41,12 @@ Future<VisitingDurations> fetchVisitingDurations2(String url) async {
 }
 
 Future<List<VisitingDurations>> fetchVisitingDurations3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<VisitingDurations> visitingDurations = jsonResponse.map((data) {
@@ -49,6 +62,7 @@ Future<VisitingDurations> createVisitingDurations(int shop_code, int? bs_id, int
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {
@@ -67,10 +81,4 @@ Future<VisitingDurations> createVisitingDurations(int shop_code, int? bs_id, int
   } else {
     throw Exception('Failed to create VisitingDurations.');
   }
-}
-
-Future countVisitingDurations(String url) async {
-  visitingDurationsCount = 0;
-  final List<VisitingDurations> visitingDurations = await fetchVisitingDurations3(url);
-  visitingDurationsCount = visitingDurationsCount + visitingDurations.length;
 }

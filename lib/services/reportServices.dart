@@ -13,8 +13,12 @@ Future<List<Report>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<Report>> fetchReport(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -23,8 +27,12 @@ Future<List<Report>> fetchReport(String url) async {
 }
 
 Future<Report> fetchReport2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return Report.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -33,7 +41,12 @@ Future<Report> fetchReport2(String url) async {
 }
 
 Future<List<Report>> fetchReport3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<Report> reports = jsonResponse.map((data) {
@@ -49,6 +62,7 @@ Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, 
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

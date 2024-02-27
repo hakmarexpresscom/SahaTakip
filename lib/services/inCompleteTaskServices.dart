@@ -13,8 +13,12 @@ Future<List<IncompleteTask>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<IncompleteTask>> fetchIncompleteTask(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -23,8 +27,12 @@ Future<List<IncompleteTask>> fetchIncompleteTask(String url) async {
 }
 
 Future<IncompleteTask> fetchIncompleteTask2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -33,7 +41,12 @@ Future<IncompleteTask> fetchIncompleteTask2(String url) async {
 }
 
 Future<List<IncompleteTask>> fetchIncompleteTask3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<IncompleteTask> incompleteTasks = jsonResponse.map((data) {
@@ -49,6 +62,7 @@ Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,S
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {
@@ -77,6 +91,7 @@ Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,St
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {
@@ -105,6 +120,7 @@ Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? d
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

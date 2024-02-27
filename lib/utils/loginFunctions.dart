@@ -51,19 +51,12 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
-    box.put("visitingStartHour",0);
-    box.put("visitingStartMinute",0);
-    box.put("visitingStartSecond",0);
-    box.put("visitingFinishHour",0);
-    box.put("visitingFinishMinute",0);
-    box.put("visitingFinishSecond",0);
+    box.put("visitingStartTime",DateTime.now());
+    box.put("visitingFinishTime",DateTime.now());
 
-    box.put("startHour",0);
-    box.put("startMinute",0);
-    box.put("startSecond",0);
-    box.put("finishHour",0);
-    box.put("finishMinute",0);
-    box.put("finishSecond",0);
+    box.put("startTime",DateTime.now());
+    box.put("finishTime",DateTime.now());
+
     box.put("shiftDate","");
 
     boxStateManagement.put('isStartShopVisitWork', false);
@@ -104,19 +97,12 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
-    box.put("visitingStartHour",0);
-    box.put("visitingStartMinute",0);
-    box.put("visitingStartSecond",0);
-    box.put("visitingFinishHour",0);
-    box.put("visitingFinishMinute",0);
-    box.put("visitingFinishSecond",0);
+    box.put("visitingStartTime",DateTime.now());
+    box.put("visitingFinishTime",DateTime.now());
 
-    box.put("startHour",0);
-    box.put("startMinute",0);
-    box.put("startSecond",0);
-    box.put("finishHour",0);
-    box.put("finishMinute",0);
-    box.put("finishSecond",0);
+    box.put("startTime",DateTime.now());
+    box.put("finishTime",DateTime.now());
+
     box.put("shiftDate","");
 
     boxStateManagement.put('isStartShopVisitWork', false);

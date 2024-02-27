@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../constants/constants.dart';
 import '../models/completeTask.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,8 +13,12 @@ Future<List<CompleteTask>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<CompleteTask>> fetchCompleteTask(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -22,8 +27,12 @@ Future<List<CompleteTask>> fetchCompleteTask(String url) async {
 }
 
 Future<CompleteTask> fetchCompleteTask2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return CompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -32,7 +41,12 @@ Future<CompleteTask> fetchCompleteTask2(String url) async {
 }
 
 Future<List<CompleteTask>> fetchCompleteTask3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<CompleteTask> completeTasks = jsonResponse.map((data) {
@@ -48,6 +62,7 @@ Future<CompleteTask> createCompleteTask(int id, int bs_id, String completionDate
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

@@ -1,8 +1,9 @@
 class InShopCloseControl{
+  late int formID;
   late int magaza_kodu;
   late int? bs_id;
   late int? pm_id;
-  late String? kayit_tarihi;
+  late String kayit_tarihi;
   late int priz_cihaz;
   late int dolap_aydinlatma;
   late int kamera_kayit;
@@ -25,6 +26,7 @@ class InShopCloseControl{
   late int kasa_alti_cop;
 
   InShopCloseControl({
+    required this.formID,
     required this.magaza_kodu,
     required this.bs_id,
     required this.pm_id,
@@ -53,11 +55,12 @@ class InShopCloseControl{
 
   factory InShopCloseControl.fromJson(Map<String, dynamic> json) {
     return InShopCloseControl(
+      formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],
-      priz_cihaz: json['priz_cşhaz'],
+      priz_cihaz: json['priz_cihaz'],
       dolap_aydinlatma: json['dolap_aydinlatma'],
       kamera_kayit: json['kamera_kayit'],
       mutfak_wc_temizlik: json['mutfak_wc_temizlik'],
@@ -82,10 +85,11 @@ class InShopCloseControl{
 }
 
 class OutShopCloseControl{
+  late int formID;
   late int magaza_kodu;
   late int? bs_id;
   late int? pm_id;
-  late String? kayit_tarihi;
+  late String kayit_tarihi;
   late int magaza_karartma;
   late int zemin_temizligi;
   late int alarm;
@@ -96,6 +100,7 @@ class OutShopCloseControl{
   late int kasa_cikisi;
 
   OutShopCloseControl({
+    required this.formID,
     required this.magaza_kodu,
     required this.bs_id,
     required this.pm_id,
@@ -112,6 +117,7 @@ class OutShopCloseControl{
 
   factory OutShopCloseControl.fromJson(Map<String, dynamic> json) {
     return OutShopCloseControl(
+      formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],

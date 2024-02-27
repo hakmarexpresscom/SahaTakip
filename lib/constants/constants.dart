@@ -7,6 +7,7 @@ import '../models/shop.dart';
 import '../services/shopServices.dart';
 
 String constUrl = "https://bizz.hakmarexpress.com/";
+String apiKey = "AIzaSyCiElU8MOfQ8m9ht76QUiUvuhZyzVtiztA";
 
 bool allSelected = false;
 
@@ -38,7 +39,6 @@ Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/magaza');
 int incompleteTaskCount = 0;
 int photoCount = 0;
 int reportCount = 0;
-int visitingDurationsCount = 0;
 
 bool isCorrectEmail = true;
 bool isCorrectPassword = true;

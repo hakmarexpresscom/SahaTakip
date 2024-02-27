@@ -14,8 +14,12 @@ Future<List<ExternalWork>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<ExternalWork>> fetchExternalWork(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -24,8 +28,12 @@ Future<List<ExternalWork>> fetchExternalWork(String url) async {
 }
 
 Future<ExternalWork> fetchExternalWork2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return ExternalWork.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -34,7 +42,12 @@ Future<ExternalWork> fetchExternalWork2(String url) async {
 }
 
 Future<List<ExternalWork>> fetchExternalWork3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<ExternalWork> externalsTasks = jsonResponse.map((data) {
@@ -50,6 +63,7 @@ Future<ExternalWork> createExternalWork(int? bs_id, int? pm_id, String title, St
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

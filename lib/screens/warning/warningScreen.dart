@@ -28,6 +28,7 @@ class _WarningScreenState extends State<WarningScreen> {
 
   final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+  final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
 
   @override
   Widget build(BuildContext context) {
@@ -61,36 +62,49 @@ class _WarningScreenState extends State<WarningScreen> {
             onTaps: () async{
               if(boxStateManagement.get('isStoreVisit')==true){
                 storeVisitManager.endStoreVisit();
-                box.put("visitingFinishHour",DateTime.now().hour);
-                box.put("visitingFinishMinute",DateTime.now().minute);
-                box.put("visitingFinishSecond",DateTime.now().second);
-                List<dynamic> tarih = box.get("shiftDate").split("-");
-                String visitingDuration = calculateElapsedTime(DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("visitingStartHour"),box.get("visitingStartMinute"),box.get("visitingStartSecond"),0,0),DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("visitingFinishHour"),box.get("visitingFinishMinute"),box.get("visitingFinishSecond"),0,0));
-                await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+                box.put("visitingFinishTime",DateTime.now());
+                String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
                 await createVisitingDurations(
                     box.get('currentShopID'),
                     (isBS==true)?userID:null,
                     (isBS==true)?null:userID,
-                    box.get("visitingStartHour").toString()+":"+box.get("visitingStartMinute").toString()+":"+box.get("visitingStartSecond").toString(),
-                    box.get("visitingFinishHour").toString()+":"+box.get("visitingFinishMinute").toString()+":"+box.get("visitingFinishSecond").toString(),
+                    box.get("visitingStartTime").toIso8601String(),
+                    box.get("visitingFinishTime").toIso8601String(),
                     box.get("shiftDate"),
                     visitingDuration,
                     "${constUrl}api/ZiyaretSureleri"
                 );
               }
-              shopVisitWorkManager.endShopVisitWork();
-              List<dynamic> tarih = box.get("shiftDate").split("-");
-              String workDuration = calculateElapsedTime(DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),box.get("startHour"),box.get("startMinute"),box.get("startSecond"),0,0),DateTime(int.parse(tarih[2]),int.parse(tarih[1]),int.parse(tarih[0]),18,30,0,0,0));
-              await createShift(
-                  (isBS)?userID:null,
-                  (isBS)?null:userID,
-                  "Mağaza Ziyareti",
-                  box.get("shiftDate"),
-                  box.get("startHour").toString()+":"+box.get("startMinute").toString()+":"+box.get("startSecond").toString(),
-                  "18:30:0",
-                  workDuration,
-                  "${constUrl}api/mesai"
-              );
+              else if(boxStateManagement.get('isStartShopVisitWork')==true&&boxStateManagement.get('isStoreVisit')==false){
+                shopVisitWorkManager.endShopVisitWork();
+                box.put("finishTime",DateTime.now());
+                String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
+                await createShift(
+                    (isBS)?userID:null,
+                    (isBS)?null:userID,
+                    "Mağaza Ziyareti",
+                    box.get("shiftDate"),
+                    box.get("startTime").toIso8601String(),
+                    box.get("finishTime").toIso8601String(),
+                    workDuration,
+                    "${constUrl}api/mesai"
+                );
+              }
+              else if(boxStateManagement.get('isStartExternalTaskWork')==true){
+                externalTaskWorkManager.endExternalTaskWork();
+                box.put("finishTime",DateTime.now());
+                String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
+                await createShift(
+                    (isBS)?userID:null,
+                    (isBS)?null:userID,
+                    "Harici İş",
+                    box.get("shiftDate"),
+                    box.get("startTime").toIso8601String(),
+                    box.get("finishTime").toIso8601String(),
+                    workDuration,
+                    "${constUrl}api/mesai"
+                );
+              }
               naviStartWorkMainScreen(context);
             },
           );

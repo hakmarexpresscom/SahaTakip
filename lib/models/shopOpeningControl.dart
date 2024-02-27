@@ -1,8 +1,9 @@
 class InShopOpenControl{
+  late int formID;
   late int magaza_kodu;
   late int? bs_id;
   late int? pm_id;
-  late String? kayit_tarihi;
+  late String kayit_tarihi;
   late int gunluk_evrak;
   late int kasiyer_defteri;
   late int skt_kontrolu;
@@ -26,6 +27,7 @@ class InShopOpenControl{
   late int isitici_klima;
 
   InShopOpenControl({
+    required this.formID,
     required this.magaza_kodu,
     required this.bs_id,
     required this.pm_id,
@@ -55,6 +57,7 @@ class InShopOpenControl{
 
   factory InShopOpenControl.fromJson(Map<String, dynamic> json) {
     return InShopOpenControl(
+      formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
@@ -85,10 +88,11 @@ class InShopOpenControl{
 }
 
 class OutShopOpenControl{
+  late int formID;
   late int magaza_kodu;
   late int? bs_id;
   late int? pm_id;
-  late String? kayit_tarihi;
+  late String kayit_tarihi;
   late int alarm;
   late int personel_sayisi;
   late int uygun_zaman;
@@ -96,6 +100,7 @@ class OutShopOpenControl{
   late int anahtar;
 
   OutShopOpenControl({
+    required this.formID,
     required this.magaza_kodu,
     required this.bs_id,
     required this.pm_id,
@@ -109,6 +114,7 @@ class OutShopOpenControl{
 
   factory OutShopOpenControl.fromJson(Map<String, dynamic> json) {
     return OutShopOpenControl(
+      formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],

@@ -13,8 +13,12 @@ Future<List<Shift>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<Shift>> fetchShift(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -23,8 +27,12 @@ Future<List<Shift>> fetchShift(String url) async {
 }
 
 Future<Shift> fetchShift2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return Shift.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -33,7 +41,12 @@ Future<Shift> fetchShift2(String url) async {
 }
 
 Future<List<Shift>> fetchShift3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<Shift> shift = jsonResponse.map((data) {
@@ -49,6 +62,7 @@ Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shift
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

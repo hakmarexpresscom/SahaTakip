@@ -14,7 +14,12 @@ Future<List<Photo>> parseJsonList(String jsonBody) async{
 }
 
 Future<List<Photo>> fetchPhoto(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonList(response.body);
   } else {
@@ -23,8 +28,12 @@ Future<List<Photo>> fetchPhoto(String url) async {
 }
 
 Future<Photo> fetchPhoto2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return Photo.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -33,7 +42,12 @@ Future<Photo> fetchPhoto2(String url) async {
 }
 
 Future<List<Photo>> fetchPhoto3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<Photo> photos = jsonResponse.map((data) {
@@ -49,6 +63,7 @@ Future<Photo> createPhoto(int id,int? task_id, int shopCode,int? bs_id,int? pm_i
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {
@@ -75,6 +90,7 @@ Future<Photo> updateIncompleteTaskIDPhoto(int id,int? task_id, int shopCode,int?
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {
@@ -101,6 +117,7 @@ Future<Photo> updateCompleteTaskIDPhoto(int id,int? task_id, int shopCode,int? b
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
     {

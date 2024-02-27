@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../constants/constants.dart';
 import '../models/cashCounting.dart';
 
 Future<List<CashCounting>> parseJsonListOut(String jsonBody) async{
@@ -12,8 +13,12 @@ Future<List<CashCounting>> parseJsonListOut(String jsonBody) async{
 }
 
 Future<List<CashCounting>> fetchCashCounting(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return parseJsonListOut(response.body);
   } else {
@@ -22,8 +27,12 @@ Future<List<CashCounting>> fetchCashCounting(String url) async {
 }
 
 Future<CashCounting> fetchCashCounting2(String url) async {
-  final response = await http
-      .get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     return CashCounting.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -32,7 +41,12 @@ Future<CashCounting> fetchCashCounting2(String url) async {
 }
 
 Future<List<CashCounting>> fetchCashCounting3(String url) async {
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
   if (response.statusCode == 200) {
     List<dynamic> jsonResponse = json.decode(response.body);
     List<CashCounting> cashCountings = jsonResponse.map((data) {
@@ -48,6 +62,7 @@ Future<CashCounting> createCashCounting(int shopCode, int? bs_id, int? pm_id, St
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
     },
     body: jsonEncode(<String, dynamic>
       {
