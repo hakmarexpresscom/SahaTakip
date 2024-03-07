@@ -35,45 +35,49 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints){
-          if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
-            return SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child:Container(
-                  alignment: Alignment.center,
-                  child: loginMainScreenUI(0.06,0.8)
-              ),
-            );
-          }
-          else if(651<constraints.maxWidth && constraints.maxWidth<1000){
-            return ((deviceHeight-deviceWidth)<150) ? SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child:Container(
-                  alignment: Alignment.center,
-                  child: loginMainScreenUI(0.06,0.7)
-              ),
-            ) : SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child:Container(
-                  alignment: Alignment.center,
-                  child: loginMainScreenUI(0.05,0.7)
-              ),
-            );
-          }
-          else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
-            return SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child:Container(
-                  alignment: Alignment.center,
-                  child: loginMainScreenUI(0.06,0.8)
-              ),
-            );
-          }
-          else{
-            return Container();
-          }
-        },
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) {},
+        child:LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints){
+            if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
+              return SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child:Container(
+                    alignment: Alignment.center,
+                    child: loginMainScreenUI(0.06,0.8)
+                ),
+              );
+            }
+            else if(651<constraints.maxWidth && constraints.maxWidth<1000){
+              return ((deviceHeight-deviceWidth)<150) ? SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child:Container(
+                    alignment: Alignment.center,
+                    child: loginMainScreenUI(0.06,0.7)
+                ),
+              ) : SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child:Container(
+                    alignment: Alignment.center,
+                    child: loginMainScreenUI(0.05,0.7)
+                ),
+              );
+            }
+            else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
+              return SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child:Container(
+                    alignment: Alignment.center,
+                    child: loginMainScreenUI(0.06,0.8)
+                ),
+              );
+            }
+            else{
+              return Container();
+            }
+          },
+        )
       ),
     );
   }
@@ -141,8 +145,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 radius: 20,
                 fontWeight: FontWeight.w600,
                 onTaps: () {
-                  findPassword(item,emailController.text,context);
-                  //sendPasswordMail(emailController.text,"M1234567.");
+                  findPassword(item,emailController.text.replaceAll(" ", "").toLowerCase(),context);
                 },
                 borderWidht: 1,
                 backgroundColor: secondaryColor,

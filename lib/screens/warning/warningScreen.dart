@@ -26,9 +26,9 @@ class _WarningScreenState extends State<WarningScreen> {
 
   DateTime now = DateTime.now();
 
-  final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
+  final ShiftManager shiftManager = Get.put(ShiftManager());
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
-  final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
+  final RegionCenterVisitManager regionCenterVisitManager = Get.put(RegionCenterVisitManager());
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +37,18 @@ class _WarningScreenState extends State<WarningScreen> {
     deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          foregroundColor: appbarForeground,
-          backgroundColor: appbarBackground,
-          title: const Text('Uyarı Ekranı'),
-        ),
-        body: Container(
-            alignment: Alignment.center,
-            child: showShiftTimeDialog(context),
-          ),
-        );
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        foregroundColor: appbarForeground,
+        backgroundColor: appbarBackground,
+        title: const Text('Uyarı Ekranı'),
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: showShiftTimeDialog(context),
+      ),
+    );
   }
 
   showShiftTimeDialog(BuildContext context) {
@@ -58,51 +58,77 @@ class _WarningScreenState extends State<WarningScreen> {
         builder: (BuildContext context) {
           return AlertDialogWidget(
             title: 'Mesai Saati Kontrolü',
-            content: 'Mağaza ziyaretini durdurmayı unuttuğunuz için uygulama ziyareti otomatik olarak durdurmuştur!',
+            content: 'Mesaiyi durdurmayı unuttuğunuz için uygulama mesayi otomatik olarak durdurmuştur!',
             onTaps: () async{
               if(boxStateManagement.get('isStoreVisit')==true){
                 storeVisitManager.endStoreVisit();
-                box.put("visitingFinishTime",DateTime.now());
+                shiftManager.endShift();
+                box.put("visitingFinishTime",DateTime(int.parse(box.get("shiftDate").split("T")[0].split("-")[0]),int.parse(box.get("shiftDate").split("T")[0].split("-")[1]),int.parse(box.get("shiftDate").split("T")[0].split("-")[2]),18,30,0,0,0));
                 String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
+                box.put("finishTime",DateTime(int.parse(box.get("shiftDate").split("T")[0].split("-")[0]),int.parse(box.get("shiftDate").split("T")[0].split("-")[1]),int.parse(box.get("shiftDate").split("T")[0].split("-")[2]),18,30,0,0,0));
+                String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
                 await createVisitingDurations(
-                    box.get('currentShopID'),
-                    (isBS==true)?userID:null,
-                    (isBS==true)?null:userID,
-                    box.get("visitingStartTime").toIso8601String(),
-                    box.get("visitingFinishTime").toIso8601String(),
-                    box.get("shiftDate"),
-                    visitingDuration,
-                    "${constUrl}api/ZiyaretSureleri"
+                  box.get('currentShopID'),
+                  (isBS==true)?userID:null,
+                  (isBS==true)?null:userID,
+                  box.get("visitingStartTime").toIso8601String(),
+                  box.get("visitingFinishTime").toIso8601String(),
+                  box.get("shiftDate"),
+                  visitingDuration,
+                  "${constUrl}api/ZiyaretSureleri"
+                );
+                createShift(
+                  (isBS)?userID:null,
+                  (isBS)?null:userID,
+                  "Mesai",
+                  box.get("shiftDate"),
+                  box.get("startTime").toIso8601String(),
+                  box.get("finishTime").toIso8601String(),
+                  workDuration,
+                  "${constUrl}api/mesai"
                 );
               }
-              else if(boxStateManagement.get('isStartShopVisitWork')==true&&boxStateManagement.get('isStoreVisit')==false){
-                shopVisitWorkManager.endShopVisitWork();
-                box.put("finishTime",DateTime.now());
+              else if(boxStateManagement.get('isRegionCenterVisit')==true){
+                regionCenterVisitManager.endRegionCenterVisit();
+                shiftManager.endShift();
+                box.put("visitingFinishTime",DateTime(int.parse(box.get("shiftDate").split("T")[0].split("-")[0]),int.parse(box.get("shiftDate").split("T")[0].split("-")[1]),int.parse(box.get("shiftDate").split("T")[0].split("-")[2]),18,30,0,0,0));
+                String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
+                box.put("finishTime",DateTime(int.parse(box.get("shiftDate").split("T")[0].split("-")[0]),int.parse(box.get("shiftDate").split("T")[0].split("-")[1]),int.parse(box.get("shiftDate").split("T")[0].split("-")[2]),18,30,0,0,0));
                 String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
-                await createShift(
-                    (isBS)?userID:null,
-                    (isBS)?null:userID,
-                    "Mağaza Ziyareti",
-                    box.get("shiftDate"),
-                    box.get("startTime").toIso8601String(),
-                    box.get("finishTime").toIso8601String(),
-                    workDuration,
-                    "${constUrl}api/mesai"
+                await createVisitingDurations(
+                  box.get('currentCenterID'),
+                  (isBS==true)?userID:null,
+                  (isBS==true)?null:userID,
+                  box.get("visitingStartTime").toIso8601String(),
+                  box.get("visitingFinishTime").toIso8601String(),
+                  box.get("shiftDate"),
+                  visitingDuration,
+                  "${constUrl}api/ZiyaretSureleri"
+                );
+                createShift(
+                  (isBS)?userID:null,
+                  (isBS)?null:userID,
+                  "Mesai",
+                  box.get("shiftDate"),
+                  box.get("startTime").toIso8601String(),
+                  box.get("finishTime").toIso8601String(),
+                  workDuration,
+                  "${constUrl}api/mesai"
                 );
               }
-              else if(boxStateManagement.get('isStartExternalTaskWork')==true){
-                externalTaskWorkManager.endExternalTaskWork();
-                box.put("finishTime",DateTime.now());
+              else if(boxStateManagement.get('isStartShift')==true&&boxStateManagement.get('isStoreVisit')==false&&boxStateManagement.get('isRegionCenterVisit')==false){
+                shiftManager.endShift();
+                box.put("finishTime",DateTime(int.parse(box.get("shiftDate").split("T")[0].split("-")[0]),int.parse(box.get("shiftDate").split("T")[0].split("-")[1]),int.parse(box.get("shiftDate").split("T")[0].split("-")[2]),18,30,0,0,0));
                 String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
                 await createShift(
-                    (isBS)?userID:null,
-                    (isBS)?null:userID,
-                    "Harici İş",
-                    box.get("shiftDate"),
-                    box.get("startTime").toIso8601String(),
-                    box.get("finishTime").toIso8601String(),
-                    workDuration,
-                    "${constUrl}api/mesai"
+                  (isBS)?userID:null,
+                  (isBS)?null:userID,
+                  "Mesai",
+                  box.get("shiftDate"),
+                  box.get("startTime").toIso8601String(),
+                  box.get("finishTime").toIso8601String(),
+                  workDuration,
+                  "${constUrl}api/mesai"
                 );
               }
               naviStartWorkMainScreen(context);

@@ -87,25 +87,25 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
       }
@@ -141,118 +141,12 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                 ],
               ),
             ),
-            body: TabBarView(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    groupTypeInfo(),
-                    SizedBox(height: deviceHeight*0.02,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: BorderSide(
-                                  color: Colors.indigo,
-                                  width: 1.5
-                              )
-                          ),
-                          child: CupertinoButton(
-                            padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                            // Display a CupertinoPicker with list of fruits.
-                            onPressed: () => _showDialog(
-                              CupertinoPicker(
-                                magnification: 1.22,
-                                squeeze: 1.2,
-                                useMagnifier: true,
-                                itemExtent: kItemExtent,
-                                scrollController: FixedExtentScrollController(
-                                  initialItem: groupNo,
-                                ),
-                                onSelectedItemChanged: (int selectedItem) {
-                                  setState(() {
-                                    groupNo = selectedItem;
-                                    if(shop==0){
-                                      futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
-                                    }
-                                    else{
-                                      futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
-                                    }
-                                  });
-                                },
-                                children:
-                                List<Widget>.generate(groupListCompleteTask.length, (int index) {
-                                  return Center(child: Text(groupListCompleteTask[index]));
-                                }),
-                              ),
-                            ),
-                            child: Text(
-                              groupListCompleteTask[groupNo],
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: deviceWidth*0.04,),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: BorderSide(
-                                  color: Colors.indigo,
-                                  width: 1.5
-                              )
-                          ),
-                          child: CupertinoButton(
-                            padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                            onPressed: () => _showDialog(
-                              CupertinoPicker(
-                                magnification: 1.22,
-                                squeeze: 1.2,
-                                useMagnifier: true,
-                                itemExtent: kItemExtent,
-                                scrollController: FixedExtentScrollController(
-                                  initialItem: groupNo,
-                                ),
-                                onSelectedItemChanged: (int selectedItem) {
-                                  setState(() {
-                                    shop = selectedItem;
-                                    if(shop==0){
-                                      futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
-                                    }
-                                    else{
-                                      futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
-                                    }
-                                  });
-                                },
-                                children:
-                                List<Widget>.generate(createShopFilterList().length, (int index) {
-                                  return Center(child: Text(createShopFilterList()[index]));
-                                }),
-                              ),
-                            ),
-                            child: Text(
-                              (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]
-                    ),
-                    SizedBox(height: deviceHeight*0.02,),
-                    completeTasksScreenUI()
-                  ]
-                ),
-                Column(
+            body: PopScope(
+              canPop: false,
+              onPopInvoked: (bool didPop) {},
+              child:TabBarView(
+                children: <Widget>[
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -261,106 +155,216 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                       groupTypeInfo(),
                       SizedBox(height: deviceHeight*0.02,),
                       Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  side: BorderSide(
-                                      color: Colors.indigo,
-                                      width: 1.5
-                                  )
-                              ),
-                              child: CupertinoButton(
-                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                                onPressed: () => _showDialog(
-                                  CupertinoPicker(
-                                    magnification: 1.22,
-                                    squeeze: 1.2,
-                                    useMagnifier: true,
-                                    itemExtent: kItemExtent,
-                                    scrollController: FixedExtentScrollController(
-                                      initialItem: groupNo,
-                                    ),
-                                    onSelectedItemChanged: (int selectedItem) {
-                                      setState(() {
-                                        groupNo2 = selectedItem;
-                                        if(shop2==0){
-                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
-                                        }
-                                        else{
-                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
-                                        }
-                                      });
-                                    },
-                                    children:
-                                    List<Widget>.generate(groupListIncompleteTask.length, (int index) {
-                                      return Center(child: Text(groupListIncompleteTask[index]));
-                                    }),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                side: BorderSide(
+                                    color: Colors.indigo,
+                                    width: 1.5
+                                )
+                            ),
+                            child: CupertinoButton(
+                              padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                              // Display a CupertinoPicker with list of fruits.
+                              onPressed: () => _showDialog(
+                                CupertinoPicker(
+                                  magnification: 1.22,
+                                  squeeze: 1.2,
+                                  useMagnifier: true,
+                                  itemExtent: kItemExtent,
+                                  scrollController: FixedExtentScrollController(
+                                    initialItem: groupNo,
                                   ),
+                                  onSelectedItemChanged: (int selectedItem) {
+                                    setState(() {
+                                      groupNo = selectedItem;
+                                      if(shop==0){
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                                      }
+                                      else{
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                                      }
+                                    });
+                                  },
+                                  children:
+                                  List<Widget>.generate(groupListCompleteTask.length, (int index) {
+                                    return Center(child: Text(groupListCompleteTask[index]));
+                                  }),
                                 ),
-                                child: Text(
-                                  groupListIncompleteTask[groupNo2],
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                  ),
+                              ),
+                              child: Text(
+                                groupListCompleteTask[groupNo],
+                                style: const TextStyle(
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
-                            SizedBox(width: deviceWidth*0.04,),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  side: BorderSide(
-                                      color: Colors.indigo,
-                                      width: 1.5
-                                  )
-                              ),
-                              child: CupertinoButton(
-                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                                onPressed: () => _showDialog(
-                                  CupertinoPicker(
-                                    magnification: 1.22,
-                                    squeeze: 1.2,
-                                    useMagnifier: true,
-                                    itemExtent: kItemExtent,
-                                    scrollController: FixedExtentScrollController(
-                                      initialItem: groupNo,
-                                    ),
-                                    onSelectedItemChanged: (int selectedItem) {
-                                      setState(() {
-                                        shop2 = selectedItem;
-                                        if(shop2==0){
-                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
-                                        }
-                                        else{
-                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
-                                        }
-                                      });
-                                    },
-                                    children:
-                                    List<Widget>.generate(createShopFilterList().length, (int index) {
-                                      return Center(child: Text(createShopFilterList()[index]));
-                                    }),
+                          ),
+                          SizedBox(width: deviceWidth*0.04,),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                side: BorderSide(
+                                    color: Colors.indigo,
+                                    width: 1.5
+                                )
+                            ),
+                            child: CupertinoButton(
+                              padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                              onPressed: () => _showDialog(
+                                CupertinoPicker(
+                                  magnification: 1.22,
+                                  squeeze: 1.2,
+                                  useMagnifier: true,
+                                  itemExtent: kItemExtent,
+                                  scrollController: FixedExtentScrollController(
+                                    initialItem: groupNo,
                                   ),
+                                  onSelectedItemChanged: (int selectedItem) {
+                                    setState(() {
+                                      shop = selectedItem;
+                                      if(shop==0){
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                                      }
+                                      else{
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                                      }
+                                    });
+                                  },
+                                  children:
+                                  List<Widget>.generate(createShopFilterList().length, (int index) {
+                                    return Center(child: Text(createShopFilterList()[index]));
+                                  }),
                                 ),
-                                child: Text(
-                                  (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                  ),
+                              ),
+                              child: Text(
+                                (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
+                                style: const TextStyle(
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
-                          ]
+                          ),
+                        ]
                       ),
                       SizedBox(height: deviceHeight*0.02,),
-                      incompleteTasksScreenUI()
+                      completeTasksScreenUI()
                     ]
-                ),
-              ],
+                  ),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: deviceHeight*0.03,),
+                        groupTypeInfo(),
+                        SizedBox(height: deviceHeight*0.02,),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    side: BorderSide(
+                                        color: Colors.indigo,
+                                        width: 1.5
+                                    )
+                                ),
+                                child: CupertinoButton(
+                                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                  onPressed: () => _showDialog(
+                                    CupertinoPicker(
+                                      magnification: 1.22,
+                                      squeeze: 1.2,
+                                      useMagnifier: true,
+                                      itemExtent: kItemExtent,
+                                      scrollController: FixedExtentScrollController(
+                                        initialItem: groupNo,
+                                      ),
+                                      onSelectedItemChanged: (int selectedItem) {
+                                        setState(() {
+                                          groupNo2 = selectedItem;
+                                          if(shop2==0){
+                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                          }
+                                          else{
+                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                          }
+                                        });
+                                      },
+                                      children:
+                                      List<Widget>.generate(groupListIncompleteTask.length, (int index) {
+                                        return Center(child: Text(groupListIncompleteTask[index]));
+                                      }),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    groupListIncompleteTask[groupNo2],
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: deviceWidth*0.04,),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    side: BorderSide(
+                                        color: Colors.indigo,
+                                        width: 1.5
+                                    )
+                                ),
+                                child: CupertinoButton(
+                                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                  onPressed: () => _showDialog(
+                                    CupertinoPicker(
+                                      magnification: 1.22,
+                                      squeeze: 1.2,
+                                      useMagnifier: true,
+                                      itemExtent: kItemExtent,
+                                      scrollController: FixedExtentScrollController(
+                                        initialItem: groupNo,
+                                      ),
+                                      onSelectedItemChanged: (int selectedItem) {
+                                        setState(() {
+                                          shop2 = selectedItem;
+                                          if(shop2==0){
+                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                          }
+                                          else{
+                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                          }
+                                        });
+                                      },
+                                      children:
+                                      List<Widget>.generate(createShopFilterList().length, (int index) {
+                                        return Center(child: Text(createShopFilterList()[index]));
+                                      }),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
+                        SizedBox(height: deviceHeight*0.02,),
+                        incompleteTasksScreenUI()
+                      ]
+                  ),
+                ],
+              )
             ),
             bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
         ));

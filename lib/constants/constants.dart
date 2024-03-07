@@ -13,14 +13,14 @@ bool allSelected = false;
 
 List<String> shopList = [];
 
-RxBool isStartShopVisitWorkObs = isStartShopVisitWork.obs;
-bool isStartShopVisitWork = (isLoggedIn)?boxStateManagement.get('isStartShopVisitWork'):false;
-
-RxBool isStartExternalTaskWorkObs = isStartExternalTaskWork.obs;
-bool isStartExternalTaskWork = (isLoggedIn)?boxStateManagement.get('isStartExternalTaskWork'):false;
+RxBool isStartShiftObs = isStartShift.obs;
+bool isStartShift = (isLoggedIn)?boxStateManagement.get('isStartShift'):false;
 
 RxBool isStoreVisitInProgress = isStoreVisit.obs;
 bool isStoreVisit = (isLoggedIn)?boxStateManagement.get('isStoreVisit'):false;
+
+RxBool isRegionCenterVisitInProgress = isRegionCenterVisit.obs;
+bool isRegionCenterVisit = (isLoggedIn)?boxStateManagement.get('isRegionCenterVisit'):false;
 
 RxBool isReportCreated = isReport.obs;
 bool isReport = (isLoggedIn)?boxStateManagement.get('isReport'):false;
@@ -40,9 +40,6 @@ int incompleteTaskCount = 0;
 int photoCount = 0;
 int reportCount = 0;
 
-bool isCorrectEmail = true;
-bool isCorrectPassword = true;
-
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";
 String urlShiftFilter = (isLoggedIn)?box.get("urlShiftFilter"):"";
@@ -54,6 +51,7 @@ List<XFile> taskPhotos = [];
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
 int groupNo = (isLoggedIn)?box.get("groupNo"):0;
+int regionCode = (isLoggedIn)?box.get("regionCode"):0;
 
 String userType = (isLoggedIn)?box.get("userType"):"PM";
 bool isBSorPM = (isLoggedIn)?box.get("isBSorPM"):true;

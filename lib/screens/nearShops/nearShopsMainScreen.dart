@@ -134,26 +134,26 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
         _selectedIndex = 2;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
         _selectedIndex = 2;
@@ -181,52 +181,56 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
           backgroundColor: appbarBackground,
           title: const Text('Çevre Mağazalar'),
         ),
-        body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints){
-            if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
-              return Column(
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
-                    SizedBox(height: deviceHeight*0.03,),
-                    nearShopsMainScreenUI(0.00, 0.015, 0.015, 0.02, 20, 18, 15),
-                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
-                    (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
-                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
-                  ]
-              );
-            }
-            else if(651<constraints.maxWidth && constraints.maxWidth<1000){
-              return Column(
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
-                    SizedBox(height: deviceHeight*0.03,),
-                    ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.02, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.015, 30, 25, 20),
-                    SizedBox(height: deviceHeight*0.02,),
-                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
-                    (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
-                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
-                  ]
-              );
-            }
-            else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
-              return Column(
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
-                    SizedBox(height: deviceHeight*0.03,),
-                    nearShopsMainScreenUI(0.00, 0.01, 0.01, 0.015, 20, 18, 15),
-                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
-                    (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
-                    (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
-                  ]
-              );
-            }
-            else{
-              return Container();
-            }
-          },
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) {},
+          child:LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints){
+              if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
+                return Column(
+                    children: [
+                      SizedBox(height: deviceHeight*0.03,),
+                      TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
+                      SizedBox(height: deviceHeight*0.03,),
+                      nearShopsMainScreenUI(0.00, 0.015, 0.015, 0.02, 20, 18, 15),
+                      (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                      (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
+                      (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                    ]
+                );
+              }
+              else if(651<constraints.maxWidth && constraints.maxWidth<1000){
+                return Column(
+                    children: [
+                      SizedBox(height: deviceHeight*0.03,),
+                      TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
+                      SizedBox(height: deviceHeight*0.03,),
+                      ((deviceHeight-deviceWidth)<150) ? nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.02, 20, 18, 15) : nearShopsMainScreenUI(0.00, 0.02, 0.02, 0.015, 30, 25, 20),
+                      SizedBox(height: deviceHeight*0.02,),
+                      (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                      (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
+                      (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                    ]
+                );
+              }
+              else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
+                return Column(
+                    children: [
+                      SizedBox(height: deviceHeight*0.03,),
+                      TextWidget(text: "Yakınınızda olan mağazaların kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
+                      SizedBox(height: deviceHeight*0.03,),
+                      nearShopsMainScreenUI(0.00, 0.01, 0.01, 0.015, 20, 18, 15),
+                      (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                      (Platform.isAndroid)?seeAllShops():SizedBox(height: deviceHeight*0.00,),
+                      (Platform.isAndroid)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0.00,),
+                    ]
+                );
+              }
+              else{
+                return Container();
+              }
+            },
+          )
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,),
     );

@@ -1,16 +1,10 @@
 import 'package:deneme/styles/styleConst.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
-import '../../main.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../routing/landing.dart';
-import '../../services/shiftServices.dart';
-import '../../utils/appStateManager.dart';
-import '../../utils/generalFunctions.dart';
 import '../../widgets/button_widget.dart';
 
 class ExternalTaskMainScreen extends StatefulWidget {
@@ -32,8 +26,6 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
 
   DateTime now = DateTime.now();
 
-  final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
-
   @override
   Widget build(BuildContext context) {
 
@@ -43,25 +35,25 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
       }
@@ -84,13 +76,23 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
           foregroundColor: appbarForeground,
           backgroundColor: appbarBackground,
           title: const Text('Harici İş'),
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: externalTaskMainScreenUI(),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviShiftTypeScreen(context);
+            },
           ),
+        ),
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) {},
+            child:SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child:Container(
+                alignment: Alignment.center,
+                child: externalTaskMainScreenUI(),
+              ),
+          )
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
@@ -108,8 +110,6 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
             externalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
             addExternalWorkButton(),
-            SizedBox(height: deviceHeight*0.03,),
-            stopShiftButton()
           ],
         ),
       );
@@ -133,6 +133,7 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
         borderColor: secondaryColor,
         textColor: textColor);
   }
+
   Widget addExternalWorkButton(){
     return ButtonWidget(
         text: "Harici İş Girişi",
@@ -147,35 +148,6 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
         borderWidht: 3,
         backgroundColor: primaryColor,
         borderColor: primaryColor,
-        textColor: textColor);
-  }
-  Widget stopShiftButton(){
-    return ButtonWidget(
-        text: "Mesaiyi Bitir",
-        heightConst: 0.06,
-        widthConst: 0.8,
-        size: 18,
-        radius: 20,
-        fontWeight: FontWeight.w600,
-        onTaps: ()async{
-          externalTaskWorkManager.endExternalTaskWork();
-          box.put("finishTime",DateTime.now());
-          String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
-          await createShift(
-              (isBS)?userID:null,
-              (isBS)?null:userID,
-              "Harici İş",
-              box.get("shiftDate"),
-              box.get("startTime").toIso8601String(),
-              box.get("finishTime").toIso8601String(),
-              workDuration,
-              "${constUrl}api/mesai"
-          );
-          naviStartWorkMainScreen(context);
-        },
-        borderWidht: 1,
-        backgroundColor: redColor,
-        borderColor: redColor,
         textColor: textColor);
   }
 

@@ -1,3 +1,4 @@
+import 'package:deneme/routing/landing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -63,25 +64,25 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
       }
@@ -150,7 +151,7 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
               ),
               RadioListTile(
                 title: Text('Kurtköy Bölge Merkez'),
-                value: 'Kurtköye Bölge Merkez',
+                value: 'Kurtköy Bölge Merkez',
                 groupValue: workPlace,
                 onChanged: (value) {
                   setState(() {

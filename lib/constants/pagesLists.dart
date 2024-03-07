@@ -1,10 +1,12 @@
 import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
+import 'package:deneme/screens/startWork/shiftTypeScreen.dart';
 import 'package:flutter/cupertino.dart';
+import '../main.dart';
 import '../screens/navigation/navigationMainScreen.dart';
 import '../screens/nearShops/nearShopsMainScreen.dart';
 import '../screens/other/otherMainScreen.dart';
+import '../screens/regionCenterVisiting/regionCenterVisitingMainScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
-import '../screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/taskChecking/taskCheckingMainScreenBM.dart';
@@ -19,7 +21,7 @@ late List<Widget> pagesBS = [
 ];
 
 late List<Widget> pagesBS2 = [
-  ShopVisitingMainScreen(),
+  ShiftTypeScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   RemoteTaskMainScreen(),
@@ -27,7 +29,7 @@ late List<Widget> pagesBS2 = [
 ];
 
 late List<Widget> pagesBS3 = [
-  ExternalTaskMainScreen(),
+  RegionCenterVisitingMainScreen(region_code:box.get("currentCenterID"),regionName:box.get("currentCenterName")),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   RemoteTaskMainScreen(),
@@ -44,7 +46,7 @@ late List<Widget> pagesPM = [
 ];
 
 late List<Widget> pagesPM2 = [
-  ShopVisitingMainScreen(),
+  ShiftTypeScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   TaskCheckingMainScreenPM(),
@@ -53,7 +55,7 @@ late List<Widget> pagesPM2 = [
 ];
 
 late List<Widget> pagesPM3 = [
-  ExternalTaskMainScreen(),
+  RegionCenterVisitingMainScreen(region_code:box.get("currentCenterID"),regionName:box.get("currentCenterName")),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   TaskCheckingMainScreenPM(),

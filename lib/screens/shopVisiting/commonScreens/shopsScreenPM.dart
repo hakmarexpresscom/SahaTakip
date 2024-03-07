@@ -138,25 +138,25 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
       }
@@ -181,7 +181,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              naviShopVisitingMainScreen(context);
+              naviShiftTypeScreen(context);
             },
           ),
         ),
@@ -248,28 +248,17 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                 lat: snapshot.data![index].Lat,
                                 long: snapshot.data![index].Long,
                                 onTaps: (){
-                                  /*if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
+                                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
                                     storeVisitManager.startStoreVisit();
                                     reportManager.noReport();
                                     box.put("currentShopName", snapshot.data![index].shopName);
                                     box.put("currentShopID", snapshot.data![index].shopCode);
-                                    box.put("visitingStartHour", 0);
-                                    box.put("visitingStartMinute", 0);
-                                    box.put("visitingStartSecond", 0);
-                                    box.put("visitingStartHour", DateTime.now().hour);
-                                    box.put("visitingStartMinute", DateTime.now().minute);
-                                    box.put("visitingStartSecond", DateTime.now().second);
+                                    box.put("visitingStartTime",DateTime.now());
                                     naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                   }
                                   else{
                                     showShopDistanceDialog(context);
-                                  }*/
-                                  storeVisitManager.startStoreVisit();
-                                  reportManager.noReport();
-                                  box.put("currentShopName", snapshot.data![index].shopName);
-                                  box.put("currentShopID", snapshot.data![index].shopCode);
-                                  box.put("visitingStartTime",DateTime.now());
-                                  naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                  }
                                 }
                             )
                           ]
@@ -305,7 +294,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
         builder: (BuildContext context) {
           return AlertDialogWidget(
             title: 'Mesafe Kontrolü',
-            content: 'Ziyaret etmek istediğiniz mağazanın en az 200 metre yakınında olmanız gerekmektedir!',
+            content: 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!',
             onTaps: (){
               naviShopVisitingShopsScreenPM(context);
             },

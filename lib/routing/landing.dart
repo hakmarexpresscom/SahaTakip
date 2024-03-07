@@ -1,6 +1,5 @@
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/shopVisitingMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/authScreens/loginScreen/forgetPasswordScreen.dart';
@@ -13,6 +12,7 @@ import '../screens/photoScreen/answerDownloadedPhoto.dart';
 import '../screens/photoScreen/taskDownloadedPhoto.dart';
 import '../screens/photoScreen/taskPhoto.dart';
 import '../screens/photoScreen/taskPhotoGalleryView.dart';
+import '../screens/regionCenterVisiting/regionCenterVisitingMainScreen.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
@@ -28,6 +28,7 @@ import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMa
 import '../screens/shopVisiting/userPM/visitingReport/pastReportTaskDetailScreen.dart';
 import '../screens/shopVisiting/userPM/visitingReport/pastReportTasksScreen.dart';
 import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
+import '../screens/startWork/shiftTypeScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/submitTask/submitTaskShopPhotoSelectionScreen.dart';
@@ -41,10 +42,6 @@ void naviShopVisitingShopsScreen(BuildContext context){
 
 void naviShopVisitingShopsScreenPM(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreenPM()));
-}
-
-void naviShopVisitingMainScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingMainScreen()));
 }
 
 void naviStartWorkMainScreen(BuildContext context){
@@ -165,4 +162,12 @@ void naviTaskCheckingMainScreenBM(BuildContext context){
 
 void naviPlaceSelectionScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => PlaceSelectionScreen()));
+}
+
+void naviRegionCenterVisitingMainScreen(BuildContext context, id, name){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingMainScreen(region_code:id, regionName: name,)));
+}
+
+void naviShiftTypeScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftTypeScreen()));
 }

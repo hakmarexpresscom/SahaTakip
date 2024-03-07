@@ -60,25 +60,25 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
       }
@@ -108,12 +108,16 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
             },
           ),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: externalTaskDetailScreenUI(),
-          ),
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) {},
+          child:SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
+            child:Container(
+              alignment: Alignment.center,
+              child: externalTaskDetailScreenUI(),
+            ),
+          )
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
@@ -135,8 +139,8 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       widthConst: 0.9,
                       taskName: snapshot.data!.workTitle,
                       taskDescription: snapshot.data!.workDetail!,
-                      startHour: snapshot.data!.workStartHour,
-                      finishHour: snapshot.data!.workFinishHour,
+                      startHour: snapshot.data!.workStartHour.toString(),
+                      finishHour: snapshot.data!.workFinishHour.toString(),
                       workPlace: snapshot.data!.workPlace,
                       isCompleted: (snapshot.data!.completionInfo==1)?true:false,
                       id: snapshot.data!.external_work_id,

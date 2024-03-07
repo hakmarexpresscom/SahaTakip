@@ -57,26 +57,26 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
         _selectedIndex = 1;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
         _selectedIndex = 1;
@@ -103,48 +103,52 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
           backgroundColor: appbarBackground,
           title: const Text('Navigasyon'),
         ),
-        body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints){
-            if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
-              return Column(
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
-                    SizedBox(height: deviceHeight*0.03,),
-                    searchBar(),
-                    SizedBox(height: deviceHeight*0.03,),
-                    navigationMainScreenUI(0.00, 0.015, 0.02, 20, 18, 15)
-                  ]
-              );
-            }
-            else if(651<constraints.maxWidth && constraints.maxWidth<1000){
-              return Column(
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
-                    SizedBox(height: deviceHeight*0.03,),
-                    searchBar(),
-                    SizedBox(height: deviceHeight*0.03,),
-                    ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
-                  ]
-              );
-            }
-            else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
-              return Column(
-                  children: [
-                    SizedBox(height: deviceHeight*0.03,),
-                    TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
-                    SizedBox(height: deviceHeight*0.03,),
-                    searchBar(),
-                    SizedBox(height: deviceHeight*0.03,),
-                    navigationMainScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
-                  ]
-              );
-            }
-            else{
-              return Container();
-            }
-          },
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) {},
+          child:LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints){
+              if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
+                return Column(
+                    children: [
+                      SizedBox(height: deviceHeight*0.03,),
+                      TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
+                      SizedBox(height: deviceHeight*0.03,),
+                      searchBar(),
+                      SizedBox(height: deviceHeight*0.03,),
+                      navigationMainScreenUI(0.00, 0.015, 0.02, 20, 18, 15)
+                    ]
+                );
+              }
+              else if(651<constraints.maxWidth && constraints.maxWidth<1000){
+                return Column(
+                    children: [
+                      SizedBox(height: deviceHeight*0.03,),
+                      TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
+                      SizedBox(height: deviceHeight*0.03,),
+                      searchBar(),
+                      SizedBox(height: deviceHeight*0.03,),
+                      ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
+                    ]
+                );
+              }
+              else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
+                return Column(
+                    children: [
+                      SizedBox(height: deviceHeight*0.03,),
+                      TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
+                      SizedBox(height: deviceHeight*0.03,),
+                      searchBar(),
+                      SizedBox(height: deviceHeight*0.03,),
+                      navigationMainScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
+                    ]
+                );
+              }
+              else{
+                return Container();
+              }
+            },
+          )
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );

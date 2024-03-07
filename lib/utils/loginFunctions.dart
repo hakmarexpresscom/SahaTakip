@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';
@@ -25,9 +26,9 @@ import '../services/userPMServices.dart';
 import 'package:crypto/crypto.dart';
 
 int sayac = 0;
-int sayac_2 = 0;
 
 login(String user, String email, String password, BuildContext context) async {
+
   if(user=="Bölge Sorumlusu") {
 
     box.put("userType","BS");
@@ -59,14 +60,14 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("shiftDate","");
 
-    boxStateManagement.put('isStartShopVisitWork', false);
-    isStartShopVisitWork = boxStateManagement.get('isStartShopVisitWork');
-
-    boxStateManagement.put('isStartExternalTaskWork', false);
-    isStartExternalTaskWork = boxStateManagement.get('isStartExternalTaskWork');
+    boxStateManagement.put('isStartShift', false);
+    isStartShift = boxStateManagement.get('isStartShift');
 
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
+
+    boxStateManagement.put('isRegionCenterVisit', false);
+    isStoreVisit = boxStateManagement.get('isRegionCenterVisit');
 
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
@@ -105,14 +106,14 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("shiftDate","");
 
-    boxStateManagement.put('isStartShopVisitWork', false);
-    isStartShopVisitWork = boxStateManagement.get('isStartShopVisitWork');
-
-    boxStateManagement.put('isStartExternalTaskWork', false);
-    isStartExternalTaskWork = boxStateManagement.get('isStartExternalTaskWork');
+    boxStateManagement.put('isStartShift', false);
+    isStartShift = boxStateManagement.get('isStartShift');
 
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
+
+    boxStateManagement.put('isRegionCenterVisit', false);
+    isStoreVisit = boxStateManagement.get('isRegionCenterVisit');
 
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
@@ -137,8 +138,14 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
 
+    boxStateManagement.put('isStartShift', false);
+    isStartShift = boxStateManagement.get('isStartShift');
+
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
+
+    boxStateManagement.put('isRegionCenterVisit', false);
+    isStoreVisit = boxStateManagement.get('isRegionCenterVisit');
 
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
@@ -173,8 +180,16 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("groupNo",users[i].group_no);
       groupNo=box.get("groupNo");
 
+      box.put("regionCode",users[i].bolge);
+      regionCode=box.get("regionCode");
+
       sayac=i;
     }
+  }
+  if(sayac==0) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
   }
 }
 
@@ -201,6 +216,11 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
   }
+  else{
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
+  }
 }
 
 
@@ -215,8 +235,16 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("groupNo",users[i].group_no);
       groupNo=box.get("groupNo");
 
+      box.put("regionCode",users[i].bolge);
+      regionCode=box.get("regionCode");
+
       sayac=i;
     }
+  }
+  if(sayac==0) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
   }
 }
 
@@ -243,6 +271,11 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
   }
+  else{
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
+  }
 }
 
 Future checkEmailBM(String email, String url,BuildContext context) async {
@@ -256,13 +289,13 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
       box.put("groupNo",0);
       groupNo=box.get("groupNo");
 
-      isCorrectEmail=true;
-
       sayac = i;
     }
   }
   if(sayac==0) {
-    isCorrectEmail = false;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
   }
 }
 
@@ -276,12 +309,16 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
   var hashedPassword = digest.bytes;
 
   if(listEquals(binaryHashedPassword, hashedPassword)){
-
     await saveShopCodes("${constUrl}api/magaza$urlShopFilter=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
+  }
+  else{
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
   }
 }
 
@@ -293,13 +330,13 @@ Future checkEmailNK(String email, String url,BuildContext context) async {
       box.put("userID",users[i].nk_id);
       userID=box.get("userID");
 
-      isCorrectEmail=true;
-
       sayac = i;
     }
   }
   if(sayac==0) {
-    isCorrectEmail = false;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
   }
 }
 
@@ -315,5 +352,10 @@ Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
+  }
+  else{
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+    );
   }
 }

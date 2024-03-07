@@ -27,7 +27,21 @@ Future<List<RegionCenter>> fetchRegionCenter(String url) async {
   }
 }
 
-Future<List<RegionCenter>> fetchRegionCenter2(String url) async {
+Future<RegionCenter> fetchRegionCenter2(String url) async {
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
+  if (response.statusCode == 200) {
+    return RegionCenter.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load RegionCenter');
+  }
+}
+
+Future<List<RegionCenter>> fetchRegionCenter3(String url) async {
   final response = await http.get(
     Uri.parse(url),
     headers: {

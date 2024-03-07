@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:deneme/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../models/externalWork.dart';
 import 'package:http/http.dart' as http;
 
@@ -59,7 +60,7 @@ Future<List<ExternalWork>> fetchExternalWork3(String url) async {
   }
 }
 
-Future<ExternalWork> createExternalWork(int? bs_id, int? pm_id, String title, String? detail, String? startHour, String finishHour, String assignmentDate, int completionInfo, String workPlace, String lat, String long, String url) async {
+Future<ExternalWork> createExternalWork(int? bs_id, int? pm_id, String title, String? detail, String startHour, String finishHour, String assignmentDate, int completionInfo, String workPlace, String lat, String long, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',

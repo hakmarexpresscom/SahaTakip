@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
@@ -12,6 +11,7 @@ import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
 import '../../widgets/alert_dialog.dart';
 import '../../widgets/text_form_field.dart';
+import 'package:intl/intl.dart';
 
 class EnterExternalTaskScreen extends StatefulWidget {
 
@@ -52,8 +52,6 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final taskNameController = TextEditingController();
-  final startHourController = TextEditingController();
-  final finishHourController = TextEditingController();
   final taskDescriptionController = TextEditingController();
 
   @override
@@ -127,6 +125,41 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
     });
   }
 
+  TimeOfDay _startTime = TimeOfDay(hour: 0,minute: 0);
+  TimeOfDay _finishTime = TimeOfDay(hour: 0,minute: 0);
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _startTime,
+    );
+    if (picked != null && picked != _startTime) {
+      setState(() {
+        _startTime = picked;
+      });
+    }
+  }
+
+  Future<void> _selectTime2(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _finishTime,
+    );
+    if (picked != null && picked != _finishTime) {
+      setState(() {
+        _finishTime = picked;
+      });
+    }
+  }
+
+  String formatTimeOfDay(TimeOfDay timeOfDay) {
+    final now = DateTime.now();
+    final dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+    final formatter = DateFormat('HH:mm:ss');
+    print(formatter.format(dateTime));
+    return formatter.format(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -136,25 +169,25 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
       }
@@ -168,7 +201,6 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
       }
     }
 
-
     userCondition(userType);
 
     return Scaffold(
@@ -177,13 +209,23 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           foregroundColor: appbarForeground,
           backgroundColor: appbarBackground,
           title: const Text('Harici İş Girişi'),
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-          child:Container(
-            alignment: Alignment.center,
-            child: submitTaskMainScreenUI(),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              naviExternalTaskMainScreen(context);
+            },
           ),
+        ),
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) {},
+          child:SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child:Container(
+              alignment: Alignment.center,
+              child: submitTaskMainScreenUI(),
+            ),
+          )
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
@@ -234,9 +276,33 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               ),
             ),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Görev Başlangıç Saati (Örn: 13:30)", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: startHourController, value: EnterExternalTaskScreen.starthour, paddingValue: 5,maxLines: 1,maxLength: 5,controllerString: startHourController.text),
+            TextField(
+              readOnly: true,
+              controller: TextEditingController(
+                text: '${_startTime.hour}:${_startTime.minute}',
+              ),
+              onTap: () {
+                _selectTime(context);
+              },
+              decoration: InputDecoration(
+                labelText: 'Başlangıç Saati',
+                border: OutlineInputBorder(),
+              ),
+            ),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Görev Bitiş Saati (Örn: 13:30)", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: finishHourController, value: EnterExternalTaskScreen.finishHour, paddingValue: 5,maxLines: 1,maxLength: 5,controllerString: startHourController.text),
+            TextField(
+              readOnly: true,
+              controller: TextEditingController(
+                text: '${_finishTime.hour}:${_finishTime.minute}',
+              ),
+              onTap: () {
+                _selectTime2(context);
+              },
+              decoration: InputDecoration(
+                labelText: 'Bitiş Saati',
+                border: OutlineInputBorder(),
+              ),
+            ),
             SizedBox(height: deviceHeight*0.02,),
             TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: textColor, controller: taskDescriptionController, value: EnterExternalTaskScreen.taskDescription, paddingValue: 5,maxLines: 5,maxLength: 250,controllerString: taskDescriptionController.text),
           ],
@@ -279,7 +345,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
 
           try {
 
-            if (taskNameController.text.isEmpty || startHourController.text.isEmpty || finishHourController.text.isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
+            if (taskNameController.text.isEmpty || _startTime.toString().isEmpty || _finishTime.toString().isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
               // Show an alert dialog if either taskName or taskDeadline is empty
               showDialog(
                 context: context,
@@ -305,8 +371,8 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               (isBS)?null:userID,
               taskNameController.text,
               taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
-              startHourController.text,
-              finishHourController.text,
+              formatTimeOfDay(_startTime),
+              formatTimeOfDay(_startTime),
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
               0,
               (showOtherTextField)?workPlaceTextFieldController.text:workPlace2,

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ExternalWork{
   late int external_work_id;
   late int? bs_id;

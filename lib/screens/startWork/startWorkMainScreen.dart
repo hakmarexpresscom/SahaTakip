@@ -29,8 +29,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   late Future<List<Shift>> futureShift;
 
-  String item = shiftType[0];
-
   int _selectedIndex = 0;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -41,8 +39,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   DateTime now = DateTime.now();
 
-  final ShopVisitWorkManager shopVisitWorkManager = Get.put(ShopVisitWorkManager());
-  final ExternalTaskWorkManager externalTaskWorkManager = Get.put(ExternalTaskWorkManager());
+  final ShiftManager shiftManager = Get.put(ShiftManager());
 
   @override
   void initState() {
@@ -59,26 +56,26 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     void userCondition(String user){
       if(user=="BS"){
         naviBarList = itemListBS;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
         _selectedIndex = 0;
       }
       if(user=="PM"){
         naviBarList = itemListPM;
-        if(isStartShopVisitWorkObs.value==false&&isStartExternalTaskWorkObs.value==false){
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
         }
-        else if(isStartShopVisitWorkObs.value){
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
         }
-        else if(isStartExternalTaskWorkObs.value){
+        else if(isRegionCenterVisitInProgress.value){
           pageList = pagesPM3;
         }
         _selectedIndex = 0;
@@ -104,12 +101,16 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         backgroundColor: appbarBackground,
         title: const Text('Mesaiye Başla'),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0, deviceHeight*0.09, 0, 0),
-        child:Container(
-          alignment: Alignment.center,
-          child: startWorkMainScreenUI(),
-        ),
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) {},
+          child:SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child:Container(
+              alignment: Alignment.center,
+              child: startWorkMainScreenUI(),
+            ),
+          )
       ),
       bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
     );
@@ -123,12 +124,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: deviceHeight*0.04,),
+            SizedBox(height: deviceHeight*0.25,),
             workDurationInfo(),
-            SizedBox(height: deviceHeight*0.09,),
-            shiftTypeInfo(),
-            SizedBox(height: deviceHeight*0.03,),
-            shiftTypeDropDown(),
             SizedBox(height: deviceHeight*0.07,),
             startWorkButton(),
           ],
@@ -152,10 +149,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     );
   }
 
-  Widget shiftTypeInfo(){
-    return TextWidget(text: "Mesai Türünüzü Seçiniz", size: 20, fontWeight: FontWeight.w400, color: textColor);
-  }
-
   Widget startWorkButton(){
     return ButtonWidget(
         text: "Mesaiye Başla",
@@ -166,28 +159,19 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: () {
-          DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
+          DateTime startTime = DateTime(now.year, now.month, now.day, 6, 30);
           DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
 
           bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
 
-          if(item=="Mağaza Ziyareti"&& isWithinTimeRange){
-            shopVisitWorkManager.startShopVisitWork();
+          if(isWithinTimeRange){
+            shiftManager.startShift();
             setState(() {
               box.put("startTime",DateTime.now());
               box.put("shiftDate","");
               box.put("shiftDate",now.toIso8601String());
             });
-            naviShopVisitingMainScreen(context);
-          }
-          else if(item=="Harici İş" && isWithinTimeRange){
-            externalTaskWorkManager.startExternalTaskWork();
-            setState(() {
-              box.put("startTime",DateTime.now());
-              box.put("shiftDate","");
-              box.put("shiftDate",now.toIso8601String());
-            });
-            naviExternalTaskMainScreen(context);
+            naviShiftTypeScreen(context);
           }
           else if(isWithinTimeRange==false){
             showShiftTimeDialog(context);
@@ -197,20 +181,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor
-    );
-  }
-
-  Widget shiftTypeDropDown(){
-    return DropdownMenu<String>(
-      initialSelection: item,
-      onSelected: (String? value) {
-        setState(() {
-          item = value!;
-        });
-      },
-      dropdownMenuEntries: shiftType.map<DropdownMenuEntry<String>>((String value) {
-        return DropdownMenuEntry<String>(value: value, label: value);
-      }).toList(),
     );
   }
 
