@@ -1,0 +1,38 @@
+Map<String, int> depoFormList = {
+  "Manav sevkiyatları saatinde çıkarıldı mı?":0,
+  "Bozuk ürün kontrolü yapıldı mı?":0,
+  "SB çıkışları ile mal kabul kontrol edildi mi?":0,
+  "Sivas birlik faturası kontrol edilip imzalandı mı?":0,
+  "Ana kalem ürünlerinin sipariş karşılamasına bakıldı mı?":0,
+  "Sipariş ve sevk tonajları kontrol edildi mi?":0,
+  "Manav depo stoğu kontrol edildi mi?":0,
+  "Kalan ürün dönüşümü sağlandı mı?":0,
+  "Kasa alanı kontrol edildi mi?":0,
+  "Depo çalışanlarının giriş ve çıkış saatleri kontrol edildi mi?":0
+};
+
+Map<String, int> shopFormList = {
+  "Manav düzeni sağlanmış mı?":0,
+  "Manav fifosu yapılmış mı? Ürünler ayıklanmış mı?":0,
+  "Manav düzeni dizilime uygun mu?":0,
+  "Aktif ürünler mağazada mevcut mu?":0,
+  "Halk günü teşhirleri ve haftanın ürünleri teşhire açılmış mı":0,
+  "Halk günü teşhirlerine ve haftanın ürünlerine afiş yazılmış mı?":0,
+  "Künyeler güncel mi?":0,
+  "Fiyat değişikliği yapılmış mı?":0,
+  "Mağazanın etiket ve görselleri düzgün mü? KG-Adet ibaresi var mı?":0,
+  "Çıkma bölümü temiz ve düzenlı mi?":0,
+  "Kuruyemiş standı düzenli mi? Ürünler mevcut mu?":0,
+  "Kasa terazileri doğru tartım yapıyor mu?":0,
+  "Manav baskülü depoda mı?":0,
+  "Mağazanın deposundaki manav stoğu yeterli mi? Eksik fazla mevcut mu?":0,
+  "Mağaza manav kasaları teşhirde kullanılıyor mu?":0,
+  "Mağazanın deposundaki kasa alanı düzenli mi? Doğru çıkış yapılıyor mu?":0,
+  "Mağaza doğru sipariş veriyor mu?":0,
+  "Mağazada aktif ürün dışında hatalı koddan satış yapışıyor mu?":0,
+  "Manav ürünleri çekleniyor mu?":0,
+  "Manav personeli saatinde giriş-çıkış yapıyor mu?":0,
+  "Mağaza düzenli olarak fire çıkışı yapıyor mu?":0,
+  "Manav ciro, ciro payı ve tonaj büyümeleri mağaza ile paylaşıldı mı?":0,
+  "Manav personeli saç-sakal ve kılık-kiyafeti temiz ve düzenli mi?":0,
+};
