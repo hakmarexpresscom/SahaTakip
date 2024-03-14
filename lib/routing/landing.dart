@@ -12,6 +12,7 @@ import '../screens/photoScreen/answerDownloadedPhoto.dart';
 import '../screens/photoScreen/taskDownloadedPhoto.dart';
 import '../screens/photoScreen/taskPhoto.dart';
 import '../screens/photoScreen/taskPhotoGalleryView.dart';
+import '../screens/regionCenterVisiting/manavDepoFormScreen.dart';
 import '../screens/regionCenterVisiting/regionCenterVisitingMainScreen.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
@@ -21,6 +22,7 @@ import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreenBS.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreenPM.dart';
+import '../screens/shopVisiting/manavForms/manavShopFormScreen.dart';
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart';
 import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
 import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTaskDetailScreen.dart';
@@ -170,4 +172,12 @@ void naviRegionCenterVisitingMainScreen(BuildContext context, id, name){
 
 void naviShiftTypeScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftTypeScreen()));
+}
+
+void naviManavDepoFormScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ManavDepoFormScreen(shop_code: id,)));
+}
+
+void naviManavShopFormScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ManavShopFormScreen(shop_code: id,)));
 }
