@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/manavFormLists.dart';
+import '../../../main.dart';
 import '../../../models/manavShopForm.dart';
 import '../../../routing/landing.dart';
 import '../../../services/manavShopFormServices.dart';
@@ -48,25 +49,25 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
         title: const Text('Manav Mağaza Formu'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            naviShopVisitingProcessesScreen(context, box.get('currentShopID'), box.get('currentShopName'));
+          },
         ),
       ),
-      body: SingleChildScrollView(
-          child:Container(
-            alignment: Alignment.center,
-            child: FutureBuilder<List<ManavShopForm>>(
-                future: futureManavShopForm,
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return Text("Manav magaza formunu bu ziyaret için doldurdunuz.");
-                  }
-                  else{
-                    return manavShopFormScreenUI();
-                  }
-                }
-            ),
-          )
-      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: FutureBuilder<List<ManavShopForm>>(
+            future: futureManavShopForm,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Text("Manav magaza formunu bu ziyaret için doldurdunuz.");
+              }
+              else{
+                return manavShopFormScreenUI();
+              }
+            }
+        ),
+      )
     );
   }
 

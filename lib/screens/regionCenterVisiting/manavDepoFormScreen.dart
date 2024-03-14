@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/constants.dart';
 import '../../constants/manavFormLists.dart';
+import '../../main.dart';
 import '../../models/manavDepoForm.dart';
 import '../../routing/landing.dart';
 import '../../services/manavDepoFormServices.dart';
@@ -12,8 +13,8 @@ import '../../widgets/cards/checkingCard.dart';
 
 class ManavDepoFormScreen extends StatefulWidget {
 
-  int shop_code = 0;
-  ManavDepoFormScreen({super.key, required this.shop_code});
+  int region_code = 0;
+  ManavDepoFormScreen({super.key, required this.region_code});
 
   @override
   State<ManavDepoFormScreen> createState() => _ManavDepoFormScreenState();
@@ -31,7 +32,7 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
   @override
   void initState() {
     super.initState();
-    futureManavDepoForm = fetchManavDepoForm('${constUrl}api/ManavDepoForm/filterManavDepoForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
+    futureManavDepoForm = fetchManavDepoForm('${constUrl}api/ManavDepoForm/filterManavDepoForm?magaza_kodu=${widget.region_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
   }
 
   @override
@@ -48,25 +49,25 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
         title: const Text('Manav Depo Formu'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            naviRegionCenterVisitingMainScreen(context, box.get('currentCenterID'), box.get('currentCenterName'));
+          },
         ),
       ),
-      body: SingleChildScrollView(
-          child:Container(
-            alignment: Alignment.center,
-            child: FutureBuilder<List<ManavDepoForm>>(
-                future: futureManavDepoForm,
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return Text("Manav depo formunu bu ziyaret için doldurdunuz.");
-                  }
-                  else{
-                    return manavDepoFormScreenUI();
-                  }
-                }
-            ),
-          )
-      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: FutureBuilder<List<ManavDepoForm>>(
+            future: futureManavDepoForm,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Text("Manav depo formunu bu ziyaret için doldurdunuz.");
+              }
+              else{
+                return manavDepoFormScreenUI();
+              }
+            }
+        ),
+      )
     );
   }
 
@@ -100,36 +101,36 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
 
   Widget saveButtonManavDepoForm(){
     return ButtonWidget(
-        text: "Kaydet",
-        heightConst: 0.06,
-        widthConst: 0.8,
-        size: 18,
-        radius: 20,
-        fontWeight: FontWeight.w600,
-        onTaps: (){
-          createManavDepoForm(
-              widget.shop_code,
-              (isBS)?userID:null,
-              (isBS)?null:userID,
-              now.toIso8601String(),
-              depoFormList.values.toList()[0],
-              depoFormList.values.toList()[1],
-              depoFormList.values.toList()[2],
-              depoFormList.values.toList()[3],
-              depoFormList.values.toList()[4],
-              depoFormList.values.toList()[5],
-              depoFormList.values.toList()[6],
-              depoFormList.values.toList()[7],
-              depoFormList.values.toList()[8],
-              depoFormList.values.toList()[9],
-              "${constUrl}api/ManavDepoFormu"
-          );
-          showFormFilledDialog(context,depoFormList);
-        },
-        borderWidht: 1,
-        backgroundColor: secondaryColor,
-        borderColor: secondaryColor,
-        textColor: textColor);
+      text: "Kaydet",
+      heightConst: 0.06,
+      widthConst: 0.8,
+      size: 18,
+      radius: 20,
+      fontWeight: FontWeight.w600,
+      onTaps: (){
+        createManavDepoForm(
+            widget.region_code,
+            (isBS)?userID:null,
+            (isBS)?null:userID,
+            now.toIso8601String(),
+            depoFormList.values.toList()[0],
+            depoFormList.values.toList()[1],
+            depoFormList.values.toList()[2],
+            depoFormList.values.toList()[3],
+            depoFormList.values.toList()[4],
+            depoFormList.values.toList()[5],
+            depoFormList.values.toList()[6],
+            depoFormList.values.toList()[7],
+            depoFormList.values.toList()[8],
+            depoFormList.values.toList()[9],
+            "${constUrl}api/ManavDepoFormu"
+        );
+        showFormFilledDialog(context,depoFormList);
+      },
+      borderWidht: 1,
+      backgroundColor: secondaryColor,
+      borderColor: secondaryColor,
+      textColor: textColor);
   }
 
   showFormFilledDialog(BuildContext context, Map<String, int>list) {
@@ -141,7 +142,7 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
             content: 'Depo formunu başarıyla doldurdunuz!',
             onTaps: (){
               list.forEach((key, value) {list[key] = 0;});
-              naviManavDepoFormScreen(context, widget.shop_code);
+              naviManavDepoFormScreen(context, widget.region_code);
             },
           );
         }

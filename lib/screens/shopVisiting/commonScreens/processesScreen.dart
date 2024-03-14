@@ -104,19 +104,19 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopOpeningCheckingScreen(context, widget.shop_code);}): ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret Tespit\nRaporu Maddeleri", processIcon: Icons.assignment,onTaps: (){naviVisitingReportTaskMainScreen(context,widget.shop_code);}),
-                      (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopClosingCheckingScreen(context, widget.shop_code);}): ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde\nGörevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}),
+                      (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.checklist,onTaps: (){naviShopOpeningCheckingScreen(context, widget.shop_code);}): ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret Tespit\nRaporu Maddeleri", processIcon: Icons.assignment,onTaps: (){naviVisitingReportTaskMainScreen(context,widget.shop_code);}),
+                      (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.checklist,onTaps: (){naviShopClosingCheckingScreen(context, widget.shop_code);}): ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde\nGörevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}),
                     ]
                 ),
-                (groupNo==0)?Row(
+                Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret Tespit\nRaporu Maddeleri", processIcon: Icons.assignment,onTaps: (){naviVisitingReportTaskMainScreen(context,widget.shop_code);}),
-                      ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde\nGörevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}),
+                      (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret Tespit\nRaporu Maddeleri", processIcon: Icons.assignment,onTaps: (){naviVisitingReportTaskMainScreen(context,widget.shop_code);}): ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Manav\nMağaza\nFormu", processIcon: Icons.checklist,onTaps: (){naviManavShopFormScreen(context, widget.shop_code);}),
+                      (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Yerinde\nGörevler", processIcon: Icons.assignment,onTaps: (){naviInPlaceTaskMainScreen(context, widget.shop_code);}):Container(),
                     ]
-                ):Container(),
+                ),
                 (groupNo==0)?Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
@@ -172,8 +172,8 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopOpeningCheckingScreen(context, widget.shop_code);}):ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nTespit Raporu\nGirişi", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context,widget.shop_code);}),
-                        (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.store,onTaps: (){naviShopClosingCheckingScreen(context, widget.shop_code);}):Container(),
+                        (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nAçılış\nKontrolü", processIcon: Icons.checklist,onTaps: (){naviShopOpeningCheckingScreen(context, widget.shop_code);}):ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nTespit Raporu\nGirişi", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context,widget.shop_code);}),
+                        (groupNo==0)?ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Mağaza\nKapanış\nKontrolü", processIcon: Icons.checklist,onTaps: (){naviShopClosingCheckingScreen(context, widget.shop_code);}):ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Manav\nMağaza\nFormu", processIcon: Icons.checklist,onTaps: (){naviManavShopFormScreen(context, widget.shop_code);}),
                       ]
                   ),
                   (groupNo==0)?Row(

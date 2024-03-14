@@ -13,6 +13,7 @@ import '../../../utils/generalFunctions.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
+import '../../widgets/cards/shopVisitingProcessCard.dart';
 
 class RegionCenterVisitingMainScreen extends StatefulWidget {
   int region_code = 0;
@@ -102,7 +103,7 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child:Container(
               alignment: Alignment.center,
-              child: shopVisitingProcessesScreenBSUI(),
+              child: regionCenterVisitingMainScreenUI(),
             ),
         )
       ),
@@ -110,7 +111,7 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
     );
   }
 
-  Widget shopVisitingProcessesScreenBSUI(){
+  Widget regionCenterVisitingMainScreenUI(){
     return Builder(builder: (BuildContext context){
       return Container(
           child: Column(
@@ -139,11 +140,26 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
                   ],
                 ),
               ),
+              (isBS==false&&groupNo==1)?SizedBox(height: deviceHeight*0.02,):SizedBox(height: deviceHeight*0,),
+              (isBS==false&&groupNo==1)?Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Manav\nDepo\nFormu", processIcon: Icons.checklist,onTaps: (){naviManavDepoFormScreen(context, widget.region_code);}),
+                      ]
+                  ),
+                ],
+              ):Container()
             ],
           ));
     });
   }
-
 
   Widget shopNameInfo(){
     return TextWidget(text: widget.regionName, size: 18, fontWeight: FontWeight.w600, color: textColor);
@@ -153,32 +169,32 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
   }
   Widget stopVisitingButton(){
     return ButtonWidget(
-        text: "Ziyareti Bitir",
-        heightConst: 0.055,
-        widthConst: 0.25,
-        size: 15,
-        radius: 20,
-        fontWeight: FontWeight.w600,
-        onTaps: () async{
-          regionCenterVisitManager.endRegionCenterVisit();
-          box.put("visitingFinishTime",DateTime.now());
-          String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
-          await createVisitingDurations(
-              box.get('currentCenterID'),
-              (isBS==true)?userID:null,
-              (isBS==true)?null:userID,
-              box.get("visitingStartTime").toIso8601String(),
-              box.get("visitingFinishTime").toIso8601String(),
-              box.get("shiftDate"),
-              visitingDuration,
-              "${constUrl}api/ZiyaretSureleri"
-          );
-          naviShiftTypeScreen(context);
-        },
-        borderWidht: 1,
-        backgroundColor: redColor,
-        borderColor: redColor,
-        textColor: textColor);
+      text: "Ziyareti Bitir",
+      heightConst: 0.055,
+      widthConst: 0.25,
+      size: 15,
+      radius: 20,
+      fontWeight: FontWeight.w600,
+      onTaps: () async{
+        regionCenterVisitManager.endRegionCenterVisit();
+        box.put("visitingFinishTime",DateTime.now());
+        String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
+        await createVisitingDurations(
+            box.get('currentCenterID'),
+            (isBS==true)?userID:null,
+            (isBS==true)?null:userID,
+            box.get("visitingStartTime").toIso8601String(),
+            box.get("visitingFinishTime").toIso8601String(),
+            box.get("shiftDate"),
+            visitingDuration,
+            "${constUrl}api/ZiyaretSureleri"
+        );
+        naviShiftTypeScreen(context);
+      },
+      borderWidht: 1,
+      backgroundColor: redColor,
+      borderColor: redColor,
+      textColor: textColor);
   }
 
 }

@@ -175,7 +175,7 @@ void naviShiftTypeScreen(BuildContext context){
 }
 
 void naviManavDepoFormScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ManavDepoFormScreen(shop_code: id,)));
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ManavDepoFormScreen(region_code: id,)));
 }
 
 void naviManavShopFormScreen(BuildContext context, id){
