@@ -67,8 +67,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
     setState(() {
       image = img;
     });
-    await countPhoto(url);
-    await createPhoto(photoCount+1, task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
+    /*await countPhoto(url);
+    await createPhoto(photoCount+1, task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);*/
   }
 
   void addPhoto(int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) {
@@ -166,11 +166,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             ),
             body: TabBarView(
               children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [(isReportCreated.value)?enterVisitingReportScreenUI():createReportButtonUI(),],
+                SingleChildScrollView(
+                  child: (isReportCreated.value)?enterVisitingReportScreenUI():createReportButtonUI(),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -282,7 +279,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             return;
           }
           await countReport("${constUrl}api/Rapor");
-          await countIncompleteTask("${constUrl}api/TamamlanmamisGorev");
           await addReportTaskToDatabase(
               "${constUrl}api/TamamlanmamisGorev",
               taskNameController.text,
@@ -290,7 +286,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
               taskDeadlineController.text,
               widget.shop_code,
-              photoCount+1,
+              null,
               "Rapor",
               reportCount,
               groupNo,
@@ -300,7 +296,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               userID,
               null,
               "Rapor",
-              "${constUrl}api/Fotograf/${photoCount+1}"
           );
           //sendTaskMail(email, "Tarafınıza ${widget.shop_code} koduna sahip mağaza ile alakalı yeni bir görev atanmıştır. Görev türü 'Ziyaret Raporu''dur. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
           showReportTaskSubmitDialog(context);

@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     void pageCondition(){
-      DateTime startTime = DateTime(now.year, now.month, now.day, 7, 30);
+      DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
       DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
 
       bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);

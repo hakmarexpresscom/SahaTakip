@@ -159,7 +159,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         fontWeight:
         FontWeight.w600,
         onTaps: () {
-          DateTime startTime = DateTime(now.year, now.month, now.day, 6, 30);
+          DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
           DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
 
           bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
