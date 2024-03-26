@@ -5,8 +5,8 @@ class Shift{
   late String shiftType;
   late String shiftDate;
   late String startTime;
-  late String finishTime;
-  late String workDuration;
+  late String? finishTime;
+  late String? workDuration;
 
   Shift({
     required this.shift_id,

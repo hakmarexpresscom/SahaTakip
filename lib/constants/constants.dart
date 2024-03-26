@@ -39,6 +39,8 @@ Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/magaza');
 int incompleteTaskCount = 0;
 int photoCount = 0;
 int reportCount = 0;
+int shiftCount = 0;
+int visitingDUrationsCount = 0;
 
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";

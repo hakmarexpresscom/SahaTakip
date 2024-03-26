@@ -58,7 +58,7 @@ Future<List<Shift>> fetchShift3(String url) async {
   }
 }
 
-Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String finishHour, String workDuration, String url) async {
+Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String? finishHour, String? workDuration, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -81,4 +81,36 @@ Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shift
   } else {
     throw Exception('Failed to create Shift.');
   }
+}
+
+Future<Shift> updateFinishHourWorkDurationShift(int id,int? bs_id, int? pm_id, String shiftType, String shiftDate, String startHour, String? finishHour, String? workDuration, String url) async {
+  final response = await http.put(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'api_key': apiKey,
+    },
+    body: jsonEncode(<String, dynamic>
+    {
+      "mesai_id": id,
+      "bs_id": bs_id,
+      "pm_id": pm_id,
+      "mesai_turu" : shiftType,
+      "mesai_tarihi" : shiftDate,
+      "baslangic_saati" : startHour,
+      "bitis_saati" : finishHour,
+      "calisma_suresi" : workDuration
+    }
+    ),
+  );
+  if (response.statusCode == 201) {
+    return Shift.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to update Shift.');
+  }
+}
+
+Future countShift(String url) async {
+  shiftCount = 0;
+  final List<Shift> shifts = await fetchShift3(url);
+  shiftCount = shifts[shifts.length-1].shift_id;
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -268,12 +269,23 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                 size: 18,
                 radius: 20,
                 fontWeight: FontWeight.w600,
-                onTaps: (){
+                onTaps: () async{
                   if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))<=250.0) {
                     regionCenterVisitManager.startRegionCenterVisit();
                     box.put("currentCenterName", snapshot.data!.centerName);
                     box.put("currentCenterID", snapshot.data!.centerCode);
                     box.put("visitingStartTime",DateTime.now());
+                    await createVisitingDurations(
+                      box.get('currentCenterID'),
+                      (isBS==true)?userID:null,
+                      (isBS==true)?null:userID,
+                      box.get("visitingStartTime").toIso8601String(),
+                      null,
+                      box.get("shiftDate"),
+                      null,
+                      "${constUrl}api/ZiyaretSureleri"
+                    );
+                    await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
                     naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
                   }
                   else{
@@ -311,11 +323,12 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: () async{
+        onTaps: () {
           shiftManager.endShift();
           box.put("finishTime",DateTime.now());
           String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
-          await createShift(
+          updateFinishHourWorkDurationShift(
+              shiftCount,
               (isBS)?userID:null,
               (isBS)?null:userID,
               "Mesai",
@@ -323,7 +336,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
               box.get("startTime").toIso8601String(),
               box.get("finishTime").toIso8601String(),
               workDuration,
-              "${constUrl}api/mesai"
+              "${constUrl}api/mesai/${shiftCount}"
           );
           naviStartWorkMainScreen(context);
         },

@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
         page = ShiftTypeScreen();
       }
 
-      else if(boxStateManagement.get('isStartShift')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      /*else if(boxStateManagement.get('isStartShift')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = WarningScreen();
       }
       else if(boxStateManagement.get('isStartShift')==true && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
@@ -116,9 +116,8 @@ class _MyAppState extends State<MyApp> {
         page = WarningScreen();
       }
       else if(boxStateManagement.get('isRegionCenterVisit')==true && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        print("sdşlfksdlşfksşdfksd");
         page = WarningScreen();
-      }
+      }*/
 
     }
 

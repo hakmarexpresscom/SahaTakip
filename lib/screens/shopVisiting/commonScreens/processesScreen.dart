@@ -207,11 +207,12 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
         size: 15,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: () async{
+        onTaps: () {
           storeVisitManager.endStoreVisit();
           box.put("visitingFinishTime",DateTime.now());
           String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
-          await createVisitingDurations(
+          updateFinishHourWorkDurationVisitingDurations(
+              visitingDUrationsCount,
               box.get('currentShopID'),
               (isBS==true)?userID:null,
               (isBS==true)?null:userID,
@@ -219,7 +220,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
               box.get("visitingFinishTime").toIso8601String(),
               box.get("shiftDate"),
               visitingDuration,
-              "${constUrl}api/ZiyaretSureleri"
+              "${constUrl}api/ZiyaretSureleri/${visitingDUrationsCount}"
           );
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
           },

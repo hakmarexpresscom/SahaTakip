@@ -175,19 +175,20 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
       size: 15,
       radius: 20,
       fontWeight: FontWeight.w600,
-      onTaps: () async{
+      onTaps: (){
         regionCenterVisitManager.endRegionCenterVisit();
         box.put("visitingFinishTime",DateTime.now());
         String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
-        await createVisitingDurations(
-            box.get('currentCenterID'),
-            (isBS==true)?userID:null,
-            (isBS==true)?null:userID,
-            box.get("visitingStartTime").toIso8601String(),
-            box.get("visitingFinishTime").toIso8601String(),
-            box.get("shiftDate"),
-            visitingDuration,
-            "${constUrl}api/ZiyaretSureleri"
+        updateFinishHourWorkDurationVisitingDurations(
+          visitingDUrationsCount,
+          box.get('currentCenterID'),
+          (isBS==true)?userID:null,
+          (isBS==true)?null:userID,
+          box.get("visitingStartTime").toIso8601String(),
+          box.get("visitingFinishTime").toIso8601String(),
+          box.get("shiftDate"),
+          visitingDuration,
+          "${constUrl}api/ZiyaretSureleri"
         );
         naviShiftTypeScreen(context);
       },

@@ -158,7 +158,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         radius: 20,
         fontWeight:
         FontWeight.w600,
-        onTaps: () {
+        onTaps: () async {
           DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
           DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
 
@@ -171,6 +171,17 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
               box.put("shiftDate","");
               box.put("shiftDate",now.toIso8601String());
             });
+            await createShift(
+                (isBS)?userID:null,
+                (isBS)?null:userID,
+                "Mesai",
+                box.get("shiftDate"),
+                box.get("startTime").toIso8601String(),
+                null,
+                null,
+                "${constUrl}api/mesai"
+            );
+            await countShift("${constUrl}api/mesai");
             naviShiftTypeScreen(context);
           }
           else if(isWithinTimeRange==false){
