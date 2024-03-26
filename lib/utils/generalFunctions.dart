@@ -40,24 +40,24 @@ void resetTaskPhotos(){
 addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl) async{
   for(int i=0;i<shopCodes.length;i++){
     if(boxShopTaskPhoto.get(shopCodes[i].toString())[1]==true){
+      await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCodes[i], photo_id, taskType, report_id,group_no, createTaskUrl);
       await countIncompleteTask(countTaskUrl);
-      await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photo_id, taskType, report_id,group_no, createTaskUrl);
       if(boxShopTaskPhoto.get(shopCodes[i].toString())[0]!=""){
+        await createPhoto(incompleteTaskCount, shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
         await countPhoto(countPhotoUrl);
-        await createPhoto(photoCount+1, incompleteTaskCount+1, shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
-        updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCodes[i], photoCount+1, taskType, report_id, group_no, "${constUrl}api/TamamlanmamisGorev/${incompleteTaskCount+1}");
+        updatePhotoIDIncompleteTask(incompleteTaskCount,title, detail, assignmentDate, finishDate, shopCodes[i], photoCount, taskType, report_id, group_no, "${constUrl}api/TamamlanmamisGorev/${incompleteTaskCount}");
       }
     }
   }
 }
 
 addReportTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType) async{
+    await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCode, photo_id, taskType, report_id,group_no, createTaskUrl);
     await countIncompleteTask(countTaskUrl);
-    await createIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, photo_id, taskType, report_id,group_no, createTaskUrl);
     if(photo_file.isNotEmpty){
+      await createPhoto(incompleteTaskCount, shopCode, bs_id, pm_id, bm_id, photoType, photo_file,null, "${constUrl}api/Fotograf");
       await countPhoto("${constUrl}api/Fotograf");
-      await createPhoto(photoCount+1, incompleteTaskCount+1, shopCode, bs_id, pm_id, bm_id, photoType, photo_file,null, "${constUrl}api/Fotograf");
-      updatePhotoIDIncompleteTask(incompleteTaskCount+1, title, detail, assignmentDate, finishDate, shopCode, photoCount+1, taskType, report_id, group_no, "${constUrl}api/TamamlanmamisGorev/${incompleteTaskCount+1}");
+      updatePhotoIDIncompleteTask(incompleteTaskCount,title, detail, assignmentDate, finishDate, shopCode, photoCount, taskType, report_id, group_no, "${constUrl}api/TamamlanmamisGorev/${incompleteTaskCount}");
     }
 }
 

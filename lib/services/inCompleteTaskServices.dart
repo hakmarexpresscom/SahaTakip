@@ -58,7 +58,7 @@ Future<List<IncompleteTask>> fetchIncompleteTask3(String url) async {
   }
 }
 
-Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String url) async {
+Future<IncompleteTask> createIncompleteTask(String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -66,7 +66,6 @@ Future<IncompleteTask> createIncompleteTask(int id,String title,String? detail,S
     },
     body: jsonEncode(<String, dynamic>
     {
-      "gorev_id": id,
       "gorev_tanimi": title,
       "gorev_detayi": detail,
       "gorev_atama_tarihi": assignmentDate,
@@ -148,5 +147,5 @@ Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? d
 Future countIncompleteTask(String url) async {
   incompleteTaskCount = 0;
   final List<IncompleteTask> incompleteTasks = await fetchIncompleteTask3(url);
-  incompleteTaskCount = incompleteTaskCount + incompleteTasks.length;
+  incompleteTaskCount = incompleteTasks[incompleteTasks.length-1].task_id;
 }

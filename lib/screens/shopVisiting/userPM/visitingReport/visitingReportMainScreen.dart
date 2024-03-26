@@ -239,8 +239,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         fontWeight: FontWeight.w600,
         onTaps: () async {
           reportManager.createReport();
+          await createReport(userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "${constUrl}api/Rapor");
           await countReport("${constUrl}api/Rapor");
-          await createReport(reportCount+1, userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "${constUrl}api/Rapor");
           naviVisitingReportMainScreen(context, widget.shop_code);
           },
         borderWidht: 1,

@@ -58,7 +58,7 @@ Future<List<Report>> fetchReport3(String url) async {
   }
 }
 
-Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, int group_no, String url) async {
+Future<Report> createReport(int pm_id, int shopCode, String createDate, int group_no, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -66,7 +66,6 @@ Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, 
     },
     body: jsonEncode(<String, dynamic>
     {
-      "rapor_id": id,
       "pm_id": pm_id,
       "magaza_kodu": shopCode,
       "olusturulma_tarihi":createDate,
@@ -84,5 +83,5 @@ Future<Report> createReport(int id, int pm_id, int shopCode, String createDate, 
 Future countReport(String url) async {
   reportCount = 0;
   final List<Report> reports = await fetchReport3(url);
-  reportCount = reportCount + reports.length;
+  reportCount = reports[reports.length-1].report_id;
 }

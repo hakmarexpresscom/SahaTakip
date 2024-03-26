@@ -59,7 +59,7 @@ Future<List<Photo>> fetchPhoto3(String url) async {
   }
 }
 
-Future<Photo> createPhoto(int id,int? task_id, int shopCode,int? bs_id,int? pm_id,int? bm_id, String photoType, String photoFile,int? completeTask_id, url) async {
+Future<Photo> createPhoto(int? task_id, int shopCode,int? bs_id,int? pm_id,int? bm_id, String photoType, String photoFile,int? completeTask_id, url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -67,7 +67,6 @@ Future<Photo> createPhoto(int id,int? task_id, int shopCode,int? bs_id,int? pm_i
     },
     body: jsonEncode(<String, dynamic>
     {
-      "foto_id":id,
       "gorev_id": task_id,
       "magaza_kodu": shopCode,
       "bs_id": bs_id,
@@ -94,7 +93,7 @@ Future<Photo> updateIncompleteTaskIDPhoto(int id,int? task_id, int shopCode,int?
     },
     body: jsonEncode(<String, dynamic>
     {
-      "foto_id":id,
+      "foto_id": id,
       "gorev_id": task_id,
       "magaza_kodu": shopCode,
       "bs_id": bs_id,
@@ -121,7 +120,7 @@ Future<Photo> updateCompleteTaskIDPhoto(int id,int? task_id, int shopCode,int? b
     },
     body: jsonEncode(<String, dynamic>
     {
-      "foto_id":id,
+      "foto_id": id,
       "gorev_id": task_id,
       "magaza_kodu": shopCode,
       "bs_id": bs_id,
@@ -143,5 +142,5 @@ Future<Photo> updateCompleteTaskIDPhoto(int id,int? task_id, int shopCode,int? b
 Future countPhoto(String url) async {
   photoCount = 0;
   final List<Photo> photos = await fetchPhoto3(url);
-  photoCount = photoCount + photos.length;
+  photoCount = photos[photos.length-1].photo_id;
 }

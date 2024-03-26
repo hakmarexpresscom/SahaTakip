@@ -55,8 +55,8 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
     setState(() {
       image = img;
     });
+    await createPhoto(task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
     await countPhoto(url);
-    await createPhoto(photoCount+1, task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
   }
 
   void addPhoto(int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) {
@@ -239,7 +239,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                                   '${constUrl}api/TamamlanmisGorev'
                               );
                               if(photo_file.isNotEmpty){
-                                updateCompleteTaskIDPhoto(photoCount+1, null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
+                                updateCompleteTaskIDPhoto(photoCount,null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
                               }
                               setState(() {
                                 taskIsCompleted=false;
