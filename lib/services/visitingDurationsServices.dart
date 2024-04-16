@@ -110,7 +110,7 @@ Future<VisitingDurations> updateFinishHourWorkDurationVisitingDurations(int id,i
 }
 
 Future countVisitingDurations(String url) async {
-  visitingDUrationsCount = 0;
+  visitingDurationsCount = 0;
   final List<VisitingDurations> visitingDUrations = await fetchVisitingDurations3(url);
-  visitingDUrationsCount = visitingDUrations[visitingDUrations.length-1].visiting_id;
+  visitingDurationsCount = visitingDUrations[visitingDUrations.length-1].visiting_id;
 }

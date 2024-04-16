@@ -16,6 +16,7 @@ import '../../../services/visitingDurationsServices.dart';
 import '../../../styles/styleConst.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../utils/distanceFunctions.dart';
+import '../../../utils/generalFunctions.dart';
 import '../../../widgets/alert_dialog.dart';
 
 class ShopVisitingShopsScreenPM extends StatefulWidget {
@@ -29,6 +30,9 @@ class ShopVisitingShopsScreenPM extends StatefulWidget {
 class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> with TickerProviderStateMixin{
 
   late Future<List<Shop>> futureOwnShopListPM;
+
+  TextEditingController shopSearchController = TextEditingController();
+  List<String> shopListOnSearch = [];
 
   int _selectedIndex = 0;
 
@@ -53,6 +57,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
   @override
   void initState() {
     super.initState();
+    createOwnShopList("${constUrl}api/magaza${urlShopFilter}=${userID}");
     futureOwnShopListPM = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
     checkGps();
     controller = AnimationController(
@@ -225,62 +230,114 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
             future: futureOwnShopListPM,
             builder: (context, snapshot){
               if(snapshot.hasData){
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index){
-                    if(snapshot.data![index].isActive==1){
-                      return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children:<Widget>[
-                            VisitingShopCard(
-                                icon: Icons.store,
-                                sizedBoxConst1: sizedBoxConst1,
-                                sizedBoxConst2: sizedBoxConst2,
-                                sizedBoxConst3: sizedBoxConst3,
-                                textSizeCode: textSizeCode,
-                                textSizeName: textSizeName,
-                                textSizeButton: textSizeButton,
-                                shopName: snapshot.data![index].shopName,
-                                shopCode: snapshot.data![index].shopCode.toString(),
-                                lat: snapshot.data![index].Lat,
-                                long: snapshot.data![index].Long,
-                                onTaps: () async{
-                                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
-                                    storeVisitManager.startStoreVisit();
-                                    reportManager.noReport();
-                                    box.put("currentShopName", snapshot.data![index].shopName);
-                                    box.put("currentShopID", snapshot.data![index].shopCode);
-                                    box.put("visitingStartTime",DateTime.now());
-                                    await createVisitingDurations(
-                                      box.get('currentShopID'),
-                                      (isBS==true)?userID:null,
-                                      (isBS==true)?null:userID,
-                                      box.get("visitingStartTime").toIso8601String(),
-                                      null,
-                                      box.get("shiftDate"),
-                                      null,
-                                      "${constUrl}api/ZiyaretSureleri"
-                                    );
-                                    await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-                                    naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                if(shopSearchController.text.isEmpty) {
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (snapshot.data![index].isActive == 1) {
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              VisitingShopCard(
+                                  icon: Icons.store,
+                                  sizedBoxConst1: sizedBoxConst1,
+                                  sizedBoxConst2: sizedBoxConst2,
+                                  sizedBoxConst3: sizedBoxConst3,
+                                  textSizeCode: textSizeCode,
+                                  textSizeName: textSizeName,
+                                  textSizeButton: textSizeButton,
+                                  shopName: snapshot.data![index].shopName,
+                                  shopCode: snapshot.data![index].shopCode.toString(),
+                                  lat: snapshot.data![index].Lat,
+                                  long: snapshot.data![index].Long,
+                                  onTaps: () async {
+                                    if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
+                                      storeVisitManager.startStoreVisit();reportManager.noReport();box.put("currentShopName", snapshot.data![index].shopName);box.put("currentShopID", snapshot.data![index].shopCode);box.put("visitingStartTime", DateTime.now());
+                                      await createVisitingDurations(
+                                        box.get('currentShopID'),
+                                        (isBS == true) ? userID : null,
+                                        (isBS == true) ? null : userID,
+                                        box.get("visitingStartTime").toIso8601String(),
+                                        null,
+                                        box.get("shiftDate"),
+                                        null,
+                                        "${constUrl}api/ZiyaretSureleri"
+                                      );
+                                      await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                    }
+                                    else {
+                                      showShopDistanceDialog(context);
+                                    }
                                   }
-                                  else{
-                                    showShopDistanceDialog(context);
+                              )
+                            ]
+                        );
+                      }
+                      else {
+                        return Container();
+                      }
+                    },
+                  );
+                }
+                else if(shopSearchController.text.isNotEmpty){
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (shopListOnSearch.contains(snapshot.data![index].shopCode.toString()+" "+snapshot.data![index].shopName)&&snapshot.data![index].isActive == 1) {
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              VisitingShopCard(
+                                  icon: Icons.store,
+                                  sizedBoxConst1: sizedBoxConst1,
+                                  sizedBoxConst2: sizedBoxConst2,
+                                  sizedBoxConst3: sizedBoxConst3,
+                                  textSizeCode: textSizeCode,
+                                  textSizeName: textSizeName,
+                                  textSizeButton: textSizeButton,
+                                  shopName: snapshot.data![index].shopName,
+                                  shopCode: snapshot.data![index].shopCode.toString(),
+                                  lat: snapshot.data![index].Lat,
+                                  long: snapshot.data![index].Long,
+                                  onTaps: () async {
+                                    if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
+                                      storeVisitManager.startStoreVisit();reportManager.noReport();box.put("currentShopName", snapshot.data![index].shopName);box.put("currentShopID", snapshot.data![index].shopCode);box.put("visitingStartTime", DateTime.now());
+                                      await createVisitingDurations(
+                                          box.get('currentShopID'),
+                                          (isBS == true) ? userID : null,
+                                          (isBS == true) ? null : userID,
+                                          box.get("visitingStartTime").toIso8601String(),
+                                          null,
+                                          box.get("shiftDate"),
+                                          null,
+                                          "${constUrl}api/ZiyaretSureleri"
+                                      );
+                                      await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
+                                    }
+                                    else {
+                                      showShopDistanceDialog(context);
+                                    }
                                   }
-                                }
-                            )
-                          ]
-                      );
-                    }
-                    else{
-                      return Container();
-                    }
-                  },
-                );
+                              )
+                            ]
+                        );
+                      }
+                      else {
+                        return Container();
+                      }
+                    },
+                  );
+                }
               }
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Column(
@@ -312,6 +369,39 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
             },
           );
         }
+    );
+  }
+
+  Widget searchBar(){
+    return TextField(
+      controller: shopSearchController,
+      onChanged: (value){
+        setState ((){
+          shopListOnSearch = ownShopList
+              .where((element) => element.toLowerCase().contains(value.toLowerCase()))
+              .toList();
+          print(shopListOnSearch);
+        });},
+      decoration: InputDecoration(
+        labelText: "Mağaza Ara",
+        hintText: "Mağaza Ara",
+        prefixIcon: Icon(Icons.search),
+        suffixIcon: shopSearchController.text.isEmpty ? null
+            : InkWell(
+          onTap: () {
+            shopListOnSearch.clear();
+            shopSearchController.clear();
+            setState (() {
+              shopSearchController.text = '';
+            });},
+          child: Icon(Icons.clear),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+      ),
     );
   }
 

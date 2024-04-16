@@ -12,6 +12,7 @@ String apiKey = "AIzaSyCiElU8MOfQ8m9ht76QUiUvuhZyzVtiztA";
 bool allSelected = false;
 
 List<String> shopList = [];
+List<String> ownShopList = [];
 
 RxBool isStartShiftObs = isStartShift.obs;
 bool isStartShift = (isLoggedIn)?boxStateManagement.get('isStartShift'):false;
@@ -40,7 +41,7 @@ int incompleteTaskCount = 0;
 int photoCount = 0;
 int reportCount = 0;
 int shiftCount = 0;
-int visitingDUrationsCount = 0;
+int visitingDurationsCount = 0;
 
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";

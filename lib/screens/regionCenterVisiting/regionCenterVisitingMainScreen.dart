@@ -180,7 +180,7 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
         box.put("visitingFinishTime",DateTime.now());
         String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
         updateFinishHourWorkDurationVisitingDurations(
-          visitingDUrationsCount,
+          visitingDurationsCount,
           box.get('currentCenterID'),
           (isBS==true)?userID:null,
           (isBS==true)?null:userID,

@@ -212,7 +212,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           box.put("visitingFinishTime",DateTime.now());
           String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
           updateFinishHourWorkDurationVisitingDurations(
-              visitingDUrationsCount,
+              visitingDurationsCount,
               box.get('currentShopID'),
               (isBS==true)?userID:null,
               (isBS==true)?null:userID,
@@ -220,7 +220,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
               box.get("visitingFinishTime").toIso8601String(),
               box.get("shiftDate"),
               visitingDuration,
-              "${constUrl}api/ZiyaretSureleri/${visitingDUrationsCount}"
+              "${constUrl}api/ZiyaretSureleri/${visitingDurationsCount}"
           );
           (isBS==true)?naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
           },

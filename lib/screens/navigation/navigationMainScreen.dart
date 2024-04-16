@@ -22,8 +22,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   TextEditingController shopSearchController = TextEditingController();
   List<String> shopListOnSearch = [];
 
-  double textSizeName3 = 0;
-
   int _selectedIndex = 1;
 
   List<BottomNavigationBarItem> naviBarList = [];
