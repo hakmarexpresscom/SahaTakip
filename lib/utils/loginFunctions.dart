@@ -132,8 +132,8 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("isBS",false);
     isBS=box.get("isBS");
 
-    box.put("urlShopFilter","/byBmId?bm_id");
-    urlShopFilter = box.get("urlShopFilter");
+    //box.put("urlShopFilter","/byBmId?bm_id");
+    //urlShopFilter = box.get("urlShopFilter");
 
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
@@ -286,7 +286,8 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
       box.put("userID",users[i].bm_id);
       userID=box.get("userID");
 
-      box.put("groupNo",0);
+      box.put("groupNo",users[i].group_no);
+      //box.put("groupNo",0);
       groupNo=box.get("groupNo");
 
       sayac = i;
@@ -309,6 +310,10 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
   var hashedPassword = digest.bytes;
 
   if(listEquals(binaryHashedPassword, hashedPassword)){
+
+    (users[sayac].group_no==0)?box.put("urlShopFilter","/byBmId?bm_id"):box.put("urlShopFilter","/byBmManavId?bm_manav_id");
+    urlShopFilter = box.get("urlShopFilter");
+
     await saveShopCodes("${constUrl}api/magaza$urlShopFilter=${userID}");
     createShopTaskPhotoMap();
     final prefs = await SharedPreferences.getInstance();

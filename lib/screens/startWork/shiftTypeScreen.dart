@@ -56,6 +56,21 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
   String long = "1", lat = "1";
   late StreamSubscription<Position> positionStream;
 
+  @override
+  void initState() {
+    super.initState();
+    futureRegionCenter = fetchRegionCenter2('${constUrl}api/BolgeMerkezleri/${regionCode}');
+    checkGps();
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+    });
+    controller.repeat(reverse: true);
+  }
+
   checkGps() async {
     servicestatus = await Geolocator.isLocationServiceEnabled();
     if(servicestatus){
@@ -119,20 +134,6 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         //refresh UI on update
       });
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    futureRegionCenter = fetchRegionCenter2('${constUrl}api/BolgeMerkezleri/${regionCode}');
-    controller = AnimationController(
-      /// [AnimationController]s can be created with `vsync: this` because of
-      /// [TickerProviderStateMixin].
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    )..addListener(() {
-    });
-    controller.repeat(reverse: true);
   }
 
   @override

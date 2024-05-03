@@ -5,6 +5,7 @@ class UserBM{
   late String email;
   late int manager_id;
   late String userType;
+  late int group_no;
   late int regionCode;
   late int isActive;
 
@@ -16,6 +17,7 @@ class UserBM{
     required this.email,
     required this.manager_id,
     required this.userType,
+    required this.group_no,
     required this.regionCode,
     required this.isActive
   });
@@ -28,6 +30,7 @@ class UserBM{
       email: json['email'],
       manager_id: json['yonetici_id'],
       userType: json['kullanici_turu'],
+      group_no: json['grup_no'],
       regionCode: json['bolge_kodu'],
       isActive: json['isActive']
     );

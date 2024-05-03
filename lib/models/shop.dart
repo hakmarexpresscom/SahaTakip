@@ -9,6 +9,7 @@ class Shop{
   late String Long;
   late int bs_manav_id;
   late int pm_manav_id;
+  late int bm_manav_id;
   late int isActive;
 
   Shop({
@@ -22,6 +23,7 @@ class Shop{
     required this.Long,
     required this.bs_manav_id,
     required this.pm_manav_id,
+    required this.bm_manav_id,
     required this.isActive
   });
 
@@ -37,6 +39,7 @@ class Shop{
       Long: json['long'],
       bs_manav_id: json['bs_manav_id'],
       pm_manav_id: json['pm_manav_id'],
+      bm_manav_id: json['bm_manav_id'],
       isActive: json['isActive']
     );
   }

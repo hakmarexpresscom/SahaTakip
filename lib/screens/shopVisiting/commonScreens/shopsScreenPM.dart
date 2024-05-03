@@ -57,7 +57,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
   @override
   void initState() {
     super.initState();
-    createOwnShopList("${constUrl}api/magaza${urlShopFilter}=${userID}");
+    createSearchBarShopList("${constUrl}api/magaza${urlShopFilter}=${userID}",false);
     futureOwnShopListPM = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
     checkGps();
     controller = AnimationController(
@@ -197,6 +197,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
             if(350<constraints.maxWidth && constraints.maxWidth<420 && deviceHeight<800){
               return Column(
                 children: <Widget>[
+                  SizedBox(height: deviceHeight*0.03,),
+                  searchBar(),
+                  SizedBox(height: deviceHeight*0.03,),
                   ownShopsScreenUI(0.00, 0.015, 0.02, 20, 18, 15),
                 ],
               );
@@ -204,6 +207,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
             else if(651<constraints.maxWidth && constraints.maxWidth<1000){
               return Column(
                 children: <Widget>[
+                  SizedBox(height: deviceHeight*0.03,),
+                  searchBar(),
+                  SizedBox(height: deviceHeight*0.03,),
                   ((deviceHeight-deviceWidth)<150) ? ownShopsScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : ownShopsScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
                 ],
               );
@@ -211,6 +217,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
             else if(deviceHeight>800 || (421<constraints.maxWidth && constraints.maxWidth<650)){
               return Column(
                 children: <Widget>[
+                  SizedBox(height: deviceHeight*0.03,),
+                  searchBar(),
+                  SizedBox(height: deviceHeight*0.03,),
                   ownShopsScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
                 ],
               );

@@ -13,11 +13,11 @@ Future createShopList(String url) async{
   }
 }
 
-Future createOwnShopList(String url) async{
+Future createSearchBarShopList(String url, bool isPartner) async{
   final List<Shop> shops = await fetchShop2(url);
   for(int i=0; i<shops.length;i++){
     if(shops[i].isActive==1) {
-      ownShopList.add("${shops[i].shopCode} ${shops[i].shopName}");
+      isPartner==false ? ownShopList.add("${shops[i].shopCode} ${shops[i].shopName}") : partnerShopList.add("${shops[i].shopCode} ${shops[i].shopName}");
     }
   }
 }

@@ -13,6 +13,7 @@ bool allSelected = false;
 
 List<String> shopList = [];
 List<String> ownShopList = [];
+List<String> partnerShopList = [];
 
 RxBool isStartShiftObs = isStartShift.obs;
 bool isStartShift = (isLoggedIn)?boxStateManagement.get('isStartShift'):false;
