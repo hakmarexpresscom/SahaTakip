@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>We need access to your location for providing location-based services.</string>
+    <string>Bulunduğunuz konuma yakın olan mağazalarınızı görüntüleyebilmeniz için konum erişim izninize ihtiyacımız var.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>We need access to your gallery for uploading photos.</string>
+    <string>Görev fotoğrafı yüklemeniz için galeri erişim izninize ihtiyacımız var.</string>
     <key>NSCameraUsageDescription</key>
-    <string>We need access to your camera for taking photos.</string>
+    <string>Görev fotoğrafı yüklemeniz için kamera erişim izninize ihtiyacımız var.</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>We need access to your microphone (about camera)</string>
+    <string>Görev fotoğrafı yüklemeniz için mikrofon erişim izninize ihtiyacımız var.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>We need access to your gallery for uploading photos.</string>
+    <string>Görev fotoğrafı yüklemeniz için galeri erişim izninize ihtiyacımız var.</string>
     <key>io.flutter.embedded_views_preview</key>
     <string>YES</string>
 	<key>CFBundleDevelopmentRegion</key>
