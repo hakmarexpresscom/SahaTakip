@@ -95,6 +95,15 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
 
+    box.put("bsIDs",[]);
+    bsIDs = box.get("bsIDs");
+
+    box.put("bsNames",[]);
+    bsNames = box.get("bsNames");
+
+    box.put("allSelected",[]);
+    allSelected = box.get("allSelected");
+
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
@@ -137,6 +146,15 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("shopCodes",[]);
     shopCodes = box.get("shopCodes");
+
+    box.put("bsIDs",[]);
+    bsIDs = box.get("bsIDs");
+
+    box.put("bsNames",[]);
+    bsNames = box.get("bsNames");
+
+    box.put("allSelected",[]);
+    allSelected = box.get("allSelected");
 
     boxStateManagement.put('isStartShift', false);
     isStartShift = boxStateManagement.get('isStartShift');
@@ -211,7 +229,7 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
     urlShopFilter = box.get("urlShopFilter");
 
     await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
-    createShopTaskPhotoMap();
+    await createShopTaskPhotoMap(users[sayac].group_no);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
@@ -266,7 +284,9 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
     urlShopFilter = box.get("urlShopFilter");
 
     await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
-    createShopTaskPhotoMap();
+    (users[sayac].group_no==0)?await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}"):await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+    await saveBSName();
+    await createShopTaskPhotoMap(users[sayac].group_no);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
@@ -315,7 +335,8 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
     urlShopFilter = box.get("urlShopFilter");
 
     await saveShopCodes("${constUrl}api/magaza$urlShopFilter=${userID}");
-    createShopTaskPhotoMap();
+    (users[sayac].group_no==0)?await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}"):await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+    await createShopTaskPhotoMap(users[sayac].group_no);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);

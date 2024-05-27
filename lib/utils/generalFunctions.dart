@@ -1,9 +1,11 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
 import 'package:deneme/services/photoServices.dart';
+import 'package:deneme/services/userBSServices.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import '../models/shop.dart';
+import '../models/userBS.dart';
 import '../services/shopServices.dart';
 
 Future createShopList(String url) async{
@@ -36,9 +38,53 @@ Future saveShopCodes(String url) async{
   }
 }
 
-void createShopTaskPhotoMap(){
+Future saveBSID(String url) async{
+  final List<Shop> shops = await fetchShop2(url);
+  box.get("bsIDs").add(0);
+  box.get("allSelected").add(false);
+  for(int i=0; i<shops.length;i++){
+    if(box.get("bsIDs").contains(shops[i].bs_id)==false){
+      box.get("bsIDs").add(shops[i].bs_id);
+      box.get("allSelected").add(false);
+    }
+    bsIDs = box.get("bsIDs");
+    allSelected = box.get("allSelected");
+  }
+}
+
+Future saveBSManavID(String url) async{
+  final List<Shop> shops = await fetchShop2(url);
+  box.get("bsIDs").add(0);
+  box.get("allSelected").add(false);
+  for(int i=0; i<shops.length;i++){
+    if(box.get("bsIDs")==[]){
+      box.get("bsIDs").add(shops[i].bs_manav_id);
+    }
+    else if(box.get("bsIDs").contains(shops[i].bs_manav_id)==false){
+      box.get("bsIDs").add(shops[i].bs_manav_id);
+    }
+    bsIDs = box.get("bsIDs");
+  }
+}
+
+Future saveBSName() async{
+  box.get("bsNames").add("Tüm Bölge Sorumlularının Mağazaları");
+  for(int i=1; i<box.get("bsIDs").length;i++){
+    final UserBS userBS = await fetchUserBS3("${constUrl}api/KullaniciBS/${box.get("bsIDs")[i]}");
+    if(box.get("bsNames")==[]){
+      box.get("bsNames").add(userBS.userName+" "+userBS.userSurname);
+    }
+    else if(box.get("bsNames").contains(userBS.userName+" "+userBS.userSurname)==false){
+      box.get("bsNames").add(userBS.userName+" "+userBS.userSurname);
+    }
+    bsNames = box.get("bsNames");
+  }
+}
+
+Future createShopTaskPhotoMap(int grup) async{
   for(int i=0;i<box.get("shopCodes").length;i++){
-    boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false]);
+    final Shop shop = await fetchShop3("${constUrl}api/Magaza/${box.get("shopCodes")[i]}");
+    (grup==0)?boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_id]):boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),[shop.bs_id,"",false,shop.bs_manav_id]);
   }
 }
 

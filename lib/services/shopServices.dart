@@ -46,3 +46,17 @@ Future<List<Shop>> fetchShop2(String url) async {
   }
 }
 
+Future<Shop> fetchShop3(String url) async {
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
+  if (response.statusCode == 200) {
+    return Shop.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load Shop');
+  }
+}
+

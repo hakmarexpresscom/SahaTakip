@@ -103,7 +103,9 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                   paddingValue: 5,
                   maxLines: 8,
                   maxLength: 250,
-                  controllerString: TaskDetailCard.answerNoteController.text
+                  controllerString: TaskDetailCard.answerNoteController.text,
+                  enabled: true,
+
               ),
             ),
             SizedBox(height: context.dynamicHeight(0.03)),

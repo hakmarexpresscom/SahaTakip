@@ -46,3 +46,17 @@ Future<List<UserBS>> fetchUserBS2(String url) async {
   }
 }
 
+Future<UserBS> fetchUserBS3(String url) async {
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
+  if (response.statusCode == 200) {
+    return UserBS.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load User BS');
+  }
+}
+

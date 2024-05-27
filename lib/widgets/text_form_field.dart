@@ -12,6 +12,7 @@ class TextFormFieldWidget extends StatefulWidget{
   final int maxLines;
   final int maxLength;
   final String controllerString;
+  final bool enabled;
 
   TextFormFieldWidget({
     Key? key,
@@ -24,7 +25,8 @@ class TextFormFieldWidget extends StatefulWidget{
     required this.paddingValue,
     required this.maxLines,
     required this.maxLength,
-    required this.controllerString
+    required this.controllerString,
+    required this.enabled
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   @override
   Widget build(BuildContext context){
     return TextFormField(
+      enabled: widget.enabled,
       inputFormatters: [
         LengthLimitingTextInputFormatter(widget.maxLength),
       ],

@@ -250,11 +250,15 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskNameController, value: SubmitTaskMainScreen.taskName, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: taskNameController.text),
+
+            // textfieldlara enabled parametresi eklendi
+
+            TextFormFieldWidget(text: "Görev Adı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskNameController, value: SubmitTaskMainScreen.taskName, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: taskNameController.text, enabled: true,),
             SizedBox(height: deviceHeight*0.02,),
             TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, dateController: taskDeadlineController, value: SubmitTaskMainScreen.taskDeadline, paddingValue: 5,maxLines: 1),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskDescriptionController, value: SubmitTaskMainScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 250,controllerString: taskDescriptionController.text),
+            TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskDescriptionController, value: SubmitTaskMainScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 500,controllerString: taskDescriptionController.text, enabled: true,),
+            // maxLength inputu 500'e çıkarıldı
           ],
         ),
       ),
@@ -307,7 +311,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           title: 'Görev Atandı',
           content: 'Görev başarıyla atandı!',
           onTaps: (){
-            createShopTaskPhotoMap();
+            createShopTaskPhotoMap(groupNo);
             resetTaskPhotos();
             naviSubmitTaskMainScreen(context);
           },

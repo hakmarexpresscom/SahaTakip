@@ -14,6 +14,9 @@ logout(BuildContext context) async {
   box.put("urlShopFilter","");
   box.put("urlWorkFilter","");
   box.put("shopCodes",[]);
+  box.put("bsIDs",[]);
+  box.put("bsNames",[]);
+  box.put("allSelected",[]);
   boxShopTaskPhoto.clear();
   box.put('currentShopName', "");
   box.put('currentShopID', 0);

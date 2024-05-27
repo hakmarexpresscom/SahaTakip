@@ -53,6 +53,42 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   void initState() {
     super.initState();
     futureCashCounting = fetchCashCounting('${constUrl}api/CelikKasaSayimi/filterCashCountingForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
+    kagitParaSayimiController.addListener(_updateCelikKasaMevcudu);
+    madeniParaSsayimiController.addListener(_updateCelikKasaMevcudu);
+    celikKasaMevcuduController.addListener(_updateFark);
+    kasaDefterMevcuduController.addListener(_updateFark);
+  }
+
+  @override
+  void dispose() {
+    kagitParaSayimiController.removeListener(_updateCelikKasaMevcudu);
+    madeniParaSsayimiController.removeListener(_updateCelikKasaMevcudu);
+    kagitParaSayimiController.dispose();
+    madeniParaSsayimiController.dispose();
+    POSlarToplamiController.dispose();
+    masraflarTediyelerController.dispose();
+    celikKasaMevcuduController.removeListener(_updateFark);
+    kasaDefterMevcuduController.removeListener(_updateFark);
+    farkController.dispose();
+    super.dispose();
+  }
+
+  void _updateCelikKasaMevcudu() {
+    double kagitPara = double.tryParse(kagitParaSayimiController.text) ?? 0.0;
+    double madeniPara = double.tryParse(madeniParaSsayimiController.text) ?? 0.0;
+    double toplam = kagitPara + madeniPara;
+    setState(() {
+      celikKasaMevcuduController.text = toplam.toString();
+    });
+  }
+
+  void _updateFark() {
+    double celikKasaMevcudu = double.tryParse(celikKasaMevcuduController.text) ?? 0.0;
+    double kasaDefterMevcudu = double.tryParse(kasaDefterMevcuduController.text) ?? 0.0;
+    double fark = celikKasaMevcudu - kasaDefterMevcudu;
+    setState(() {
+      farkController.text = fark.toString();
+    });
   }
 
   @override
@@ -172,19 +208,19 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormFieldWidget(text: "Kağıt Para Sayımı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: kagitParaSayimiController, value: CashCountingScreen.kagitParaSayimi, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: kagitParaSayimiController.text),
+            TextFormFieldWidget(text: "Kağıt Para Sayımı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: kagitParaSayimiController, value: CashCountingScreen.kagitParaSayimi, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: kagitParaSayimiController.text, enabled: true,),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Madeni Para Sayımı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: madeniParaSsayimiController, value: CashCountingScreen.madeniParaSsayimi, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: madeniParaSsayimiController.text),
+            TextFormFieldWidget(text: "Madeni Para Sayımı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: madeniParaSsayimiController, value: CashCountingScreen.madeniParaSsayimi, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: madeniParaSsayimiController.text, enabled: true,),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "POS'lar Toplamı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: POSlarToplamiController, value: CashCountingScreen.POSlarToplami, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: POSlarToplamiController.text),
+            TextFormFieldWidget(text: "POS'lar Toplamı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: POSlarToplamiController, value: CashCountingScreen.POSlarToplami, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: POSlarToplamiController.text, enabled: true,),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Masraflar ve Tediyeler", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: masraflarTediyelerController, value: CashCountingScreen.masraflarTediyeler, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: masraflarTediyelerController.text),
+            TextFormFieldWidget(text: "Masraflar ve Tediyeler", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: masraflarTediyelerController, value: CashCountingScreen.masraflarTediyeler, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: masraflarTediyelerController.text, enabled: true,),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Çelik Kasa Mevcudu", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: celikKasaMevcuduController, value: CashCountingScreen.celikKasaMevcudu, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: celikKasaMevcuduController.text),
+            TextFormFieldWidget(text: "Çelik Kasa Mevcudu", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: celikKasaMevcuduController, value: CashCountingScreen.celikKasaMevcudu, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: celikKasaMevcuduController.text, enabled: false,),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Kasa Defter Mevcudu", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: kasaDefterMevcuduController, value: CashCountingScreen.kasaDefterMevcudu, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: kasaDefterMevcuduController.text),
+            TextFormFieldWidget(text: "Kasa Defter Mevcudu", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: kasaDefterMevcuduController, value: CashCountingScreen.kasaDefterMevcudu, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: kasaDefterMevcuduController.text, enabled: true,),
             SizedBox(height: deviceHeight*0.02,),
-            TextFormFieldWidget(text: "Fark", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: farkController, value: CashCountingScreen.fark, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: farkController.text)
+            TextFormFieldWidget(text: "Fark", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: farkController, value: CashCountingScreen.fark, paddingValue: 5,maxLines: 1,maxLength: 50,controllerString: farkController.text, enabled: false,)
           ],
         ),
       ),

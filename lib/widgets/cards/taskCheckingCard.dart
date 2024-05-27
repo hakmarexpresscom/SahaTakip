@@ -10,6 +10,11 @@ class TaskCheckingCard extends StatefulWidget {
   late String assignmentDate;
   late String taskType;
   late int shopCode;
+
+  // henüz aktif değil construtor içine yazılmadı güncellemeden önce açılacak
+  late int shopName;
+  late String bsName;
+
   final VoidCallback onTaps;
 
   TaskCheckingCard({Key? key,required this.taskName, required this.assignmentDate, required this.taskType, required this.shopCode, required this.onTaps}): super(key: key);
@@ -47,6 +52,13 @@ class _TaskCardState extends State<TaskCheckingCard> {
               SizedBox(height: context.dynamicHeight(0.02),),
               RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shopCode}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
               SizedBox(height: context.dynamicHeight(0.02),),
+
+              // henüz aktif değil güncellemeden önce açılacak
+              RichTextWidget(title: " Mağaza İsmi: ", text: "${widget.shopName}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+              SizedBox(height: context.dynamicHeight(0.02),),
+              RichTextWidget(title: " BS İsmi: ", text: "${widget.bsName}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+              SizedBox(height: context.dynamicHeight(0.02),),
+
               RichTextWidget(title: " Görev atama tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
               SizedBox(height: context.dynamicHeight(0.02),),
             ],

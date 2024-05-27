@@ -61,10 +61,17 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
   @override
   void initState() {
     super.initState();
+
+    //createSearchBarShopList('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}',false);
+    //createSearchBarShopList((groupNo==0)?'${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}':'${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}',true);
+    //futureOwnShopListBS = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
+    //futurePartnerShopList = (groupNo==0)?fetchShop('${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}'):fetchShop('${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}');
+
     createSearchBarShopList('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}',false);
-    createSearchBarShopList((groupNo==0)?'${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}':'${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}',true);
+    createSearchBarShopList('${constUrl}api/magaza/byBolge?bolge=${regionCode}',true);
     futureOwnShopListBS = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
-    futurePartnerShopList = (groupNo==0)?fetchShop('${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}'):fetchShop('${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}');
+    futurePartnerShopList = fetchShop('${constUrl}api/magaza/byBolge?bolge=${regionCode}');
+
     checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of

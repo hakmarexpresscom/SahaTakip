@@ -181,7 +181,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret Tespit\nRaporu Girişi", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context,widget.shop_code);}),
+                        ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Ziyaret\nTespit\nRaporu", processIcon: Icons.assignment,onTaps: (){naviVisitingReportMainScreen(context,widget.shop_code);}),
                         ShopVisitingProcessCard(heightConst: 0.25, widthConst: 0.47, processName: "Kasa\nSayımı", processIcon: Icons.price_check,onTaps: (){naviCashCountingScreen(context, widget.shop_code, widget.shopName);}),
                       ]
                   ):Container(),

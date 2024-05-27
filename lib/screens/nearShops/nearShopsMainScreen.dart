@@ -242,41 +242,54 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
         future: futureShopList,
         builder: (context, snapshot){
           if(snapshot.hasData){
+            List<Map<String, dynamic>> shopsWithDistance = [];
+            for (var shop in snapshot.data!) {
+              double distance = getDistance(double.parse(lat), double.parse(long), double.parse(shop.Lat), double.parse(shop.Long));
+              if (distance <= 5000.0 && shop.isActive == 1) {
+                shopsWithDistance.add({
+                  "shop": shop,
+                  "distance": distance,
+                });
+                GoogleMapMarkerList.list.add({"id": shop.shopCode.toString(),"lat": shop.Lat, "long": shop.Long });
+              }
+            }
+            shopsWithDistance.sort((a, b) => a["distance"].compareTo(b["distance"]));
+
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: snapshot.data!.length,
+              itemCount: shopsWithDistance.length,
               itemBuilder: (BuildContext context, int index){
-                if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=5000.0&&snapshot.data![index].isActive==1){
-                  GoogleMapMarkerList.list.add({"id":snapshot.data![index].shopCode.toString(),"lat":snapshot.data![index].Lat, "long":snapshot.data![index].Long, });
-                  return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children:<Widget>[
-                        NearShopCard(
-                            icon: Icons.near_me,
-                            sizedBoxConst1: sizedBoxConst1,
-                            sizedBoxConst2: sizedBoxConst2,
-                            sizedBoxConst3: sizedBoxConst3,
-                            sizedBoxConst4: sizedBoxConst4,
-                            textSizeCode: textSizeCode,
-                            textSizeName: textSizeName,
-                            textSizeButton: textSizeButton,
-                            shopName: snapshot.data![index].shopName,
-                            shopCode: snapshot.data![index].shopCode.toString(),
-                            lat: snapshot.data![index].Lat,
-                            long: snapshot.data![index].Long,
-                            distance: (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))/1000.0).toStringAsFixed(2).toString()
-                        ),
-                      ]
-                  );
-                }
-                else{
-                  return Container();
-                }
+
+                var shopData = shopsWithDistance[index];
+                Shop shop = shopData["shop"];
+                double distance = shopData["distance"];
+
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      NearShopCard(
+                          icon: Icons.near_me,
+                          sizedBoxConst1: sizedBoxConst1,
+                          sizedBoxConst2: sizedBoxConst2,
+                          sizedBoxConst3: sizedBoxConst3,
+                          sizedBoxConst4: sizedBoxConst4,
+                          textSizeCode: textSizeCode,
+                          textSizeName: textSizeName,
+                          textSizeButton: textSizeButton,
+                          shopName: shop.shopName,
+                          shopCode: shop.shopCode.toString(),
+                          lat: shop.Lat,
+                          long: shop.Long,
+                          distance: (distance / 1000.0).toStringAsFixed(2).toString()
+                      ),
+                    ]
+                );
               },
             );
+
           }
           if(snapshot.connectionState == ConnectionState.waiting){
             return Column(

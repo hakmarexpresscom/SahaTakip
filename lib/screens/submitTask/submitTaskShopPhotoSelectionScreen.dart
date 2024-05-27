@@ -27,6 +27,8 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
 
   late Future<List<Shop>> futureShopList;
 
+  int bs = 0;
+
   int _selectedIndex = 4;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -115,6 +117,24 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
     super.dispose();
   }
 
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -173,19 +193,70 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: deviceHeight*0.02,),
+          taskTypeInfo(),
+          SizedBox(height: deviceHeight*0.02,),
+          Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  side: BorderSide(
+                      color: Colors.indigo,
+                      width: 1.5
+                  )
+              ),
+              child: CupertinoButton(
+                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                onPressed: () => _showDialog(
+                  CupertinoPicker(
+                    magnification: 1.22,
+                    squeeze: 1.2,
+                    useMagnifier: true,
+                    itemExtent: kItemExtent,
+                    scrollController: FixedExtentScrollController(
+                      initialItem: bs,
+                    ),
+                    onSelectedItemChanged: (int selectedItem) {
+                      setState(() {
+                        bs = selectedItem;
+                        if(bs==0){
+                          futureShopList = fetchShop('${constUrl}api/magaza${urlShopFilter}=${userID}');
+                        }
+                        else{
+                          futureShopList = (groupNo==0)?fetchShop('${constUrl}api/magaza/byBsId?bs_id=${box.get("bsIDs")[bs]}'):fetchShop('${constUrl}api/magaza/byBsManavId?bs_manav_id=${box.get("bsIDs")[bs-1]}');
+                        }
+                      });
+                    },
+                    children:
+                    List<Widget>.generate(box.get("bsNames").length, (int index) {
+                      return Center(child: Text(box.get("bsNames")[index].toString()));
+                    }),
+                  ),
+                ),
+                child: Text(
+                  (bs==0)?box.get("bsNames")[bs]:"Bölge Sorumlusu: "+box.get("bsNames")[bs],
+                  style: const TextStyle(
+                    fontSize: 17,
+                  ),
+                ),
+              )
+          ),
+
+
+          SizedBox(height: deviceHeight*0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Checkbox(
-                  value: allSelected,
+                  value: allSelected[bs],
                   onChanged: (newvalue){
                     setState(() {
-                      allSelected = newvalue!;
+                      allSelected[bs] = newvalue!;
                       var list = boxShopTaskPhoto.keys.toList();
                       for(int i=0; i<list.length;i++){
-                        boxShopTaskPhoto.get(list[i])[1]=newvalue;
+                        if(box.get("bsIDs")[bs]==boxShopTaskPhoto.get(list[i])[2] && boxShopTaskPhoto.get(list[i])[2]!=newvalue){
+                          boxShopTaskPhoto.get(list[i])[1]=newvalue;
+                        }
                       }
                     });
                   }
@@ -272,6 +343,10 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
 
   Widget shopPhotoSelectionButton(){
     return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.pop(context);}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor);
+  }
+
+  Widget taskTypeInfo(){
+    return TextWidget(text: "Görev atarken mağazalarınızı aşağıdaki buton\nyardımıyla bölge sorumlularının mağazalarına göre filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor);
   }
 
 }

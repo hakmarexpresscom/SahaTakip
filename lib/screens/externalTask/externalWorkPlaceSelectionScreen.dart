@@ -213,7 +213,8 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
                       paddingValue: 5,
                       maxLines: 1,
                       maxLength: 50,
-                      controllerString: workPlaceTextFieldController.text
+                      controllerString: workPlaceTextFieldController.text,
+                      enabled: true,
                   ),
                 ),
             ],

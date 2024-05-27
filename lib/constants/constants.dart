@@ -9,8 +9,6 @@ import '../services/shopServices.dart';
 String constUrl = "https://bizz.hakmarexpress.com/";
 String apiKey = "AIzaSyCiElU8MOfQ8m9ht76QUiUvuhZyzVtiztA";
 
-bool allSelected = false;
-
 List<String> shopList = [];
 List<String> ownShopList = [];
 List<String> partnerShopList = [];
@@ -50,6 +48,9 @@ String urlShiftFilter = (isLoggedIn)?box.get("urlShiftFilter"):"";
 String urlTaskShops ="";
 
 List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
+List<dynamic> bsIDs = (isLoggedIn)?box.get("bsIDs"):[];
+List<dynamic> bsNames = (isLoggedIn)?box.get("bsNames"):[];
+List<dynamic> allSelected = (isLoggedIn)?box.get("allSelected"):[];
 List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
