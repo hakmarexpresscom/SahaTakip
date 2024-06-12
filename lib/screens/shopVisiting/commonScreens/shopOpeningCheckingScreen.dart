@@ -162,6 +162,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         onTaps: (){
           createInShopOpenControl(
               widget.shop_code,
+              box.get('currentShopName'),
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.toIso8601String(),
@@ -207,6 +208,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         onTaps: (){
           createOutShopOpenControl(
               widget.shop_code,
+              box.get('currentShopName'),
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.toIso8601String(),

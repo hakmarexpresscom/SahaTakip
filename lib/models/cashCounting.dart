@@ -1,5 +1,6 @@
 class CashCounting{
   late int shopCode;
+  late int shopName;
   late int? bs_id;
   late int? pm_id;
   late String kayit_tarihi;
@@ -13,6 +14,7 @@ class CashCounting{
 
   CashCounting({
     required this.shopCode,
+    required this.shopName,
     required this.bs_id,
     required this.pm_id,
     required this.kayit_tarihi,
@@ -28,6 +30,7 @@ class CashCounting{
   factory CashCounting.fromJson(Map<String, dynamic> json) {
     return CashCounting(
       shopCode: json['magaza_kodu'],
+      shopName: json['magaza_ismi'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],

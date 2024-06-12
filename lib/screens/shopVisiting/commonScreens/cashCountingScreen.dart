@@ -175,6 +175,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
         onTaps: (){
           createCashCounting(
               widget.shop_code,
+              widget.shopName,
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.toIso8601String(),

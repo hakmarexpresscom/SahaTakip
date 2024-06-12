@@ -1,6 +1,7 @@
 class InShopCloseControl{
   late int formID;
   late int magaza_kodu;
+  late String magaza_ismi;
   late int? bs_id;
   late int? pm_id;
   late String kayit_tarihi;
@@ -28,6 +29,7 @@ class InShopCloseControl{
   InShopCloseControl({
     required this.formID,
     required this.magaza_kodu,
+    required this.magaza_ismi,
     required this.bs_id,
     required this.pm_id,
     required this.kayit_tarihi,
@@ -57,6 +59,7 @@ class InShopCloseControl{
     return InShopCloseControl(
       formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
+      magaza_ismi: json['magaza_ismi'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],
@@ -87,6 +90,7 @@ class InShopCloseControl{
 class OutShopCloseControl{
   late int formID;
   late int magaza_kodu;
+  late String magaza_ismi;
   late int? bs_id;
   late int? pm_id;
   late String kayit_tarihi;
@@ -102,6 +106,7 @@ class OutShopCloseControl{
   OutShopCloseControl({
     required this.formID,
     required this.magaza_kodu,
+    required this.magaza_ismi,
     required this.bs_id,
     required this.pm_id,
     required this.kayit_tarihi,
@@ -119,6 +124,7 @@ class OutShopCloseControl{
     return OutShopCloseControl(
       formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
+      magaza_ismi: json['magaza_ismi'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],

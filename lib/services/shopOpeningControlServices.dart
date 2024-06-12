@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import '../constants/constants.dart';
 import '../models/shopOpeningControl.dart';
 
@@ -58,7 +61,7 @@ Future<List<InShopOpenControl>> fetchInShopOpenControl3(String url) async {
   }
 }
 
-Future<InShopOpenControl> createInShopOpenControl(int shopCode,int? bs_id, int? pm_id, String savingDate, int gunluk_evrak, int kasiyer_defteri, int skt_kontrolu, int kasa_alti_poset, int kasa_alti_cop, int ofis_depo_kapi, int kasa_cekmecesi, int kasa_alti_resmi_evrak, int wc_musluk, int kasa_temizligi, int magaza_anahtari, int mutfak_wc_temizlik, int magaza_duzeni, int ofis_depo_cop, int priz_cihaz, int kamera_kaydi, int zemin_temizligi, int kasa_etrafi_duzeni, int manav_duzeni, int poset, int isitici_klima, String url) async {
+Future<InShopOpenControl> createInShopOpenControl(int shopCode, String shopName, int? bs_id, int? pm_id, String savingDate, int gunluk_evrak, int kasiyer_defteri, int skt_kontrolu, int kasa_alti_poset, int kasa_alti_cop, int ofis_depo_kapi, int kasa_cekmecesi, int kasa_alti_resmi_evrak, int wc_musluk, int kasa_temizligi, int magaza_anahtari, int mutfak_wc_temizlik, int magaza_duzeni, int ofis_depo_cop, int priz_cihaz, int kamera_kaydi, int zemin_temizligi, int kasa_etrafi_duzeni, int manav_duzeni, int poset, int isitici_klima, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -67,6 +70,7 @@ Future<InShopOpenControl> createInShopOpenControl(int shopCode,int? bs_id, int? 
     body: jsonEncode(<String, dynamic>
       {
         "magaza_kodu": shopCode,
+        "magaza_ismi": shopName,
         "bs_id": bs_id,
         "pm_id": pm_id,
         "kayit_tarihi": savingDate,
@@ -98,6 +102,32 @@ Future<InShopOpenControl> createInShopOpenControl(int shopCode,int? bs_id, int? 
     return InShopOpenControl.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to create InShopOpenControl.');
+  }
+}
+
+Future<void> downloadInShopOpenControlReport(String url) async {
+  try {
+    final dio = Dio();
+
+    final response = await dio.get(url,
+        options: Options(
+            headers: {'api_key': apiKey},
+            responseType: ResponseType.bytes));
+
+    if (response.statusCode == 200) {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/MagazaİçiAçılışKontrolü.xlsx');
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+      // Notify user of successful download
+      print("File downloaded to: ${file.path}");
+    } else {
+      throw Exception('Failed to download file');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw e;
   }
 }
 
@@ -159,7 +189,7 @@ Future<List<OutShopOpenControl>> fetchOutShopOpenControl3(String url) async {
   }
 }
 
-Future<OutShopOpenControl> createOutShopOpenControl(int shopCode, int? bs_id, int? pm_id, String savingDate, int alarm, int personel_sayisi, int uygun_zaman, int kapi_kepenk, int anahtar, String url) async {
+Future<OutShopOpenControl> createOutShopOpenControl(int shopCode, String shopName, int? bs_id, int? pm_id, String savingDate, int alarm, int personel_sayisi, int uygun_zaman, int kapi_kepenk, int anahtar, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -168,6 +198,7 @@ Future<OutShopOpenControl> createOutShopOpenControl(int shopCode, int? bs_id, in
     body: jsonEncode(<String, dynamic>
       {
         "magaza_kodu": shopCode,
+        "magaza_ismi": shopName,
         "bs_id": bs_id,
         "pm_id": pm_id,
         "kayit_tarihi": savingDate,
@@ -183,5 +214,31 @@ Future<OutShopOpenControl> createOutShopOpenControl(int shopCode, int? bs_id, in
     return OutShopOpenControl.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to create OutShopOpenControl.');
+  }
+}
+
+Future<void> downloadOutShopOpenControlReport(String url) async {
+  try {
+    final dio = Dio();
+
+    final response = await dio.get(url,
+        options: Options(
+            headers: {'api_key': apiKey},
+            responseType: ResponseType.bytes));
+
+    if (response.statusCode == 200) {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/MagazaDışıAçılışKontrolü.xlsx');
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+      // Notify user of successful download
+      print("File downloaded to: ${file.path}");
+    } else {
+      throw Exception('Failed to download file');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw e;
   }
 }

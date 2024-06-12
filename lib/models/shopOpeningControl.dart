@@ -1,6 +1,7 @@
 class InShopOpenControl{
   late int formID;
   late int magaza_kodu;
+  late String magaza_ismi;
   late int? bs_id;
   late int? pm_id;
   late String kayit_tarihi;
@@ -29,6 +30,7 @@ class InShopOpenControl{
   InShopOpenControl({
     required this.formID,
     required this.magaza_kodu,
+    required this.magaza_ismi,
     required this.bs_id,
     required this.pm_id,
     required this.kayit_tarihi,
@@ -59,6 +61,7 @@ class InShopOpenControl{
     return InShopOpenControl(
       formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
+      magaza_ismi: json['magaza_ismi'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],
@@ -90,6 +93,7 @@ class InShopOpenControl{
 class OutShopOpenControl{
   late int formID;
   late int magaza_kodu;
+  late int magaza_ismi;
   late int? bs_id;
   late int? pm_id;
   late String kayit_tarihi;
@@ -102,6 +106,7 @@ class OutShopOpenControl{
   OutShopOpenControl({
     required this.formID,
     required this.magaza_kodu,
+    required this.magaza_ismi,
     required this.bs_id,
     required this.pm_id,
     required this.kayit_tarihi,
@@ -116,6 +121,7 @@ class OutShopOpenControl{
     return OutShopOpenControl(
       formID: json['form_id'],
       magaza_kodu: json['magaza_kodu'],
+      magaza_ismi: json['magaza_ismi'],
       bs_id: json['bs_id'],
       pm_id: json['pm_id'],
       kayit_tarihi: json['kayit_tarihi'],

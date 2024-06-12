@@ -336,6 +336,7 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
 
     await saveShopCodes("${constUrl}api/magaza$urlShopFilter=${userID}");
     (users[sayac].group_no==0)?await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}"):await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+    await saveBSName(); // yeniiiiiiiiiiiii
     await createShopTaskPhotoMap(users[sayac].group_no);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);

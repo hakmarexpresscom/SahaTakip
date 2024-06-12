@@ -1,5 +1,8 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/services/cashCountingServices.dart';
+import 'package:deneme/services/shopClosingControlServices.dart';
+import 'package:deneme/services/shopOpeningControlServices.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/utils/logoutFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
@@ -103,6 +106,18 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton1():SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton2():SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton3():SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton4():SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton5():SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton6():SizedBox(height: deviceHeight*0.00,),
             SizedBox(height: deviceHeight*0.03,),
             logoutButton()
           ],
@@ -114,7 +129,115 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
 
 
   Widget logoutButton(){
-    return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){logout(context);}, borderWidht: 1, backgroundColor: Colors.red.withOpacity(0.6), borderColor: redColor, textColor: textColor);
+    return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){logout(context);}, borderWidht: 1, backgroundColor: redColor, borderColor: redColor, textColor: textColor);
+  }
+
+  Widget getReportButton1(){
+    return ButtonWidget(
+        text: "Mağaza İçi Açılış Formu Raporu",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          downloadInShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaIci/excelReport?${urlShopFilter}");
+        },
+        borderWidht: 1,
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
+  }
+
+  Widget getReportButton2(){
+    return ButtonWidget(
+        text: "Mağaza Dışı Açılış Formu Raporu",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          downloadOutShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+        },
+        borderWidht: 1,
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
+  }
+
+  Widget getReportButton3(){
+    return ButtonWidget(
+        text: "Mağaza İçi Kapanış Formu Raporu",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          downloadInShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaIci/excelReport?${urlShopFilter}");
+        },
+        borderWidht: 1,
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
+  }
+
+  Widget getReportButton4(){
+    return ButtonWidget(
+        text: "Mağaza Dışı Kapanış Formu Raporu",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          downloadOutShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+        },
+        borderWidht: 1,
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
+  }
+
+  Widget getReportButton5(){
+    return ButtonWidget(
+        text: "Çelik Kasa Sayımı Formu Raporu",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          downloadCashCountingReport("${constUrl}api/CelikKasaSayimi/excelReport?${urlShopFilter}");
+        },
+        borderWidht: 1,
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
+  }
+
+  Widget getReportButton6(){
+    return ButtonWidget(
+        text: "Mesai Raporu",
+        heightConst: 0.06,
+        widthConst: 0.8,
+        size: 18,
+        radius: 20,
+        fontWeight: FontWeight.w600,
+        onTaps: (){
+          // create rapor fonksiyonu eklenicek
+        },
+        borderWidht: 1,
+        backgroundColor: secondaryColor,
+        borderColor: secondaryColor,
+        textColor: textColor
+    );
   }
 }
 

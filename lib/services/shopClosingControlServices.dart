@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import '../constants/constants.dart';
 import '../models/shopClosingControl.dart';
 
@@ -58,7 +61,7 @@ Future<List<InShopCloseControl>> fetchInShopCloseControl3(String url) async {
   }
 }
 
-Future<InShopCloseControl> createInShopCloseControl(int shopCode,int? bs_id, int? pm_id, String savingDate, int priz_cihaz, int dolap_aydinlatma, int kamera_kayit, int mutfak_wc_temizlik, int kasa_cekmece, int kasa_alti_poset, int kasa_etrafi_duzeni, int magaza_duzeni, int wc_musluk, int gunluk_evrak, int zemin_temizligi, int ofis_depo_kapi, int isitici_klima, int ofis_depo_cop, int kasa_alti_resmi_evrak, int kasa_temizligi, int kasiyer_defteri, int stk_kontrolu, int manav_duzeni, int kasa_alti_cop, String url) async {
+Future<InShopCloseControl> createInShopCloseControl(int shopCode, String shopName, int? bs_id, int? pm_id, String savingDate, int priz_cihaz, int dolap_aydinlatma, int kamera_kayit, int mutfak_wc_temizlik, int kasa_cekmece, int kasa_alti_poset, int kasa_etrafi_duzeni, int magaza_duzeni, int wc_musluk, int gunluk_evrak, int zemin_temizligi, int ofis_depo_kapi, int isitici_klima, int ofis_depo_cop, int kasa_alti_resmi_evrak, int kasa_temizligi, int kasiyer_defteri, int stk_kontrolu, int manav_duzeni, int kasa_alti_cop, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -67,6 +70,7 @@ Future<InShopCloseControl> createInShopCloseControl(int shopCode,int? bs_id, int
     body: jsonEncode(<String, dynamic>
       {
         "magaza_kodu": shopCode,
+        "magaza_ismi": shopName,
         "bs_id": bs_id,
         "pm_id": pm_id,
         "kayit_tarihi": savingDate,
@@ -97,6 +101,32 @@ Future<InShopCloseControl> createInShopCloseControl(int shopCode,int? bs_id, int
     return InShopCloseControl.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to create InShopCloseControl.');
+  }
+}
+
+Future<void> downloadInShopCloseControlReport(String url) async {
+  try {
+    final dio = Dio();
+
+    final response = await dio.get(url,
+        options: Options(
+            headers: {'api_key': apiKey},
+            responseType: ResponseType.bytes));
+
+    if (response.statusCode == 200) {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/MagazaİçiKapanışKontrolü.xlsx');
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+      // Notify user of successful download
+      print("File downloaded to: ${file.path}");
+    } else {
+      throw Exception('Failed to download file');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw e;
   }
 }
 
@@ -158,7 +188,7 @@ Future<List<OutShopCloseControl>> fetchOutShopCloseControl3(String url) async {
   }
 }
 
-Future<OutShopCloseControl> createOutShopCloseControl(int shopCode, int? bs_id, int? pm_id, String savingDate, int magaza_karartma, int zemin_temizligi, int alarm, int dolap_perde, int calisan_ayrilma_zamani, int kapi_kepenk, int son_musteri, int kasa_cikisi, String url) async {
+Future<OutShopCloseControl> createOutShopCloseControl(int shopCode, String shopName, int? bs_id, int? pm_id, String savingDate, int magaza_karartma, int zemin_temizligi, int alarm, int dolap_perde, int calisan_ayrilma_zamani, int kapi_kepenk, int son_musteri, int kasa_cikisi, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -167,6 +197,7 @@ Future<OutShopCloseControl> createOutShopCloseControl(int shopCode, int? bs_id, 
     body: jsonEncode(<String, dynamic>
       {
         "magaza_kodu": shopCode,
+        "magaza_ismi": shopName,
         "bs_id": bs_id,
         "pm_id": pm_id,
         "kayit_tarihi": savingDate,
@@ -185,5 +216,31 @@ Future<OutShopCloseControl> createOutShopCloseControl(int shopCode, int? bs_id, 
     return OutShopCloseControl.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to create OutShopCloseControl.');
+  }
+}
+
+Future<void> downloadOutShopCloseControlReport(String url) async {
+  try {
+    final dio = Dio();
+
+    final response = await dio.get(url,
+        options: Options(
+            headers: {'api_key': apiKey},
+            responseType: ResponseType.bytes));
+
+    if (response.statusCode == 200) {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/MagazaDışıKapanışKontrolü.xlsx');
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+      // Notify user of successful download
+      print("File downloaded to: ${file.path}");
+    } else {
+      throw Exception('Failed to download file');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw e;
   }
 }

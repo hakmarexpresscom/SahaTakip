@@ -162,6 +162,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         onTaps: (){
           createInShopCloseControl(
               widget.shop_code,
+              box.get('currentShopName'),
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.toIso8601String(),
@@ -206,6 +207,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         onTaps: (){
           createOutShopCloseControl(
               widget.shop_code,
+              box.get('currentShopName'),
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.toIso8601String(),
