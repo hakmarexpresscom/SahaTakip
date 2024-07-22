@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../constants/constants.dart';
 import 'package:http/http.dart' as http;
+import '../main.dart';
 import '../models/visitingDurations.dart';
 
 Future<List<VisitingDurations>> parseJsonList(String jsonBody) async{
@@ -110,7 +111,6 @@ Future<VisitingDurations> updateFinishHourWorkDurationVisitingDurations(int id,i
 }
 
 Future countVisitingDurations(String url) async {
-  visitingDurationsCount = 0;
-  final List<VisitingDurations> visitingDUrations = await fetchVisitingDurations3(url);
-  visitingDurationsCount = visitingDUrations[visitingDUrations.length-1].visiting_id;
+  final List<VisitingDurations> visitingDurations = await fetchVisitingDurations3(url);
+  box.put("visitingDurationsCount", visitingDurations[visitingDurations.length-1].visiting_id);
 }

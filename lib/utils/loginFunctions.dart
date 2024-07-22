@@ -3,6 +3,7 @@ import 'package:deneme/utils/generalFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:retry/retry.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';
@@ -25,6 +26,8 @@ import '../services/userNKServices.dart';
 import '../services/userPMServices.dart';
 import 'package:crypto/crypto.dart';
 
+import '../widgets/alert_dialog_without_button.dart';
+
 int sayac = 0;
 
 login(String user, String email, String password, BuildContext context) async {
@@ -45,9 +48,6 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("urlShiftFilter", "byBsIdDate?bs_id");
     urlShiftFilter = box.get("urlShiftFilter");
-
-    box.put("shopCodes",[]);
-    shopCodes = box.get("shopCodes");
 
     box.put("currentShopName","");
     box.put("currentShopID",0);
@@ -92,18 +92,6 @@ login(String user, String email, String password, BuildContext context) async {
     box.put("urlShiftFilter", "byPmIdDate?pm_id");
     urlShiftFilter = box.get("urlShiftFilter");
 
-    box.put("shopCodes",[]);
-    shopCodes = box.get("shopCodes");
-
-    box.put("bsIDs",[]);
-    bsIDs = box.get("bsIDs");
-
-    box.put("bsNames",[]);
-    bsNames = box.get("bsNames");
-
-    box.put("allSelected",[]);
-    allSelected = box.get("allSelected");
-
     box.put("currentShopName","");
     box.put("currentShopID",0);
 
@@ -140,21 +128,6 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("isBS",false);
     isBS=box.get("isBS");
-
-    //box.put("urlShopFilter","/byBmId?bm_id");
-    //urlShopFilter = box.get("urlShopFilter");
-
-    box.put("shopCodes",[]);
-    shopCodes = box.get("shopCodes");
-
-    box.put("bsIDs",[]);
-    bsIDs = box.get("bsIDs");
-
-    box.put("bsNames",[]);
-    bsNames = box.get("bsNames");
-
-    box.put("allSelected",[]);
-    allSelected = box.get("allSelected");
 
     boxStateManagement.put('isStartShift', false);
     isStartShift = boxStateManagement.get('isStartShift');
@@ -212,34 +185,66 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
 }
 
 Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext context) async {
-  final List<UserBS> users = await fetchUserBS2(urlUser);
-  final BSPassword hashedPw = await fetchBSPassword2('${constUrl}api/BSSifre/${userID}');
+  try {
+    final List<UserBS> users = await fetchUserBS2(urlUser);
 
-  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
-  var bytes = utf8.encode(password);
-  var digest = sha256.convert(bytes);
-  var hashedPassword = digest.bytes;
+    BSPassword hashedPw;
+    try {
+      hashedPw = await retry(
+            () => fetchBSPassword2('${constUrl}api/BSSifre/${userID}'),
+        retryIf: (e) => e is Exception,
+      );
+    } catch (error) {
+      throw Exception('Şifre alımında hata oluştu');
+    }
 
-  if(listEquals(binaryHashedPassword, hashedPassword)){
+    List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+    var bytes = utf8.encode(password);
+    var digest = sha256.convert(bytes);
+    var hashedPassword = digest.bytes;
 
-    box.put("yoneticiID",users[sayac].manager_id);
-    yoneticiID=box.get("yoneticiID");
+    if (listEquals(binaryHashedPassword, hashedPassword)) {
 
-    (users[sayac].group_no==0)?box.put("urlShopFilter","/byBsId?bs_id"):box.put("urlShopFilter","/byBsManavId?bs_manav_id");
-    urlShopFilter = box.get("urlShopFilter");
+      showWaitingDialog(context);
 
-    await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
-    await createShopTaskPhotoMap(users[sayac].group_no);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', true);
-    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-  }
-  else{
+      box.put("yoneticiID", users[sayac].manager_id);
+      yoneticiID = box.get("yoneticiID");
+
+      urlShopFilter = (users[sayac].group_no == 0) ? "/byBsId?bs_id" : "/byBsManavId?bs_manav_id";
+      box.put("urlShopFilter", urlShopFilter);
+
+      try {
+        await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
+
+        if (users[sayac].group_no != 0) {
+          await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        }
+
+        await saveBSName();
+        await createShopTaskPhotoMap(users[sayac].group_no);
+
+      } catch (error) {
+        throw Exception('Veri kaydında hata oluştu');
+      }
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
+      Navigator.of(context).pop();
+      (isBSorPM) ? naviStartWorkMainScreen(context) : naviNavigationMainScreen(context);
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta veya şifre')),
+      );
+    }
+  } catch (error) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+      SnackBar(content: Text('Bir hata oluştu: $error')),
     );
   }
 }
+
 
 
 Future checkEmailPM(String email, String url,BuildContext context) async {
@@ -267,36 +272,68 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
 }
 
 Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext context) async {
-  final List<UserPM> users = await fetchUserPM2(urlUser);
-  final PMPassword hashedPw = await fetchPMPassword2('${constUrl}api/PMSifre/${userID}');
+  try {
+    final List<UserPM> users = await fetchUserPM2(urlUser);
 
-  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
-  var bytes = utf8.encode(password);
-  var digest = sha256.convert(bytes);
-  var hashedPassword = digest.bytes;
+    PMPassword hashedPw;
+    try {
+      hashedPw = await retry(
+            () => fetchPMPassword2('${constUrl}api/PMSifre/${userID}'),
+        retryIf: (e) => e is Exception,
+      );
+    } catch (error) {
+      throw Exception('Şifre alımında hata oluştu');
+    }
 
-  if(listEquals(binaryHashedPassword, hashedPassword)){
+    List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+    var bytes = utf8.encode(password);
+    var digest = sha256.convert(bytes);
+    var hashedPassword = digest.bytes;
 
-    box.put("yoneticiID",users[sayac].manager_id);
-    yoneticiID=box.get("yoneticiID");
+    if (listEquals(binaryHashedPassword, hashedPassword)) {
 
-    (users[sayac].group_no==0)?box.put("urlShopFilter","/byPmId?pm_id"):box.put("urlShopFilter","/byPmManavId?pm_manav_id");
-    urlShopFilter = box.get("urlShopFilter");
+      showWaitingDialog(context);
 
-    await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
-    (users[sayac].group_no==0)?await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}"):await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
-    await saveBSName();
-    await createShopTaskPhotoMap(users[sayac].group_no);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', true);
-    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-  }
-  else{
+      box.put("yoneticiID", users[sayac].manager_id);
+      yoneticiID = box.get("yoneticiID");
+
+      urlShopFilter = (users[sayac].group_no == 0) ? "/byPmId?pm_id" : "/byPmManavId?pm_manav_id";
+      box.put("urlShopFilter", urlShopFilter);
+
+      try {
+        await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
+
+        if (users[sayac].group_no == 0) {
+          await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        } else {
+          await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        }
+
+        await saveBSName();
+        await createShopTaskPhotoMap(users[sayac].group_no);
+
+      } catch (error) {
+        throw Exception('Veri kaydında hata oluştu');
+      }
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
+      Navigator.of(context).pop();
+      (isBSorPM) ? naviStartWorkMainScreen(context) : naviNavigationMainScreen(context);
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta veya şifre')),
+      );
+    }
+  } catch (error) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+      SnackBar(content: Text('Bir hata oluştu: $error')),
     );
   }
 }
+
 
 Future checkEmailBM(String email, String url,BuildContext context) async {
   final List<UserBM> users = await fetchUserBM2(url);
@@ -307,7 +344,6 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
       userID=box.get("userID");
 
       box.put("groupNo",users[i].group_no);
-      //box.put("groupNo",0);
       groupNo=box.get("groupNo");
 
       sayac = i;
@@ -321,33 +357,65 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
 }
 
 Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext context) async {
-  final List<UserBM> users = await fetchUserBM2(urlUser);
-  final BMPassword hashedPw = await fetchBMPassword2('${constUrl}api/BMSifre/${userID}');
+  try {
+    final List<UserBM> users = await fetchUserBM2(urlUser);
 
-  List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
-  var bytes = utf8.encode(password);
-  var digest = sha256.convert(bytes);
-  var hashedPassword = digest.bytes;
+    BMPassword hashedPw;
+    try {
+      hashedPw = await retry(
+            () => fetchBMPassword2('${constUrl}api/BMSifre/${userID}'),
+        retryIf: (e) => e is Exception,
+      );
+    } catch (error) {
+      throw Exception('Şifre alımında hata oluştu');
+    }
 
-  if(listEquals(binaryHashedPassword, hashedPassword)){
+    List<int> binaryHashedPassword = base64Decode(hashedPw.hashed_pw);
+    var bytes = utf8.encode(password);
+    var digest = sha256.convert(bytes);
+    var hashedPassword = digest.bytes;
 
-    (users[sayac].group_no==0)?box.put("urlShopFilter","/byBmId?bm_id"):box.put("urlShopFilter","/byBmManavId?bm_manav_id");
-    urlShopFilter = box.get("urlShopFilter");
+    if (listEquals(binaryHashedPassword, hashedPassword)) {
 
-    await saveShopCodes("${constUrl}api/magaza$urlShopFilter=${userID}");
-    (users[sayac].group_no==0)?await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}"):await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
-    await saveBSName(); // yeniiiiiiiiiiiii
-    await createShopTaskPhotoMap(users[sayac].group_no);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', true);
-    (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
-  }
-  else{
+      showWaitingDialog(context);
+
+      urlShopFilter = (users[sayac].group_no == 0) ? "/byBmId?bm_id" : "/byBmManavId?bm_manav_id";
+      box.put("urlShopFilter", urlShopFilter);
+
+      try {
+        await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
+
+        if (users[sayac].group_no == 0) {
+          await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        } else {
+          await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        }
+
+        await saveBSName();
+        await createShopTaskPhotoMap(users[sayac].group_no);
+
+      } catch (error) {
+        throw Exception('Veri kaydında hata oluştu');
+      }
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
+      Navigator.of(context).pop();
+      (isBSorPM) ? naviStartWorkMainScreen(context) : naviNavigationMainScreen(context);
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta veya şifre')),
+      );
+    }
+  } catch (error) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Yanlış e-posta veya şifre')),
+      SnackBar(content: Text('Bir hata oluştu: $error')),
     );
   }
 }
+
 
 Future checkEmailNK(String email, String url,BuildContext context) async {
   final List<UserNK> users = await fetchUserNK2(url);
@@ -376,8 +444,13 @@ Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext 
   var hashedPassword = digest.bytes;
 
   if(listEquals(binaryHashedPassword, hashedPassword)){
+
+    showWaitingDialog(context);
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
+
+    Navigator.of(context).pop();
     (isBSorPM)?naviStartWorkMainScreen(context):naviNavigationMainScreen(context);
   }
   else{
@@ -385,4 +458,17 @@ Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext 
       SnackBar(content: Text('Yanlış e-posta veya şifre')),
     );
   }
+}
+
+showWaitingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return  AlertDialogWithoutButtonWidget(
+        title: "Giriş Yapılıyor",
+        content: "Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.",
+      );
+    },
+  );
 }

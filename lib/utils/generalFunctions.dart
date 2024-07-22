@@ -24,67 +24,78 @@ Future createSearchBarShopList(String url, bool isPartner) async{
   }
 }
 
-Future saveShopCodes(String url) async{
+Future<void> saveShopCodes(String url) async {
   final List<Shop> shops = await fetchShop2(url);
-  for(int i=0; i<shops.length;i++){
-    if(i==shops.length-1&&shops[i].isActive==1){
-      urlTaskShops=urlTaskShops+"magaza_kodu=${shops[i].shopCode}";
+  for (int i = 0; i < shops.length; i++) {
+    if (shops[i].isActive == 1) {
+      urlTaskShops += (i == shops.length - 1) ? "magaza_kodu=${shops[i].shopCode}" : "magaza_kodu=${shops[i].shopCode}&";
+      shopCodes.add(shops[i].shopCode);
     }
-    else if(shops[i].isActive==1){
-      urlTaskShops=urlTaskShops+"magaza_kodu=${shops[i].shopCode}&";
-    }
-    box.get("shopCodes").add(shops[i].shopCode);
-    shopCodes = box.get("shopCodes");
   }
+  await box.put("urlTaskShops", urlTaskShops);
+  await box.put("shopCodes", shopCodes);
 }
 
-Future saveBSID(String url) async{
+Future<void> saveBSID(String url) async {
   final List<Shop> shops = await fetchShop2(url);
-  box.get("bsIDs").add(0);
-  box.get("allSelected").add(false);
-  for(int i=0; i<shops.length;i++){
-    if(box.get("bsIDs").contains(shops[i].bs_id)==false){
-      box.get("bsIDs").add(shops[i].bs_id);
-      box.get("allSelected").add(false);
-    }
-    bsIDs = box.get("bsIDs");
-    allSelected = box.get("allSelected");
+  if (!bsIDs.contains(0)) {
+    bsIDs.add(0);
+    allSelected.add(false);
   }
+  for (Shop shop in shops) {
+    if (!bsIDs.contains(shop.bs_id)) {
+      bsIDs.add(shop.bs_id);
+      allSelected.add(false);
+    }
+  }
+  await box.put("bsIDs", bsIDs);
+  await box.put("allSelected", allSelected);
 }
 
-Future saveBSManavID(String url) async{
+Future<void> saveBSManavID(String url) async {
   final List<Shop> shops = await fetchShop2(url);
-  box.get("bsIDs").add(0);
-  box.get("allSelected").add(false);
-  for(int i=0; i<shops.length;i++){
-    if(box.get("bsIDs")==[]){
-      box.get("bsIDs").add(shops[i].bs_manav_id);
-    }
-    else if(box.get("bsIDs").contains(shops[i].bs_manav_id)==false){
-      box.get("bsIDs").add(shops[i].bs_manav_id);
-    }
-    bsIDs = box.get("bsIDs");
+  if (!bsIDs.contains(0)) {
+    bsIDs.add(0);
+    allSelected.add(false);
   }
+  for (Shop shop in shops) {
+    if (!bsIDs.contains(shop.bs_manav_id)) {
+      bsIDs.add(shop.bs_manav_id);
+      allSelected.add(false);
+    }
+  }
+  await box.put("bsIDs", bsIDs);
+  await box.put("allSelected", allSelected);
 }
 
-Future saveBSName() async{
-  box.get("bsNames").add("Tüm Bölge Sorumlularının Mağazaları");
-  for(int i=1; i<box.get("bsIDs").length;i++){
-    final UserBS userBS = await fetchUserBS3("${constUrl}api/KullaniciBS/${box.get("bsIDs")[i]}");
-    if(box.get("bsNames")==[]){
-      box.get("bsNames").add(userBS.userName+" "+userBS.userSurname);
-    }
-    else if(box.get("bsNames").contains(userBS.userName+" "+userBS.userSurname)==false){
-      box.get("bsNames").add(userBS.userName+" "+userBS.userSurname);
-    }
-    bsNames = box.get("bsNames");
+Future<void> saveBSName() async {
+  if (!bsNames.contains("Tüm BS'ler")) {
+    bsNames.add("Tüm BS'ler");
   }
+  for (int i = 1; i < bsIDs.length; i++) {
+    final UserBS userBS = await fetchUserBS3("${constUrl}api/KullaniciBS/${bsIDs[i]}");
+    final String fullName = "${userBS.userName} ${userBS.userSurname}";
+    if (!bsNames.contains(fullName)) {
+      bsNames.add(fullName);
+    }
+  }
+  await box.put("bsNames", bsNames);
 }
 
-Future createShopTaskPhotoMap(int grup) async{
-  for(int i=0;i<box.get("shopCodes").length;i++){
-    final Shop shop = await fetchShop3("${constUrl}api/Magaza/${box.get("shopCodes")[i]}");
-    (grup==0)?boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_id]):boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_manav_id]); // yeniiiiiiiiii [bs_id, "",false,shop.bs_manav_id] şeklindeydi
+Future createShopTaskPhotoMap(int grup) async {
+  final List<Future<Shop>> fetchFutures = shopCodes.map<Future<Shop>>((code) {
+    return fetchShop3("${constUrl}api/Magaza/$code");
+  }).toList();
+  final List<Shop> shops = await Future.wait(fetchFutures);
+  for (int i = 0; i < shopCodes.length; i++) {
+    final Shop shop = shops[i];
+    if (grup == 0) {
+      int index1 = bsIDs.indexOf(shop.bs_id);
+      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_id, shop.shopName, bsNames[index1]]);
+    } else {
+      int index2 = bsIDs.indexOf(shop.bs_manav_id);
+      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_manav_id, shop.shopName, bsNames[index2]]);
+    }
   }
 }
 
@@ -95,24 +106,24 @@ void resetTaskPhotos(){
 addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl) async{
   for(int i=0;i<shopCodes.length;i++){
     if(boxShopTaskPhoto.get(shopCodes[i].toString())[1]==true){
-      await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCodes[i], photo_id, taskType, report_id,group_no, createTaskUrl);
+      await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCodes[i], boxShopTaskPhoto.get(shopCodes[i].toString())[3], photo_id, taskType, report_id,group_no, boxShopTaskPhoto.get(shopCodes[i].toString())[4], createTaskUrl);
       await countIncompleteTask(countTaskUrl);
       if(boxShopTaskPhoto.get(shopCodes[i].toString())[0]!=""){
-        await createPhoto(incompleteTaskCount, shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
+        await createPhoto(box.get("incompleteTaskCount"), shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
         await countPhoto(countPhotoUrl);
-        updatePhotoIDIncompleteTask(incompleteTaskCount,title, detail, assignmentDate, finishDate, shopCodes[i], photoCount, taskType, report_id, group_no, "${constUrl}api/TamamlanmamisGorev/${incompleteTaskCount}");
+        updatePhotoIDIncompleteTask(box.get("incompleteTaskCount"),title, detail, assignmentDate, finishDate, shopCodes[i], boxShopTaskPhoto.get(shopCodes[i].toString())[3], box.get("photoCount"), taskType, report_id, group_no, boxShopTaskPhoto.get(shopCodes[i].toString())[4], "${constUrl}api/TamamlanmamisGorev/${box.get("incompleteTaskCount")}");
       }
     }
   }
 }
 
 addReportTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType) async{
-    await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCode, photo_id, taskType, report_id,group_no, createTaskUrl);
+    await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCode, box.get("currentShopName"), photo_id, taskType, report_id, group_no, boxShopTaskPhoto.get(shopCode.toString())[4], createTaskUrl);
     await countIncompleteTask(countTaskUrl);
     if(photo_file.isNotEmpty){
-      await createPhoto(incompleteTaskCount, shopCode, bs_id, pm_id, bm_id, photoType, photo_file,null, "${constUrl}api/Fotograf");
+      await createPhoto(box.get("incompleteTaskCount"), shopCode, bs_id, pm_id, bm_id, photoType, photo_file,null, "${constUrl}api/Fotograf");
       await countPhoto("${constUrl}api/Fotograf");
-      updatePhotoIDIncompleteTask(incompleteTaskCount,title, detail, assignmentDate, finishDate, shopCode, photoCount, taskType, report_id, group_no, "${constUrl}api/TamamlanmamisGorev/${incompleteTaskCount}");
+      updatePhotoIDIncompleteTask(box.get("incompleteTaskCount"),title, detail, assignmentDate, finishDate, shopCode, box.get("currentShopName"), box.get("photoCount"), taskType, report_id, group_no, boxShopTaskPhoto.get(shopCode.toString())[4], "${constUrl}api/TamamlanmamisGorev/${box.get("incompleteTaskCount")}");
     }
 }
 

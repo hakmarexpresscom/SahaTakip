@@ -31,18 +31,23 @@ Future<List<BSPassword>> fetchBSPassword(String url) async {
 }
 
 Future<BSPassword> fetchBSPassword2(String url) async {
-  final response = await http.get(
-    Uri.parse(url),
-    headers: {
-      'api_key': apiKey,
-    },
-  );
-  if (response.statusCode == 200) {
-    return BSPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to Bs Password');
+  try {
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'api_key': apiKey,
+      },
+    );
+    if (response.statusCode == 200) {
+      return BSPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to load BS Password with status code ${response.statusCode}');
+    }
+  } catch (error) {
+    throw Exception('Failed to load BS Password: $error');
   }
 }
+
 
 Future<BSPassword> updateBSPassword(int bs_id, String hashedPW, String url) async {
   final response = await http.put(Uri.parse(url),

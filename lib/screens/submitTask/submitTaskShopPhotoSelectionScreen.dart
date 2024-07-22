@@ -48,9 +48,9 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   Future getImage(ImageSource media, int shopCode) async {
     var img = await picker.pickImage(source: media);
     final bytes = File(img!.path).readAsBytesSync();
-    photo_file = photo_file+base64Encode(bytes);
+    photo_file = photo_file + base64Encode(bytes);
     setState(() {
-      boxShopTaskPhoto.get(shopCode.toString())[0] = boxShopTaskPhoto.get(shopCode.toString())[0]+photo_file;
+      boxShopTaskPhoto.get(shopCode.toString())[0] = boxShopTaskPhoto.get(shopCode.toString())[0] + photo_file;
     });
     taskPhotos.add(img);
   }
@@ -102,11 +102,10 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
     super.initState();
     futureShopList = fetchShop('${constUrl}api/magaza${urlShopFilter}=${userID}');
     controller = AnimationController(
-      /// [AnimationController]s can be created with `vsync: this` because of
-      /// [TickerProviderStateMixin].
       vsync: this,
       duration: const Duration(seconds: 5),
     )..addListener(() {
+      setState(() {}); // Bu satır eklenmiş.
     });
     controller.repeat(reverse: true);
   }
@@ -142,24 +141,24 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
     deviceWidth = MediaQuery.of(context).size.width;
 
     void userCondition(String user){
-      if(user=="BS"){
+      if(user == "BS"){
         naviBarList = itemListBS;
-        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
+        if(isStartShiftObs.value == false && isRegionCenterVisitInProgress.value == false){
           pageList = pagesBS;
         }
-        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
+        else if(isStartShiftObs.value && isRegionCenterVisitInProgress.value == false){
           pageList = pagesBS2;
         }
         else if(isRegionCenterVisitInProgress.value){
           pageList = pagesBS3;
         }
       }
-      if(user=="PM"){
+      if(user == "PM"){
         naviBarList = itemListPM;
-        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
+        if(isStartShiftObs.value == false && isRegionCenterVisitInProgress.value == false){
           pageList = pagesPM;
         }
-        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
+        else if(isStartShiftObs.value && isRegionCenterVisitInProgress.value == false){
           pageList = pagesPM2;
         }
         else if(isRegionCenterVisitInProgress.value){
@@ -167,12 +166,12 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         }
         _selectedIndex = 4;
       }
-      if(user=="BM" || user=="GK"){
+      if(user == "BM" || user == "GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
         _selectedIndex = 3;
       }
-      if(user=="NK"){
+      if(user == "NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }
@@ -192,9 +191,9 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: deviceHeight*0.02,),
+          SizedBox(height: deviceHeight * 0.02,),
           taskTypeInfo(),
-          SizedBox(height: deviceHeight*0.02,),
+          SizedBox(height: deviceHeight * 0.02,),
           Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -217,22 +216,21 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                     onSelectedItemChanged: (int selectedItem) {
                       setState(() {
                         bs = selectedItem;
-                        if(bs==0){
+                        if(bs == 0){
                           futureShopList = fetchShop('${constUrl}api/magaza${urlShopFilter}=${userID}');
                         }
                         else{
-                          futureShopList = (groupNo==0)?fetchShop('${constUrl}api/magaza/byBsId?bs_id=${box.get("bsIDs")[bs]}'):fetchShop('${constUrl}api/magaza/byBsManavId?bs_manav_id=${box.get("bsIDs")[bs-1]}');
+                          futureShopList = (groupNo == 0) ? fetchShop('${constUrl}api/magaza/byBsId?bs_id=${bsIDs[bs]}') : fetchShop('${constUrl}api/magaza/byBsManavId?bs_manav_id=${bsIDs[bs-1]}');
                         }
                       });
                     },
-                    children:
-                    List<Widget>.generate(box.get("bsNames").length, (int index) {
-                      return Center(child: Text(box.get("bsNames")[index].toString()));
+                    children: List<Widget>.generate(bsNames.length, (int index) {
+                      return Center(child: Text(bsNames[index].toString()));
                     }),
                   ),
                 ),
                 child: Text(
-                  (bs==0)?box.get("bsNames")[bs]:"Bölge Sorumlusu: "+box.get("bsNames")[bs],
+                  (bs == 0) ? bsNames[bs] : "Bölge Sorumlusu: " + bsNames[bs],
                   style: const TextStyle(
                     fontSize: 17,
                   ),
@@ -240,8 +238,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
               )
           ),
 
-
-          SizedBox(height: deviceHeight*0.02,),
+          SizedBox(height: deviceHeight * 0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -249,13 +246,13 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
             children: [
               Checkbox(
                   value: allSelected[bs],
-                  onChanged: (newvalue){
+                  onChanged: (newvalue) {
                     setState(() {
                       allSelected[bs] = newvalue!;
                       var list = boxShopTaskPhoto.keys.toList();
-                      for(int i=0; i<list.length;i++){
-                        if(box.get("bsIDs")[bs]==boxShopTaskPhoto.get(list[i])[2] && boxShopTaskPhoto.get(list[i])[2]!=newvalue){
-                          boxShopTaskPhoto.get(list[i])[1]=newvalue;
+                      for (int i = 0; i < list.length; i++) {
+                        if ((bs == 0 || bsIDs[bs] == boxShopTaskPhoto.get(list[i])[2]) && boxShopTaskPhoto.get(list[i])[1] != newvalue) {
+                          boxShopTaskPhoto.get(list[i])[1] = newvalue;
                         }
                       }
                     });
@@ -264,28 +261,28 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
               TextWidget(text: "Tümünü Seç", size: 20, fontWeight: FontWeight.w600, color: textColor),
             ],
           ),
-          SizedBox(height: deviceHeight*0.02,),
+          SizedBox(height: deviceHeight * 0.02,),
           submitTaskShopPhotoSelectionScreen(),
-          SizedBox(height: deviceHeight*0.02,),
+          SizedBox(height: deviceHeight * 0.02,),
           shopPhotoSelectionButton(),
-          SizedBox(height: deviceHeight*0.02,),
+          SizedBox(height: deviceHeight * 0.02,),
         ],
       ),
-        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
+      bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex, itemList: naviBarList, pageList: pageList,),
     );
   }
 
-  Widget submitTaskShopPhotoSelectionScreen(){
+  Widget submitTaskShopPhotoSelectionScreen() {
     return Expanded(child: FutureBuilder<List<Shop>>(
         future: futureShopList,
-        builder: (context, snapshot){
-          if(snapshot.hasData){
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index){
-                if(snapshot.data![index].isActive==1){
+              itemBuilder: (BuildContext context, int index) {
+                if (snapshot.data![index].isActive == 1) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
@@ -304,29 +301,29 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                         textSizeCode: 20,
                         textSizeButton: 15,
                         textSizeName: 18,
-                        onAddPhotoTaps: (){
+                        onAddPhotoTaps: () {
                           setState(() {
                             photo_file = "";
                           });
                           addPhoto(snapshot.data![index].shopCode);
-                          },
-                        onShowPhotoTaps: (){
+                        },
+                        onShowPhotoTaps: () {
                           naviTaskPhotoScreen(context, boxShopTaskPhoto.get(snapshot.data![index].shopCode.toString())[0]);
                         },
                       ),
                     ],
                   );
                 }
-                else{
+                else {
                   return Container();
                 }
               },
             );
           }
-          if(snapshot.connectionState == ConnectionState.waiting){
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Column(
-                children:[
-                  SizedBox(height: deviceHeight*0.06,),
+                children: [
+                  SizedBox(height: deviceHeight * 0.06,),
                   CircularProgressIndicator(
                     value: controller.value,
                     semanticsLabel: 'Circular progress indicator',
@@ -334,21 +331,37 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                 ]
             );
           }
-          else{
+          else {
             return Text("Veri yok");
           }
         })
     );
   }
 
-  Widget shopPhotoSelectionButton(){
-    return ButtonWidget(text: "Kaydet", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){Navigator.pop(context);}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: secondaryColor, textColor: textColor);
+  Widget shopPhotoSelectionButton() {
+    return ButtonWidget(
+      text: "Kaydet",
+      heightConst: 0.06,
+      widthConst: 0.8,
+      size: 18,
+      radius: 20,
+      fontWeight: FontWeight.w600,
+      onTaps: () {
+        Navigator.pop(context);
+      },
+      borderWidht: 1,
+      backgroundColor: secondaryColor,
+      borderColor: secondaryColor,
+      textColor: textColor,
+    );
   }
 
-  Widget taskTypeInfo(){
-    return TextWidget(text: "Görev atarken mağazalarınızı aşağıdaki buton\nyardımıyla bölge sorumlularının mağazalarına göre filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor);
+  Widget taskTypeInfo() {
+    return TextWidget(
+      text: "Görev atarken mağazalarınızı aşağıdaki buton\nyardımıyla bölge sorumlularının mağazalarına göre filtreleyebilirsiniz.",
+      size: 16,
+      fontWeight: FontWeight.w400,
+      color: textColor,
+    );
   }
-
 }
-
-

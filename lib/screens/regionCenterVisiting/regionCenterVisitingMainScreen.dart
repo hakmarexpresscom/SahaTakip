@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:deneme/styles/styleConst.dart';
@@ -13,6 +15,7 @@ import '../../../utils/generalFunctions.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
+import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/cards/shopVisitingProcessCard.dart';
 
 class RegionCenterVisitingMainScreen extends StatefulWidget {
@@ -40,9 +43,53 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
 
   final RegionCenterVisitManager regionCenterVisitManager = Get.put(RegionCenterVisitManager());
 
+  Timer? _timer;
+  int _start = 0;
+
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _start++;
+        visitBox.put('elapsedTime', _start);
+      });
+    });
+  }
+
+  void _stopTimer() {
+    _timer?.cancel();
+  }
+
+  String _formatTime(int seconds) {
+    int hours = seconds ~/ 3600;
+    int minutes = (seconds % 3600) ~/ 60;
+    int remainingSeconds = seconds % 60;
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
   @override
   void initState() {
     super.initState();
+
+    // Sayaç başlatma saatini alın
+    DateTime? timerStartTime = visitBox.get('timerStartTime');
+
+    // Eğer startTime kaydedilmişse, aradaki süreyi hesaplayın
+    if (timerStartTime != null) {
+      int elapsedSeconds = DateTime.now().difference(timerStartTime).inSeconds;
+      _start = visitBox.get('elapsedTime', defaultValue: 0) ?? 0 + elapsedSeconds;
+    } else {
+      _start = visitBox.get('elapsedTime', defaultValue: 0) ?? 0;
+    }
+
+    _startTimer();
+
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -121,7 +168,7 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
             children: <Widget>[
               Container(
                 color: Colors.grey.withOpacity(0.4),
-                height: deviceHeight*0.13,
+                height: deviceHeight * 0.16,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
@@ -136,7 +183,19 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
                         shopNameInfo(),
                       ],
                     ),
-                    stopVisitingButton(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Geçen süre:'),
+                        Text(
+                          _formatTime(_start),
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        stopVisitingButton(),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -176,26 +235,47 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
       radius: 20,
       fontWeight: FontWeight.w600,
       onTaps: (){
+
+        showWaitingDialog(context);
+
         regionCenterVisitManager.endRegionCenterVisit();
         box.put("visitingFinishTime",DateTime.now());
         String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
         updateFinishHourWorkDurationVisitingDurations(
-          visitingDurationsCount,
-          box.get('currentCenterID'),
-          (isBS==true)?userID:null,
-          (isBS==true)?null:userID,
-          box.get("visitingStartTime").toIso8601String(),
-          box.get("visitingFinishTime").toIso8601String(),
-          box.get("shiftDate"),
-          visitingDuration,
-          "${constUrl}api/ZiyaretSureleri"
+            box.get("visitingDurationsCount"),
+            box.get('currentCenterID'),
+            (isBS==true)?userID:null,
+            (isBS==true)?null:userID,
+            box.get("visitingStartTime").toIso8601String(),
+            box.get("visitingFinishTime").toIso8601String(),
+            box.get("shiftDate"),
+            visitingDuration,
+            "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}"
         );
+        _stopTimer();
+        visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
+        visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+
+        Navigator.of(context).pop(); // Close the dialog
         naviShiftTypeScreen(context);
       },
       borderWidht: 1,
       backgroundColor: redColor,
       borderColor: redColor,
       textColor: textColor);
+  }
+
+  showWaitingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return  AlertDialogWithoutButtonWidget(
+          title: "Ziyaret Bitiriliyor",
+          content: "Ziyaretiniz bitiriliyor, lütfen bekleyiniz.",
+        );
+      },
+    );
   }
 
 }

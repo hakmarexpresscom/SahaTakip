@@ -45,11 +45,11 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: context.dynamicWidth(widget.widthConst),
       child: MaterialButton(
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: widget.borderColor, width: widget.borderWidht),
-          borderRadius: BorderRadius.all(Radius.circular(widget.radius))),
+            side: BorderSide(color: widget.borderColor, width: widget.borderWidht),
+            borderRadius: BorderRadius.all(Radius.circular(widget.radius))),
         onPressed: ()=>{widget.onTaps()},
         child: Text(widget.text,style: TextStyle(fontWeight: widget.fontWeight,fontSize: widget.size, color: widget.textColor),textAlign: TextAlign.center,),
-        ),
+      ),
     );
   }
 

@@ -126,17 +126,19 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
             builder: (context, snapshot){
               if(snapshot.hasData){
                 return IncompleteTaskCheckingDetailCard(
-                        heightConst: 0.7,
-                        widthConst: 0.9,
-                        taskName: snapshot.data!.taskTitle,
-                        taskDescription: (snapshot.data!.taskDetail==null)?"Açıklama eklenmemiştir.":snapshot.data!.taskDetail!,
-                        taskDeadline: snapshot.data!.taskFinishDate,
-                        taskType: snapshot.data!.taskType,
-                        onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
-                        id: snapshot.data!.task_id,
-                        assignmentDate: snapshot.data!.taskAssigmentDate,
-                        shop_code: snapshot.data!.shopCode,
-                        photo_id: snapshot.data!.photo_id,
+                      heightConst: 0.7,
+                      widthConst: 0.9,
+                      taskName: snapshot.data!.taskTitle,
+                      taskDescription: (snapshot.data!.taskDetail==null)?"Açıklama eklenmemiştir.":snapshot.data!.taskDetail!,
+                      taskDeadline: snapshot.data!.taskFinishDate,
+                      taskType: snapshot.data!.taskType,
+                      onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
+                      id: snapshot.data!.task_id,
+                      assignmentDate: snapshot.data!.taskAssigmentDate,
+                      shop_code: snapshot.data!.shopCode,
+                      shop_name: snapshot.data!.shopName,
+                      bs_name: snapshot.data!.bsName,
+                      photo_id: snapshot.data!.photo_id,
                 );
               }
               if(snapshot.connectionState == ConnectionState.waiting){
@@ -178,6 +180,8 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                                 id: snapshot.data!.task_id,
                                 assignmentDate: snapshot.data!.taskAssigmentDate,
                                 shop_code: snapshot.data!.shopCode,
+                                shop_name: snapshot.data!.shopName,
+                                bs_name: snapshot.data!.bsName,
                                 photo_id: snapshot.data!.photo_id,
                                 completeDate: snapshot2.data!.taskCompleteDate,
                                 answerNote: snapshot2.data!.answerNote,

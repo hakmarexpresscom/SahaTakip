@@ -18,6 +18,7 @@ import '../../../utils/appStateManager.dart';
 import '../../../utils/distanceFunctions.dart';
 import '../../../utils/generalFunctions.dart';
 import '../../../widgets/alert_dialog.dart';
+import '../../../widgets/alert_dialog_without_button.dart';
 
 class ShopVisitingShopsScreenPM extends StatefulWidget {
   const ShopVisitingShopsScreenPM({super.key});
@@ -265,21 +266,31 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                   long: snapshot.data![index].Long,
                                   onTaps: () async {
                                     if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
-                                      storeVisitManager.startStoreVisit();reportManager.noReport();box.put("currentShopName", snapshot.data![index].shopName);box.put("currentShopID", snapshot.data![index].shopCode);box.put("visitingStartTime", DateTime.now());
+
+                                      showWaitingDialog(context);
+
+                                      storeVisitManager.startStoreVisit();
+                                      reportManager.noReport();
+                                      box.put("currentShopName", snapshot.data![index].shopName);
+                                      box.put("currentShopID", snapshot.data![index].shopCode);
+                                      box.put("visitingStartTime", DateTime.now());
+                                      visitBox.put('timerStartTime', DateTime.now());
                                       await createVisitingDurations(
-                                        box.get('currentShopID'),
-                                        (isBS == true) ? userID : null,
-                                        (isBS == true) ? null : userID,
-                                        box.get("visitingStartTime").toIso8601String(),
-                                        null,
-                                        box.get("shiftDate"),
-                                        null,
-                                        "${constUrl}api/ZiyaretSureleri"
+                                          box.get('currentShopID'),
+                                          (isBS == true) ? userID : null,
+                                          (isBS == true) ? null : userID,
+                                          box.get("visitingStartTime").toIso8601String(),
+                                          null,
+                                          box.get("shiftDate"),
+                                          null,
+                                          "${constUrl}api/ZiyaretSureleri"
                                       );
                                       await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                      Navigator.of(context).pop(); // Close the dialog
                                       naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                    }
-                                    else {
+
+                                    } else {
                                       showShopDistanceDialog(context);
                                     }
                                   }
@@ -319,7 +330,15 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                   long: snapshot.data![index].Long,
                                   onTaps: () async {
                                     if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
-                                      storeVisitManager.startStoreVisit();reportManager.noReport();box.put("currentShopName", snapshot.data![index].shopName);box.put("currentShopID", snapshot.data![index].shopCode);box.put("visitingStartTime", DateTime.now());
+
+                                      showWaitingDialog(context);
+
+                                      storeVisitManager.startStoreVisit();
+                                      reportManager.noReport();
+                                      box.put("currentShopName", snapshot.data![index].shopName);
+                                      box.put("currentShopID", snapshot.data![index].shopCode);
+                                      box.put("visitingStartTime", DateTime.now());
+                                      visitBox.put('timerStartTime', DateTime.now());
                                       await createVisitingDurations(
                                           box.get('currentShopID'),
                                           (isBS == true) ? userID : null,
@@ -331,6 +350,8 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                           "${constUrl}api/ZiyaretSureleri"
                                       );
                                       await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                      Navigator.of(context).pop(); // Close the dialog
                                       naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                     }
                                     else {
@@ -363,6 +384,19 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                 return Text("Veri yok");
               }
             })
+    );
+  }
+
+  showWaitingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return  AlertDialogWithoutButtonWidget(
+          title: "Ziyaret Başlatılıyor",
+          content: "Ziyaretiniz başlatılıyor, lütfen bekleyiniz.",
+        );
+      },
     );
   }
 

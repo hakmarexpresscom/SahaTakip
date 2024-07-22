@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../constants/constants.dart';
 import 'package:http/http.dart' as http;
+import '../main.dart';
 import '../models/report.dart';
 
 Future<List<Report>> parseJsonList(String jsonBody) async{
@@ -81,7 +82,6 @@ Future<Report> createReport(int pm_id, int shopCode, String createDate, int grou
 }
 
 Future countReport(String url) async {
-  reportCount = 0;
   final List<Report> reports = await fetchReport3(url);
-  reportCount = reports[reports.length-1].report_id;
+  box.put("reportCount", reports[reports.length-1].report_id);
 }

@@ -25,6 +25,8 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
 
   int shop = 0;
 
+  int bs = 0;
+
   int _selectedIndex = 3;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -167,19 +169,19 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
                                 futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
                               }
                               else{
-                                futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
+                                futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=0&gorev_turu=Uzaktan&grup_no=${groupNo}');
                               }
                             });
                           },
                           children:
-                          List<Widget>.generate(createShopFilterList().length, (int index) {
-                            return Center(child: Text(createShopFilterList()[index]));
+                          List<Widget>.generate(createShopFilterList(bsIDs[bs]).length, (int index) {
+                            return Center(child: Text(createShopFilterList(bsIDs[bs])[index]));
                           }),
                         ),
                       ),
                       // This displays the selected fruit name.
                       child: Text(
-                        (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
+                        (shop==0)?createShopFilterList(bsIDs[bs])[shop]:"Mağaza Kodu: "+createShopFilterList(bsIDs[bs])[shop],
                         style: const TextStyle(
                           fontSize: 20.0,
                         ),

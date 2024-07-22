@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../models/incompleteTask.dart';
 import '../../routing/landing.dart';
 import '../../services/completeTaskServices.dart';
@@ -234,12 +235,12 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                                   snapshot.data!.task_id,
                                   userID,
                                   now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                                  (photo_file.isEmpty)?null:photoCount+1,
+                                  (photo_file.isEmpty)?null:box.get("photoCount")+1,
                                   TaskDetailCard.answerNoteController.text,
                                   '${constUrl}api/TamamlanmisGorev'
                               );
                               if(photo_file.isNotEmpty){
-                                updateCompleteTaskIDPhoto(photoCount,null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
+                                updateCompleteTaskIDPhoto(box.get("photoCount"),null, snapshot.data!.shopCode, userID, null, null, "UzaktanCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${box.get("photoCount")+1}');
                               }
                               setState(() {
                                 taskIsCompleted=false;
@@ -252,6 +253,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                           user_id: userID,
                           assignmentDate: snapshot.data!.taskAssigmentDate,
                           shop_code: snapshot.data!.shopCode,
+                          shop_name: snapshot.data!.shopName,
                           photo_id: snapshot.data!.photo_id,
                           report_id: snapshot.data!.report_id,
                           addPhotoButton:
@@ -271,8 +273,9 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
                               textColor: textColor),
                           image: image,
                           completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                          answer_photo_id: (photoCount==0)?null:photoCount+1,
+                          answer_photo_id: (box.get("photoCount")==0)?null:box.get("photoCount")+1,
                           group_no: snapshot.data!.group_no,
+                          bs_name: snapshot.data!.bsName,
                         ),
                       ],
                     );

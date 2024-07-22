@@ -3,34 +3,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../main.dart';
 import '../routing/landing.dart';
+import 'loginFunctions.dart';
 
 logout(BuildContext context) async {
+
   box.put("userID",0);
   box.put("yoneticiID",0);
   box.put("groupNo",0);
+  box.put("regionCode",0);
   box.put("userType","PM");
   box.put("isBSorPM",true);
   box.put("isBS",false);
+
   box.put("urlShopFilter","");
   box.put("urlWorkFilter","");
+  box.put("urlShiftFilter","");
+  box.put("urlTaskShops","");
+
   box.put("shopCodes",[]);
   box.put("bsIDs",[]);
   box.put("bsNames",[]);
   box.put("allSelected",[]);
+
   boxShopTaskPhoto.clear();
+
   box.put('currentShopName', "");
   box.put('currentShopID', 0);
   box.put('currentCenterName', "");
   box.put('currentCenterID', 0);
+
   box.put("visitingStartTime",DateTime.now());
   box.put("visitingFinishTime",DateTime.now());
   box.put("startTime",DateTime.now());
   box.put("finishTime",DateTime.now());
   box.put("shiftDate","");
+
   boxStateManagement.put('isStartShift', false);
   boxStateManagement.put('isStoreVisit', false);
   boxStateManagement.put("isRegionCenterVisit", false);
   boxStateManagement.put('isReport', false);
+
   userID=0;
   yoneticiID=0;
   groupNo=0;
@@ -38,13 +50,23 @@ logout(BuildContext context) async {
   userType = "PM";
   isBSorPM = true;
   isBS = false;
+
   email="";
   password="";
-  urlTaskShops ="";
+
   shopCodes = [];
+  bsIDs = [];
+  bsNames = [];
+  allSelected = [];
   taskPhotos = [];
+
   urlShopFilter = "";
   urlWorkFilter = "";
+  urlShiftFilter = "";
+  urlTaskShops = "";
+
+  sayac = 0;
+
   final prefs = await SharedPreferences.getInstance();
   await prefs.setBool('isLoggedIn', false);
   naviLoginMainScreen(context);

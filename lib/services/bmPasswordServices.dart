@@ -31,18 +31,23 @@ Future<List<BMPassword>> fetchBMPassword(String url) async {
 }
 
 Future<BMPassword> fetchBMPassword2(String url) async {
-  final response = await http.get(
-    Uri.parse(url),
-    headers: {
-      'api_key': apiKey,
-    },
-  );
-  if (response.statusCode == 200) {
-    return BMPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load BM Password');
+  try {
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'api_key': apiKey,
+      },
+    );
+    if (response.statusCode == 200) {
+      return BMPassword.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to load BM Password with status code ${response.statusCode}');
+    }
+  } catch (error) {
+    throw Exception('Failed to load BM Password: $error');
   }
 }
+
 
 Future<BMPassword> updateBMPassword(int bm_id, String hashedPW, String url) async {
   final response = await http.put(Uri.parse(url),

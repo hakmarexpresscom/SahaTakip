@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../constants/constants.dart';
 import 'package:http/http.dart' as http;
+import '../main.dart';
 import '../models/shift.dart';
 
 Future<List<Shift>> parseJsonList(String jsonBody) async{
@@ -110,7 +111,6 @@ Future<Shift> updateFinishHourWorkDurationShift(int id,int? bs_id, int? pm_id, S
 }
 
 Future countShift(String url) async {
-  shiftCount = 0;
   final List<Shift> shifts = await fetchShift3(url);
-  shiftCount = shifts[shifts.length-1].shift_id;
+  box.put("shiftCount",shifts[shifts.length-1].shift_id);
 }

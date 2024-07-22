@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../constants/constants.dart';
+import '../main.dart';
 import '../models/incompleteTask.dart';
 import 'package:http/http.dart' as http;
 
@@ -58,7 +59,7 @@ Future<List<IncompleteTask>> fetchIncompleteTask3(String url) async {
   }
 }
 
-Future<IncompleteTask> createIncompleteTask(String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String url) async {
+Future<IncompleteTask> createIncompleteTask(String title,String? detail,String assignmentDate, String finishDate, int shopCode, String shopName, int? photo_id, String taskType, int? report_id, int group_no, String bsName, String url) async {
   final response = await http.post(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -71,11 +72,13 @@ Future<IncompleteTask> createIncompleteTask(String title,String? detail,String a
       "gorev_atama_tarihi": assignmentDate,
       "gorev_bitis_tarihi": finishDate,
       "magaza_kodu": shopCode,
+      "magaza_ismi": shopName,
       "foto_id": photo_id,
       "gorev_turu": taskType,
       "rapor_id": report_id,
       "tamamlandi_bilgisi": 0,
-      "grup_no": group_no
+      "grup_no": group_no,
+      "bs_ismi": bsName
     }
     ),
   );
@@ -86,7 +89,7 @@ Future<IncompleteTask> createIncompleteTask(String title,String? detail,String a
   }
 }
 
-Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int completionInfo, int group_no, String url) async {
+Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, String shopName, int? photo_id, String taskType, int? report_id, int completionInfo, int group_no, String bsName, String url) async {
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -100,11 +103,13 @@ Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,St
       "gorev_atama_tarihi": assignmentDate,
       "gorev_bitis_tarihi": finishDate,
       "magaza_kodu": shopCode,
+      "magaza_ismi": shopName,
       "foto_id": photo_id,
       "gorev_turu": taskType,
       "rapor_id": report_id,
       "tamamlandi_bilgisi": completionInfo,
-      "grup_no": group_no
+      "grup_no": group_no,
+      "bs_ismi": bsName
     }
     ),
   );
@@ -115,7 +120,7 @@ Future<IncompleteTask> updateCompletionInfoIncompleteTask(int id,String title,St
   }
 }
 
-Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String url) async {
+Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? detail,String assignmentDate, String finishDate, int shopCode, String shopName, int? photo_id, String taskType, int? report_id, int group_no, String bsName, String url) async {
   final response = await http.put(Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -129,11 +134,13 @@ Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? d
       "gorev_atama_tarihi": assignmentDate,
       "gorev_bitis_tarihi": finishDate,
       "magaza_kodu": shopCode,
+      "magaza_ismi": shopName,
       "foto_id": photo_id,
       "gorev_turu": taskType,
       "rapor_id": report_id,
       "tamamlandi_bilgisi": 0,
-      "grup_no": group_no
+      "grup_no": group_no,
+      "bs_ismi": bsName
     }
     ),
   );
@@ -145,7 +152,6 @@ Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? d
 }
 
 Future countIncompleteTask(String url) async {
-  incompleteTaskCount = 0;
   final List<IncompleteTask> incompleteTasks = await fetchIncompleteTask3(url);
-  incompleteTaskCount = incompleteTasks[incompleteTasks.length-1].task_id;
+  box.put("incompleteTaskCount", incompleteTasks[incompleteTasks.length-1].task_id);
 }

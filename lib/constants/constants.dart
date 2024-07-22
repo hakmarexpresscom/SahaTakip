@@ -36,21 +36,15 @@ class GoogleMapMarkerList {
 
 Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/magaza');
 
-int incompleteTaskCount = 0;
-int photoCount = 0;
-int reportCount = 0;
-int shiftCount = 0;
-int visitingDurationsCount = 0;
-
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";
 String urlShiftFilter = (isLoggedIn)?box.get("urlShiftFilter"):"";
-String urlTaskShops ="";
+String urlTaskShops = (isLoggedIn)?box.get("urlTaskShops"):"";
 
-List<dynamic> shopCodes = (isLoggedIn)?box.get("shopCodes"):[];
-List<dynamic> bsIDs = (isLoggedIn)?box.get("bsIDs"):[];
-List<dynamic> bsNames = (isLoggedIn)?box.get("bsNames"):[];
-List<dynamic> allSelected = (isLoggedIn)?box.get("allSelected"):[];
+List<dynamic> shopCodes = (isLoggedIn) ? box.get("shopCodes", defaultValue: []) : [];
+List<dynamic> bsIDs = (isLoggedIn) ? box.get("bsIDs", defaultValue: []) : [];
+List<dynamic> bsNames = (isLoggedIn) ? box.get("bsNames", defaultValue: []) : [];
+List<dynamic> allSelected = (isLoggedIn) ? box.get("allSelected", defaultValue: []) : [];
 List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
@@ -66,16 +60,34 @@ List<String> shiftType = <String>['Mağaza Ziyareti', 'Harici İş'];
 List<String> userTypeList = <String>['Bölge Sorumlusu', 'Pazarlama Müdürü','Bölge Müdürü',"Normal Kullanıcı"];
 List<String> groupListCompleteTask = <String>['Standart', 'Manav'];
 List<String> groupListIncompleteTask = <String>['Standart', 'Manav'];
-List<String> taskListCompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Tespit Raporu Görevleri'];
-List<String> taskListIncompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Tespit Raporu Görevleri'];
+List<String> taskListCompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Rapor Görevleri'];
+List<String> taskListIncompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Raporu Görevleri'];
 List<String> taskTypeListCompleteTask = <String>['Yerinde', 'Uzaktan', 'Rapor'];
 List<String> taskTypeListIncompleteTask = <String>['Yerinde', 'Uzaktan', 'Rapor'];
 double kItemExtent = 32.0;
 
-List<dynamic> createShopFilterList() {
-  List<dynamic> allShopFilterList = boxShopTaskPhoto.keys.toList();
-  allShopFilterList.insert(0, "Tüm mağazalar");
-  return allShopFilterList;
+List<dynamic> createShopFilterList(int bsID) {
+  if(bsID==0){
+    List<dynamic> allShopFilterList = boxShopTaskPhoto.keys.toList();
+    allShopFilterList.insert(0, "Tüm Mağazalar");
+    return allShopFilterList;
+  }
+  else{
+    List<dynamic> allShopFilterList2 = [for (var key in boxShopTaskPhoto.keys) if(bsID==boxShopTaskPhoto.get(key)[2]) key];
+    allShopFilterList2.insert(0, "BS'nin Tüm Mağazaları");
+    return allShopFilterList2;
+  }
+}
+
+String createUrlTaskShopsWithBS(int bsID){
+  String urlTaskShopsWithBS = "";
+  for(var key in boxShopTaskPhoto.keys){
+    if(bsID==boxShopTaskPhoto.get(key)[2]){
+      urlTaskShopsWithBS += "magaza_kodu=${key}&";
+    }
+  }
+  urlTaskShopsWithBS = urlTaskShopsWithBS.substring(0, urlTaskShopsWithBS.length - 1);
+  return urlTaskShopsWithBS;
 }
 
 String email="";

@@ -16,9 +16,25 @@ class IncompleteTaskCheckingDetailCard extends StatefulWidget {
   late int id;
   late String assignmentDate;
   late int shop_code;
+  late String shop_name;
+  late String bs_name;
   late int? photo_id;
 
-  IncompleteTaskCheckingDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate, required this.shop_code, required this.photo_id}): super(key: key);
+  IncompleteTaskCheckingDetailCard ({ Key? key,
+    required this.heightConst,
+    required this.widthConst,
+    required this.taskName,
+    required this.taskDescription,
+    required this.taskDeadline,
+    required this.taskType,
+    required this.onTapsShowPhoto,
+    required this.id,
+    required this.assignmentDate,
+    required this.shop_code,
+    required this.shop_name,
+    required this.bs_name,
+    required this.photo_id
+  }): super(key: key);
 
   @override
   State<IncompleteTaskCheckingDetailCard> createState() => _IncompleteTaskCheckingDetailCardState();
@@ -39,6 +55,10 @@ class _IncompleteTaskCheckingDetailCardState extends State<IncompleteTaskCheckin
           RichTextWidget(title: " Görev Atama Tarihi: ", text: widget.assignmentDate, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
           RichTextWidget(title: " Mağaza Kodu: ", text: "${widget.shop_code}", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          SizedBox(height: context.dynamicHeight(0.02),),
+          RichTextWidget(title: " Mağaza İsmi: ", text: widget.shop_name, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          SizedBox(height: context.dynamicHeight(0.02),),
+          RichTextWidget(title: " BS İsmi: ", text: widget.bs_name, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
           RichTextWidget(title: " Görev Türü: ", text: widget.taskType, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),

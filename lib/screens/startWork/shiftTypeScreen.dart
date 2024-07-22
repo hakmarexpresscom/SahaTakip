@@ -20,6 +20,7 @@ import '../../utils/appStateManager.dart';
 import '../../utils/distanceFunctions.dart';
 import '../../utils/generalFunctions.dart';
 import '../../widgets/alert_dialog.dart';
+import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/button_widget.dart';
 
 class ShiftTypeScreen extends StatefulWidget {
@@ -272,6 +273,9 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                 fontWeight: FontWeight.w600,
                 onTaps: () async{
                   if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))<=250.0) {
+
+                    showWaitingDialog(context);
+
                     regionCenterVisitManager.startRegionCenterVisit();
                     box.put("currentCenterName", snapshot.data!.centerName);
                     box.put("currentCenterID", snapshot.data!.centerCode);
@@ -287,6 +291,8 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                       "${constUrl}api/ZiyaretSureleri"
                     );
                     await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                    Navigator.of(context).pop(); // Close the dialog
                     naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
                   }
                   else{
@@ -329,7 +335,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
           box.put("finishTime",DateTime.now());
           String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
           updateFinishHourWorkDurationShift(
-              shiftCount,
+              box.get("shiftCount"),
               (isBS)?userID:null,
               (isBS)?null:userID,
               "Mesai",
@@ -337,7 +343,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
               box.get("startTime").toIso8601String(),
               box.get("finishTime").toIso8601String(),
               workDuration,
-              "${constUrl}api/mesai/${shiftCount}"
+              "${constUrl}api/mesai/${box.get("shiftCount")}"
           );
           naviStartWorkMainScreen(context);
         },
@@ -345,6 +351,19 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         backgroundColor: redColor,
         borderColor: redColor,
         textColor: textColor);
+  }
+
+  showWaitingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return  AlertDialogWithoutButtonWidget(
+          title: "Ziyaret Başlatılıyor",
+          content: "Ziyaretiniz başlatılıyor, lütfen bekleyiniz.",
+        );
+      },
+    );
   }
 
   showShopDistanceDialog(BuildContext context) {

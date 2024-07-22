@@ -20,6 +20,7 @@ import 'models/version.dart';
 var appConstants = Hive.box('appConstants');
 var stateManagementConstants = Hive.box('stateManagementConstants');
 var shopTaskPhotoConstants = Hive.box('shopTaskPhotoConstants');
+var visitBox = Hive.box('visitBox');
 var versions1;
 
 bool isLoggedIn = false;
@@ -45,6 +46,11 @@ void main() async{
   Hive.init(appDocumentDir3.path,backendPreference: HiveStorageBackendPreference.native);
   var hiveShopTaskPhoto = await Hive.openBox('shopTaskPhotoConstants');
   boxShopTaskPhoto = hiveShopTaskPhoto;
+
+  final appDocumentDir4 = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir4.path,backendPreference: HiveStorageBackendPreference.native);
+  var hiveVisitBox = await Hive.openBox('appConstants');
+  visitBox = hiveVisitBox;
 
   final List<Version> versions2 = await fetchVersion2('${constUrl}api/Versiyon');
   versions1 = versions2;

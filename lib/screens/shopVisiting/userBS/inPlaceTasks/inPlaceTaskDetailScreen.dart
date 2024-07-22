@@ -184,12 +184,12 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                               snapshot.data!.task_id,
                               userID,
                               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                              (photo_file.isEmpty)?null:photoCount+1,
+                              (photo_file.isEmpty)?null:box.get("photoCount")+1,
                               TaskDetailCard.answerNoteController.text,
                               '${constUrl}api/TamamlanmisGorev'
                           );
                           if(photo_file.isNotEmpty){
-                            updateCompleteTaskIDPhoto(photoCount,null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${photoCount+1}');
+                            updateCompleteTaskIDPhoto(box.get("photoCount"),null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${box.get("photoCount")+1}');
                           }
                           setState(() {
                             taskIsCompleted=false;
@@ -202,6 +202,7 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                       user_id: userID,
                       assignmentDate: snapshot.data!.taskAssigmentDate,
                       shop_code: snapshot.data!.shopCode,
+                      shop_name: snapshot.data!.shopName,
                       photo_id: snapshot.data!.photo_id,
                       report_id: snapshot.data!.report_id,
                       addPhotoButton:
@@ -221,8 +222,9 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                           textColor: textColor),
                       image: image,
                       completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                      answer_photo_id: (photoCount==0)?null:photoCount+1,
+                      answer_photo_id: (box.get("photoCount")==0)?null:box.get("photoCount")+1,
                       group_no: snapshot.data!.group_no,
+                      bs_name: snapshot.data!.bsName,
                     ),
                     //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
                   ],

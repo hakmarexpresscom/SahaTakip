@@ -29,6 +29,9 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   int shop = 0;
   int shop2 = 0;
 
+  int bs = 0;
+  int bs2 = 0;
+
   int _selectedIndex = 3;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -42,8 +45,8 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   @override
   void initState() {
     super.initState();
-    futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
-    futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskListCompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+    futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+    futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
 
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
@@ -161,6 +164,110 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(
+                                      color: Colors.indigo,
+                                      width: 1.5
+                                  )
+                              ),
+                              child: CupertinoButton(
+                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                onPressed: () => _showDialog(
+                                  CupertinoPicker(
+                                    magnification: 1.22,
+                                    squeeze: 1.2,
+                                    useMagnifier: true,
+                                    itemExtent: kItemExtent,
+                                    scrollController: FixedExtentScrollController(
+                                      initialItem: shop,
+                                    ),
+                                    onSelectedItemChanged: (int selectedItem) {
+                                      setState(() {
+                                        shop = selectedItem;
+                                        if(shop==0&&bs==0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop==0&&bs!=0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        else{
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                      });
+                                    },
+                                    children:
+                                    List<Widget>.generate(createShopFilterList(bsIDs[bs]).length, (int index) {
+                                      return Center(child: Text(createShopFilterList(bsIDs[bs])[index]));
+                                    }),
+                                  ),
+                                ),
+                                child: Text(
+                                  (shop==0)?createShopFilterList(bsIDs[bs])[shop]:"Mağaza Kodu:\n"+createShopFilterList(bsIDs[bs])[shop],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                          ),
+                          SizedBox(width: deviceWidth*0.03,),
+                          Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(
+                                      color: Colors.indigo,
+                                      width: 1.5
+                                  )
+                              ),
+                              child: CupertinoButton(
+                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                onPressed: () => _showDialog(
+                                  CupertinoPicker(
+                                    magnification: 1.22,
+                                    squeeze: 1.2,
+                                    useMagnifier: true,
+                                    itemExtent: kItemExtent,
+                                    scrollController: FixedExtentScrollController(
+                                      initialItem: bs,
+                                    ),
+                                    onSelectedItemChanged: (int selectedItem) {
+                                      setState(() {
+                                        bs = selectedItem;
+                                        if(shop==0&&bs==0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop==0&&bs!=0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        else{
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                      });
+                                    },
+                                    children:
+                                    List<Widget>.generate(bsNames.length, (int index) {
+                                      return Center(child: Text(bsNames[index]));
+                                    }),
+                                  ),
+                                ),
+                                child: Text(
+                                  bsNames[bs],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              )
+                          ),
+                        ]
+                      ),
+                      SizedBox(height: deviceHeight*0.005,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 side: BorderSide(
@@ -182,11 +289,14 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                   onSelectedItemChanged: (int selectedItem) {
                                     setState(() {
                                       taskType = selectedItem;
-                                      if(shop==0){
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+                                      if(shop==0&&bs==0){
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                      }
+                                      if(shop==0&&bs!=0){
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                       }
                                       else{
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                       }
                                     });
                                   },
@@ -199,52 +309,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                               child: Text(
                                 taskListCompleteTask[taskType],
                                 style: const TextStyle(
-                                  fontSize: 17,
-                                ),
-                              ),
-                            )
-                          ),
-                          SizedBox(width: deviceWidth*0.04,),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                side: BorderSide(
-                                    color: Colors.indigo,
-                                    width: 1.5
-                                )
-                            ),
-                            child: CupertinoButton(
-                              padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                              onPressed: () => _showDialog(
-                                CupertinoPicker(
-                                  magnification: 1.22,
-                                  squeeze: 1.2,
-                                  useMagnifier: true,
-                                  itemExtent: kItemExtent,
-                                  scrollController: FixedExtentScrollController(
-                                    initialItem: shop,
-                                  ),
-                                  onSelectedItemChanged: (int selectedItem) {
-                                    setState(() {
-                                      shop = selectedItem;
-                                      if(shop==0){
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
-                                      }
-                                      else{
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType].split(" ")[0]}&grup_no=${groupNo}');
-                                      }
-                                    });
-                                  },
-                                  children:
-                                  List<Widget>.generate(createShopFilterList().length, (int index) {
-                                    return Center(child: Text(createShopFilterList()[index]));
-                                  }),
-                                ),
-                              ),
-                              child: Text(
-                                (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
-                                style: const TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 14,
                                 ),
                               ),
                             )
@@ -263,6 +328,111 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                       SizedBox(height: deviceHeight*0.03,),
                       taskTypeInfo(),
                       SizedBox(height: deviceHeight*0.02,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(
+                                      color: Colors.indigo,
+                                      width: 1.5
+                                  )
+                              ),
+                              child: CupertinoButton(
+                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                onPressed: () => _showDialog(
+                                  CupertinoPicker(
+                                    magnification: 1.22,
+                                    squeeze: 1.2,
+                                    useMagnifier: true,
+                                    itemExtent: kItemExtent,
+                                    scrollController: FixedExtentScrollController(
+                                      initialItem: shop2,
+                                    ),
+                                    onSelectedItemChanged: (int selectedItem) {
+                                      setState(() {
+                                        shop2 = selectedItem;
+                                        if(shop2==0&&bs2==0){
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop2==0&&bs2!=0){
+                                          print("sidşlsdflisdşlfisdşfisşdfsdşiflif");
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        else{
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        }
+                                      });
+                                    },
+                                    children:
+                                    List<Widget>.generate(createShopFilterList((bsIDs[bs2])).length, (int index) {
+                                      return Center(child: Text(createShopFilterList((bsIDs[bs2]))[index]));
+                                    }),
+                                  ),
+                                ),
+                                child: Text(
+                                  (shop2==0)?createShopFilterList((bsIDs[bs2]))[shop2]:"Mağaza Kodu:\n"+createShopFilterList((bsIDs[bs2]))[shop2],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                          ),
+                          SizedBox(width: deviceWidth*0.03,),
+                          Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(
+                                      color: Colors.indigo,
+                                      width: 1.5
+                                  )
+                              ),
+                              child: CupertinoButton(
+                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                onPressed: () => _showDialog(
+                                  CupertinoPicker(
+                                    magnification: 1.22,
+                                    squeeze: 1.2,
+                                    useMagnifier: true,
+                                    itemExtent: kItemExtent,
+                                    scrollController: FixedExtentScrollController(
+                                      initialItem: bs2,
+                                    ),
+                                    onSelectedItemChanged: (int selectedItem) {
+                                      setState(() {
+                                        bs2 = selectedItem;
+                                        if(shop2==0&&bs2==0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop2==0&&bs2!=0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        else{
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        }
+                                      });
+                                    },
+                                    children:
+                                    List<Widget>.generate(bsNames.length, (int index) {
+                                      return Center(child: Text(bsNames[index]));
+                                    }),
+                                  ),
+                                ),
+                                child: Text(
+                                  bsNames[bs2],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              )
+                          ),
+                        ]
+                      ),
+                      SizedBox(height: deviceHeight*0.005,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
@@ -290,11 +460,14 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                   onSelectedItemChanged: (int selectedItem) {
                                     setState(() {
                                       taskType2 = selectedItem;
-                                      if(shop2==0){
-                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+                                      if(shop2==0&&bs2==0){
+                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                      }
+                                      if(shop2==0&&bs2!=0){
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                       }
                                       else{
-                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
+                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bs2)[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                       }
                                     });
                                   },
@@ -307,52 +480,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                               child: Text(
                                 taskListIncompleteTask[taskType2],
                                 style: const TextStyle(
-                                  fontSize: 17,
-                                ),
-                              ),
-                            )
-                          ),
-                          SizedBox(width: deviceWidth*0.04,),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                side: BorderSide(
-                                    color: Colors.indigo,
-                                    width: 1.5
-                                )
-                            ),
-                            child: CupertinoButton(
-                              padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                              onPressed: () => _showDialog(
-                                CupertinoPicker(
-                                  magnification: 1.22,
-                                  squeeze: 1.2,
-                                  useMagnifier: true,
-                                  itemExtent: kItemExtent,
-                                  scrollController: FixedExtentScrollController(
-                                    initialItem: shop2,
-                                  ),
-                                  onSelectedItemChanged: (int selectedItem) {
-                                    setState(() {
-                                      shop2 = selectedItem;
-                                      if(shop2==0){
-                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
-                                      }
-                                      else{
-                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2].split(" ")[0]}&grup_no=${groupNo}');
-                                      }
-                                    });
-                                  },
-                                  children:
-                                  List<Widget>.generate(createShopFilterList().length, (int index) {
-                                    return Center(child: Text(createShopFilterList()[index]));
-                                  }),
-                                ),
-                              ),
-                              child: Text(
-                                (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
-                                style: const TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 14,
                                 ),
                               ),
                             )
@@ -387,7 +515,15 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        TaskCheckingCard(taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                        TaskCheckingCard(
+                            taskName: snapshot.data![index].taskTitle,
+                            assignmentDate: snapshot.data![index].taskAssigmentDate,
+                            taskType: snapshot.data![index].taskType,
+                            shopCode: snapshot.data![index].shopCode,
+                            shopName: snapshot.data![index].shopName,
+                            bsName: snapshot.data![index].bsName,
+                            onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}
+                        ),
                       ],
                     );
                   },
@@ -429,7 +565,15 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        TaskCheckingCard(taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                        TaskCheckingCard(
+                            taskName: snapshot.data![index].taskTitle,
+                            assignmentDate: snapshot.data![index].taskAssigmentDate,
+                            taskType: snapshot.data![index].taskType,
+                            shopCode: snapshot.data![index].shopCode,
+                            shopName: snapshot.data![index].shopName,
+                            bsName: snapshot.data![index].bsName,
+                            onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}
+                        ),
                       ],
                     );
                   },
@@ -455,7 +599,7 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
   }
 
   Widget taskTypeInfo(){
-    return TextWidget(text: "Görevleri görüntülerken görev türünü ve mağaza\nkodunu aşağıdaki butonlara basarak filtreleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor);
+    return TextWidget(text: "Görevleri görüntülerken aşağıdaki butonlaryardımıyla\nfiltreleme yapabilirsiniz.", size: 13, fontWeight: FontWeight.w400, color: textColor);
   }
 
 }

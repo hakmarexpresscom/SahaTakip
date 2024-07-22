@@ -15,6 +15,7 @@ import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
 import '../../widgets/alert_dialog.dart';
+import '../../widgets/alert_dialog_without_button.dart';
 
 class StartWorkMainScreen extends StatefulWidget {
 
@@ -165,6 +166,9 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
 
           if(isWithinTimeRange){
+
+            showWaitingDialog(context);
+
             shiftManager.startShift();
             setState(() {
               box.put("startTime",DateTime.now());
@@ -182,6 +186,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
                 "${constUrl}api/mesai"
             );
             await countShift("${constUrl}api/mesai");
+
+            Navigator.of(context).pop(); // Close the dialog
             naviShiftTypeScreen(context);
           }
           else if(isWithinTimeRange==false){
@@ -192,6 +198,19 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor
+    );
+  }
+
+  showWaitingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return  AlertDialogWithoutButtonWidget(
+          title: "Mesai Başlatılıyor",
+          content: "Mesainiz başlatılıyor, lütfen bekleyiniz.",
+        );
+      },
     );
   }
 

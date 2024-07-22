@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../constants/constants.dart';
+import '../main.dart';
 import '../models/photo.dart';
 
 Future<List<Photo>> parseJsonList(String jsonBody) async{
@@ -140,7 +141,6 @@ Future<Photo> updateCompleteTaskIDPhoto(int id,int? task_id, int shopCode,int? b
 }
 
 Future countPhoto(String url) async {
-  photoCount = 0;
   final List<Photo> photos = await fetchPhoto3(url);
-  photoCount = photos[photos.length-1].photo_id;
+  box.put("photoCount", photos[photos.length-1].photo_id);
 }

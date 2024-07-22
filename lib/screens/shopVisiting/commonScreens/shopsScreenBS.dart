@@ -18,6 +18,7 @@ import '../../../styles/styleConst.dart';
 import '../../../utils/distanceFunctions.dart';
 import '../../../utils/generalFunctions.dart';
 import '../../../widgets/alert_dialog.dart';
+import '../../../widgets/alert_dialog_without_button.dart';
 
 class ShopVisitingShopsScreen extends StatefulWidget {
   const ShopVisitingShopsScreen({super.key});
@@ -61,11 +62,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
   @override
   void initState() {
     super.initState();
-
-    //createSearchBarShopList('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}',false);
-    //createSearchBarShopList((groupNo==0)?'${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}':'${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}',true);
-    //futureOwnShopListBS = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
-    //futurePartnerShopList = (groupNo==0)?fetchShop('${constUrl}api/magaza/byPmId?pm_id=${yoneticiID}'):fetchShop('${constUrl}api/magaza/byPmManavId?pm_manav_id=${yoneticiID}');
 
     createSearchBarShopList('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}',false);
     createSearchBarShopList('${constUrl}api/magaza/byBolge?bolge=${regionCode}',true);
@@ -296,6 +292,9 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     long: snapshot.data![index].Long,
                                     onTaps: () async {
                                       if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
+
+                                        showWaitingDialog(context);
+
                                         storeVisitManager.startStoreVisit();
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);
@@ -311,6 +310,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                             "${constUrl}api/ZiyaretSureleri"
                                         );
                                         await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                        Navigator.of(context).pop(); // Close the dialog
                                         naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                       }
                                       else {
@@ -353,6 +354,9 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                     long: snapshot.data![index].Long,
                                     onTaps: () async {
                                       if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
+
+                                        showWaitingDialog(context);
+
                                         storeVisitManager.startStoreVisit();
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);
@@ -368,6 +372,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                             "${constUrl}api/ZiyaretSureleri"
                                         );
                                         await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                        Navigator.of(context).pop(); // Close the dialog
                                         naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                       }
                                       else {
@@ -447,6 +453,9 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       long: snapshot.data![index].Long,
                                       onTaps: () async{
                                         if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long))<=250.0) {
+
+                                          showWaitingDialog(context);
+
                                           storeVisitManager.startStoreVisit();
                                           box.put("currentShopName", snapshot.data![index].shopName);
                                           box.put("currentShopID", snapshot.data![index].shopCode);
@@ -462,6 +471,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                             "${constUrl}api/ZiyaretSureleri"
                                           );
                                           await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                          Navigator.of(context).pop(); // Close the dialog
                                           naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                         }
                                         else{
@@ -504,6 +515,9 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                         long: snapshot.data![index].Long,
                                         onTaps: () async {
                                           if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
+
+                                            showWaitingDialog(context);
+
                                             storeVisitManager.startStoreVisit();
                                             box.put("currentShopName", snapshot.data![index].shopName);
                                             box.put("currentShopID", snapshot.data![index].shopCode);
@@ -519,6 +533,8 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                                 "${constUrl}api/ZiyaretSureleri"
                                             );
                                             await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                            Navigator.of(context).pop(); // Close the dialog
                                             naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                           }
                                           else {
@@ -556,6 +572,19 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
     );
   }
 
+  showWaitingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return  AlertDialogWithoutButtonWidget(
+          title: "Ziyaret Başlatılıyor",
+          content: "Ziyaretiniz başlatılıyor, lütfen bekleyiniz.",
+        );
+      },
+    );
+  }
+
   showShopDistanceDialog(BuildContext context) {
     showDialog(
         context: context,
@@ -564,7 +593,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
             title: 'Mesafe Kontrolü',
             content: 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!',
             onTaps: (){
-              naviShopVisitingShopsScreen(context);
+              naviShopVisitingShopsScreenPM(context);
             },
           );
         }

@@ -28,6 +28,7 @@ class TaskDetailCard extends StatefulWidget {
   late String assignmentDate;
   late int user_id;
   late int shop_code;
+  late String shop_name;
   late int? photo_id;
   late int? report_id;
   late Widget addPhotoButton;
@@ -35,8 +36,32 @@ class TaskDetailCard extends StatefulWidget {
   late String completionDate;
   late int? answer_photo_id;
   late int group_no;
+  late String bs_name;
 
-  TaskDetailCard ({ Key? key, required this.heightConst, required this.widthConst,required this.taskName,required this.taskDescription,required this.taskDeadline, required this.taskType, required this.isCompleted, required this.onTaps, required this.onTapsShowPhoto ,required this.id,required this.assignmentDate,required this.user_id, required this.shop_code, required this.photo_id,required this.report_id,required this.addPhotoButton, required this.image, required this.completionDate, required this.answer_photo_id,required this.group_no}): super(key: key);
+  TaskDetailCard ({ Key? key,
+    required this.heightConst,
+    required this.widthConst,
+    required this.taskName,
+    required this.taskDescription,
+    required this.taskDeadline,
+    required this.taskType,
+    required this.isCompleted,
+    required this.onTaps,
+    required this.onTapsShowPhoto ,
+    required this.id,
+    required this.assignmentDate,
+    required this.user_id,
+    required this.shop_code,
+    required this.shop_name,
+    required this.photo_id,
+    required this.report_id,
+    required this.addPhotoButton,
+    required this.image,
+    required this.completionDate,
+    required this.answer_photo_id,
+    required this.group_no,
+    required this.bs_name
+  }): super(key: key);
 
   @override
   State<TaskDetailCard> createState() => _TaskDetailCardState();
@@ -78,11 +103,13 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                             widget.assignmentDate,
                             widget.taskDeadline,
                             widget.shop_code,
+                            widget.shop_name,
                             widget.photo_id,
                             widget.taskType,
                             widget.report_id,
                             (widget.isCompleted)?1:0,
                             widget.group_no,
+                            widget.bs_name,
                             '${constUrl}api/TamamlanmamisGorev/${widget.id}'
                         );
                       }

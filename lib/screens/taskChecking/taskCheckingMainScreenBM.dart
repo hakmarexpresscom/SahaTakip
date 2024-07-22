@@ -29,6 +29,9 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
   int shop = 0;
   int shop2 = 0;
 
+  int bs = 0;
+  int bs2 = 0;
+
   int _selectedIndex = 3;
 
   List<BottomNavigationBarItem> naviBarList = [];
@@ -186,7 +189,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                         futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
                                       }
                                       else{
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
                                       }
                                     });
                                   },
@@ -231,18 +234,18 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                         futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=1&grup_no=${groupNo}');
                                       }
                                       else{
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&grup_no=${groupNo}');
                                       }
                                     });
                                   },
                                   children:
-                                  List<Widget>.generate(createShopFilterList().length, (int index) {
-                                    return Center(child: Text(createShopFilterList()[index]));
+                                  List<Widget>.generate(createShopFilterList(bsIDs[bs]).length, (int index) {
+                                    return Center(child: Text(createShopFilterList(bsIDs[bs])[index]));
                                   }),
                                 ),
                               ),
                               child: Text(
-                                (shop==0)?createShopFilterList()[shop]:"Mağaza Kodu: "+createShopFilterList()[shop],
+                                (shop==0)?createShopFilterList(bsIDs[bs])[shop]:"Mağaza Kodu: "+createShopFilterList(bsIDs[bs])[shop],
                                 style: const TextStyle(
                                   fontSize: 17,
                                 ),
@@ -294,7 +297,7 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                             futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                           }
                                           else{
-                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                           }
                                         });
                                       },
@@ -339,18 +342,18 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                                             futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask3?$urlTaskShops&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                           }
                                           else{
-                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList()[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
+                                            futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask5?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&grup_no=${groupNo2}');
                                           }
                                         });
                                       },
                                       children:
-                                      List<Widget>.generate(createShopFilterList().length, (int index) {
-                                        return Center(child: Text(createShopFilterList()[index]));
+                                      List<Widget>.generate(createShopFilterList(bsIDs[bs2]).length, (int index) {
+                                        return Center(child: Text(createShopFilterList(bsIDs[bs2])[index]));
                                       }),
                                     ),
                                   ),
                                   child: Text(
-                                    (shop2==0)?createShopFilterList()[shop2]:"Mağaza Kodu: "+createShopFilterList()[shop2],
+                                    (shop2==0)?createShopFilterList(bsIDs[bs2])[shop2]:"Mağaza Kodu: "+createShopFilterList(bsIDs[bs2])[shop2],
                                     style: const TextStyle(
                                       fontSize: 17,
                                     ),
@@ -387,7 +390,15 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        TaskCheckingCard(taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                        TaskCheckingCard(
+                            taskName: snapshot.data![index].taskTitle,
+                            assignmentDate: snapshot.data![index].taskAssigmentDate,
+                            taskType: snapshot.data![index].taskType,
+                            shopCode: snapshot.data![index].shopCode,
+                            shopName: snapshot.data![index].shopName,
+                            bsName: snapshot.data![index].bsName,
+                            onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}
+                        ),
                       ],
                     );
                   },
@@ -429,7 +440,15 @@ class _TaskCheckingMainScreenBMState extends State<TaskCheckingMainScreenBM> wit
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: deviceHeight*0.01,),
-                        TaskCheckingCard(taskName: snapshot.data![index].taskTitle,assignmentDate: snapshot.data![index].taskAssigmentDate,taskType: snapshot.data![index].taskType,shopCode: snapshot.data![index].shopCode,onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}),
+                        TaskCheckingCard(
+                            taskName: snapshot.data![index].taskTitle,
+                            assignmentDate: snapshot.data![index].taskAssigmentDate,
+                            taskType: snapshot.data![index].taskType,
+                            shopCode: snapshot.data![index].shopCode,
+                            shopName: snapshot.data![index].shopName,
+                            bsName: snapshot.data![index].bsName,
+                            onTaps: (){naviTaskCheckingDetailScreen(context, snapshot.data![index].task_id, snapshot.data![index].completionInfo);}
+                        ),
                       ],
                     );
                   },

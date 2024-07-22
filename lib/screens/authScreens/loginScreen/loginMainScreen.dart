@@ -183,6 +183,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   Widget title(){
     return TextWidget(text: "Kullanıcı Girişi", size: 35, fontWeight: FontWeight.w400, color: textColor);
   }
+
   Widget forgetPasswordButton(double heightConst, double widthConst){
     return ButtonWidget(
         text: "Yeni Şifre Al",
@@ -199,6 +200,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
         borderColor: primaryColor,
         textColor: textColor);
   }
+
   Widget logo(){
     return Container(
       height: deviceHeight*0.28,
@@ -226,6 +228,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
       }).toList(),
     );
   }
+
 }
 
 

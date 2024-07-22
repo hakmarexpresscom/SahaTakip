@@ -9,13 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../main.dart';
 import '../../../../models/report.dart';
 import '../../../../routing/landing.dart';
-import '../../../../services/inCompleteTaskServices.dart';
-import '../../../../services/photoServices.dart';
 import '../../../../services/reportServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/appStateManager.dart';
 import '../../../../utils/generalFunctions.dart';
 import '../../../../widgets/alert_dialog.dart';
+import '../../../../widgets/alert_dialog_without_button.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/pastReportCard.dart';
 import '../../../../widgets/text_form_field.dart';
@@ -278,6 +277,9 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             );
             return;
           }
+
+          showWaitingDialog(context);
+
           await countReport("${constUrl}api/Rapor");
           await addReportTaskToDatabase(
               "${constUrl}api/TamamlanmamisGorev",
@@ -288,7 +290,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               widget.shop_code,
               null,
               "Rapor",
-              reportCount,
+              box.get("reportCount"),
               groupNo,
               "${constUrl}api/TamamlanmamisGorev",
               photo_file,
@@ -297,6 +299,8 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               null,
               "Rapor",
           );
+
+          Navigator.of(context).pop(); // Close the dialog
           //sendTaskMail(email, "Tarafınıza ${widget.shop_code} koduna sahip mağaza ile alakalı yeni bir görev atanmıştır. Görev türü 'Ziyaret Raporu''dur. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
           showReportTaskSubmitDialog(context);
         },
@@ -341,7 +345,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             TextFormFieldDatePicker(text: "Görev Bitiş Tarihi", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, dateController: taskDeadlineController, value: VisitingRaportMainScreen.taskDeadline, paddingValue: 5,maxLines: 1,),
             SizedBox(height: deviceHeight*0.02,),
             TextFormFieldWidget(text: "Görev Detayı", borderWidht: 2, titleColor: textColor, borderColor: Colors.black, controller: taskDescriptionController, value: VisitingRaportMainScreen.taskDescription, paddingValue: 5,maxLines: 8,maxLength: 500,controllerString: taskDescriptionController.text, enabled: true,),
-            // maxLength inputu 500'e çıkarıldı
           ],
         ),
       ),
@@ -387,6 +390,19 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               }
             }
         )
+    );
+  }
+
+  showWaitingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return  AlertDialogWithoutButtonWidget(
+          title: "Görev Ekleniyor",
+          content: "Göreviniz rapora ekleniyor, lütfen bekleyiniz.",
+        );
+      },
     );
   }
 
