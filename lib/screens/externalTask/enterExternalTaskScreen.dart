@@ -344,25 +344,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           var connectivityResult = await (Connectivity().checkConnectivity());
 
           if (taskNameController.text.isEmpty || _startTime.toString().isEmpty || _finishTime.toString().isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
-            // Show an alert dialog if either taskName or taskDeadline is empty
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Uyarı"),
-                  content: Text("Görev adı, görev başlangıç saati, görev bitiş saati ve görev yeri boş olamaz."),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text("Tamam"),
-                    ),
-                  ],
-                );
-              },
-            );
-            return;
+            showAlertDialogWidget(context, 'Uyarı', "Görev adı ve bitiş tarihi boş olamaz.", (){Navigator.of(context).pop();});
           }
 
           if(connectivityResult[0] == ConnectivityResult.none){

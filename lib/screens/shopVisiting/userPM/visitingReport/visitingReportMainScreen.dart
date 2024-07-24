@@ -262,24 +262,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           var connectivityResult = await (Connectivity().checkConnectivity());
 
           if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Uyarı"),
-                  content: Text("Görev adı ve bitiş tarihi boş olamaz."),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text("Tamam"),
-                    ),
-                  ],
-                );
-              },
-            );
-            return;
+            showAlertDialogWidget(context, 'Uyarı', "Görev adı ve bitiş tarihi boş olamaz.", (){Navigator.of(context).pop();});
           }
 
           if(connectivityResult[0] == ConnectivityResult.none){

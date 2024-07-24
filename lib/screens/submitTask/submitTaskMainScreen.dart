@@ -169,56 +169,39 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
         var connectivityResult = await (Connectivity().checkConnectivity());
 
         if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Uyarı"),
-                  content: Text("Görev adı ve bitiş tarihi boş olamaz."),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text("Tamam"),
-                    ),
-                  ],
-                );
-              },
-            );
-            return;
-          }
+          showAlertDialogWidget(context, 'Uyarı', "Görev adı ve bitiş tarihi boş olamaz.", (){Navigator.of(context).pop();});
+        }
 
-          if(connectivityResult[0] == ConnectivityResult.none){
-            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
-          }
+        if(connectivityResult[0] == ConnectivityResult.none){
+          showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+        }
 
-          else if(connectivityResult[0] != ConnectivityResult.none){
+        else if(connectivityResult[0] != ConnectivityResult.none){
 
-            showAlertDialogWithoutButtonWidget(context,"Görev Atanıyor","Göreviniz atanıyor, lütfen bekleyiniz.");
+          showAlertDialogWithoutButtonWidget(context,"Görev Atanıyor","Göreviniz atanıyor, lütfen bekleyiniz.");
 
-            await addIncompleteTaskToDatabase(
-              "${constUrl}api/TamamlanmamisGorev",
-              taskNameController.text,
-              taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
-              now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
-              taskDeadlineController.text,
-              null,
-              (inPlace == true) ? "Yerinde" : "Uzaktan",
-              null,
-              groupNo,
-              "${constUrl}api/TamamlanmamisGorev",
-              "${constUrl}api/Fotograf",
-              (isBS) ? userID : null,
-              (isBS == false && isBSorPM == true) ? userID : null,
-              (isBSorPM == false) ? userID : null,
-              (inPlace == true) ? "Yerinde" : "Uzaktan",
-              "${constUrl}api/Fotograf",
-            );
+          await addIncompleteTaskToDatabase(
+            "${constUrl}api/TamamlanmamisGorev",
+            taskNameController.text,
+            taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
+            now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
+            taskDeadlineController.text,
+            null,
+            (inPlace == true) ? "Yerinde" : "Uzaktan",
+            null,
+            groupNo,
+            "${constUrl}api/TamamlanmamisGorev",
+            "${constUrl}api/Fotograf",
+            (isBS) ? userID : null,
+            (isBS == false && isBSorPM == true) ? userID : null,
+            (isBSorPM == false) ? userID : null,
+            (inPlace == true) ? "Yerinde" : "Uzaktan",
+            "${constUrl}api/Fotograf",
+          );
 
-            Navigator.of(context).pop(); // Close the dialog
-            showTaskSubmittedDialog(context);
-          }
+          Navigator.of(context).pop(); // Close the dialog
+          showTaskSubmittedDialog(context);
+        }
 
       },
       borderWidht: 1,
