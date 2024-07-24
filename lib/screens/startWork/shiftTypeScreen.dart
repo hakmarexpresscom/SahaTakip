@@ -280,7 +280,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                     showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
                   }
 
-                  /*else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))<=250.0  && connectivityResult[0] != ConnectivityResult.none) {
+                  else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))<=250.0  && connectivityResult[0] != ConnectivityResult.none) {
 
                     showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
@@ -306,28 +306,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
 
                   else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))>250.0  && connectivityResult[0] != ConnectivityResult.none){
                     showShopDistanceDialog(context);
-                  }*/
-
-                  showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
-
-                  regionCenterVisitManager.startRegionCenterVisit();
-                  box.put("currentCenterName", snapshot.data!.centerName);
-                  box.put("currentCenterID", snapshot.data!.centerCode);
-                  box.put("visitingStartTime",DateTime.now());
-                  await createVisitingDurations(
-                      box.get('currentCenterID'),
-                      (isBS==true)?userID:null,
-                      (isBS==true)?null:userID,
-                      box.get("visitingStartTime").toIso8601String(),
-                      null,
-                      box.get("shiftDate"),
-                      null,
-                      "${constUrl}api/ZiyaretSureleri"
-                  );
-                  await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-
-                  Navigator.of(context).pop(); // Close the dialog
-                  naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
+                  }
                 },
                 borderWidht: 1,
                 backgroundColor: secondaryColor,
