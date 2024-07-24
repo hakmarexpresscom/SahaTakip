@@ -68,8 +68,8 @@ class _InternetWarningScreenState extends State<InternetWarningScreen> {
 
   Widget versionInfo(){
     return TextWidget(
-        text:"Internete bağlı değilsiniz. Lütfen telefonunuzu internete bağlayınız.",
-        size: 30,
+        text:"Internete bağlı değilsiniz. Lütfen uygulamayı kapatıp telefonunuzu internete bağlayarak tekrardan açınız.",
+        size: 25,
         fontWeight: FontWeight.w400,
         color: textColor
     );

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:flutter/material.dart';
@@ -257,6 +258,9 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
+
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
           if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
             showDialog(
               context: context,
@@ -278,31 +282,38 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             return;
           }
 
-          showWaitingDialog(context);
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
 
-          await countReport("${constUrl}api/Rapor");
-          await addReportTaskToDatabase(
-              "${constUrl}api/TamamlanmamisGorev",
-              taskNameController.text,
-              taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
-              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-              taskDeadlineController.text,
-              widget.shop_code,
-              null,
-              "Rapor",
-              box.get("reportCount"),
-              groupNo,
-              "${constUrl}api/TamamlanmamisGorev",
-              photo_file,
-              null,
-              userID,
-              null,
-              "Rapor",
-          );
+          else if(connectivityResult[0] != ConnectivityResult.none){
 
-          Navigator.of(context).pop(); // Close the dialog
-          //sendTaskMail(email, "Tarafınıza ${widget.shop_code} koduna sahip mağaza ile alakalı yeni bir görev atanmıştır. Görev türü 'Ziyaret Raporu''dur. Saha Takip uygulaması üzerinden yeni görevinizin detaylarını inceleyebilirsiniz.");
-          showReportTaskSubmitDialog(context);
+            showAlertDialogWithoutButtonWidget(context,"Görev Ekleniyor","Göreviniz rapora ekleniyor, lütfen bekleyiniz.");
+
+            await countReport("${constUrl}api/Rapor");
+            await addReportTaskToDatabase(
+                "${constUrl}api/TamamlanmamisGorev",
+                taskNameController.text,
+                taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
+                now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
+                taskDeadlineController.text,
+                widget.shop_code,
+                null,
+                "Rapor",
+                box.get("reportCount"),
+                groupNo,
+                "${constUrl}api/TamamlanmamisGorev",
+                photo_file,
+                null,
+                userID,
+                null,
+                "Rapor",
+            );
+
+            Navigator.of(context).pop(); // Close the dialog
+            showReportTaskSubmitDialog(context);
+
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -390,19 +401,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               }
             }
         )
-    );
-  }
-
-  showWaitingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return  AlertDialogWithoutButtonWidget(
-          title: "Görev Ekleniyor",
-          content: "Göreviniz rapora ekleniyor, lütfen bekleyiniz.",
-        );
-      },
     );
   }
 

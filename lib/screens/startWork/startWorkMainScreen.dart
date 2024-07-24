@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/services/shiftServices.dart';
@@ -15,7 +16,6 @@ import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
 import '../../widgets/alert_dialog.dart';
-import '../../widgets/alert_dialog_without_button.dart';
 
 class StartWorkMainScreen extends StatefulWidget {
 
@@ -165,9 +165,15 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
           bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
 
-          if(isWithinTimeRange){
+          var connectivityResult = await (Connectivity().checkConnectivity());
 
-            showWaitingDialog(context);
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(isWithinTimeRange && connectivityResult[0] != ConnectivityResult.none){
+
+            showAlertDialogWithoutButtonWidget(context,"Mesai Başlatılıyor","Mesainiz başlatılıyor, lütfen bekleyiniz.");
 
             shiftManager.startShift();
             setState(() {
@@ -190,7 +196,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             Navigator.of(context).pop(); // Close the dialog
             naviShiftTypeScreen(context);
           }
-          else if(isWithinTimeRange==false){
+
+          else if(isWithinTimeRange==false && connectivityResult[0] != ConnectivityResult.none){
             showShiftTimeDialog(context);
           }
         },
@@ -198,19 +205,6 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor
-    );
-  }
-
-  showWaitingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return  AlertDialogWithoutButtonWidget(
-          title: "Mesai Başlatılıyor",
-          content: "Mesainiz başlatılıyor, lütfen bekleyiniz.",
-        );
-      },
     );
   }
 

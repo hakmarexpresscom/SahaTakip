@@ -1,9 +1,11 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/constants.dart';
 import '../../../routing/landing.dart';
+import '../../../utils/generalFunctions.dart';
 import '../../../utils/loginFunctions.dart';
 
 class LoginMainScreen extends StatefulWidget {
@@ -167,8 +169,15 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
               size: 18,
               radius: 20,
               fontWeight: FontWeight.w600,
-              onTaps: (){
-                login(item, emailController.text.replaceAll(" ", "").toLowerCase(), passwordController.text, context);
+              onTaps: () async{
+                var connectivityResult = await (Connectivity().checkConnectivity());
+
+                if(connectivityResult[0] == ConnectivityResult.none){
+                  showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+                }
+                else if(connectivityResult[0] != ConnectivityResult.none){
+                  login(item, emailController.text.replaceAll(" ", "").toLowerCase(), passwordController.text, context);
+                }
               },
               borderWidht: 1,
               backgroundColor: secondaryColor,

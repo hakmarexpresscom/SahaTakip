@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/styles/styleConst.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
+import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/text_form_field.dart';
 
 
@@ -163,14 +165,10 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
       radius: 20,
       fontWeight: FontWeight.w600,
       onTaps: () async {
-        setState(() {
-          _isSubmitting = true;
-        });
 
-        try {
+        var connectivityResult = await (Connectivity().checkConnectivity());
 
-          if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
-            // Show an alert dialog if either taskName or taskDeadline is empty
+        if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -191,35 +189,37 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             return;
           }
 
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
 
-          await addIncompleteTaskToDatabase(
-            "${constUrl}api/TamamlanmamisGorev",
-            taskNameController.text,
-            taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
-            now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
-            taskDeadlineController.text,
-            null,
-            (inPlace == true) ? "Yerinde" : "Uzaktan",
-            null,
-            groupNo,
-            "${constUrl}api/TamamlanmamisGorev",
-            "${constUrl}api/Fotograf",
-            (isBS) ? userID : null,
-            (isBS == false && isBSorPM == true) ? userID : null,
-            (isBSorPM == false) ? userID : null,
-            (inPlace == true) ? "Yerinde" : "Uzaktan",
-            "${constUrl}api/Fotograf",
-          );
+          else if(connectivityResult[0] != ConnectivityResult.none){
 
-          // Show the success dialog when the task is successfully submitted
-          Future.delayed(Duration.zero, () {
+            showAlertDialogWithoutButtonWidget(context,"Görev Atanıyor","Göreviniz atanıyor, lütfen bekleyiniz.");
+
+            await addIncompleteTaskToDatabase(
+              "${constUrl}api/TamamlanmamisGorev",
+              taskNameController.text,
+              taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
+              now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
+              taskDeadlineController.text,
+              null,
+              (inPlace == true) ? "Yerinde" : "Uzaktan",
+              null,
+              groupNo,
+              "${constUrl}api/TamamlanmamisGorev",
+              "${constUrl}api/Fotograf",
+              (isBS) ? userID : null,
+              (isBS == false && isBSorPM == true) ? userID : null,
+              (isBSorPM == false) ? userID : null,
+              (inPlace == true) ? "Yerinde" : "Uzaktan",
+              "${constUrl}api/Fotograf",
+            );
+
+            Navigator.of(context).pop(); // Close the dialog
             showTaskSubmittedDialog(context);
-          });
-        } finally {
-          setState(() {
-            _isSubmitting = false;
-          });
-        }
+          }
+
       },
       borderWidht: 1,
       backgroundColor: secondaryColor,

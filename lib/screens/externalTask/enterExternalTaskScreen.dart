@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
@@ -9,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
+import '../../utils/generalFunctions.dart';
 import '../../widgets/alert_dialog.dart';
 import '../../widgets/text_form_field.dart';
 import 'package:intl/intl.dart';
@@ -339,33 +341,37 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         fontWeight: FontWeight.w600,
         onTaps: () async {
 
-          setState(() {
-            _isSubmitting = true;
-          });
+          var connectivityResult = await (Connectivity().checkConnectivity());
 
-          try {
+          if (taskNameController.text.isEmpty || _startTime.toString().isEmpty || _finishTime.toString().isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
+            // Show an alert dialog if either taskName or taskDeadline is empty
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Uyarı"),
+                  content: Text("Görev adı, görev başlangıç saati, görev bitiş saati ve görev yeri boş olamaz."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Tamam"),
+                    ),
+                  ],
+                );
+              },
+            );
+            return;
+          }
 
-            if (taskNameController.text.isEmpty || _startTime.toString().isEmpty || _finishTime.toString().isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
-              // Show an alert dialog if either taskName or taskDeadline is empty
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("Uyarı"),
-                    content: Text("Görev adı, görev başlangıç saati, görev bitiş saati ve görev yeri boş olamaz."),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text("Tamam"),
-                      ),
-                    ],
-                  );
-                },
-              );
-              return;
-            }
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+          else if(connectivityResult[0] != ConnectivityResult.none){
+
+            showAlertDialogWithoutButtonWidget(context,"Harci İş Ekleniyor","Harici işiniz ekleniyor, lütfen bekleyiniz.");
+
             await createExternalWork(
               (isBS)?userID:null,
               (isBS)?null:userID,
@@ -380,14 +386,10 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               long,
               "${constUrl}api/HariciIs"
             );
-            Future.delayed(Duration.zero, () {
-              showWorkSubmittedDialog(context);
-            });
-          } finally {
-            setState(() {
-              _isSubmitting = false;
-            });
+            Navigator.of(context).pop(); // Close the dialog
+            showWorkSubmittedDialog(context);
           }
+
           setState(() {
             workPlace = "";
             workPlace2="";

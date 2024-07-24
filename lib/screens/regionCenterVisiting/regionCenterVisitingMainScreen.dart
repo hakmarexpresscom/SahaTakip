@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:deneme/styles/styleConst.dart';
@@ -15,6 +16,7 @@ import '../../../utils/generalFunctions.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
+import '../../widgets/alert_dialog.dart';
 import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/cards/shopVisitingProcessCard.dart';
 
@@ -234,48 +236,44 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
       size: 15,
       radius: 20,
       fontWeight: FontWeight.w600,
-      onTaps: (){
+      onTaps: () async{
 
-        showWaitingDialog(context);
+        var connectivityResult = await (Connectivity().checkConnectivity());
 
-        regionCenterVisitManager.endRegionCenterVisit();
-        box.put("visitingFinishTime",DateTime.now());
-        String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
-        updateFinishHourWorkDurationVisitingDurations(
-            box.get("visitingDurationsCount"),
-            box.get('currentCenterID'),
-            (isBS==true)?userID:null,
-            (isBS==true)?null:userID,
-            box.get("visitingStartTime").toIso8601String(),
-            box.get("visitingFinishTime").toIso8601String(),
-            box.get("shiftDate"),
-            visitingDuration,
-            "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}"
-        );
-        _stopTimer();
-        visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
-        visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+        if(connectivityResult[0] == ConnectivityResult.none){
+          showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+        }
 
-        Navigator.of(context).pop(); // Close the dialog
-        naviShiftTypeScreen(context);
+        else if(connectivityResult[0] != ConnectivityResult.none){
+
+          showAlertDialogWithoutButtonWidget(context,"Ziyaret Bitiriliyor","Ziyaretiniz bitiriliyor, lütfen bekleyiniz.");
+
+          regionCenterVisitManager.endRegionCenterVisit();
+          box.put("visitingFinishTime",DateTime.now());
+          String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"),box.get("visitingFinishTime"));
+          updateFinishHourWorkDurationVisitingDurations(
+              box.get("visitingDurationsCount"),
+              box.get('currentCenterID'),
+              (isBS==true)?userID:null,
+              (isBS==true)?null:userID,
+              box.get("visitingStartTime").toIso8601String(),
+              box.get("visitingFinishTime").toIso8601String(),
+              box.get("shiftDate"),
+              visitingDuration,
+              "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}"
+          );
+          _stopTimer();
+          visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
+          visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+
+          Navigator.of(context).pop(); // Close the dialog
+          naviShiftTypeScreen(context);
+        }
       },
       borderWidht: 1,
       backgroundColor: redColor,
       borderColor: redColor,
       textColor: textColor);
-  }
-
-  showWaitingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return  AlertDialogWithoutButtonWidget(
-          title: "Ziyaret Bitiriliyor",
-          content: "Ziyaretiniz bitiriliyor, lütfen bekleyiniz.",
-        );
-      },
-    );
   }
 
 }

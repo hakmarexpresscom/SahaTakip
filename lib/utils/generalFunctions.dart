@@ -2,11 +2,14 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
 import 'package:deneme/services/photoServices.dart';
 import 'package:deneme/services/userBSServices.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import '../models/shop.dart';
 import '../models/userBS.dart';
 import '../services/shopServices.dart';
+import '../widgets/alert_dialog.dart';
+import '../widgets/alert_dialog_without_button.dart';
 
 Future createShopList(String url) async{
   final List<Shop> shops = await fetchShop2(url);
@@ -160,5 +163,31 @@ void openGoogleMaps(double latitude, double longitude) async {
   } else {
     throw 'Google Maps\'i başlatılamıyor.';
   }
+}
+
+showAlertDialogWithoutButtonWidget(BuildContext context, String title, String content) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return  AlertDialogWithoutButtonWidget(
+        title: title,
+        content: content,
+      );
+    },
+  );
+}
+
+showAlertDialogWidget(BuildContext context, String title, String content, VoidCallback onTaps) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialogWidget(
+          title: title,
+          content: content,
+          onTaps: onTaps
+        );
+      }
+  );
 }
 

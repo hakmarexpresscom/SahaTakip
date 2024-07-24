@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:deneme/styles/styleConst.dart';
@@ -13,6 +14,7 @@ import '../../../main.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../utils/generalFunctions.dart';
+import '../../../widgets/alert_dialog.dart';
 import '../../../widgets/alert_dialog_without_button.dart';
 
 class ShopVisitingProcessesScreen extends StatefulWidget {
@@ -405,30 +407,39 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
       size: 15,
       radius: 20,
       fontWeight: FontWeight.w600,
-      onTaps: () {
+      onTaps: () async{
 
-        showWaitingDialog(context);
+        var connectivityResult = await (Connectivity().checkConnectivity());
 
-        storeVisitManager.endStoreVisit();
-        box.put("visitingFinishTime", DateTime.now());
-        String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"), box.get("visitingFinishTime"));
-        updateFinishHourWorkDurationVisitingDurations(
-          box.get("visitingDurationsCount"),
-          box.get('currentShopID'),
-          (isBS == true) ? userID : null,
-          (isBS == true) ? null : userID,
-          box.get("visitingStartTime").toIso8601String(),
-          box.get("visitingFinishTime").toIso8601String(),
-          box.get("shiftDate"),
-          visitingDuration,
-          "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}",
-        );
-        _stopTimer();
-        visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
-        visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+        if(connectivityResult[0] == ConnectivityResult.none){
+          showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+        }
 
-        Navigator.of(context).pop(); // Close the dialog
-        (isBS == true) ? naviShopVisitingShopsScreen(context) : naviShopVisitingShopsScreenPM(context);
+        else if(connectivityResult[0] != ConnectivityResult.none){
+
+          showAlertDialogWithoutButtonWidget(context,"Ziyaret Bitiriliyor","Ziyaretiniz bitiriliyor, lütfen bekleyiniz.");
+
+          storeVisitManager.endStoreVisit();
+          box.put("visitingFinishTime", DateTime.now());
+          String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"), box.get("visitingFinishTime"));
+          updateFinishHourWorkDurationVisitingDurations(
+            box.get("visitingDurationsCount"),
+            box.get('currentShopID'),
+            (isBS == true) ? userID : null,
+            (isBS == true) ? null : userID,
+            box.get("visitingStartTime").toIso8601String(),
+            box.get("visitingFinishTime").toIso8601String(),
+            box.get("shiftDate"),
+            visitingDuration,
+            "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}",
+          );
+          _stopTimer();
+          visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
+          visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+
+          Navigator.of(context).pop(); // Close the dialog
+          (isBS == true) ? naviShopVisitingShopsScreen(context) : naviShopVisitingShopsScreenPM(context);
+        }
       },
       borderWidht: 1,
       backgroundColor: redColor,
@@ -437,18 +448,6 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     );
   }
 
-  showWaitingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return  AlertDialogWithoutButtonWidget(
-          title: "Ziyaret Bitiriliyor",
-          content: "Ziyaretiniz bitiriliyor, lütfen bekleyiniz.",
-        );
-      },
-    );
-  }
 }
 
 

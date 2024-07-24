@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -272,9 +273,16 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                 radius: 20,
                 fontWeight: FontWeight.w600,
                 onTaps: () async{
-                  if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))<=250.0) {
 
-                    showWaitingDialog(context);
+                  var connectivityResult = await (Connectivity().checkConnectivity());
+
+                  if(connectivityResult[0] == ConnectivityResult.none){
+                    showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+                  }
+
+                  /*else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))<=250.0  && connectivityResult[0] != ConnectivityResult.none) {
+
+                    showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
                     regionCenterVisitManager.startRegionCenterVisit();
                     box.put("currentCenterName", snapshot.data!.centerName);
@@ -295,9 +303,31 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                     Navigator.of(context).pop(); // Close the dialog
                     naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
                   }
-                  else{
+
+                  else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))>250.0  && connectivityResult[0] != ConnectivityResult.none){
                     showShopDistanceDialog(context);
-                  }
+                  }*/
+
+                  showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
+
+                  regionCenterVisitManager.startRegionCenterVisit();
+                  box.put("currentCenterName", snapshot.data!.centerName);
+                  box.put("currentCenterID", snapshot.data!.centerCode);
+                  box.put("visitingStartTime",DateTime.now());
+                  await createVisitingDurations(
+                      box.get('currentCenterID'),
+                      (isBS==true)?userID:null,
+                      (isBS==true)?null:userID,
+                      box.get("visitingStartTime").toIso8601String(),
+                      null,
+                      box.get("shiftDate"),
+                      null,
+                      "${constUrl}api/ZiyaretSureleri"
+                  );
+                  await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                  Navigator.of(context).pop(); // Close the dialog
+                  naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
                 },
                 borderWidht: 1,
                 backgroundColor: secondaryColor,
@@ -330,40 +360,41 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: () {
-          shiftManager.endShift();
-          box.put("finishTime",DateTime.now());
-          String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
-          updateFinishHourWorkDurationShift(
-              box.get("shiftCount"),
-              (isBS)?userID:null,
-              (isBS)?null:userID,
-              "Mesai",
-              box.get("shiftDate"),
-              box.get("startTime").toIso8601String(),
-              box.get("finishTime").toIso8601String(),
-              workDuration,
-              "${constUrl}api/mesai/${box.get("shiftCount")}"
-          );
-          naviStartWorkMainScreen(context);
+        onTaps: () async{
+
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none){
+
+            showAlertDialogWithoutButtonWidget(context,"Mesai Bitiriliyor","Mesainiz bitiriliyor, lütfen bekleyiniz.");
+
+            shiftManager.endShift();
+            box.put("finishTime",DateTime.now());
+            String workDuration = calculateElapsedTime(box.get("startTime"),box.get("finishTime"));
+            updateFinishHourWorkDurationShift(
+                box.get("shiftCount"),
+                (isBS)?userID:null,
+                (isBS)?null:userID,
+                "Mesai",
+                box.get("shiftDate"),
+                box.get("startTime").toIso8601String(),
+                box.get("finishTime").toIso8601String(),
+                workDuration,
+                "${constUrl}api/mesai/${box.get("shiftCount")}"
+            );
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviStartWorkMainScreen(context);
+          }
         },
         borderWidht: 1,
         backgroundColor: redColor,
         borderColor: redColor,
         textColor: textColor);
-  }
-
-  showWaitingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return  AlertDialogWithoutButtonWidget(
-          title: "Ziyaret Başlatılıyor",
-          content: "Ziyaretiniz başlatılıyor, lütfen bekleyiniz.",
-        );
-      },
-    );
   }
 
   showShopDistanceDialog(BuildContext context) {

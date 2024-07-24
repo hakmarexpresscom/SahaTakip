@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/widgets/cards/visitingShopCard.dart';
@@ -265,9 +266,16 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: () async {
-                                    if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
 
-                                      showWaitingDialog(context);
+                                    var connectivityResult = await (Connectivity().checkConnectivity());
+
+                                    if(connectivityResult[0] == ConnectivityResult.none){
+                                      showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+                                    }
+
+                                    else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
+
+                                      showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
                                       storeVisitManager.startStoreVisit();
                                       reportManager.noReport();
@@ -290,7 +298,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                       Navigator.of(context).pop(); // Close the dialog
                                       naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
 
-                                    } else {
+                                    }
+
+                                    else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
                                       showShopDistanceDialog(context);
                                     }
                                   }
@@ -329,9 +339,16 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                   lat: snapshot.data![index].Lat,
                                   long: snapshot.data![index].Long,
                                   onTaps: () async {
-                                    if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0) {
 
-                                      showWaitingDialog(context);
+                                    var connectivityResult = await (Connectivity().checkConnectivity());
+
+                                    if(connectivityResult[0] == ConnectivityResult.none){
+                                      showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+                                    }
+
+                                    else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
+
+                                      showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
                                       storeVisitManager.startStoreVisit();
                                       reportManager.noReport();
@@ -354,7 +371,8 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                       Navigator.of(context).pop(); // Close the dialog
                                       naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                     }
-                                    else {
+
+                                    else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
                                       showShopDistanceDialog(context);
                                     }
                                   }
@@ -384,19 +402,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                 return Text("Veri yok");
               }
             })
-    );
-  }
-
-  showWaitingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return  AlertDialogWithoutButtonWidget(
-          title: "Ziyaret Başlatılıyor",
-          content: "Ziyaretiniz başlatılıyor, lütfen bekleyiniz.",
-        );
-      },
     );
   }
 

@@ -205,7 +205,7 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
 
     if (listEquals(binaryHashedPassword, hashedPassword)) {
 
-      showWaitingDialog(context);
+      showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
       box.put("yoneticiID", users[sayac].manager_id);
       yoneticiID = box.get("yoneticiID");
@@ -292,7 +292,7 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
 
     if (listEquals(binaryHashedPassword, hashedPassword)) {
 
-      showWaitingDialog(context);
+      showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
       box.put("yoneticiID", users[sayac].manager_id);
       yoneticiID = box.get("yoneticiID");
@@ -377,7 +377,7 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
 
     if (listEquals(binaryHashedPassword, hashedPassword)) {
 
-      showWaitingDialog(context);
+      showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
       urlShopFilter = (users[sayac].group_no == 0) ? "/byBmId?bm_id" : "/byBmManavId?bm_manav_id";
       box.put("urlShopFilter", urlShopFilter);
@@ -445,7 +445,7 @@ Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext 
 
   if(listEquals(binaryHashedPassword, hashedPassword)){
 
-    showWaitingDialog(context);
+    showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
@@ -458,17 +458,4 @@ Future checkPasswordNK(String password, String urlUser, int sayac, BuildContext 
       SnackBar(content: Text('Yanlış e-posta veya şifre')),
     );
   }
-}
-
-showWaitingDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return  AlertDialogWithoutButtonWidget(
-        title: "Giriş Yapılıyor",
-        content: "Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.",
-      );
-    },
-  );
 }
