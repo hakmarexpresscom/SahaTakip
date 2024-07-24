@@ -176,7 +176,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
         }
 
-        else if(connectivityResult[0] != ConnectivityResult.none){
+        else if(taskNameController.text.isNotEmpty && taskDeadlineController.text.isNotEmpty && connectivityResult[0] != ConnectivityResult.none){
 
           showAlertDialogWithoutButtonWidget(context,"Görev Atanıyor","Göreviniz atanıyor, lütfen bekleyiniz.");
 

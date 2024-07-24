@@ -438,7 +438,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
           visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
 
           Navigator.of(context).pop(); // Close the dialog
-          (isBS == true) ? naviShopVisitingShopsScreen(context) : naviShopVisitingShopsScreenPM(context);
+          (isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
         }
       },
       borderWidht: 1,

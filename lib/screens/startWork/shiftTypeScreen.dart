@@ -235,7 +235,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: (){
-          (isBS) ? naviShopVisitingShopsScreen(context):naviShopVisitingShopsScreenPM(context);
+          (isBS) ? naviShopVisitingShopsScreenBS(context):naviShopVisitingShopsScreenPM(context);
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -305,7 +305,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                   }
 
                   else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))>250.0  && connectivityResult[0] != ConnectivityResult.none){
-                    showShopDistanceDialog(context);
+                    showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz merkezin en az 250 metre yakınında olmanız gerekmektedir!', (){naviShiftTypeScreen(context);});
                   }
                 },
                 borderWidht: 1,
@@ -374,21 +374,6 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         backgroundColor: redColor,
         borderColor: redColor,
         textColor: textColor);
-  }
-
-  showShopDistanceDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Mesafe Kontrolü',
-            content: 'Ziyaret etmek istediğiniz merkezin en az 250 metre yakınında olmanız gerekmektedir!',
-            onTaps: (){
-              naviShiftTypeScreen(context);
-            },
-          );
-        }
-    );
   }
 
 }

@@ -350,7 +350,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
           if(connectivityResult[0] == ConnectivityResult.none){
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
-          else if(connectivityResult[0] != ConnectivityResult.none){
+          else if(taskNameController.text.isEmpty && _startTime.toString().isEmpty && _finishTime.toString().isEmpty && workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty && connectivityResult[0] != ConnectivityResult.none){
 
             showAlertDialogWithoutButtonWidget(context,"Harci İş Ekleniyor","Harici işiniz ekleniyor, lütfen bekleyiniz.");
 

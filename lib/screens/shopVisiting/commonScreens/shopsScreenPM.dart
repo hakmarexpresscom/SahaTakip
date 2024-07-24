@@ -301,7 +301,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                     }
 
                                     else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                      showShopDistanceDialog(context);
+                                      showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenPM(context);});
                                     }
                                   }
                               )
@@ -373,7 +373,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                     }
 
                                     else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                      showShopDistanceDialog(context);
+                                      showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenPM(context);});
                                     }
                                   }
                               )
@@ -402,21 +402,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                 return Text("Veri yok");
               }
             })
-    );
-  }
-
-  showShopDistanceDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Mesafe Kontrolü',
-            content: 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!',
-            onTaps: (){
-              naviShopVisitingShopsScreenPM(context);
-            },
-          );
-        }
     );
   }
 

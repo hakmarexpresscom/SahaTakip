@@ -198,7 +198,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           }
 
           else if(isWithinTimeRange==false && connectivityResult[0] != ConnectivityResult.none){
-            showShiftTimeDialog(context);
+            showAlertDialogWidget(context, 'Mesai Saati Kontrolü', '08.30-18.30 saatleri arasında mesai başlatabilirsiniz!', (){naviStartWorkMainScreen(context);});
           }
         },
         borderWidht: 1,
@@ -208,19 +208,5 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     );
   }
 
-  showShiftTimeDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Mesai Saati Kontrolü',
-            content: '08.30-18.30 saatleri arasında mesai başlatabilirsiniz!',
-            onTaps: (){
-              naviStartWorkMainScreen(context);
-            },
-          );
-        }
-    );
-  }
 }
 

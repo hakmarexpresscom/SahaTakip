@@ -38,8 +38,8 @@ import '../screens/taskChecking/taskCheckingDetailScreen.dart';
 import '../screens/taskChecking/taskCheckingMainScreenBM.dart';
 
 
-void naviShopVisitingShopsScreen(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreen()));
+void naviShopVisitingShopsScreenBS(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingShopsScreenBS()));
 }
 
 void naviShopVisitingShopsScreenPM(BuildContext context){

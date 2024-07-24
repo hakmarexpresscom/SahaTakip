@@ -21,15 +21,15 @@ import '../../../utils/generalFunctions.dart';
 import '../../../widgets/alert_dialog.dart';
 import '../../../widgets/alert_dialog_without_button.dart';
 
-class ShopVisitingShopsScreen extends StatefulWidget {
-  const ShopVisitingShopsScreen({super.key});
+class ShopVisitingShopsScreenBS extends StatefulWidget {
+  const ShopVisitingShopsScreenBS({super.key});
 
   @override
-  State<ShopVisitingShopsScreen> createState() =>
-      _ShopVisitingShopsScreenState();
+  State<ShopVisitingShopsScreenBS> createState() =>
+      _ShopVisitingShopsScreenBSState();
 }
 
-class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with TickerProviderStateMixin{
+class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> with TickerProviderStateMixin{
 
   late Future<List<Shop>> futureOwnShopListBS;
   late Future<List<Shop>> futurePartnerShopList;
@@ -324,7 +324,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       }
 
                                       else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                        showShopDistanceDialog(context);
+                                        showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
                                       }
                                     }
                                 )
@@ -394,7 +394,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                       }
 
                                       else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                        showShopDistanceDialog(context);
+                                        showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
                                       }
                                     }
                                 )
@@ -501,7 +501,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                         }
 
                                         else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                          showShopDistanceDialog(context);
+                                          showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
                                         }
                                       }
                                     )
@@ -571,7 +571,7 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                                           }
 
                                           else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                            showShopDistanceDialog(context);
+                                            showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
                                           }
                                         }
                                     )
@@ -602,21 +602,6 @@ class _ShopVisitingShopsScreenState extends State<ShopVisitingShopsScreen> with 
                   })
           ),
         ]
-    );
-  }
-
-  showShopDistanceDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Mesafe Kontrolü',
-            content: 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!',
-            onTaps: (){
-              naviShopVisitingShopsScreenPM(context);
-            },
-          );
-        }
     );
   }
 

@@ -269,7 +269,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
 
-          else if(connectivityResult[0] != ConnectivityResult.none){
+          else if(taskNameController.text.isEmpty && taskDeadlineController.text.isEmpty && connectivityResult[0] != ConnectivityResult.none){
 
             showAlertDialogWithoutButtonWidget(context,"Görev Ekleniyor","Göreviniz rapora ekleniyor, lütfen bekleyiniz.");
 
