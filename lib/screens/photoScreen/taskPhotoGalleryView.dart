@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import '../../constants/bottomNaviBarLists.dart';
-import '../../constants/constants.dart';
-import '../../constants/pagesLists.dart';
 import '../../styles/styleConst.dart';
 
 class TaskPhotoGalleryView extends StatefulWidget {

@@ -7,7 +7,6 @@ import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../widgets/cards/taskCard.dart';
 
-
 class InPlaceTaskMainScreen extends StatefulWidget {
   int shop_code = 0;
   InPlaceTaskMainScreen({super.key, required this.shop_code});

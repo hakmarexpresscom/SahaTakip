@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
         page3 = InternetWarningScreen();
       }
 
-      else if(versions1[0].version!="1.0.9+12"){
+      else if(versions1[0].version!="1.0.+12"){
         page = VersionWarningScreen();
         page2 = VersionWarningScreen();
         page3 = VersionWarningScreen();

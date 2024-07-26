@@ -7,7 +7,6 @@ import '../../../../routing/landing.dart';
 import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../widgets/cards/taskCard.dart';
 
-
 class VisitingReportTaskMainScreen extends StatefulWidget {
   int shop_code = 0;
   VisitingReportTaskMainScreen({super.key, required this.shop_code});

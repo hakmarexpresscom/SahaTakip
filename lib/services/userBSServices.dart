@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:deneme/models/userBS.dart';
 import 'package:http/http.dart' as http;
-
 import '../constants/constants.dart';
 
 Future<List<UserBS>> parseJsonList(String jsonBody) async{

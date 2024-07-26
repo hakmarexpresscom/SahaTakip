@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
@@ -16,8 +15,6 @@ import '../../../utils/generalFunctions.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/bottomNavigationBar.dart';
-import '../../widgets/alert_dialog.dart';
-import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/cards/shopVisitingProcessCard.dart';
 
 class RegionCenterVisitingMainScreen extends StatefulWidget {

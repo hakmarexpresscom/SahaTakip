@@ -7,7 +7,6 @@ import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../widgets/cards/taskCheckingCard.dart';
 
-
 class PastReportTasksScreen extends StatefulWidget {
   int report_id = 0;
   PastReportTasksScreen({super.key, required this.report_id});

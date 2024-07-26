@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:deneme/models/manavDepoForm.dart';
 import 'package:deneme/models/manavShopForm.dart';
 import 'package:http/http.dart' as http;
 import '../constants/constants.dart';

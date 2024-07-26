@@ -8,7 +8,6 @@ import '../../routing/landing.dart';
 import '../../services/externalWorkServices.dart';
 import '../../styles/styleConst.dart';
 import '../../widgets/cards/externalWorkCard.dart';
-import '../../widgets/cards/taskCard.dart';
 
 class ExternalTasksListScreen extends StatefulWidget {
   const ExternalTasksListScreen({super.key});

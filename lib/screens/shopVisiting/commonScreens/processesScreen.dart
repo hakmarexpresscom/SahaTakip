@@ -14,8 +14,6 @@ import '../../../main.dart';
 import '../../../routing/landing.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../utils/generalFunctions.dart';
-import '../../../widgets/alert_dialog.dart';
-import '../../../widgets/alert_dialog_without_button.dart';
 
 class ShopVisitingProcessesScreen extends StatefulWidget {
   int shop_code = 0;

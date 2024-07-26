@@ -18,8 +18,6 @@ import '../../../services/visitingDurationsServices.dart';
 import '../../../styles/styleConst.dart';
 import '../../../utils/distanceFunctions.dart';
 import '../../../utils/generalFunctions.dart';
-import '../../../widgets/alert_dialog.dart';
-import '../../../widgets/alert_dialog_without_button.dart';
 
 class ShopVisitingShopsScreenBS extends StatefulWidget {
   const ShopVisitingShopsScreenBS({super.key});

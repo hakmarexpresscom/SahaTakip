@@ -5,7 +5,6 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/constants.dart';
-import '../../services/externalWorkServices.dart';
 import '../../services/inCompleteTaskServices.dart';
 import 'dart:io';
 import '../rich_text_widget.dart';

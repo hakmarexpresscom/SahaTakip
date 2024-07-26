@@ -3,7 +3,6 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/utils/generalFunctions.dart';
-import 'package:deneme/widgets/alert_dialog.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/textFormFieldDatePicker.dart';
 import 'package:deneme/widgets/text_widget.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../routing/landing.dart';
-import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/text_form_field.dart';
 
 
@@ -29,8 +27,6 @@ class SubmitTaskMainScreen extends StatefulWidget {
 }
 
 class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
-
-  bool _isSubmitting = false;
 
   int _selectedIndex = 4;
 
@@ -122,18 +118,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   Widget submitTaskMainScreenUI() {
     return Builder(builder: (BuildContext context) {
       return Container(
-        child: (_isSubmitting)?
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
-            TextWidget(text: "Görev atanıyor lütfen bekleyiniz.", size: 20, fontWeight: FontWeight.w400, color: textColor),
-            SizedBox(height: deviceHeight * 0.03,),
-            CircularProgressIndicator()
-          ]
-        ):
-        Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,

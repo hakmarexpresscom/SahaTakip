@@ -32,8 +32,6 @@ class EnterExternalTaskScreen extends StatefulWidget {
 
 class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
 
-  bool _isSubmitting = false;
-
   int _selectedIndex = 0;
 
   List<BottomNavigationBarItem> naviBarList = [];

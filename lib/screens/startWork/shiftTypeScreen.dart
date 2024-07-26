@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,8 +19,6 @@ import '../../styles/styleConst.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/distanceFunctions.dart';
 import '../../utils/generalFunctions.dart';
-import '../../widgets/alert_dialog.dart';
-import '../../widgets/alert_dialog_without_button.dart';
 import '../../widgets/button_widget.dart';
 
 class ShiftTypeScreen extends StatefulWidget {

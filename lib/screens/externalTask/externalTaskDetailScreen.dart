@@ -4,12 +4,10 @@ import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/routing/landing.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/cards/externalWorkDetailCard.dart';
-import 'package:deneme/widgets/cards/taskDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
-import '../../widgets/button_widget.dart';
 
 class ExternalTaskDetailScreen extends StatefulWidget {
 

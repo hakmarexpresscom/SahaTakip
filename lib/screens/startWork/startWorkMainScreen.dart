@@ -15,7 +15,6 @@ import '../../models/shift.dart';
 import '../../routing/landing.dart';
 import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
-import '../../widgets/alert_dialog.dart';
 
 class StartWorkMainScreen extends StatefulWidget {
 
