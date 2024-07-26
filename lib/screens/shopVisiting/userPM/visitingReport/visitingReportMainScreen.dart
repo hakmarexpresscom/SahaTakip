@@ -294,8 +294,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             );
 
             Navigator.of(context).pop(); // Close the dialog
-            showReportTaskSubmitDialog(context);
-
+            showAlertDialogWidget(context, 'Görev Eklendi', 'Görev başarılı bir şekilde rapora eklendi!', (){naviVisitingReportMainScreen(context, widget.shop_code);});
           }
         },
         borderWidht: 1,
@@ -384,21 +383,6 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
               }
             }
         )
-    );
-  }
-
-  showReportTaskSubmitDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Görev Eklendi',
-            content: 'Görev başarılı bir şekilde rapora eklendi!',
-            onTaps: (){
-              naviVisitingReportMainScreen(context, widget.shop_code);
-            },
-          );
-        }
     );
   }
 

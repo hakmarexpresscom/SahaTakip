@@ -200,7 +200,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           );
 
           Navigator.of(context).pop(); // Close the dialog
-          showTaskSubmittedDialog(context);
+          showAlertDialogWidget(context, 'Görev Atandı', 'Görev başarıyla atandı!', (){createShopTaskPhotoMap(groupNo);resetTaskPhotos();naviSubmitTaskMainScreen(context);});
         }
 
       },
@@ -279,23 +279,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
           )
         ],
       ),
-    );
-  }
-
-  showTaskSubmittedDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialogWidget(
-          title: 'Görev Atandı',
-          content: 'Görev başarıyla atandı!',
-          onTaps: (){
-            createShopTaskPhotoMap(groupNo);
-            resetTaskPhotos();
-            naviSubmitTaskMainScreen(context);
-          },
-        );
-      },
     );
   }
 
