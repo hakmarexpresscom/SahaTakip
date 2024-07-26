@@ -26,8 +26,6 @@ import '../services/userNKServices.dart';
 import '../services/userPMServices.dart';
 import 'package:crypto/crypto.dart';
 
-import '../widgets/alert_dialog_without_button.dart';
-
 int sayac = 0;
 
 login(String user, String email, String password, BuildContext context) async {
@@ -215,14 +213,6 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
 
       try {
         await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
-
-        if (users[sayac].group_no != 0) {
-          await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
-        }
-
-        await saveBSName();
-        await createShopTaskPhotoMap(users[sayac].group_no);
-
       } catch (error) {
         throw Exception('Veri kaydında hata oluştu');
       }
