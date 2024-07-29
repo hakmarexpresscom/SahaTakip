@@ -1,5 +1,7 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
+import 'package:deneme/routing/landing.dart';
 import 'package:deneme/services/cashCountingServices.dart';
 import 'package:deneme/services/shopClosingControlServices.dart';
 import 'package:deneme/services/shopOpeningControlServices.dart';
@@ -141,8 +143,22 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
-          downloadInShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaIci/excelReport?${urlShopFilter}");
+        onTaps: () async{
+
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
+            showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            downloadInShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaIci/excelReport?${urlShopFilter}");
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviOtherMainScreen(context);
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -159,8 +175,21 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
-          downloadOutShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+        onTaps: () async{
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
+            showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            downloadOutShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviOtherMainScreen(context);
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -177,8 +206,21 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
-          downloadInShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaIci/excelReport?${urlShopFilter}");
+        onTaps: () async{
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
+            showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            downloadInShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaIci/excelReport?${urlShopFilter}");
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviOtherMainScreen(context);
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -195,8 +237,21 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
-          downloadOutShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+        onTaps: () async{
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
+            showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            downloadOutShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviOtherMainScreen(context);
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -213,8 +268,21 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
-          downloadCashCountingReport("${constUrl}api/CelikKasaSayimi/excelReport?${urlShopFilter}");
+        onTaps: () async{
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
+            showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            downloadCashCountingReport("${constUrl}api/CelikKasaSayimi/excelReport?${urlShopFilter}");
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviOtherMainScreen(context);
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,

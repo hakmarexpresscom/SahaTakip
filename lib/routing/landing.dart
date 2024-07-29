@@ -1,5 +1,6 @@
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
+import 'package:deneme/screens/other/otherMainScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/authScreens/loginScreen/forgetPasswordScreen.dart';
@@ -180,4 +181,8 @@ void naviManavDepoFormScreen(BuildContext context, id){
 
 void naviManavShopFormScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ManavShopFormScreen(shop_code: id,)));
+}
+
+void naviOtherMainScreen(BuildContext context){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => OtherMainScreen()));
 }
