@@ -4,6 +4,7 @@ import 'package:deneme/services/cashCountingServices.dart';
 import 'package:deneme/services/shopClosingControlServices.dart';
 import 'package:deneme/services/shopOpeningControlServices.dart';
 import 'package:deneme/styles/styleConst.dart';
+import 'package:deneme/utils/generalFunctions.dart';
 import 'package:deneme/utils/logoutFunctions.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -231,7 +232,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: (){
-          // create rapor fonksiyonu eklenicek
+          showAlertDialogWidget(context, "Uyarı!", "Şu an bu rapor aktif değildir. Bir sonraki güncellemede aktif hale gelecektir.", (){Navigator.of(context).pop();});
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,

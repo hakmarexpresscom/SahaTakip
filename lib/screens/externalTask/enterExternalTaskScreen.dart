@@ -367,7 +367,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               "${constUrl}api/HariciIs"
             );
             Navigator.of(context).pop(); // Close the dialog
-            showWorkSubmittedDialog(context);
+            showAlertDialogWidget(context, 'Görev Atandı', 'Görev başarıyla atandı!', (){naviExternalTasksListScreen(context);},);
           }
 
           setState(() {
@@ -381,21 +381,6 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor
-    );
-  }
-
-  showWorkSubmittedDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialogWidget(
-          title: 'Görev Atandı',
-          content: 'Görev başarıyla atandı!',
-          onTaps: (){
-            naviExternalTasksListScreen(context);
-          },
-        );
-      },
     );
   }
 
