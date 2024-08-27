@@ -297,6 +297,9 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                     );
                     await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
+                    visitBox.put('elapsedTime', 0);
+                    visitBox.put('timerStartTime', DateTime.now());
+
                     Navigator.of(context).pop(); // Close the dialog
                     naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
                   }

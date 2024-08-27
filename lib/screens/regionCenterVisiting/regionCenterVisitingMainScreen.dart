@@ -211,6 +211,7 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
                       processName: "Manav\nDepo\nFormu",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviManavDepoFormScreen(context, widget.region_code);
                       },
                     ),
@@ -263,9 +264,11 @@ class _RegionCenterVisitingMainScreenState extends State<RegionCenterVisitingMai
                 visitingDuration,
                 "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}"
             );
+
             _stopTimer();
-            visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
-            visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+            _start = 0; // Sayaç değerini sıfırla
+            visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırla
+            visitBox.put('timerStartTime', null); // Sayaç başlangıç zamanını sil
 
             Navigator.of(context).pop(); // Close the dialog
             naviShiftTypeScreen(context);

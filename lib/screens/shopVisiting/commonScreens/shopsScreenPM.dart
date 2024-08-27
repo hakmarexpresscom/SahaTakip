@@ -321,7 +321,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);
                                         box.put("visitingStartTime", DateTime.now());
-                                        visitBox.put('timerStartTime', DateTime.now());
                                         await createVisitingDurations(
                                             box.get('currentShopID'),
                                             (isBS == true) ? userID : null,
@@ -333,6 +332,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                             "${constUrl}api/ZiyaretSureleri"
                                         );
                                         await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                        visitBox.put('elapsedTime', 0);
+                                        visitBox.put('timerStartTime', DateTime.now());
 
                                         Navigator.of(context).pop(); // Close the dialog
                                         naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
@@ -394,7 +396,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                         box.put("currentShopName", snapshot.data![index].shopName);
                                         box.put("currentShopID", snapshot.data![index].shopCode);
                                         box.put("visitingStartTime", DateTime.now());
-                                        visitBox.put('timerStartTime', DateTime.now());
                                         await createVisitingDurations(
                                             box.get('currentShopID'),
                                             (isBS == true) ? userID : null,
@@ -406,6 +407,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                             "${constUrl}api/ZiyaretSureleri"
                                         );
                                         await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                        visitBox.put('elapsedTime', 0);
+                                        visitBox.put('timerStartTime', DateTime.now());
 
                                         Navigator.of(context).pop(); // Close the dialog
                                         naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
@@ -514,6 +518,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                             );
                                             await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
+                                            visitBox.put('elapsedTime', 0);
+                                            visitBox.put('timerStartTime', DateTime.now());
+
                                             Navigator.of(context).pop(); // Close the dialog
                                             naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                           }
@@ -583,6 +590,9 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
                                                 "${constUrl}api/ZiyaretSureleri"
                                             );
                                             await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                            visitBox.put('elapsedTime', 0);
+                                            visitBox.put('timerStartTime', DateTime.now());
 
                                             Navigator.of(context).pop(); // Close the dialog
                                             naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);

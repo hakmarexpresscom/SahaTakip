@@ -61,6 +61,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
   @override
   void initState() {
     super.initState();
+
     splittedName = widget.shopName.split("/");
 
     // Sayaç başlatma saatini alın
@@ -169,6 +170,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Mağaza\nAçılış\nKontrolü",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviShopOpeningCheckingScreen(context, widget.shop_code);
                       },
                     )
@@ -178,6 +180,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Ziyaret Tespit\nRaporu Maddeleri",
                       processIcon: Icons.assignment,
                       onTaps: () {
+                        _stopTimer();
                         naviVisitingReportTaskMainScreen(context, widget.shop_code);
                       },
                     ),
@@ -188,6 +191,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Mağaza\nKapanış\nKontrolü",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviShopClosingCheckingScreen(context, widget.shop_code);
                       },
                     )
@@ -197,6 +201,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Yerinde\nGörevler",
                       processIcon: Icons.assignment,
                       onTaps: () {
+                        _stopTimer();
                         naviInPlaceTaskMainScreen(context, widget.shop_code);
                       },
                     ),
@@ -214,6 +219,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Ziyaret Tespit\nRaporu Maddeleri",
                       processIcon: Icons.assignment,
                       onTaps: () {
+                        _stopTimer();
                         naviVisitingReportTaskMainScreen(context, widget.shop_code);
                       },
                     )
@@ -223,6 +229,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Manav\nMağaza\nFormu",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviManavShopFormScreen(context, widget.shop_code);
                       },
                     ),
@@ -233,6 +240,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Yerinde\nGörevler",
                       processIcon: Icons.assignment,
                       onTaps: () {
+                        _stopTimer();
                         naviInPlaceTaskMainScreen(context, widget.shop_code);
                       },
                     )
@@ -251,6 +259,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Kasa\nSayımı",
                       processIcon: Icons.price_check,
                       onTaps: () {
+                        _stopTimer();
                         naviCashCountingScreen(context, widget.shop_code, widget.shopName);
                       },
                     ),
@@ -324,6 +333,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Mağaza\nAçılış\nKontrolü",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviShopOpeningCheckingScreen(context, widget.shop_code);
                       },
                     )
@@ -333,6 +343,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Ziyaret\nTespit Raporu\nGirişi",
                       processIcon: Icons.assignment,
                       onTaps: () {
+                        _stopTimer();
                         naviVisitingReportMainScreen(context, widget.shop_code);
                       },
                     ),
@@ -343,6 +354,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Mağaza\nKapanış\nKontrolü",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviShopClosingCheckingScreen(context, widget.shop_code);
                       },
                     )
@@ -352,6 +364,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Manav\nMağaza\nFormu",
                       processIcon: Icons.checklist,
                       onTaps: () {
+                        _stopTimer();
                         naviManavShopFormScreen(context, widget.shop_code);
                       },
                     ),
@@ -369,6 +382,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Ziyaret\nTespit\nRaporu",
                       processIcon: Icons.assignment,
                       onTaps: () {
+                        _stopTimer();
                         naviVisitingReportMainScreen(context, widget.shop_code);
                       },
                     ),
@@ -378,6 +392,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                       processName: "Kasa\nSayımı",
                       processIcon: Icons.price_check,
                       onTaps: () {
+                        _stopTimer();
                         naviCashCountingScreen(context, widget.shop_code, widget.shopName);
                       },
                     ),
@@ -434,9 +449,11 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
             visitingDuration,
             "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}",
           );
+
           _stopTimer();
-          visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırlayın
-          visitBox.delete('timerStartTime'); // Sayaç başlangıç zamanını silin
+          _start = 0; // Sayaç değerini sıfırla
+          visitBox.put('elapsedTime', 0); // Ziyaret bittiğinde süreyi sıfırla
+          visitBox.put('timerStartTime', null); // Sayaç başlangıç zamanını sil
 
           Navigator.of(context).pop(); // Close the dialog
           (isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
