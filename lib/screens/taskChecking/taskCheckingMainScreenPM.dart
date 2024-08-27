@@ -48,6 +48,8 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
     futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
     futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
 
+    print(urlTaskShops);
+
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -191,7 +193,10 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                         if(shop==0&&bs!=0){
                                           futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                         }
-                                        else{
+                                        if(shop!=0&&bs==0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop!=0&&bs!=0){
                                           futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                         }
                                       });
@@ -240,7 +245,10 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                         if(shop==0&&bs!=0){
                                           futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                         }
-                                        else{
+                                        if(shop!=0&&bs==0){
+                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop!=0&&bs!=0){
                                           futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                         }
                                       });
@@ -295,7 +303,10 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                       if(shop==0&&bs!=0){
                                         futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                       }
-                                      else{
+                                      if(shop!=0&&bs==0){
+                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                      }
+                                      if(shop!=0&&bs!=0){
                                         futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs])[shop]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
                                       }
                                     });
@@ -359,10 +370,12 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                           futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                         }
                                         if(shop2==0&&bs2!=0){
-                                          print("sidşlsdflisdşlfisdşfisşdfsdşiflif");
-                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                         }
-                                        else{
+                                        if(shop2!=0&&bs2==0){
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop2!=0&&bs2!=0){
                                           futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                         }
                                       });
@@ -406,13 +419,16 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                       setState(() {
                                         bs2 = selectedItem;
                                         if(shop2==0&&bs2==0){
-                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType2]}&grup_no=${groupNo}');
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListCompleteTask[taskType2]}&grup_no=${groupNo}');
                                         }
                                         if(shop2==0&&bs2!=0){
-                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                         }
-                                        else{
-                                          futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        if(shop2!=0&&bs2==0){
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        }
+                                        if(shop2!=0&&bs2!=0){
+                                          futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListCompleteTask[taskType2]}&grup_no=${groupNo}');
                                         }
                                       });
                                     },
@@ -461,12 +477,15 @@ class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> wit
                                     setState(() {
                                       taskType2 = selectedItem;
                                       if(shop2==0&&bs2==0){
-                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?$urlTaskShops&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${urlTaskShops}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                       }
                                       if(shop2==0&&bs2!=0){
-                                        futureIncompleteTask = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=1&gorev_turu=${taskTypeListCompleteTask[taskType]}&grup_no=${groupNo}');
+                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask1?${createUrlTaskShopsWithBS(bsIDs[bs2])}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                       }
-                                      else{
+                                      if(shop2!=0&&bs2==0){
+                                        futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bsIDs[bs2])[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
+                                      }
+                                      if(shop2!=0&&bs2!=0){
                                         futureIncompleteTask2 = fetchIncompleteTask('${constUrl}api/TamamlanmamisGorev/filterTask4?magaza_kodu=${createShopFilterList(bs2)[shop2]}&tamamlandi_bilgisi=0&gorev_turu=${taskTypeListIncompleteTask[taskType2]}&grup_no=${groupNo}');
                                       }
                                     });

@@ -127,7 +127,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             SizedBox(height: deviceHeight*0.25,),
             workDurationInfo(),
             SizedBox(height: deviceHeight*0.07,),
-            startWorkButton(),
+            startWorkButton(context),
           ],
         ),
       );
@@ -149,7 +149,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
     );
   }
 
-  Widget startWorkButton(){
+  Widget startWorkButton(BuildContext context){
     return ButtonWidget(
         text: "Mesaiye Başla",
         heightConst: 0.06,

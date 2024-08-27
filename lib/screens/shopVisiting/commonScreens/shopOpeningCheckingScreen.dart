@@ -1,7 +1,6 @@
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/landing.dart';
 import 'package:deneme/services/shopOpeningControlServices.dart';
-import 'package:deneme/widgets/alert_dialog.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/cards/checkingCard.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import '../../../constants/shopOpenCloseChekingLists.dart';
 import '../../../main.dart';
 import '../../../models/shopOpeningControl.dart';
 import '../../../styles/styleConst.dart';
+import '../../../utils/generalFunctions.dart';
 
 class ShopOpeningCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -75,7 +75,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                         return Text("Mağaza içi açılış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        return inShopOpeningCheckingUI();
+                        return inShopOpeningCheckingUI(context);
                       }
                     }
                 ),
@@ -86,7 +86,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                         return Text("Mağaza dışı açılış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        return outShopOpeningCheckingUI();
+                        return outShopOpeningCheckingUI(context);
                       }
                     }
                 ),
@@ -95,7 +95,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         ));
   }
 
-  Widget inShopOpeningCheckingUI(){
+  Widget inShopOpeningCheckingUI(BuildContext context){
     return Column(
       children: [
         Expanded(
@@ -117,13 +117,13 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
           ),
         ),
         SizedBox(height: deviceHeight*0.02,),
-        saveButtonInshop(),
+        saveButtonInshop(context),
         SizedBox(height: deviceHeight*0.02,),
       ]
     );
   }
 
-  Widget outShopOpeningCheckingUI(){
+  Widget outShopOpeningCheckingUI(BuildContext context){
     return Column(
       children: [
         Expanded(
@@ -145,13 +145,13 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
           ),
         ),
         SizedBox(height: deviceHeight*0.02,),
-        saveButtonOutshop(),
+        saveButtonOutshop(context),
         SizedBox(height: deviceHeight*0.02,),
       ]
     );
   }
 
-  Widget saveButtonInshop(){
+  Widget saveButtonInshop(BuildContext context){
     return ButtonWidget(
         text: "Kaydet",
         heightConst: 0.06,
@@ -189,7 +189,14 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               inShopOpeningCheckingList.values.toList()[20],
               "${constUrl}api/AcilisKontroluMagazaIci"
           );
-          showFormFilledDialog(context,inShopOpeningCheckingList);
+          showAlertDialogWidget(
+            context,
+            'Kontroller Yapıldı', 'Açılış formunu başarıyla doldurdunuz!',
+            (){
+              inShopOpeningCheckingList.forEach((key, value) {inShopOpeningCheckingList[key] = 0;});
+              naviShopOpeningCheckingScreen(context, widget.shop_code);
+            }
+          );
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -197,7 +204,7 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
         textColor: textColor);
   }
 
-  Widget saveButtonOutshop(){
+  Widget saveButtonOutshop(BuildContext context){
     return ButtonWidget(
         text: "Kaydet",
         heightConst: 0.06,
@@ -219,27 +226,18 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               outShopOpeningCheckingList.values.toList()[4],
               "${constUrl}api/AcilisKontroluMagazaDisi"
           );
-          showFormFilledDialog(context,outShopOpeningCheckingList);
+          showAlertDialogWidget(
+            context,
+            'Kontroller Yapıldı', 'Açılış formunu başarıyla doldurdunuz!',
+            (){
+              outShopOpeningCheckingList.forEach((key, value) {outShopOpeningCheckingList[key] = 0;});
+              naviShopOpeningCheckingScreen(context, widget.shop_code);
+            }
+          );
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor);
-  }
-
-  showFormFilledDialog(BuildContext context, Map<String, int>list) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialogWidget(
-            title: 'Kontroller Yapıldı',
-            content: 'Açılış formunu başarıyla doldurdunuz!',
-            onTaps: (){
-              list.forEach((key, value) {list[key] = 0;});
-              naviShopOpeningCheckingScreen(context, widget.shop_code);
-              },
-        );
-        }
-    );
   }
 }

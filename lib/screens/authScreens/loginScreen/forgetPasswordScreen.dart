@@ -97,11 +97,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             SizedBox(height: deviceHeight*0.01,),
             title(),
             SizedBox(height: deviceHeight*0.04,),
-            TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: Colors.black),
+            userTypeTitle(),
             SizedBox(height: deviceHeight*0.02,),
             userTypeDropDown(),
             SizedBox(height: deviceHeight*0.03,),
-            inputForm(heightConst, widthConst),
+            info(),
+            SizedBox(height: deviceHeight*0.03,),
+            inputForm(context,heightConst, widthConst),
             SizedBox(height: deviceHeight*0.03,),
             backLoginScreenButton(heightConst, widthConst),
           ],
@@ -110,7 +112,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     });
   }
 
-  Widget inputForm(double heightConst, double widthConst){
+  Widget inputForm(BuildContext context, double heightConst, double widthConst){
     return Container(
       width: deviceWidth*0.8,
       child: Form(
@@ -183,9 +185,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         borderColor: primaryColor,
         textColor: textColor);
   }
+
   Widget title(){
     return TextWidget(text: "Yeni Şifre Al", size: 35, fontWeight: FontWeight.w400, color: textColor);
   }
+
   Widget logo(){
     return Container(
       height: deviceHeight*0.28,
@@ -200,6 +204,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     );
   }
 
+  Widget userTypeTitle(){
+    return TextWidget(text: "Kullanıcı Türünüzü Seçiniz", size: 17, fontWeight: FontWeight.w400, color: Colors.black);
+  }
+
   Widget userTypeDropDown(){
     return DropdownMenu<String>(
       initialSelection: item,
@@ -212,6 +220,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         return DropdownMenuEntry<String>(value: value, label: value);
       }).toList(),
     );
+  }
+
+  Widget info(){
+    return TextWidget(text: "Lütfen @hakmarmagazacilik.com.tr\nuzantılı mail adresinizi giriniz.", size: 15, fontWeight: FontWeight.w400, color: textColor);
   }
 
 }

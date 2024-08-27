@@ -49,7 +49,7 @@ class _IncompleteTaskCheckingDetailCardState extends State<PastReportTaskDetailC
           SizedBox(height: context.dynamicHeight(0.02),),
           RichTextWidget(title: " Görev Detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          (widget.completionInfo==1)? (widget.answerNote==""||widget.answerNote==null) ? RichTextWidget(title: " Cevap Notu: ", text: "Cevap notu girilmemiş.", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : RichTextWidget(title: " Cevap Notu: ", text: widget.answerNote!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
+          (widget.completionInfo==1)? RichTextWidget(title: " Cevap Notu: ", text: (widget.answerNote==""||widget.answerNote==null)? "Cevap notu girilmemiş.": widget.answerNote!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : SizedBox(height: context.dynamicHeight(0.0),),
           (widget.completionInfo==1)?SizedBox(height: context.dynamicHeight(0.02),):SizedBox(height: context.dynamicHeight(0.0),),
           SizedBox(height: context.dynamicHeight(0.05),),
           Row(

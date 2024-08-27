@@ -8,7 +8,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../styles/styleConst.dart';
-import '../../../widgets/alert_dialog.dart';
+import '../../../utils/generalFunctions.dart';
 
 class CashCountingScreen extends StatefulWidget {
 
@@ -150,7 +150,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
             SizedBox(height: deviceHeight*0.03,),
             inputForm(),
             SizedBox(height: deviceHeight*0.03,),
-            saveButton(),
+            saveButton(context),
             SizedBox(height: deviceHeight*0.03,),
           ],
         ),
@@ -164,7 +164,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   Widget shopCodeInfo(){
     return TextWidget(text: widget.shop_code.toString(), size: 20, fontWeight: FontWeight.w400, color: textColor);
   }
-  Widget saveButton(){
+  Widget saveButton(BuildContext context){
     return ButtonWidget(
         text: "Kaydet",
         heightConst: 0.06,
@@ -173,6 +173,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: (){
+
           createCashCounting(
               widget.shop_code,
               widget.shopName,
@@ -188,7 +189,12 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
               farkController.text,
               "${constUrl}api/CelikKasaSayimi"
           );
-          showFormFilledDialog(context);
+
+          showAlertDialogWidget(
+            context,
+            'Kontroller Yapıldı', 'Kasa sayımı formunu başarıyla doldurdunuz!',
+            (){naviCashCountingScreen(context, widget.shop_code, widget.shopName);}
+          );
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -225,21 +231,6 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  showFormFilledDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Kontroller Yapıldı',
-            content: 'Kasa sayımı formunu başarıyla doldurdunuz!',
-            onTaps: (){
-              naviCashCountingScreen(context, widget.shop_code, widget.shopName);
-            },
-          );
-        }
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../routing/landing.dart';
 import '../../widgets/text_form_field.dart';
 
@@ -132,7 +133,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             SizedBox(height: deviceHeight * 0.03,),
             shopSelectionButton(),
             SizedBox(height: deviceHeight * 0.03,),
-            submitTaskButton(),
+            submitTaskButton(context),
             SizedBox(height: deviceHeight * 0.03,),
           ],
         ),
@@ -141,7 +142,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
   }
 
 
-  Widget submitTaskButton() {
+  Widget submitTaskButton(BuildContext context) {
     return ButtonWidget(
       text: "Görevi Ata",
       heightConst: 0.06,
@@ -151,17 +152,29 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
       fontWeight: FontWeight.w600,
       onTaps: () async {
 
+        print(inPlace);
+        print(remote);
+
         var connectivityResult = await (Connectivity().checkConnectivity());
+        List<dynamic> firstIndexValues = boxShopTaskPhoto.values.map((value) => value[1]).toList();
 
         if (taskNameController.text.isEmpty || taskDeadlineController.text.isEmpty) {
-          showAlertDialogWidget(context, 'Uyarı', "Görev adı ve bitiş tarihi boş olamaz.", (){Navigator.of(context).pop();});
+          showAlertDialogWidget(context, 'Uyarı', "Görev adı ve bitiş tarihi boş olamaz. Lütfen görev adınız yazınız ve görev bitiş tarihi seçiniz.", (){Navigator.of(context).pop();});
+        }
+
+        if (!firstIndexValues.contains(true)) {
+          showAlertDialogWidget(context, 'Uyarı', "Mağaza seçmediniz. Lüfen mağaza seçimi butonunu kullanarak mağaza seçiniz.", (){Navigator.of(context).pop();});
+        }
+
+        if (inPlace == false && remote == false) {
+          showAlertDialogWidget(context, 'Uyarı', "Görev türünü seçmediniz. Lüfen Yerinde ya da Uzaktan kutucuklarından birini işaretleyiniz.", (){Navigator.of(context).pop();});
         }
 
         if(connectivityResult[0] == ConnectivityResult.none){
           showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
         }
 
-        else if(taskNameController.text.isNotEmpty && taskDeadlineController.text.isNotEmpty && connectivityResult[0] != ConnectivityResult.none){
+        else if(taskNameController.text.isNotEmpty && taskDeadlineController.text.isNotEmpty && firstIndexValues.contains(true) && (inPlace == true || remote == true) && connectivityResult[0] != ConnectivityResult.none){
 
           showAlertDialogWithoutButtonWidget(context,"Görev Atanıyor","Göreviniz atanıyor, lütfen bekleyiniz.");
 
@@ -172,7 +185,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
             taskDeadlineController.text,
             null,
-            (inPlace == true) ? "Yerinde" : "Uzaktan",
+            (inPlace == true && remote == false) ? "Yerinde" : "Uzaktan",
             null,
             groupNo,
             "${constUrl}api/TamamlanmamisGorev",
@@ -180,7 +193,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             (isBS) ? userID : null,
             (isBS == false && isBSorPM == true) ? userID : null,
             (isBSorPM == false) ? userID : null,
-            (inPlace == true) ? "Yerinde" : "Uzaktan",
+            (inPlace == true && remote == false) ? "Yerinde" : "Uzaktan",
             "${constUrl}api/Fotograf",
           );
 

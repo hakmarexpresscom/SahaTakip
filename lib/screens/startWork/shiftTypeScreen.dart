@@ -212,11 +212,11 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
             SizedBox(height: deviceHeight*0.08,),
             shopVisitingButton(),
             SizedBox(height: deviceHeight*0.03,),
-            regionCenterVisitingButton(),
+            regionCenterVisitingButton(context),
             SizedBox(height: deviceHeight*0.03,),
             externalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
-            stopShiftButton()
+            stopShiftButton(context)
           ],
         ),
       );
@@ -257,7 +257,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         textColor: textColor);
   }
 
-  Widget regionCenterVisitingButton(){
+  Widget regionCenterVisitingButton(BuildContext context){
     return FutureBuilder<RegionCenter>(
         future: futureRegionCenter,
         builder: (context, snapshot){
@@ -328,7 +328,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
     );
   }
 
-  Widget stopShiftButton(){
+  Widget stopShiftButton(BuildContext context){
     return ButtonWidget(
         text: "Mesaiyi Bitir",
         heightConst: 0.06,

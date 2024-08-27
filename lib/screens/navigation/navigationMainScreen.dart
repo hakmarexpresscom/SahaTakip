@@ -1,3 +1,4 @@
+import 'package:customized_search_bar/customized_search_bar.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/styles/styleConst.dart';
@@ -44,6 +45,13 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
     )..addListener(() {
     });
     controller.repeat(reverse: true);
+    shopListOnSearch = shopList;
+  }
+
+  void updateSearchResults(List<String> results) {
+    setState(() {
+      shopListOnSearch = results;
+    });
   }
 
   @override
@@ -112,7 +120,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                       SizedBox(height: deviceHeight*0.03,),
                       TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                       SizedBox(height: deviceHeight*0.03,),
-                      searchBar(),
+                      CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: shopList, onSearchResultChanged: updateSearchResults, searchController: shopSearchController),
                       SizedBox(height: deviceHeight*0.03,),
                       navigationMainScreenUI(0.00, 0.015, 0.02, 20, 18, 15)
                     ]
@@ -124,7 +132,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                       SizedBox(height: deviceHeight*0.03,),
                       TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                       SizedBox(height: deviceHeight*0.03,),
-                      searchBar(),
+                      CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: shopList, onSearchResultChanged: updateSearchResults, searchController: shopSearchController),
                       SizedBox(height: deviceHeight*0.03,),
                       ((deviceHeight-deviceWidth)<150) ? navigationMainScreenUI(0.00, 0.02, 0.02, 20, 18, 15) : navigationMainScreenUI(0.00, 0.02, 0.015, 30, 25, 20),
                     ]
@@ -136,7 +144,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                       SizedBox(height: deviceHeight*0.03,),
                       TextWidget(text: "Tüm mağazalarımızın kodlarını ve\nisimlerini inceleyebilir, haritada görüntüleyebilirsiniz.", size: 16, fontWeight: FontWeight.w400, color: textColor),
                       SizedBox(height: deviceHeight*0.03,),
-                      searchBar(),
+                      CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: shopList, onSearchResultChanged: updateSearchResults, searchController: shopSearchController),
                       SizedBox(height: deviceHeight*0.03,),
                       navigationMainScreenUI(0.00, 0.01, 0.015, 20, 18, 15),
                     ]
@@ -221,39 +229,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
               return Text("Veri yok");
             }
         })
-    );
-  }
-
-  Widget searchBar(){
-    return TextField(
-      controller: shopSearchController,
-        onChanged: (value){
-      setState ((){
-        shopListOnSearch = shopList
-            .where((element) => element.toLowerCase().contains(value.toLowerCase()))
-            .toList();
-        print(shopListOnSearch);
-      });},
-      decoration: InputDecoration(
-        labelText: "Mağaza Ara",
-        hintText: "Mağaza Ara",
-        prefixIcon: Icon(Icons.search),
-        suffixIcon: shopSearchController.text.isEmpty ? null
-            : InkWell(
-                onTap: () {
-                  shopListOnSearch.clear();
-                  shopSearchController.clear();
-                  setState (() {
-                    shopSearchController.text = '';
-                  });},
-                child: Icon(Icons.clear),
-              ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-      ),
     );
   }
 

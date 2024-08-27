@@ -212,7 +212,10 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
       box.put("urlShopFilter", urlShopFilter);
 
       try {
+
         await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        await createShopTaskPhotoMapBS(users[sayac].group_no);
+
       } catch (error) {
         throw Exception('Veri kaydında hata oluştu');
       }

@@ -75,7 +75,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         builder: (BuildContext context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text('Tamamladığınız görev için bir fotoğraf yükleyin.'),
+            title: Text('Rapora ekleyeceğiniz görev için bir fotoğraf yükleyin.'),
             content: Container(
               height: MediaQuery.of(context).size.height / 6,
               child: Column(
@@ -204,7 +204,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
             SizedBox(height: deviceHeight*0.03,),
             addPhotoButton(),
             SizedBox(height: deviceHeight*0.03,),
-            saveExternalTaskButton(),
+            saveReportTaskButton(context),
           ],
         ),
       );
@@ -220,14 +220,14 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: deviceHeight*0.15,),
-            createReportButton()
+            createReportButton(context)
           ],
         ),
       );
     });
   }
 
-  Widget createReportButton(){
+  Widget createReportButton(BuildContext context){
     return ButtonWidget(
         text: "Tespit Raporu Oluştur",
         heightConst: 0.06,
@@ -236,18 +236,32 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         radius: 20,
         fontWeight: FontWeight.w600,
         onTaps: () async {
-          reportManager.createReport();
-          await createReport(userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "${constUrl}api/Rapor");
-          await countReport("${constUrl}api/Rapor");
-          naviVisitingReportMainScreen(context, widget.shop_code);
-          },
+
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult[0] == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+
+          else if(connectivityResult[0] != ConnectivityResult.none){
+
+            showAlertDialogWithoutButtonWidget(context,"Rapor Oluşturuluyor","Rapor oluşturuluyor, lütfen bekleyiniz.");
+
+            reportManager.createReport();
+            await createReport(userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "${constUrl}api/Rapor");
+            await countReport("${constUrl}api/Rapor");
+
+            Navigator.of(context).pop(); // Close the dialog
+            naviVisitingReportMainScreen(context, widget.shop_code);
+          }
+        },
         borderWidht: 1,
         backgroundColor: secondaryColor,
         borderColor: secondaryColor,
         textColor: textColor);
   }
 
-  Widget saveExternalTaskButton(){
+  Widget saveReportTaskButton(BuildContext context){
     return ButtonWidget(
         text: "Görevi Rapora Ekle",
         heightConst: 0.06,
@@ -266,8 +280,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
           if(connectivityResult[0] == ConnectivityResult.none){
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
-
-          else if(taskNameController.text.isEmpty && taskDeadlineController.text.isEmpty && connectivityResult[0] != ConnectivityResult.none){
+          else if(taskNameController.text.isNotEmpty && taskDeadlineController.text.isNotEmpty && connectivityResult[0] != ConnectivityResult.none){
 
             showAlertDialogWithoutButtonWidget(context,"Görev Ekleniyor","Göreviniz rapora ekleniyor, lütfen bekleyiniz.");
 
@@ -311,7 +324,7 @@ class _VisitingRaportMainScreenState extends State<VisitingRaportMainScreen> wit
         fontWeight: FontWeight.w600,
         onTaps: (){
           addPhoto(null, widget.shop_code, null, userID, null, "Rapor", null, '${constUrl}api/Fotograf');
-          },
+        },
         borderWidht: 3,
         backgroundColor: primaryColor,
         borderColor: primaryColor,

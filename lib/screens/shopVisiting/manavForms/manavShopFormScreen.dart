@@ -7,7 +7,7 @@ import '../../../models/manavShopForm.dart';
 import '../../../routing/landing.dart';
 import '../../../services/manavShopFormServices.dart';
 import '../../../styles/styleConst.dart';
-import '../../../widgets/alert_dialog.dart';
+import '../../../utils/generalFunctions.dart';
 import '../../../widgets/button_widget.dart';
 import '../../../widgets/cards/checkingCard.dart';
 
@@ -63,7 +63,7 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
                 return Text("Manav magaza formunu bu ziyaret için doldurdunuz.");
               }
               else{
-                return manavShopFormScreenUI();
+                return manavShopFormScreenUI(context);
               }
             }
         ),
@@ -71,7 +71,7 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
     );
   }
 
-  Widget manavShopFormScreenUI(){
+  Widget manavShopFormScreenUI(BuildContext context){
     return Column(
         children: [
           Expanded(
@@ -93,13 +93,13 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
             ),
           ),
           SizedBox(height: deviceHeight*0.02,),
-          saveButtonManavShopForm(),
+          saveButtonManavShopForm(context),
           SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
 
-  Widget saveButtonManavShopForm(){
+  Widget saveButtonManavShopForm(BuildContext context){
     return ButtonWidget(
         text: "Kaydet",
         heightConst: 0.06,
@@ -138,7 +138,14 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
               shopFormList.values.toList()[22],
               "${constUrl}api/ManavMagazaFormu"
           );
-          showFormFilledDialog(context,shopFormList);
+          showAlertDialogWidget(
+            context,
+            'Kontroller Yapıldı', 'Mağaza formunu başarıyla doldurdunuz!',
+            (){
+              shopFormList.forEach((key, value) {shopFormList[key] = 0;});
+              naviManavShopFormScreen(context, widget.shop_code);
+            }
+          );
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -146,19 +153,4 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
         textColor: textColor);
   }
 
-  showFormFilledDialog(BuildContext context, Map<String, int>list) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Kontroller Yapıldı',
-            content: 'Mağaza formunu başarıyla doldurdunuz!',
-            onTaps: (){
-              list.forEach((key, value) {list[key] = 0;});
-              naviManavShopFormScreen(context, widget.shop_code);
-            },
-          );
-        }
-    );
-  }
 }

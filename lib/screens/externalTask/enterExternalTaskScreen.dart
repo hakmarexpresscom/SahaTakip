@@ -11,7 +11,6 @@ import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../services/externalWorkServices.dart';
 import '../../utils/generalFunctions.dart';
-import '../../widgets/alert_dialog.dart';
 import '../../widgets/text_form_field.dart';
 import 'package:intl/intl.dart';
 
@@ -244,7 +243,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
             SizedBox(height: deviceHeight*0.03,),
             selectWorkPlaceButton(),
             SizedBox(height: deviceHeight*0.03,),
-            saveExternalTaskButton(),
+            saveExternalTaskButton(context),
           ],
         ),
       );
@@ -329,7 +328,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
     );
   }
 
-  Widget saveExternalTaskButton(){
+  Widget saveExternalTaskButton(BuildContext context){
     return ButtonWidget(
         text: "Harici İşi Kaydet",
         heightConst: 0.06,
@@ -341,14 +340,18 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
 
           var connectivityResult = await (Connectivity().checkConnectivity());
 
-          if (taskNameController.text.isEmpty || _startTime.toString().isEmpty || _finishTime.toString().isEmpty || (workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty)) {
-            showAlertDialogWidget(context, 'Uyarı', "Görev adı ve bitiş tarihi boş olamaz.", (){Navigator.of(context).pop();});
+          if (taskNameController.text.isEmpty || (_startTime.hour == 0 && _startTime.minute == 0) || (_finishTime.hour == 0 && _finishTime.minute == 0)) {
+            showAlertDialogWidget(context, 'Uyarı', "Görev adı ve görev saati boş olamaz. ", (){Navigator.of(context).pop();});
+          }
+
+          if (workPlace2.isEmpty || workPlaceTextFieldController.text.isEmpty) {
+            showAlertDialogWidget(context, 'Uyarı', "Görev yeri seçmediniz. Yer seç butonundan görev yeri seçmelisiniz.", (){Navigator.of(context).pop();});
           }
 
           if(connectivityResult[0] == ConnectivityResult.none){
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
-          else if(taskNameController.text.isEmpty && _startTime.toString().isEmpty && _finishTime.toString().isEmpty && workPlace2.isEmpty && workPlaceTextFieldController.text.isEmpty && connectivityResult[0] != ConnectivityResult.none){
+          else if(taskNameController.text.isNotEmpty && _startTime.toString().isNotEmpty && _finishTime.toString().isNotEmpty && (workPlace2.isNotEmpty || workPlaceTextFieldController.text.isNotEmpty) && connectivityResult[0] != ConnectivityResult.none){
 
             showAlertDialogWithoutButtonWidget(context,"Harci İş Ekleniyor","Harici işiniz ekleniyor, lütfen bekleyiniz.");
 
@@ -358,7 +361,7 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               taskNameController.text,
               taskDescriptionController.text.isEmpty ? null : taskDescriptionController.text,
               formatTimeOfDay(_startTime),
-              formatTimeOfDay(_startTime),
+              formatTimeOfDay(_finishTime),
               now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
               0,
               (showOtherTextField)?workPlaceTextFieldController.text:workPlace2,
@@ -366,8 +369,9 @@ class _EnterExternalTaskScreenState extends State<EnterExternalTaskScreen> {
               long,
               "${constUrl}api/HariciIs"
             );
+
             Navigator.of(context).pop(); // Close the dialog
-            showAlertDialogWidget(context, 'Görev Atandı', 'Görev başarıyla atandı!', (){naviExternalTasksListScreen(context);},);
+            showAlertDialogWidget(context, 'Harici İş Eklendi', 'Harici İş başarıyla eklendi!', (){naviExternalTasksListScreen(context);});
           }
 
           setState(() {

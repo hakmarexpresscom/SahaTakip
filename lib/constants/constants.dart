@@ -79,6 +79,12 @@ List<dynamic> createShopFilterList(int bsID) {
   }
 }
 
+List<dynamic> createShopFilterList2() {
+  List<dynamic> allShopFilterList = boxShopTaskPhoto.keys.toList();
+  allShopFilterList.insert(0, "Tüm mağazalar");
+  return allShopFilterList;
+}
+
 String createUrlTaskShopsWithBS(int bsID){
   String urlTaskShopsWithBS = "";
   for(var key in boxShopTaskPhoto.keys){
@@ -92,8 +98,6 @@ String createUrlTaskShopsWithBS(int bsID){
 
 String email="";
 String password="";
-
-bool taskIsCompleted = false;
 
 bool showOtherTextField = false;
 String workPlace = "";

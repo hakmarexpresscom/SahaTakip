@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:customized_search_bar/customized_search_bar.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
 import 'package:deneme/utils/appStateManager.dart';
@@ -76,6 +77,20 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
     )..addListener(() {
     });
     controller.repeat(reverse: true);
+    shopListOnSearch = ownShopList;
+    partnerShopListOnSearch = partnerShopList;
+  }
+
+  void updateSearchResults(List<String> results) {
+    setState(() {
+      shopListOnSearch = results;
+    });
+  }
+
+  void updateSearchResults2(List<String> results) {
+    setState(() {
+      partnerShopListOnSearch = results;
+    });
   }
 
   checkGps() async {
@@ -206,7 +221,7 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
             unselectedLabelColor: Colors.white30,
             tabs: [
               Tab(text: "Kendi Mağazalarım"),
-              Tab(text: "Partner Mağazalar")
+              Tab(text: "Bölge Mağazaları")
             ],
           ),
         ),
@@ -244,9 +259,10 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                }
              },
            )
-         ),
-          bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
-    ));
+        ),
+        bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
+      )
+    );
   }
 
   Widget ownShopsScreenUI(double sizedBoxConst1, double sizedBoxConst2, double sizedBoxConst3, double textSizeCode, double textSizeName, double textSizeButton){
@@ -256,7 +272,7 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
           Column(
             children: [
               SizedBox(height: deviceHeight*0.03,),
-              searchBar(),
+              CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: ownShopList, onSearchResultChanged: updateSearchResults, searchController: shopSearchController),
               SizedBox(height: deviceHeight*0.03,),
             ],
           ),
@@ -297,7 +313,7 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                                         showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
                                       }
 
-                                      else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
+                                      /*else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
 
                                         showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
@@ -323,7 +339,28 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
 
                                       else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
                                         showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
-                                      }
+                                      }*/
+
+                                      showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
+
+                                      storeVisitManager.startStoreVisit();
+                                      box.put("currentShopName", snapshot.data![index].shopName);
+                                      box.put("currentShopID", snapshot.data![index].shopCode);
+                                      box.put("visitingStartTime", DateTime.now());
+                                      await createVisitingDurations(
+                                          box.get('currentShopID'),
+                                          (isBS == true) ? userID : null,
+                                          (isBS == true) ? null : userID,
+                                          box.get("visitingStartTime").toIso8601String(),
+                                          null,
+                                          box.get("shiftDate"),
+                                          null,
+                                          "${constUrl}api/ZiyaretSureleri"
+                                      );
+                                      await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                                      Navigator.of(context).pop(); // Close the dialog
+                                      naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
                                     }
                                 )
                               ]
@@ -433,7 +470,7 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
           Column(
             children: [
               SizedBox(height: deviceHeight*0.03,),
-              searchBar2(),
+              CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: partnerShopList, onSearchResultChanged: updateSearchResults2, searchController: partnerShopSearchController),
               SizedBox(height: deviceHeight*0.03,),
             ],
           ),
@@ -600,72 +637,6 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                   })
           ),
         ]
-    );
-  }
-
-  Widget searchBar(){
-    return TextField(
-      controller: shopSearchController,
-      onChanged: (value){
-        setState ((){
-          shopListOnSearch = ownShopList
-              .where((element) => element.toLowerCase().contains(value.toLowerCase()))
-              .toList();
-          print(shopListOnSearch);
-        });},
-      decoration: InputDecoration(
-        labelText: "Mağaza Ara",
-        hintText: "Mağaza Ara",
-        prefixIcon: Icon(Icons.search),
-        suffixIcon: shopSearchController.text.isEmpty ? null
-            : InkWell(
-          onTap: () {
-            shopListOnSearch.clear();
-            shopSearchController.clear();
-            setState (() {
-              shopSearchController.text = '';
-            });},
-          child: Icon(Icons.clear),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget searchBar2(){
-    return TextField(
-      controller: partnerShopSearchController,
-      onChanged: (value){
-        setState ((){
-          partnerShopListOnSearch = partnerShopList
-              .where((element) => element.toLowerCase().contains(value.toLowerCase()))
-              .toList();
-          print(partnerShopListOnSearch);
-        });},
-      decoration: InputDecoration(
-        labelText: "Mağaza Ara",
-        hintText: "Mağaza Ara",
-        prefixIcon: Icon(Icons.search),
-        suffixIcon: partnerShopSearchController.text.isEmpty ? null
-            : InkWell(
-          onTap: () {
-            partnerShopListOnSearch.clear();
-            partnerShopSearchController.clear();
-            setState (() {
-              partnerShopSearchController.text = '';
-            });},
-          child: Icon(Icons.clear),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-      ),
     );
   }
 

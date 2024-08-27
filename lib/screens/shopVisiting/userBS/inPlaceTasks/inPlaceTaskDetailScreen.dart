@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/cards/taskDetailCard.dart';
@@ -11,6 +12,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/completeTaskServices.dart';
 import '../../../../services/inCompleteTaskServices.dart';
 import '../../../../services/photoServices.dart';
+import '../../../../utils/generalFunctions.dart';
 import '../../../../widgets/button_widget.dart';
 
 class InPlaceTaskDetailScreen extends StatefulWidget {
@@ -40,7 +42,6 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
 
   String photo_file = "";
 
-
   Future getImage(ImageSource media, int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) async {
     var img = await picker.pickImage(source: media);
     final bytes = File(img!.path).readAsBytesSync();
@@ -48,8 +49,20 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
     setState(() {
       image = img;
     });
-    await createPhoto(task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
-    await countPhoto(url);
+    var connectivityResult = await (Connectivity().checkConnectivity());
+
+    if(connectivityResult[0] == ConnectivityResult.none){
+      showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+    }
+
+    else if(connectivityResult[0] != ConnectivityResult.none) {
+      showAlertDialogWithoutButtonWidget(context,"Fotoğraf Ekleniyor","Cevap fotoğrafınız ekleniyor lütfen bekleyiniz.");
+
+      await createPhoto(task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
+      await countPhoto(url);
+
+      Navigator.of(context).pop(); // Close the dialog
+    }
   }
 
   void addPhoto(int? task_id, int shopCode, int? bs_id, int? pm_id, int? bm_id, String photoType, int? completeTask_id, String url) {
@@ -151,60 +164,69 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TaskDetailCard(
-                      heightConst: 0.7,
-                      taskDeadline: snapshot.data!.taskFinishDate,
-                      taskDescription: snapshot.data!.taskDetail!,
                       taskName: snapshot.data!.taskTitle,
-                      widthConst: 0.9,
+                      taskDescription: snapshot.data!.taskDetail,
+                      taskDeadline: snapshot.data!.taskFinishDate,
                       taskType: snapshot.data!.taskType,
-                      isCompleted: (snapshot.data!.completionInfo==1)?true:false,
-                      onTaps: (){
-                        if(taskIsCompleted==false){
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("Uyarı"),
-                                content: Text("Görev Tamamlandı kutucuğunu işaretlemeniz gerekiyor!"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Tamam"),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          return;
+                      onTaps: () async{
+
+                        var connectivityResult = await (Connectivity().checkConnectivity());
+
+                        if(connectivityResult[0] == ConnectivityResult.none){
+                          showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
                         }
-                        else if(taskIsCompleted==true){
+
+                        else if(connectivityResult[0] != ConnectivityResult.none) {
+
+                          showAlertDialogWithoutButtonWidget(context, "Görev Tamamlanıyor", "Göreviniz tamamlanıyor ve cevaplarınız kaydoluyor lütfen bekleyiniz.");
+
+                          updateCompletionInfoIncompleteTask(
+                              snapshot.data!.task_id,
+                              snapshot.data!.taskTitle,
+                              snapshot.data!.taskDetail,
+                              snapshot.data!.taskAssigmentDate,
+                              snapshot.data!.taskFinishDate,
+                              snapshot.data!.shopCode,
+                              snapshot.data!.shopName,
+                              snapshot.data!.photo_id,
+                              snapshot.data!.taskType,
+                              snapshot.data!.report_id,
+                              1,
+                              snapshot.data!.group_no,
+                              snapshot.data!.bsName,
+                              '${constUrl}api/TamamlanmamisGorev/${snapshot.data!.task_id}'
+                          );
+
                           createCompleteTask(
                               snapshot.data!.task_id,
                               userID,
-                              now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                              (photo_file.isEmpty)?null:box.get("photoCount")+1,
+                              now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
+                              (photo_file.isEmpty) ? null : box.get("photoCount"),
                               TaskDetailCard.answerNoteController.text,
                               '${constUrl}api/TamamlanmisGorev'
                           );
-                          if(photo_file.isNotEmpty){
-                            updateCompleteTaskIDPhoto(box.get("photoCount"),null, snapshot.data!.shopCode, userID, null, null, "YerindeCevap", photo_file, snapshot.data!.task_id, '${constUrl}api/Fotograf/${box.get("photoCount")+1}');
+
+                          if (photo_file.isNotEmpty) {
+                            updateCompleteTaskIDPhoto(
+                                box.get("photoCount"),
+                                null,
+                                snapshot.data!.shopCode,
+                                userID,
+                                null,
+                                null,
+                                "YerindeCevap",
+                                photo_file,
+                                snapshot.data!.task_id,
+                                '${constUrl}api/Fotograf/${box.get("photoCount")}'
+                            );
                           }
-                          setState(() {
-                            taskIsCompleted=false;
-                          });
-                          naviInPlaceTaskMainScreen(context, box.get("currentShopID"));
+
+                          Navigator.of(context).pop(); // Close the dialog
+                          showAlertDialogWidget(context, 'Görev Tamamlandı', 'Göreviniz başarıyla tamamlandı!', (){naviInPlaceTaskMainScreen(context, box.get("currentShopID"));});
                         }
+
                       },
                       onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
-                      id: snapshot.data!.task_id,
-                      user_id: userID,
-                      assignmentDate: snapshot.data!.taskAssigmentDate,
-                      shop_code: snapshot.data!.shopCode,
-                      shop_name: snapshot.data!.shopName,
-                      photo_id: snapshot.data!.photo_id,
-                      report_id: snapshot.data!.report_id,
                       addPhotoButton:
                       ButtonWidget(
                           text: "Cevap Fotoğrafı Ekle",
@@ -221,10 +243,6 @@ class _InPlaceTaskDetailScreenState extends State<InPlaceTaskDetailScreen> with 
                           borderColor: primaryColor,
                           textColor: textColor),
                       image: image,
-                      completionDate: now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(),
-                      answer_photo_id: (box.get("photoCount")==0)?null:box.get("photoCount")+1,
-                      group_no: snapshot.data!.group_no,
-                      bs_name: snapshot.data!.bsName,
                     ),
                     //TaskDetailCard(heightConst: 0.7,taskDeadline: snapshot.data!.taskFinishDate,taskDescription: snapshot.data!.taskDetail!,taskName: snapshot.data!.taskTitle,widthConst: 0.9,isExternalTask: false,isCompleted: (snapshot.data!.completionInfo==1)?true:false)
                   ],

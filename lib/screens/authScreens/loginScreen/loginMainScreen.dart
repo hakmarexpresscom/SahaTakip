@@ -102,7 +102,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
             SizedBox(height: deviceHeight*0.02,),
             userTypeDropDown(),
             SizedBox(height: deviceHeight*0.03,),
-            inputForm(heightConst, widthConst),
+            inputForm(context, heightConst, widthConst),
             SizedBox(height: deviceHeight*0.03,),
             forgetPasswordButton(heightConst, widthConst),
           ],
@@ -111,7 +111,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
     });
   }
 
-  Widget inputForm(double heightConst, double widthConst){
+  Widget inputForm(BuildContext context, double heightConst, double widthConst){
     return Container(
       width: deviceWidth*0.8,
       child: Column(

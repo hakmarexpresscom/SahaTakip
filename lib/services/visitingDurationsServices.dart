@@ -3,6 +3,9 @@ import '../constants/constants.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
 import '../models/visitingDurations.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 Future<List<VisitingDurations>> parseJsonList(String jsonBody) async{
   List<dynamic> responseList = jsonDecode(jsonBody);
@@ -113,4 +116,38 @@ Future<VisitingDurations> updateFinishHourWorkDurationVisitingDurations(int id,i
 Future countVisitingDurations(String url) async {
   final List<VisitingDurations> visitingDurations = await fetchVisitingDurations3(url);
   box.put("visitingDurationsCount", visitingDurations[visitingDurations.length-1].visiting_id);
+}
+
+Future<void> downloadVisitingReport(String url) async {
+  try {
+    final dio = Dio();
+
+    final response = await dio.get(url,
+        options: Options(
+            headers: {'api_key': apiKey},
+            responseType: ResponseType.bytes));
+
+    if (response.statusCode == 200) {
+      final downloadDir = Directory('/storage/emulated/0/Download');
+
+      if (!await downloadDir.exists()) {
+        await downloadDir.create(recursive: true);
+      }
+
+      final dateFormat = DateFormat('yyyyMMddHHmmss');
+      final fileName = 'ZiyaretRaporu${dateFormat.format(DateTime.now())}.xlsx';
+      final file = File('${downloadDir.path}/$fileName');
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+
+      // Notify user of successful download
+      print("File downloaded to: ${file.path}");
+    } else {
+      throw Exception('Failed to download file');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw e;
+  }
 }

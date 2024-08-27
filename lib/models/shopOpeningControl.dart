@@ -93,7 +93,7 @@ class InShopOpenControl{
 class OutShopOpenControl{
   late int formID;
   late int magaza_kodu;
-  late int magaza_ismi;
+  late String magaza_ismi;
   late int? bs_id;
   late int? pm_id;
   late String kayit_tarihi;

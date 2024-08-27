@@ -136,7 +136,7 @@ class _ExternalTaskDetailScreenState extends State<ExternalTaskDetailScreen> wit
                       heightConst: 0.7,
                       widthConst: 0.9,
                       taskName: snapshot.data!.workTitle,
-                      taskDescription: snapshot.data!.workDetail!,
+                      taskDescription: snapshot.data!.workDetail,
                       startHour: snapshot.data!.workStartHour.toString(),
                       finishHour: snapshot.data!.workFinishHour.toString(),
                       workPlace: snapshot.data!.workPlace,

@@ -102,6 +102,13 @@ Future createShopTaskPhotoMap(int grup) async {
   }
 }
 
+Future createShopTaskPhotoMapBS(int grup) async{
+  for(int i=0;i<box.get("shopCodes").length;i++){
+    final Shop shop = await fetchShop3("${constUrl}api/Magaza/${box.get("shopCodes")[i]}");
+    (grup==0)?boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_id]):boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),[shop.bs_id,"",false,shop.bs_manav_id]);
+  }
+}
+
 void resetTaskPhotos(){
   taskPhotos=[];
 }

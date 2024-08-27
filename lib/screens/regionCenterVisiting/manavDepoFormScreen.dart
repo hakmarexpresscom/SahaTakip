@@ -7,7 +7,7 @@ import '../../models/manavDepoForm.dart';
 import '../../routing/landing.dart';
 import '../../services/manavDepoFormServices.dart';
 import '../../styles/styleConst.dart';
-import '../../widgets/alert_dialog.dart';
+import '../../utils/generalFunctions.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/cards/checkingCard.dart';
 
@@ -63,7 +63,7 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
                 return Text("Manav depo formunu bu ziyaret için doldurdunuz.");
               }
               else{
-                return manavDepoFormScreenUI();
+                return manavDepoFormScreenUI(context);
               }
             }
         ),
@@ -71,7 +71,7 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
     );
   }
 
-  Widget manavDepoFormScreenUI(){
+  Widget manavDepoFormScreenUI(BuildContext context){
     return Column(
         children: [
           Expanded(
@@ -93,13 +93,13 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
             ),
           ),
           SizedBox(height: deviceHeight*0.02,),
-          saveButtonManavDepoForm(),
+          saveButtonManavDepoForm(context),
           SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
 
-  Widget saveButtonManavDepoForm(){
+  Widget saveButtonManavDepoForm(BuildContext context){
     return ButtonWidget(
       text: "Kaydet",
       heightConst: 0.06,
@@ -125,7 +125,14 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
             depoFormList.values.toList()[9],
             "${constUrl}api/ManavDepoFormu"
         );
-        showFormFilledDialog(context,depoFormList);
+        showAlertDialogWidget(
+          context,
+          'Kontroller Yapıldı', 'Depo formunu başarıyla doldurdunuz!',
+          (){
+            depoFormList.forEach((key, value) {depoFormList[key] = 0;});
+            naviManavDepoFormScreen(context, widget.region_code);
+          }
+        );
       },
       borderWidht: 1,
       backgroundColor: secondaryColor,
@@ -133,19 +140,4 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
       textColor: textColor);
   }
 
-  showFormFilledDialog(BuildContext context, Map<String, int>list) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Kontroller Yapıldı',
-            content: 'Depo formunu başarıyla doldurdunuz!',
-            onTaps: (){
-              list.forEach((key, value) {list[key] = 0;});
-              naviManavDepoFormScreen(context, widget.region_code);
-            },
-          );
-        }
-    );
-  }
 }

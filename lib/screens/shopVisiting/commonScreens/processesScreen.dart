@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/visitingDurationsServices.dart';
@@ -70,7 +69,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     // Eğer startTime kaydedilmişse, aradaki süreyi hesaplayın
     if (timerStartTime != null) {
       int elapsedSeconds = DateTime.now().difference(timerStartTime).inSeconds;
-      _start = visitBox.get('elapsedTime', defaultValue: 0) ?? 0 + elapsedSeconds;
+      _start = elapsedSeconds;
     } else {
       _start = visitBox.get('elapsedTime', defaultValue: 0) ?? 0;
     }
@@ -97,17 +96,21 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
         backgroundColor: appbarBackground,
         title: const Text('Mağaza Ziyareti'),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        child: Container(
-          alignment: Alignment.center,
-          child: (isBS) ? shopVisitingProcessesScreenBSUI() : shopVisitingProcessesScreenPMUI(),
-        ),
-      ),
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) {},
+        child: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: Container(
+              alignment: Alignment.center,
+              child: (isBS) ? shopVisitingProcessesScreenBSUI(context) : shopVisitingProcessesScreenPMUI(context),
+            ),
+          ),
+      )
     );
   }
 
-  Widget shopVisitingProcessesScreenBSUI() {
+  Widget shopVisitingProcessesScreenBSUI(BuildContext context) {
     return Builder(builder: (BuildContext context) {
       return Container(
         child: Column(
@@ -142,7 +145,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                         _formatTime(_start),
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      stopVisitingButton(),
+                      stopVisitingButton(context),
                     ],
                   )
                 ],
@@ -242,15 +245,15 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                      ShopVisitingProcessCard(
-                        heightConst: 0.25,
-                        widthConst: 0.47,
-                        processName: "Kasa\nSayımı",
-                        processIcon: Icons.price_check,
-                        onTaps: () {
-                          naviCashCountingScreen(context, widget.shop_code, widget.shopName);
-                        },
-                      ),
+                    ShopVisitingProcessCard(
+                      heightConst: 0.25,
+                      widthConst: 0.47,
+                      processName: "Kasa\nSayımı",
+                      processIcon: Icons.price_check,
+                      onTaps: () {
+                        naviCashCountingScreen(context, widget.shop_code, widget.shopName);
+                      },
+                    ),
                   ],
                 )
                     : Container(),
@@ -262,7 +265,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     });
   }
 
-  Widget shopVisitingProcessesScreenPMUI() {
+  Widget shopVisitingProcessesScreenPMUI(BuildContext context) {
     return Builder(builder: (BuildContext context) {
       return Container(
         child: Column(
@@ -297,7 +300,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
                         _formatTime(_start),
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      stopVisitingButton(),
+                      stopVisitingButton(context),
                     ],
                   ),
                 ],
@@ -397,7 +400,7 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
     return TextWidget(text: "${widget.shop_code}", size: 20, fontWeight: FontWeight.w600, color: textColor);
   }
 
-  Widget stopVisitingButton() {
+  Widget stopVisitingButton(BuildContext context) {
     return ButtonWidget(
       text: "Ziyareti Bitir",
       heightConst: 0.055,
@@ -447,7 +450,3 @@ class _ShopVisitingProcessesScreenState extends State<ShopVisitingProcessesScree
   }
 
 }
-
-
-
-

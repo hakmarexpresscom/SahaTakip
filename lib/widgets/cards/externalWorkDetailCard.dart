@@ -10,7 +10,7 @@ class ExternalWorkDetailCard extends StatefulWidget {
   late double heightConst;
   late double widthConst;
   late String taskName;
-  late String taskDescription;
+  late String? taskDescription;
   late String startHour;
   late String finishHour;
   late String workPlace;
@@ -44,7 +44,7 @@ class _TaskDetailCardState extends State<ExternalWorkDetailCard> {
           SizedBox(height: context.dynamicHeight(0.02),),
           RichTextWidget(title: " Görev bitiş saati: ", text: widget.finishHour, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          RichTextWidget(title: " Görev detay: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev Detayı: ", text: (widget.taskDescription==""|| widget.taskDescription==null)? "Detay belirtilmemiş.":  widget.taskDescription!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
           RichTextWidget(title: " Görev yeri: ", text: widget.workPlace, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
         ]

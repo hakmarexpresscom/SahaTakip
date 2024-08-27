@@ -8,7 +8,7 @@ import '../../../constants/shopOpenCloseChekingLists.dart';
 import '../../../main.dart';
 import '../../../models/shopClosingControl.dart';
 import '../../../routing/landing.dart';
-import '../../../widgets/alert_dialog.dart';
+import '../../../utils/generalFunctions.dart';
 
 class ShopClosingCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -32,7 +32,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
   @override
   void initState() {
     super.initState();
-    futureInShopCloseControl = fetchInShopCloseControl('${constUrl}api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=5000&kayit_tarihi=2024-02-27T07:14:29.080');
+    futureInShopCloseControl = fetchInShopCloseControl('${constUrl}api/KapanisKontroluMagazaIci/filterInShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
     futureOutShopCloseControl = fetchOutShopCloseControl('${constUrl}api/KapanisKontroluMagazaDisi/filterOutShopCloseForm?magaza_kodu=${widget.shop_code}&kayit_tarihi=${DateTime.now().toIso8601String()}');
   }
 
@@ -75,7 +75,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                         return Text("Mağaza içi kapanış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        return inShopClosingCheckingUI();
+                        return inShopClosingCheckingUI(context);
                       }
                     }
                 ),
@@ -86,7 +86,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                         return Text("Mağaza dışı kapanış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        return outShopClosingCheckingUI();
+                        return outShopClosingCheckingUI(context);
                       }
                     }
                 ),
@@ -95,7 +95,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         ));
   }
 
-  Widget inShopClosingCheckingUI(){
+  Widget inShopClosingCheckingUI(BuildContext context){
     return Column(
         children: [
           Expanded(
@@ -117,13 +117,13 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
             ),
           ),
           SizedBox(height: deviceHeight*0.02,),
-          saveButtonInshop(),
+          saveButtonInshop(context),
           SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
 
-  Widget outShopClosingCheckingUI(){
+  Widget outShopClosingCheckingUI(BuildContext context){
     return Column(
         children: [
           Expanded(
@@ -145,13 +145,13 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
             ),
           ),
           SizedBox(height: deviceHeight*0.02,),
-          saveButtonOutshop(),
+          saveButtonOutshop(context),
           SizedBox(height: deviceHeight*0.02,),
         ]
     );
   }
 
-  Widget saveButtonInshop(){
+  Widget saveButtonInshop(BuildContext context){
     return ButtonWidget(
         text: "Kaydet",
         heightConst: 0.06,
@@ -188,7 +188,14 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               inShopClosingCheckingList.values.toList()[19],
               "${constUrl}api/KapanisKontroluMagazaIci"
           );
-          showFormFilledDialog(context,inShopClosingCheckingList);
+          showAlertDialogWidget(
+              context,
+              'Kontroller Yapıldı', 'Kapanış formunu başarıyla doldurdunuz!',
+                  (){
+                    inShopClosingCheckingList.forEach((key, value) {inShopClosingCheckingList[key] = 0;});
+                naviShopClosingCheckingScreen(context, widget.shop_code);
+              }
+          );
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -196,7 +203,7 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         textColor: textColor);
   }
 
-  Widget saveButtonOutshop(){
+  Widget saveButtonOutshop(BuildContext context){
     return ButtonWidget(
         text: "Kaydet",
         heightConst: 0.06,
@@ -221,7 +228,14 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               outShopClosingCheckingList.values.toList()[7],
               "${constUrl}api/KapanisKontroluMagazaDisi"
           );
-          showFormFilledDialog(context,outShopClosingCheckingList);
+          showAlertDialogWidget(
+            context,
+            'Kontroller Yapıldı', 'Kapanış formunu başarıyla doldurdunuz!',
+            (){
+              outShopClosingCheckingList.forEach((key, value) {outShopClosingCheckingList[key] = 0;});
+              naviShopClosingCheckingScreen(context, widget.shop_code);
+            }
+          );
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,
@@ -229,21 +243,6 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
         textColor: textColor);
   }
 
-  showFormFilledDialog(BuildContext context, Map<String, int>list) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialogWidget(
-            title: 'Kontroller Yapıldı',
-            content: 'Kapanış formunu başarıyla doldurdunuz!',
-            onTaps: (){
-              list.forEach((key, value) {list[key] = 0;});
-              naviShopClosingCheckingScreen(context, widget.shop_code);
-            },
-          );
-        }
-    );
-  }
 }
 
 

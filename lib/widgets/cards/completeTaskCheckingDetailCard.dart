@@ -8,7 +8,7 @@ import '../button_widget.dart';
 class CompleteTaskCheckingDetailCard extends StatefulWidget {
 
   late String taskName;
-  late String taskDescription;
+  late String? taskDescription;
   late String taskDeadline;
   late String taskType;
   late VoidCallback onTapsShowPhoto;
@@ -65,9 +65,9 @@ class _IncompleteTaskCheckingDetailCardState extends State<CompleteTaskCheckingD
           SizedBox(height: context.dynamicHeight(0.02),),
           RichTextWidget(title: " Görev Türü: ", text: widget.taskType, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          RichTextWidget(title: " Görev Detayı: ", text: widget.taskDescription, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Görev Detayı: ", text: ( widget.taskDescription==""|| widget.taskDescription==null)? "Detay belirtilmemiş.":  widget.taskDescription!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.02),),
-          (widget.answerNote==""||widget.answerNote==null) ? RichTextWidget(title: " Cevap Notu: ", text: "Cevap notu girilmemiş.", size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start) : RichTextWidget(title: " Cevap Notu: ", text: widget.answerNote!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
+          RichTextWidget(title: " Cevap Notu: ", text: (widget.answerNote==""||widget.answerNote==null)? "Cevap notu girilmemiş.": widget.answerNote!, size: 20, fontWeightTitle: FontWeight.w600, fontWeightText: FontWeight.w400, color: textColor, alignment: Alignment.bottomLeft,textAlign: TextAlign.start),
           SizedBox(height: context.dynamicHeight(0.05),),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

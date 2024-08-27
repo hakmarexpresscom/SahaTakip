@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 import '../constants/constants.dart';
 import '../models/shopOpeningControl.dart';
 
@@ -115,11 +115,19 @@ Future<void> downloadInShopOpenControlReport(String url) async {
             responseType: ResponseType.bytes));
 
     if (response.statusCode == 200) {
-      final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/MagazaİçiAçılışKontrolü.xlsx');
+      final downloadDir = Directory('/storage/emulated/0/Download');
+
+      if (!await downloadDir.exists()) {
+        await downloadDir.create(recursive: true);
+      }
+
+      final dateFormat = DateFormat('yyyyMMddHHmmss');
+      final fileName = 'AcilisKontroluMagazaIci${dateFormat.format(DateTime.now())}.xlsx';
+      final file = File('${downloadDir.path}/$fileName');
       final raf = file.openSync(mode: FileMode.write);
       raf.writeFromSync(response.data);
       await raf.close();
+
       // Notify user of successful download
       print("File downloaded to: ${file.path}");
     } else {
@@ -227,11 +235,19 @@ Future<void> downloadOutShopOpenControlReport(String url) async {
             responseType: ResponseType.bytes));
 
     if (response.statusCode == 200) {
-      final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/MagazaDışıAçılışKontrolü.xlsx');
+      final downloadDir = Directory('/storage/emulated/0/Download');
+
+      if (!await downloadDir.exists()) {
+        await downloadDir.create(recursive: true);
+      }
+
+      final dateFormat = DateFormat('yyyyMMddHHmmss');
+      final fileName = 'AcilisKontroluMagazaDisi${dateFormat.format(DateTime.now())}.xlsx';
+      final file = File('${downloadDir.path}/$fileName');
       final raf = file.openSync(mode: FileMode.write);
       raf.writeFromSync(response.data);
       await raf.close();
+
       // Notify user of successful download
       print("File downloaded to: ${file.path}");
     } else {

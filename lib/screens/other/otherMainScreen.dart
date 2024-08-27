@@ -12,6 +12,7 @@ import 'package:deneme/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../services/visitingDurationsServices.dart';
 
 class OtherMainScreen extends StatefulWidget {
   const OtherMainScreen({super.key});
@@ -109,18 +110,18 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?getReportButton1(context):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?getReportButton2(context):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?getReportButton3(context):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?getReportButton4(context):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true && groupNo == 0)?getReportButton5(context):SizedBox(height: deviceHeight*0.00,),
             (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton1():SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton2():SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton3():SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton4():SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton5():SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton6():SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton6(context):SizedBox(height: deviceHeight*0.00,),
             SizedBox(height: deviceHeight*0.03,),
             logoutButton()
           ],
@@ -135,7 +136,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     return ButtonWidget(text: "Çıkış yap", heightConst: 0.06, widthConst: 0.8, size: 18, radius: 20, fontWeight: FontWeight.w600, onTaps: (){logout(context);}, borderWidht: 1, backgroundColor: redColor, borderColor: redColor, textColor: textColor);
   }
 
-  Widget getReportButton1(){
+  Widget getReportButton1(BuildContext context){
     return ButtonWidget(
         text: "Mağaza İçi Açılış Formu Raporu",
         heightConst: 0.06,
@@ -152,12 +153,22 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           }
 
           else if(connectivityResult[0] != ConnectivityResult.none) {
+
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
-            downloadInShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaIci/excelReport?${urlShopFilter}");
+            try {
 
-            Navigator.of(context).pop(); // Close the dialog
-            naviOtherMainScreen(context);
+              await downloadInShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaIci/excelReport?${urlTaskShops}");
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', () {naviOtherMainScreen(context);});
+
+            } catch (error) {
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
+
+            }
           }
         },
         borderWidht: 1,
@@ -167,7 +178,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     );
   }
 
-  Widget getReportButton2(){
+  Widget getReportButton2(BuildContext context){
     return ButtonWidget(
         text: "Mağaza Dışı Açılış Formu Raporu",
         heightConst: 0.06,
@@ -183,12 +194,22 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           }
 
           else if(connectivityResult[0] != ConnectivityResult.none) {
+
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
-            downloadOutShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+            try {
 
-            Navigator.of(context).pop(); // Close the dialog
-            naviOtherMainScreen(context);
+              await downloadOutShopOpenControlReport("${constUrl}api/AcilisKontroluMagazaDisi/excelReport?${urlTaskShops}");
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', () {naviOtherMainScreen(context);});
+
+            } catch (error) {
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
+
+            }
           }
         },
         borderWidht: 1,
@@ -198,7 +219,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     );
   }
 
-  Widget getReportButton3(){
+  Widget getReportButton3(BuildContext context){
     return ButtonWidget(
         text: "Mağaza İçi Kapanış Formu Raporu",
         heightConst: 0.06,
@@ -214,12 +235,22 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           }
 
           else if(connectivityResult[0] != ConnectivityResult.none) {
+
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
-            downloadInShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaIci/excelReport?${urlShopFilter}");
+            try {
 
-            Navigator.of(context).pop(); // Close the dialog
-            naviOtherMainScreen(context);
+              await downloadInShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaIci/excelReport?${urlTaskShops}");
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', () {naviOtherMainScreen(context);});
+
+            } catch (error) {
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
+
+            }
           }
         },
         borderWidht: 1,
@@ -229,7 +260,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     );
   }
 
-  Widget getReportButton4(){
+  Widget getReportButton4(BuildContext context){
     return ButtonWidget(
         text: "Mağaza Dışı Kapanış Formu Raporu",
         heightConst: 0.06,
@@ -245,12 +276,22 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           }
 
           else if(connectivityResult[0] != ConnectivityResult.none) {
+
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
-            downloadOutShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaDisi/excelReport?${urlShopFilter}");
+            try {
 
-            Navigator.of(context).pop(); // Close the dialog
-            naviOtherMainScreen(context);
+              await downloadOutShopCloseControlReport("${constUrl}api/KapanisKontroluMagazaDisi/excelReport?${urlTaskShops}");
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', () {naviOtherMainScreen(context);});
+
+            } catch (error) {
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
+
+            }
           }
         },
         borderWidht: 1,
@@ -260,7 +301,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     );
   }
 
-  Widget getReportButton5(){
+  Widget getReportButton5(BuildContext context){
     return ButtonWidget(
         text: "Çelik Kasa Sayımı Formu Raporu",
         heightConst: 0.06,
@@ -271,17 +312,26 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         onTaps: () async{
           var connectivityResult = await (Connectivity().checkConnectivity());
 
-          if(connectivityResult[0] == ConnectivityResult.none){
+          if(connectivityResult == ConnectivityResult.none){
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
+          else {
 
-          else if(connectivityResult[0] != ConnectivityResult.none) {
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
-            downloadCashCountingReport("${constUrl}api/CelikKasaSayimi/excelReport?${urlShopFilter}");
+            try {
 
-            Navigator.of(context).pop(); // Close the dialog
-            naviOtherMainScreen(context);
+              await downloadCashCountingReport("${constUrl}api/CelikKasaSayimi/excelReport?${urlTaskShops}");
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', () {naviOtherMainScreen(context);});
+
+            } catch (error) {
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
+
+            }
           }
         },
         borderWidht: 1,
@@ -291,7 +341,8 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
     );
   }
 
-  Widget getReportButton6(){
+
+  Widget getReportButton6(BuildContext context){
     return ButtonWidget(
         text: "Mesai Raporu",
         heightConst: 0.06,
@@ -299,8 +350,36 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         size: 18,
         radius: 20,
         fontWeight: FontWeight.w600,
-        onTaps: (){
-          showAlertDialogWidget(context, "Uyarı!", "Şu an bu rapor aktif değildir. Bir sonraki güncellemede aktif hale gelecektir.", (){Navigator.of(context).pop();});
+        onTaps: () async{
+          var connectivityResult = await (Connectivity().checkConnectivity());
+
+          if(connectivityResult == ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+          }
+          else {
+            showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            try {
+
+              await downloadVisitingReport("${constUrl}api/ZiyaretSureleri/excelReport?${urlTaskShops}&bs_id=${userID}");
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', () {naviOtherMainScreen(context);});
+
+            } catch (error) {
+
+              Navigator.of(context).pop(); // Close the dialog
+              showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
+
+            }
+
+            /*showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
+
+            await downloadVisitingReport("${constUrl}api/ZiyaretSureleri/excelReport?${urlTaskShops}&bs_id=${userID}");
+
+            Navigator.of(context).pop(); // Close the dialog
+            showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', (){naviOtherMainScreen(context);});*/
+          }
         },
         borderWidht: 1,
         backgroundColor: secondaryColor,

@@ -19,7 +19,7 @@ class ExternalWork{
     required this.workTitle,
     required this.workDetail,
     required this.workStartHour,
-    required this. workFinishHour,
+    required this.workFinishHour,
     required this.workAssignmentDate,
     required this.completionInfo,
     required this.workPlace,

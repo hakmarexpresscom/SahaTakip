@@ -129,7 +129,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                       heightConst: 0.7,
                       widthConst: 0.9,
                       taskName: snapshot.data!.taskTitle,
-                      taskDescription: (snapshot.data!.taskDetail==null)?"Açıklama eklenmemiştir.":snapshot.data!.taskDetail!,
+                      taskDescription: snapshot.data!.taskDetail,
                       taskDeadline: snapshot.data!.taskFinishDate,
                       taskType: snapshot.data!.taskType,
                       onTapsShowPhoto: (){naviTaskDownloadedPhotoScreen(context, snapshot.data!.photo_id);},
@@ -173,7 +173,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
                         if(snapshot2.hasData){
                           return CompleteTaskCheckingDetailCard(
                                 taskName: snapshot.data!.taskTitle,
-                                taskDescription: (snapshot.data!.taskDetail==null)?"Açıklama eklenmemiştir.":snapshot.data!.taskDetail!,
+                                taskDescription: snapshot.data!.taskDetail,
                                 taskDeadline: snapshot.data!.taskFinishDate,
                                 taskType: snapshot.data!.taskType,
                                 onTapsShowPhoto: (){naviAnswerDownloadedPhotoScreen(context, snapshot.data!.task_id);},

@@ -1,4 +1,3 @@
-import 'package:deneme/screens/externalTask/externalTaskMainScreen.dart';
 import 'package:deneme/screens/startWork/shiftTypeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import '../main.dart';
