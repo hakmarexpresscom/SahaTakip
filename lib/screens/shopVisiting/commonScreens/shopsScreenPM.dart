@@ -271,7 +271,7 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
         Column(
           children: [
           SizedBox(height: deviceHeight*0.03,),
-          CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: partnerShopList, onSearchResultChanged: updateSearchResults2, searchController: partnerShopSearchController),
+          CustomizedSearchBar(hintText: "Mağaza Ara", prefixIcon: Icons.search, suffixIcon: Icons.close, prefixIconColor: Colors.blueAccent, suffixIconColor: Colors.red, focusedBorderColor: secondaryColor, cursorColor: Colors.black, prefixIconSize: 30.0, suffixIconSize: 30.0, borderRadiusValue: 30.0, borderWidth: 3.0, searchList: ownShopList, onSearchResultChanged: updateSearchResults, searchController: shopSearchController),
           SizedBox(height: deviceHeight*0.03,),
           ],
         ),
