@@ -165,10 +165,20 @@ void openAppleMaps(double latitude, double longitude) async {
 
 void openGoogleMaps(double latitude, double longitude) async {
   final Uri googleMapsUrl = Uri.parse('https://www.google.com/maps/place/$latitude,$longitude');
+  print(googleMapsUrl);
   if (await canLaunchUrl(googleMapsUrl)) {
     await launchUrl(googleMapsUrl);
   } else {
     throw 'Google Maps\'i başlatılamıyor.';
+  }
+}
+
+void openUpdatePage() async {
+  final Uri updateUrl = Uri.parse('https://bizz-indir.hakmarexpress.com');
+  try {
+    await launchUrl(updateUrl);
+  } catch (e) {
+    throw 'Sayfa açılamadı: $e';
   }
 }
 

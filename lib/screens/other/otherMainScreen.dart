@@ -312,10 +312,11 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         onTaps: () async{
           var connectivityResult = await (Connectivity().checkConnectivity());
 
-          if(connectivityResult == ConnectivityResult.none){
+          if(connectivityResult[0] == ConnectivityResult.none){
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
-          else {
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
 
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
@@ -353,10 +354,11 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         onTaps: () async{
           var connectivityResult = await (Connectivity().checkConnectivity());
 
-          if(connectivityResult == ConnectivityResult.none){
+          if(connectivityResult[0] == ConnectivityResult.none){
             showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
           }
-          else {
+
+          else if(connectivityResult[0] != ConnectivityResult.none) {
             showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
 
             try {
@@ -372,13 +374,6 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
               showAlertDialogWidget(context, 'Hata!', 'Rapor indirilemedi: $error', () {naviOtherMainScreen(context);});
 
             }
-
-            /*showAlertDialogWithoutButtonWidget(context, "Rapor İndiriliyor", "Raporunuz indiriliyor, lütfen bekleyiniz.");
-
-            await downloadVisitingReport("${constUrl}api/ZiyaretSureleri/excelReport?${urlTaskShops}&bs_id=${userID}");
-
-            Navigator.of(context).pop(); // Close the dialog
-            showAlertDialogWidget(context, 'Rapor İndirildi!', 'Raporunuz telefonunuzun dosyalarım uygulamasındaki indirilenler bölümüne indirilmiştir.', (){naviOtherMainScreen(context);});*/
           }
         },
         borderWidht: 1,

@@ -71,7 +71,7 @@ login(String user, String email, String password, BuildContext context) async {
     isReport = boxStateManagement.get('isReport');
 
     checkEmailBS(email, '${constUrl}api/KullaniciBS', context);
-    checkPasswordBS(password,'${constUrl}api/KullaniciBS', sayac,context);
+    checkPasswordBS(password,'${constUrl}api/KullaniciBS', context);
   }
   else if(user=="Pazarlama Müdürü") {
 
@@ -114,7 +114,7 @@ login(String user, String email, String password, BuildContext context) async {
     isReport = boxStateManagement.get('isReport');
 
     checkEmailPM(email, '${constUrl}api/KullaniciPM', context);
-    checkPasswordPM(password,'${constUrl}api/KullaniciPM', sayac,context);
+    checkPasswordPM(password,'${constUrl}api/KullaniciPM', context);
   }
   else if(user=="Bölge Müdürü") {
 
@@ -140,7 +140,7 @@ login(String user, String email, String password, BuildContext context) async {
     isReport = boxStateManagement.get('isReport');
 
     checkEmailBM(email, '${constUrl}api/KullaniciBM', context);
-    checkPasswordBM(password,'${constUrl}api/KullaniciBM', sayac,context);
+    checkPasswordBM(password,'${constUrl}api/KullaniciBM', context);
   }
 
   else if(user=="Normal Kullanıcı"){
@@ -172,6 +172,9 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("regionCode",users[i].bolge);
       regionCode=box.get("regionCode");
 
+      box.put("yoneticiID", users[sayac].manager_id);
+      yoneticiID = box.get("yoneticiID");
+
       sayac=i;
     }
   }
@@ -182,10 +185,8 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
   }
 }
 
-Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext context) async {
+Future checkPasswordBS(String password, String urlUser, BuildContext context) async {
   try {
-    final List<UserBS> users = await fetchUserBS2(urlUser);
-
     BSPassword hashedPw;
     try {
       hashedPw = await retry(
@@ -205,16 +206,13 @@ Future checkPasswordBS(String password, String urlUser, int sayac, BuildContext 
 
       showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
-      box.put("yoneticiID", users[sayac].manager_id);
-      yoneticiID = box.get("yoneticiID");
-
-      urlShopFilter = (users[sayac].group_no == 0) ? "/byBsId?bs_id" : "/byBsManavId?bs_manav_id";
+      urlShopFilter = (groupNo == 0) ? "/byBsId?bs_id" : "/byBsManavId?bs_manav_id";
       box.put("urlShopFilter", urlShopFilter);
 
       try {
 
         await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
-        await createShopTaskPhotoMapBS(users[sayac].group_no);
+        await createShopTaskPhotoMapBS(groupNo);
 
       } catch (error) {
         throw Exception('Veri kaydında hata oluştu');
@@ -254,6 +252,9 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("regionCode",users[i].bolge);
       regionCode=box.get("regionCode");
 
+      box.put("yoneticiID", users[sayac].manager_id);
+      yoneticiID = box.get("yoneticiID");
+
       sayac=i;
     }
   }
@@ -264,10 +265,8 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
   }
 }
 
-Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext context) async {
+Future checkPasswordPM(String password, String urlUser,BuildContext context) async {
   try {
-    final List<UserPM> users = await fetchUserPM2(urlUser);
-
     PMPassword hashedPw;
     try {
       hashedPw = await retry(
@@ -287,23 +286,20 @@ Future checkPasswordPM(String password, String urlUser, int sayac, BuildContext 
 
       showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
-      box.put("yoneticiID", users[sayac].manager_id);
-      yoneticiID = box.get("yoneticiID");
-
-      urlShopFilter = (users[sayac].group_no == 0) ? "/byPmId?pm_id" : "/byPmManavId?pm_manav_id";
+      urlShopFilter = (groupNo == 0) ? "/byPmId?pm_id" : "/byPmManavId?pm_manav_id";
       box.put("urlShopFilter", urlShopFilter);
 
       try {
         await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
 
-        if (users[sayac].group_no == 0) {
+        if (groupNo == 0) {
           await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}");
         } else {
           await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
         }
 
         await saveBSName();
-        await createShopTaskPhotoMap(users[sayac].group_no);
+        await createShopTaskPhotoMap(groupNo);
 
       } catch (error) {
         throw Exception('Veri kaydında hata oluştu');
@@ -349,10 +345,8 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
   }
 }
 
-Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext context) async {
+Future checkPasswordBM(String password, String urlUser, BuildContext context) async {
   try {
-    final List<UserBM> users = await fetchUserBM2(urlUser);
-
     BMPassword hashedPw;
     try {
       hashedPw = await retry(
@@ -372,20 +366,20 @@ Future checkPasswordBM(String password, String urlUser, int sayac, BuildContext 
 
       showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
-      urlShopFilter = (users[sayac].group_no == 0) ? "/byBmId?bm_id" : "/byBmManavId?bm_manav_id";
+      urlShopFilter = (groupNo == 0) ? "/byBmId?bm_id" : "/byBmManavId?bm_manav_id";
       box.put("urlShopFilter", urlShopFilter);
 
       try {
         await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
 
-        if (users[sayac].group_no == 0) {
+        if (groupNo == 0) {
           await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}");
         } else {
           await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
         }
 
         await saveBSName();
-        await createShopTaskPhotoMap(users[sayac].group_no);
+        await createShopTaskPhotoMap(groupNo);
 
       } catch (error) {
         throw Exception('Veri kaydında hata oluştu');

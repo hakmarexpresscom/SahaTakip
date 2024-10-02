@@ -12,6 +12,13 @@
     <string>Görev fotoğrafı yüklemeniz için mikrofon erişim izninize ihtiyacımız var.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>Görev fotoğrafı yüklemeniz için galeri erişim izninize ihtiyacımız var.</string>
+
+    <!-- Uygulamanızın HTTPS bağlantıları ile web sitelerine yönlendirme yapabilmesi için bu izne ihtiyacımız var. -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>https</string>
+    </array>
+
     <key>io.flutter.embedded_views_preview</key>
     <string>YES</string>
 	<key>CFBundleDevelopmentRegion</key>
