@@ -151,7 +151,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
 
   Widget startWorkButton(BuildContext context){
     return ButtonWidget(
-        text: "Mesaiye Başla",
+        text: "Mesai Türleri",
         heightConst: 0.06,
         widthConst: 0.8,
         size: 18,
@@ -171,28 +171,7 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           }
 
           else if(isWithinTimeRange && connectivityResult[0] != ConnectivityResult.none){
-
-            showAlertDialogWithoutButtonWidget(context,"Mesai Başlatılıyor","Mesainiz başlatılıyor, lütfen bekleyiniz.");
-
-            shiftManager.startShift();
-            setState(() {
-              box.put("startTime",DateTime.now());
-              box.put("shiftDate","");
-              box.put("shiftDate",now.toIso8601String());
-            });
-            await createShift(
-                (isBS)?userID:null,
-                (isBS)?null:userID,
-                "Mesai",
-                box.get("shiftDate"),
-                box.get("startTime").toIso8601String(),
-                null,
-                null,
-                "${constUrl}api/mesai"
-            );
-            await countShift("${constUrl}api/mesai");
-
-            Navigator.of(context).pop(); // Close the dialog
+            await onDayShift('${constUrl}api/Mesai/${urlShiftFilter}=${userID}&mesai_tarihi=${DateTime.now().toIso8601String()}');
             naviShiftTypeScreen(context);
           }
 

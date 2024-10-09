@@ -54,7 +54,11 @@ Future<List<Shift>> fetchShift3(String url) async {
       return Shift.fromJson(data);
     }).toList();
     return shift;
-  } else {
+  }
+  if (response.statusCode == 404) {
+    List<Shift> shift =[];
+    return shift;
+  }else {
     throw Exception('Failed to load Shift List 2');
   }
 }
@@ -113,4 +117,13 @@ Future<Shift> updateFinishHourWorkDurationShift(int id,int? bs_id, int? pm_id, S
 Future countShift(String url) async {
   final List<Shift> shifts = await fetchShift3(url);
   box.put("shiftCount",shifts[shifts.length-1].shift_id);
+}
+
+Future onDayShift(String url) async {
+  final List<Shift> shifts = await fetchShift3(url);
+  if(shifts.isEmpty){
+    box.put("onDayShift",0);
+  }else{
+    box.put("onDayShift",1);
+  }
 }

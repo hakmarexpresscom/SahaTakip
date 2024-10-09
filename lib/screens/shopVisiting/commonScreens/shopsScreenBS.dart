@@ -1,23 +1,17 @@
 import 'dart:async';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:customized_search_bar/customized_search_bar.dart';
 import 'package:deneme/constants/constants.dart';
 import 'package:deneme/routing/bottomNavigationBar.dart';
-import 'package:deneme/utils/appStateManager.dart';
 import 'package:deneme/widgets/cards/visitingShopCard.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../main.dart';
 import '../../../models/shop.dart';
 import '../../../routing/landing.dart';
 import '../../../services/shopServices.dart';
-import '../../../services/visitingDurationsServices.dart';
 import '../../../styles/styleConst.dart';
-import '../../../utils/distanceFunctions.dart';
 import '../../../utils/generalFunctions.dart';
 
 class ShopVisitingShopsScreenBS extends StatefulWidget {
@@ -49,15 +43,14 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
 
   late AnimationController controller;
 
-  final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
-  final ReportManager reportManager = Get.put(ReportManager());
-
   bool servicestatus = false;
   bool haspermission = false;
   late LocationPermission permission;
   late Position position;
   String long = "1", lat = "1";
   late StreamSubscription<Position> positionStream;
+
+  DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -294,56 +287,19 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 VisitingShopCard(
-                                    icon: Icons.store,
-                                    sizedBoxConst1: sizedBoxConst1,
-                                    sizedBoxConst2: sizedBoxConst2,
-                                    sizedBoxConst3: sizedBoxConst3,
-                                    textSizeCode: textSizeCode,
-                                    textSizeName: textSizeName,
-                                    textSizeButton: textSizeButton,
-                                    shopName: snapshot.data![index].shopName,
-                                    shopCode: snapshot.data![index].shopCode.toString(),
-                                    lat: snapshot.data![index].Lat,
-                                    long: snapshot.data![index].Long,
-                                    onTaps: () async {
-
-                                      var connectivityResult = await (Connectivity().checkConnectivity());
-
-                                      if(connectivityResult[0] == ConnectivityResult.none){
-                                        showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
-                                      }
-
-                                      else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
-
-                                        showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
-
-                                        storeVisitManager.startStoreVisit();
-                                        box.put("currentShopName", snapshot.data![index].shopName);
-                                        box.put("currentShopID", snapshot.data![index].shopCode);
-                                        box.put("visitingStartTime", DateTime.now());
-                                        await createVisitingDurations(
-                                            box.get('currentShopID'),
-                                            (isBS == true) ? userID : null,
-                                            (isBS == true) ? null : userID,
-                                            box.get("visitingStartTime").toIso8601String(),
-                                            null,
-                                            box.get("shiftDate"),
-                                            null,
-                                            "${constUrl}api/ZiyaretSureleri"
-                                        );
-                                        await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-
-                                        visitBox.put('elapsedTime', 0);
-                                        visitBox.put('timerStartTime', DateTime.now());
-
-                                        Navigator.of(context).pop(); // Close the dialog
-                                        naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                      }
-
-                                      else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                        showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
-                                      }
-                                    }
+                                  icon: Icons.store,
+                                  sizedBoxConst1: sizedBoxConst1,
+                                  sizedBoxConst2: sizedBoxConst2,
+                                  sizedBoxConst3: sizedBoxConst3,
+                                  textSizeCode: textSizeCode,
+                                  textSizeName: textSizeName,
+                                  textSizeButton: textSizeButton,
+                                  shopName: snapshot.data![index].shopName,
+                                  shopCode: snapshot.data![index].shopCode,
+                                  lat: snapshot.data![index].Lat,
+                                  long: snapshot.data![index].Long,
+                                  currentLat: lat,
+                                  currentLong: long,
                                 )
                               ]
                           );
@@ -367,56 +323,19 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 VisitingShopCard(
-                                    icon: Icons.store,
-                                    sizedBoxConst1: sizedBoxConst1,
-                                    sizedBoxConst2: sizedBoxConst2,
-                                    sizedBoxConst3: sizedBoxConst3,
-                                    textSizeCode: textSizeCode,
-                                    textSizeName: textSizeName,
-                                    textSizeButton: textSizeButton,
-                                    shopName: snapshot.data![index].shopName,
-                                    shopCode: snapshot.data![index].shopCode.toString(),
-                                    lat: snapshot.data![index].Lat,
-                                    long: snapshot.data![index].Long,
-                                    onTaps: () async {
-
-                                      var connectivityResult = await (Connectivity().checkConnectivity());
-
-                                      if(connectivityResult[0] == ConnectivityResult.none){
-                                        showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
-                                      }
-
-                                      else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
-
-                                        showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
-
-                                        storeVisitManager.startStoreVisit();
-                                        box.put("currentShopName", snapshot.data![index].shopName);
-                                        box.put("currentShopID", snapshot.data![index].shopCode);
-                                        box.put("visitingStartTime", DateTime.now());
-                                        await createVisitingDurations(
-                                            box.get('currentShopID'),
-                                            (isBS == true) ? userID : null,
-                                            (isBS == true) ? null : userID,
-                                            box.get("visitingStartTime").toIso8601String(),
-                                            null,
-                                            box.get("shiftDate"),
-                                            null,
-                                            "${constUrl}api/ZiyaretSureleri"
-                                        );
-                                        await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-
-                                        visitBox.put('elapsedTime', 0);
-                                        visitBox.put('timerStartTime', DateTime.now());
-
-                                        Navigator.of(context).pop(); // Close the dialog
-                                        naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                      }
-
-                                      else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                        showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
-                                      }
-                                    }
+                                  icon: Icons.store,
+                                  sizedBoxConst1: sizedBoxConst1,
+                                  sizedBoxConst2: sizedBoxConst2,
+                                  sizedBoxConst3: sizedBoxConst3,
+                                  textSizeCode: textSizeCode,
+                                  textSizeName: textSizeName,
+                                  textSizeButton: textSizeButton,
+                                  shopName: snapshot.data![index].shopName,
+                                  shopCode: snapshot.data![index].shopCode,
+                                  lat: snapshot.data![index].Lat,
+                                  long: snapshot.data![index].Long,
+                                  currentLat: lat,
+                                  currentLong: long,
                                 )
                               ]
                           );
@@ -485,48 +404,11 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                                       textSizeName: textSizeName,
                                       textSizeButton: textSizeButton,
                                       shopName: snapshot.data![index].shopName,
-                                      shopCode: snapshot.data![index].shopCode.toString(),
+                                      shopCode: snapshot.data![index].shopCode,
                                       lat: snapshot.data![index].Lat,
                                       long: snapshot.data![index].Long,
-                                      onTaps: () async{
-
-                                        var connectivityResult = await (Connectivity().checkConnectivity());
-
-                                        if(connectivityResult[0] == ConnectivityResult.none){
-                                          showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
-                                        }
-
-                                        else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
-
-                                          showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
-
-                                          storeVisitManager.startStoreVisit();
-                                          box.put("currentShopName", snapshot.data![index].shopName);
-                                          box.put("currentShopID", snapshot.data![index].shopCode);
-                                          box.put("visitingStartTime",DateTime.now());
-                                          await createVisitingDurations(
-                                            box.get('currentShopID'),
-                                            (isBS==true)?userID:null,
-                                            (isBS==true)?null:userID,
-                                            box.get("visitingStartTime").toIso8601String(),
-                                            null,
-                                            box.get("shiftDate"),
-                                            null,
-                                            "${constUrl}api/ZiyaretSureleri"
-                                          );
-                                          await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-
-                                          visitBox.put('elapsedTime', 0);
-                                          visitBox.put('timerStartTime', DateTime.now());
-
-                                          Navigator.of(context).pop(); // Close the dialog
-                                          naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                        }
-
-                                        else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                          showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
-                                        }
-                                      }
+                                      currentLat: lat,
+                                      currentLong: long,
                                     )
                                   ]
                               );
@@ -550,56 +432,19 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     VisitingShopCard(
-                                        icon: Icons.store,
-                                        sizedBoxConst1: sizedBoxConst1,
-                                        sizedBoxConst2: sizedBoxConst2,
-                                        sizedBoxConst3: sizedBoxConst3,
-                                        textSizeCode: textSizeCode,
-                                        textSizeName: textSizeName,
-                                        textSizeButton: textSizeButton,
-                                        shopName: snapshot.data![index].shopName,
-                                        shopCode: snapshot.data![index].shopCode.toString(),
-                                        lat: snapshot.data![index].Lat,
-                                        long: snapshot.data![index].Long,
-                                        onTaps: () async {
-
-                                          var connectivityResult = await (Connectivity().checkConnectivity());
-
-                                          if(connectivityResult[0] == ConnectivityResult.none){
-                                            showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
-                                          }
-
-                                          else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
-
-                                            showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
-
-                                            storeVisitManager.startStoreVisit();
-                                            box.put("currentShopName", snapshot.data![index].shopName);
-                                            box.put("currentShopID", snapshot.data![index].shopCode);
-                                            box.put("visitingStartTime", DateTime.now());
-                                            await createVisitingDurations(
-                                                box.get('currentShopID'),
-                                                (isBS == true) ? userID : null,
-                                                (isBS == true) ? null : userID,
-                                                box.get("visitingStartTime").toIso8601String(),
-                                                null,
-                                                box.get("shiftDate"),
-                                                null,
-                                                "${constUrl}api/ZiyaretSureleri"
-                                            );
-                                            await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-
-                                            visitBox.put('elapsedTime', 0);
-                                            visitBox.put('timerStartTime', DateTime.now());
-
-                                            Navigator.of(context).pop(); // Close the dialog
-                                            naviShopVisitingProcessesScreen(context, snapshot.data![index].shopCode, snapshot.data![index].shopName);
-                                          }
-
-                                          else if(getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data![index].Lat), double.parse(snapshot.data![index].Long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
-                                            showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
-                                          }
-                                        }
+                                      icon: Icons.store,
+                                      sizedBoxConst1: sizedBoxConst1,
+                                      sizedBoxConst2: sizedBoxConst2,
+                                      sizedBoxConst3: sizedBoxConst3,
+                                      textSizeCode: textSizeCode,
+                                      textSizeName: textSizeName,
+                                      textSizeButton: textSizeButton,
+                                      shopName: snapshot.data![index].shopName,
+                                      shopCode: snapshot.data![index].shopCode,
+                                      lat: snapshot.data![index].Lat,
+                                      long: snapshot.data![index].Long,
+                                      currentLat: lat,
+                                      currentLong: long,
                                     )
                                   ]
                               );

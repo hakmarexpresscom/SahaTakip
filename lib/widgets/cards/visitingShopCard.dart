@@ -1,8 +1,19 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/styles/context_extension.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/button_widget.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../constants/constants.dart';
+import '../../main.dart';
+import '../../routing/landing.dart';
+import '../../services/shiftServices.dart';
+import '../../services/visitingDurationsServices.dart';
+import '../../utils/appStateManager.dart';
+import '../../utils/distanceFunctions.dart';
+import '../../utils/generalFunctions.dart';
 
 class VisitingShopCard extends StatefulWidget {
 
@@ -10,14 +21,17 @@ class VisitingShopCard extends StatefulWidget {
   late double sizedBoxConst2;
   late double sizedBoxConst3;
   late String shopName;
-  late String shopCode;
+  late int shopCode;
   late String lat;
   late String long;
+  late String currentLat;
+  late String currentLong;
   final IconData icon;
   late double textSizeCode;
   late double textSizeName;
   late double textSizeButton;
-  final VoidCallback onTaps;
+  final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+  final ShiftManager shiftManager = Get.put(ShiftManager());
 
   VisitingShopCard({Key? key,
     required this.sizedBoxConst1,
@@ -27,11 +41,14 @@ class VisitingShopCard extends StatefulWidget {
     required this.shopCode,
     required this.lat,
     required this.long,
+    required this.currentLat,
+    required this.currentLong,
     required this.icon,
     required this.textSizeCode,
     required this.textSizeButton,
     required this.textSizeName,
-    required this.onTaps}): super(key: key);
+  }
+  ): super(key: key);
 
   @override
   State<VisitingShopCard> createState() => _VisitingShopCardState();
@@ -61,11 +78,82 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
               children: [Icon(widget.icon,size: 35,),],
             ),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst1),),
-            TextWidget(text: widget.shopCode, size: widget.textSizeCode, fontWeight: FontWeight.w600, color: textColor),
+            TextWidget(text: widget.shopCode.toString(), size: widget.textSizeCode, fontWeight: FontWeight.w600, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst2),),
             TextWidget(text: widget.shopName, size: widget.textSizeName, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: context.dynamicHeight(widget.sizedBoxConst3),),
-            ButtonWidget(text: "Ziyarete Başla", heightConst: 0.04, widthConst: 0.35, size: widget.textSizeButton, radius: 20, fontWeight: FontWeight.w500, onTaps: (){widget.onTaps();}, borderWidht: 1, backgroundColor: secondaryColor, borderColor: Colors.transparent, textColor: textColor),
+            ButtonWidget(
+                text: "Ziyarete Başla",
+                heightConst: 0.04,
+                widthConst: 0.35,
+                size: widget.textSizeButton,
+                radius: 20,
+                fontWeight: FontWeight.w500,
+                onTaps: () async{
+
+                  var connectivityResult = await (Connectivity().checkConnectivity());
+
+                  if(connectivityResult[0] == ConnectivityResult.none){
+                    showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
+                  }
+
+                  else if (getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
+                    showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
+
+                    if(box.get("onDayShift")==0){
+                      widget.shiftManager.startShift();
+                      box.put("onDayShift",1);
+                      setState(() {
+                        box.put("startTime",DateTime.now());
+                        box.put("shiftDate","");
+                        box.put("shiftDate",DateTime.now().toIso8601String());
+                      });
+                      await createShift(
+                        (isBS)?userID:null,
+                        (isBS)?null:userID,
+                        "Mesai",
+                        box.get("shiftDate"),
+                        box.get("startTime").toIso8601String(),
+                        null,
+                        null,
+                        "${constUrl}api/mesai"
+                      );
+                      await countShift("${constUrl}api/mesai");
+                    }
+
+                    widget.storeVisitManager.startStoreVisit();
+                    box.put("currentShopName", widget.shopName);
+                    box.put("currentShopID", widget.shopCode);
+                    box.put("visitingStartTime", DateTime.now());
+                    await createVisitingDurations(
+                      box.get('currentShopID'),
+                      (isBS == true) ? userID : null,
+                      (isBS == true) ? null : userID,
+                      box.get("visitingStartTime").toIso8601String(),
+                      null,
+                      box.get("shiftDate"),
+                      null,
+                      "${constUrl}api/ZiyaretSureleri"
+                    );
+                    await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+
+                    visitBox.put('elapsedTime', 0);
+                    visitBox.put('timerStartTime', DateTime.now());
+
+                    Navigator.of(context).pop(); // Close the dialog
+                    naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName);
+                  }
+
+                  else if(getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
+                    showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
+                  }
+                },
+                borderWidht: 1,
+                backgroundColor:
+                secondaryColor,
+                borderColor: Colors.transparent,
+                textColor: textColor
+            ),
             SizedBox(height: context.dynamicHeight(0.02),),
           ],
       ),
