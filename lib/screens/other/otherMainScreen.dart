@@ -47,9 +47,6 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesBS3;
-        }
         _selectedIndex = 4;
       }
       if(user=="PM"){
@@ -59,9 +56,6 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
-        }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesPM3;
         }
         _selectedIndex = 5;
       }

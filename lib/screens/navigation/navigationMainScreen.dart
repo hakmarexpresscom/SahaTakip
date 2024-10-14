@@ -69,9 +69,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesBS3;
-        }
         _selectedIndex = 1;
       }
       if(user=="PM"){
@@ -81,9 +78,6 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
-        }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesPM3;
         }
         _selectedIndex = 1;
       }

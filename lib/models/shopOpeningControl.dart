@@ -90,6 +90,8 @@ class InShopOpenControl{
   }
 }
 
+// -------------------------------------
+
 class OutShopOpenControl{
   late int formID;
   late int magaza_kodu;

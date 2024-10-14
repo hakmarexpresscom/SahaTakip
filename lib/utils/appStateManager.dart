@@ -15,6 +15,8 @@ class ShiftManager extends GetxController {
   }
 }
 
+//------------
+
 class StoreVisitManager extends GetxController {
 
   void startStoreVisit() {
@@ -27,6 +29,8 @@ class StoreVisitManager extends GetxController {
     boxStateManagement.put('isStoreVisit', false);
   }
 }
+
+//------------
 
 class RegionCenterVisitManager extends GetxController {
 
@@ -41,6 +45,7 @@ class RegionCenterVisitManager extends GetxController {
   }
 }
 
+//------------
 
 class ReportManager extends GetxController {
 
@@ -52,6 +57,36 @@ class ReportManager extends GetxController {
   void noReport() {
     isReportCreated.value = false;
     boxStateManagement.put('isReport', false);
+  }
+}
+
+//------------
+
+class PhotoManager1 extends GetxController {
+
+  void uploadeBeforePhoto() {
+    beforePhoto.value = true;
+    boxStateManagement.put('isBefore', true);
+  }
+
+  void noBeforePhoto() {
+    beforePhoto.value = false;
+    boxStateManagement.put('isBefore', false);
+  }
+}
+
+//------------
+
+class PhotoManager2 extends GetxController {
+
+  void uploadeAfterPhoto() {
+    afterPhoto.value = true;
+    boxStateManagement.put('isAftere', true);
+  }
+
+  void noAfterPhoto() {
+    afterPhoto.value = false;
+    boxStateManagement.put('isAfter', false);
   }
 }
 

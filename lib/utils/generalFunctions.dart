@@ -18,6 +18,8 @@ Future createShopList(String url) async{
   }
 }
 
+//------------
+
 Future createSearchBarShopList(String url, bool isPartner) async{
   final List<Shop> shops = await fetchShop2(url);
   for(int i=0; i<shops.length;i++){
@@ -26,6 +28,8 @@ Future createSearchBarShopList(String url, bool isPartner) async{
     }
   }
 }
+
+//------------
 
 Future<void> saveShopCodes(String url) async {
   final List<Shop> shops = await fetchShop2(url);
@@ -38,6 +42,8 @@ Future<void> saveShopCodes(String url) async {
   await box.put("urlTaskShops", urlTaskShops);
   await box.put("shopCodes", shopCodes);
 }
+
+//------------
 
 Future<void> saveBSID(String url) async {
   final List<Shop> shops = await fetchShop2(url);
@@ -55,6 +61,8 @@ Future<void> saveBSID(String url) async {
   await box.put("allSelected", allSelected);
 }
 
+//------------
+
 Future<void> saveBSManavID(String url) async {
   final List<Shop> shops = await fetchShop2(url);
   if (!bsIDs.contains(0)) {
@@ -71,6 +79,26 @@ Future<void> saveBSManavID(String url) async {
   await box.put("allSelected", allSelected);
 }
 
+//------------
+
+Future<void> saveBSUnkarID(String url) async {
+  final List<Shop> shops = await fetchShop2(url);
+  if (!bsIDs.contains(0)) {
+    bsIDs.add(0);
+    allSelected.add(false);
+  }
+  for (Shop shop in shops) {
+    if (!bsIDs.contains(shop.bs_unkar_id)) {
+      bsIDs.add(shop.bs_unkar_id);
+      allSelected.add(false);
+    }
+  }
+  await box.put("bsIDs", bsIDs);
+  await box.put("allSelected", allSelected);
+}
+
+//------------
+
 Future<void> saveBSName() async {
   if (!bsNames.contains("Tüm BS'ler")) {
     bsNames.add("Tüm BS'ler");
@@ -84,6 +112,8 @@ Future<void> saveBSName() async {
   }
   await box.put("bsNames", bsNames);
 }
+
+//------------
 
 Future createShopTaskPhotoMap(int grup) async {
   final List<Future<Shop>> fetchFutures = shopCodes.map<Future<Shop>>((code) {
@@ -102,6 +132,8 @@ Future createShopTaskPhotoMap(int grup) async {
   }
 }
 
+//------------
+
 Future createShopTaskPhotoMapBS(int grup) async{
   for(int i=0;i<box.get("shopCodes").length;i++){
     final Shop shop = await fetchShop3("${constUrl}api/Magaza/${box.get("shopCodes")[i]}");
@@ -112,6 +144,8 @@ Future createShopTaskPhotoMapBS(int grup) async{
 void resetTaskPhotos(){
   taskPhotos=[];
 }
+
+//------------
 
 addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String countPhotoUrl, int? bs_id, int? pm_id, int? bm_id, String photoType, String createPhotoUrl) async{
   for(int i=0;i<shopCodes.length;i++){
@@ -127,6 +161,8 @@ addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, S
   }
 }
 
+//------------
+
 addReportTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType) async{
     await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCode, box.get("currentShopName"), photo_id, taskType, report_id, group_no, boxShopTaskPhoto.get(shopCode.toString())[4], createTaskUrl);
     await countIncompleteTask(countTaskUrl);
@@ -136,6 +172,8 @@ addReportTaskToDatabase(String countTaskUrl, String title, String? detail, Strin
       updatePhotoIDIncompleteTask(box.get("incompleteTaskCount"),title, detail, assignmentDate, finishDate, shopCode, box.get("currentShopName"), box.get("photoCount"), taskType, report_id, group_no, boxShopTaskPhoto.get(shopCode.toString())[4], "${constUrl}api/TamamlanmamisGorev/${box.get("incompleteTaskCount")}");
     }
 }
+
+//------------
 
 String calculateElapsedTime(DateTime startTime, DateTime endTime) {
   Duration difference = endTime.difference(startTime);
@@ -148,11 +186,15 @@ String calculateElapsedTime(DateTime startTime, DateTime endTime) {
   return elapsedTime;
 }
 
+//------------
+
 int calculateDaysBetweenDates(DateTime startDate, DateTime endDate) {
   Duration difference = endDate.difference(startDate);
   int days = difference.inDays;
   return days;
 }
+
+//------------
 
 void openAppleMaps(double latitude, double longitude) async {
   final Uri appleMapsUrl = Uri.parse('https://maps.apple.com/?q=$latitude,$longitude');
@@ -162,6 +204,8 @@ void openAppleMaps(double latitude, double longitude) async {
     throw 'Apple Maps açılamadı';
   }
 }
+
+//------------
 
 void openGoogleMaps(double latitude, double longitude) async {
   final Uri googleMapsUrl = Uri.parse('https://www.google.com/maps/place/$latitude,$longitude');
@@ -173,6 +217,8 @@ void openGoogleMaps(double latitude, double longitude) async {
   }
 }
 
+//------------
+
 void openUpdatePage() async {
   final Uri updateUrl = Uri.parse('https://bizz-indir.hakmarexpress.com');
   try {
@@ -181,6 +227,8 @@ void openUpdatePage() async {
     throw 'Sayfa açılamadı: $e';
   }
 }
+
+//------------
 
 showAlertDialogWithoutButtonWidget(BuildContext context, String title, String content) {
   showDialog(
@@ -194,6 +242,8 @@ showAlertDialogWithoutButtonWidget(BuildContext context, String title, String co
     },
   );
 }
+
+//------------
 
 showAlertDialogWidget(BuildContext context, String title, String content, VoidCallback onTaps) {
   showDialog(

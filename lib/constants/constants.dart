@@ -25,6 +25,12 @@ bool isRegionCenterVisit = (isLoggedIn)?boxStateManagement.get('isRegionCenterVi
 RxBool isReportCreated = isReport.obs;
 bool isReport = (isLoggedIn)?boxStateManagement.get('isReport'):false;
 
+RxBool beforePhoto = isBefore.obs;
+bool isBefore = (isLoggedIn)?boxStateManagement.get('isBefore'):false;
+
+RxBool afterPhoto = isAfter.obs;
+bool isAfter = (isLoggedIn)?boxStateManagement.get('isAfter'):false;
+
 class GoogleMapMarkerList {
 
   static List<Map<String, dynamic>> list = [
@@ -49,6 +55,7 @@ List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
+int yoneticiEmail = (isLoggedIn)?box.get("yoneticiID"):"email";
 int groupNo = (isLoggedIn)?box.get("groupNo"):0;
 int regionCode = (isLoggedIn)?box.get("regionCode"):0;
 

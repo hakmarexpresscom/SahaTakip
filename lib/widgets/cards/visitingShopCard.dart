@@ -137,11 +137,11 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                     );
                     await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
-                    visitBox.put('elapsedTime', 0);
-                    visitBox.put('timerStartTime', DateTime.now());
+                    boxVisitTimer.put('elapsedTime', 0);
+                    boxVisitTimer.put('timerStartTime', DateTime.now());
 
                     Navigator.of(context).pop(); // Close the dialog
-                    naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName);
+                    naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
                   }
 
                   else if(getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){

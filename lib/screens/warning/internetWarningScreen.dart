@@ -58,7 +58,7 @@ class _InternetWarningScreenState extends State<InternetWarningScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: deviceHeight*0.25,),
-            versionInfo(),
+            internetInfo(),
           ],
         ),
       );
@@ -66,7 +66,7 @@ class _InternetWarningScreenState extends State<InternetWarningScreen> {
   }
 
 
-  Widget versionInfo(){
+  Widget internetInfo(){
     return TextWidget(
         text:"Internete bağlı değilsiniz. Lütfen uygulamayı kapatıp telefonunuzu internete bağlayarak tekrardan açınız.",
         size: 25,

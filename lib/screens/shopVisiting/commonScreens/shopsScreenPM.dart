@@ -163,9 +163,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesBS3;
-        }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
@@ -174,9 +171,6 @@ class _ShopVisitingShopsScreenPMState extends State<ShopVisitingShopsScreenPM> w
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
-        }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesPM3;
         }
       }
       if(user=="BM" || user=="GK"){

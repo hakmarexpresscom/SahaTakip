@@ -63,7 +63,7 @@ class _VersionWarningScreenState extends State<VersionWarningScreen> {
             SizedBox(height: deviceHeight*0.2,),
             versionInfo(),
             SizedBox(height: deviceHeight*0.05,),
-            updateAppButton(),
+            updateAppButton(context),
           ],
         ),
       );
@@ -80,7 +80,7 @@ class _VersionWarningScreenState extends State<VersionWarningScreen> {
     );
   }
 
-  Widget updateAppButton(){
+  Widget updateAppButton(BuildContext context){
     return ButtonWidget(
         text: "Uygulamayı Güncelle",
         heightConst: 0.06,

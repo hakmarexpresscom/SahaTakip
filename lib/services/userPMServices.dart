@@ -45,3 +45,17 @@ Future<List<UserPM>> fetchUserPM2(String url) async {
   }
 }
 
+Future<UserPM> fetchUserPM3(String url) async {
+  final response = await http.get(
+    Uri.parse(url),
+    headers: {
+      'api_key': apiKey,
+    },
+  );
+  if (response.statusCode == 200) {
+    return UserPM.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load User PM');
+  }
+}
+

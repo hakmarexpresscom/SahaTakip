@@ -175,6 +175,11 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("yoneticiID", users[sayac].manager_id);
       yoneticiID = box.get("yoneticiID");
 
+      final UserPM userPM = await fetchUserPM3("${constUrl}api/KullaniciPM/${yoneticiID}");
+
+      box.put("yoneticiEmail", userPM.email);
+      yoneticiID = box.get("yoneticiEmail");
+
       sayac=i;
     }
   }
@@ -206,8 +211,18 @@ Future checkPasswordBS(String password, String urlUser, BuildContext context) as
 
       showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
-      urlShopFilter = (groupNo == 0) ? "/byBsId?bs_id" : "/byBsManavId?bs_manav_id";
-      box.put("urlShopFilter", urlShopFilter);
+      if(groupNo==0){
+        urlShopFilter = "/byBsId?bs_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
+      else if(groupNo==1){
+        urlShopFilter = "/byBsManavId?bs_manav_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
+      else if(groupNo==2){
+        urlShopFilter = "/byBsUnkarId?bs_unkar_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
 
       try {
 
@@ -255,6 +270,11 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("yoneticiID", users[sayac].manager_id);
       yoneticiID = box.get("yoneticiID");
 
+      final UserBM userBM = await fetchUserBM3("${constUrl}api/KullaniciBM/${yoneticiID}");
+
+      box.put("yoneticiEmail", userBM.email);
+      yoneticiEmail = box.get("yoneticiEmail");
+
       sayac=i;
     }
   }
@@ -286,16 +306,30 @@ Future checkPasswordPM(String password, String urlUser,BuildContext context) asy
 
       showAlertDialogWithoutButtonWidget(context,"Giriş Yapılıyor","Uygulamaya giriş yapıyorsunuz, lütfen bekleyiniz.");
 
-      urlShopFilter = (groupNo == 0) ? "/byPmId?pm_id" : "/byPmManavId?pm_manav_id";
-      box.put("urlShopFilter", urlShopFilter);
+      if(groupNo==0){
+        urlShopFilter = "/byPmId?Pm_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
+      else if(groupNo==1){
+        urlShopFilter = "/byPmManavId?pm_manav_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
+      else if(groupNo==2){
+        urlShopFilter = "/byPmUnkarId?pm_unkar_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
 
       try {
         await saveShopCodes("${constUrl}api/magaza${urlShopFilter}=${userID}");
 
         if (groupNo == 0) {
           await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}");
-        } else {
+        }
+        else if(groupNo==1){
           await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
+        }
+        else if(groupNo==2){
+          await saveBSUnkarID("${constUrl}api/magaza${urlShopFilter}=${userID}");
         }
 
         await saveBSName();

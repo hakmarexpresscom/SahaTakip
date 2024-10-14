@@ -150,9 +150,6 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS2;
         }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesBS3;
-        }
       }
       if(user=="PM"){
         naviBarList = itemListPM;
@@ -161,9 +158,6 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM2;
-        }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesPM3;
         }
       }
       if(user=="BM" || user=="GK"){
@@ -281,6 +275,27 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
 
                     showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
+                    if(box.get("onDayShift")==0){
+                      shiftManager.startShift();
+                      box.put("onDayShift",1);
+                      setState(() {
+                        box.put("startTime",DateTime.now());
+                        box.put("shiftDate","");
+                        box.put("shiftDate",DateTime.now().toIso8601String());
+                      });
+                      await createShift(
+                          (isBS)?userID:null,
+                          (isBS)?null:userID,
+                          "Mesai",
+                          box.get("shiftDate"),
+                          box.get("startTime").toIso8601String(),
+                          null,
+                          null,
+                          "${constUrl}api/mesai"
+                      );
+                      await countShift("${constUrl}api/mesai");
+                    }
+
                     regionCenterVisitManager.startRegionCenterVisit();
                     box.put("currentCenterName", snapshot.data!.centerName);
                     box.put("currentCenterID", snapshot.data!.centerCode);
@@ -297,11 +312,11 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                     );
                     await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
-                    visitBox.put('elapsedTime', 0);
-                    visitBox.put('timerStartTime', DateTime.now());
+                    boxVisitTimer.put('elapsedTime', 0);
+                    boxVisitTimer.put('timerStartTime', DateTime.now());
 
                     Navigator.of(context).pop(); // Close the dialog
-                    naviRegionCenterVisitingMainScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName);
+                    naviRegionCenterVisitingProcessesScreen(context,snapshot.data!.centerCode,snapshot.data!.centerName, box.get("groupNo"));
                   }
 
                   else if (getDistance(double.parse(lat), double.parse(long), double.parse(snapshot.data!.Lat), double.parse(snapshot.data!.Long))>250.0  && connectivityResult[0] != ConnectivityResult.none){

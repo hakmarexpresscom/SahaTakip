@@ -149,9 +149,6 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         else if(isStartShiftObs.value && isRegionCenterVisitInProgress.value == false){
           pageList = pagesBS2;
         }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesBS3;
-        }
       }
       if(user == "PM"){
         naviBarList = itemListPM;
@@ -160,9 +157,6 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         }
         else if(isStartShiftObs.value && isRegionCenterVisitInProgress.value == false){
           pageList = pagesPM2;
-        }
-        else if(isRegionCenterVisitInProgress.value){
-          pageList = pagesPM3;
         }
         _selectedIndex = 4;
       }

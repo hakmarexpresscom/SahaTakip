@@ -3,8 +3,12 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
-import 'package:deneme/screens/regionCenterVisiting/regionCenterVisitingMainScreen.dart';
-import 'package:deneme/screens/shopVisiting/commonScreens/processesScreen.dart';
+import 'package:deneme/screens/regionCenterVisiting/manav/regionCenterVisitingProcessesScreenManav.dart';
+import 'package:deneme/screens/regionCenterVisiting/satisOperasyon/regionCenterVisitingProcessesScreenSatisOperasyon.dart';
+import 'package:deneme/screens/regionCenterVisiting/unkar/regionCenterVisitingProcessesScreenUnkar.dart';
+import 'package:deneme/screens/shopVisiting/manav/shopVisitingProcessesScreenManav.dart';
+import 'package:deneme/screens/shopVisiting/satisOperasyon/shopVisitingProcessesScreenSatisOperasyon.dart';
+import 'package:deneme/screens/shopVisiting/unkar/shopVisitingProcessesScreenUnkar.dart';
 import 'package:deneme/screens/startWork/shiftTypeScreen.dart';
 import 'package:deneme/screens/startWork/startWorkMainScreen.dart';
 import 'package:deneme/screens/warning/internetWarningScreen.dart';
@@ -22,7 +26,8 @@ import 'models/version.dart';
 var appConstants = Hive.box('appConstants');
 var stateManagementConstants = Hive.box('stateManagementConstants');
 var shopTaskPhotoConstants = Hive.box('shopTaskPhotoConstants');
-var visitBox = Hive.box('visitBox');
+var visitTimer = Hive.box('visitTimer');
+var shopVisitingPhoto = Hive.box('shopVisitingPhoto');
 var versions1;
 var internetConnection;
 
@@ -31,6 +36,8 @@ bool isLoggedIn = false;
 var box;
 var boxStateManagement;
 var boxShopTaskPhoto;
+var boxVisitTimer;
+var boxshopVisitingPhoto;
 
 void main() async{
 
@@ -56,8 +63,13 @@ void main() async{
 
   final appDocumentDir4 = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir4.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveVisitBox = await Hive.openBox('visitBox');
-  visitBox = hiveVisitBox;
+  var hiveVisitTimer = await Hive.openBox('visitTimer');
+  boxVisitTimer = hiveVisitTimer;
+
+  final appDocumentDir5 = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir5.path,backendPreference: HiveStorageBackendPreference.native);
+  var hiveShopVisitingPhoto = await Hive.openBox('shopVisitingPhoto');
+  boxshopVisitingPhoto = hiveShopVisitingPhoto;
 
   if(internetConnection[0] != ConnectivityResult.none){
     final List<Version> versions2 = await fetchVersion2('${constUrl}api/Versiyon');
@@ -127,11 +139,27 @@ class _MyAppState extends State<MyApp> {
       }
 
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        if(box.get("groupNo")==0){
+          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        }
+        else if(box.get("groupNo")==1){
+          page = ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        }
+        else if(box.get("groupNo")==2){
+          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        }
       }
 
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isRegionCenterVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        page = RegionCenterVisitingMainScreen(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        if(box.get("groupNo")==0){
+          page = RegionCenterVisitingProcessesScreenSatisOperasyon(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        }
+        else if(box.get("groupNo")==1){
+          page = RegionCenterVisitingProcessesScreenManav(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        }
+        else if(box.get("groupNo")==2){
+          page = RegionCenterVisitingProcessesScreenUnkar(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        }
       }
 
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStartShift')==true && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
@@ -229,11 +257,27 @@ class _MyAppState2 extends State<MyApp> {
       }
 
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        page = ShopVisitingProcessesScreen(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        if(box.get("groupNo")==0){
+          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        }
+        else if(box.get("groupNo")==1){
+          page = ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        }
+        else if(box.get("groupNo")==2){
+          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+        }
       }
 
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isRegionCenterVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
-        page = RegionCenterVisitingMainScreen(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        if(box.get("groupNo")==0){
+          page = RegionCenterVisitingProcessesScreenSatisOperasyon(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        }
+        else if(box.get("groupNo")==1){
+          page = RegionCenterVisitingProcessesScreenManav(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        }
+        else if(box.get("groupNo")==2){
+          page = RegionCenterVisitingProcessesScreenUnkar(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+        }
       }
 
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStartShift')==true && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){

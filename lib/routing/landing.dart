@@ -1,6 +1,14 @@
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
 import 'package:deneme/screens/other/otherMainScreen.dart';
+import 'package:deneme/screens/shopVisiting/manav/userBSManav/inPlaceTasksManav/inPlaceTaskDetailScreenManav.dart';
+import 'package:deneme/screens/shopVisiting/manav/userPMManav/visitingReportManav/pastReportTaskDetailScreenManav.dart';
+import 'package:deneme/screens/shopVisiting/manav/userPMManav/visitingReportManav/pastReportTasksScreenManav.dart';
+import 'package:deneme/screens/shopVisiting/satisOperasyon/shopVisitingProcessesScreenSatisOperasyon.dart';
+import 'package:deneme/screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/inPlaceTasksSatisOperasyon/inPlaceTaskDetailScreenSatisOperasyon.dart';
+import 'package:deneme/screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/visitingReportTasksSatisOperasyon/visitingReportTasksMainScreenSatisOperasyon.dart';
+import 'package:deneme/screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/visitingReportSatisOperasyon/pastReportTaskDetailScreenSatisOperasyon.dart';
+import 'package:deneme/screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/visitingReportSatisOperasyon/pastReportTasksScreenSatisOperasyon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/authScreens/loginScreen/forgetPasswordScreen.dart';
@@ -13,24 +21,30 @@ import '../screens/photoScreen/answerDownloadedPhoto.dart';
 import '../screens/photoScreen/taskDownloadedPhoto.dart';
 import '../screens/photoScreen/taskPhoto.dart';
 import '../screens/photoScreen/taskPhotoGalleryView.dart';
-import '../screens/regionCenterVisiting/manavDepoFormScreen.dart';
-import '../screens/regionCenterVisiting/regionCenterVisitingMainScreen.dart';
+import '../screens/regionCenterVisiting/manav/formsManav/manavDepoFormScreen.dart';
+import '../screens/regionCenterVisiting/manav/regionCenterVisitingProcessesScreenManav.dart';
+import '../screens/regionCenterVisiting/satisOperasyon/regionCenterVisitingProcessesScreenSatisOperasyon.dart';
+import '../screens/regionCenterVisiting/unkar/regionCenterVisitingProcessesScreenUnkar.dart';
 import '../screens/remoteTasks/remoteTaskDetailScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
-import '../screens/shopVisiting/commonScreens/cashCountingScreen.dart';
-import '../screens/shopVisiting/commonScreens/processesScreen.dart';
-import '../screens/shopVisiting/commonScreens/shopClosingCheckingScreen.dart';
-import '../screens/shopVisiting/commonScreens/shopOpeningCheckingScreen.dart';
+import '../screens/shopVisiting/manav/formsManav/manavShopFormScreen.dart';
+import '../screens/shopVisiting/manav/shopVisitingProcessesScreenManav.dart';
+import '../screens/shopVisiting/manav/userBSManav/inPlaceTasksManav/inPlaceTasksMainScreenManav.dart';
+import '../screens/shopVisiting/manav/userBSManav/visitingReportTasksManav/visitingReportTaskDetailScreenManav.dart';
+import '../screens/shopVisiting/manav/userBSManav/visitingReportTasksManav/visitingReportTasksMainScreenManav.dart';
+import '../screens/shopVisiting/manav/userPMManav/visitingReportManav/visitingReportMainScreenManav.dart';
+import '../screens/shopVisiting/satisOperasyon/formsSatisOperasyon/cashCountingScreen.dart';
+import '../screens/shopVisiting/satisOperasyon/formsSatisOperasyon/shopClosingCheckingScreen.dart';
+import '../screens/shopVisiting/satisOperasyon/formsSatisOperasyon/shopOpeningCheckingScreen.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreenBS.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreenPM.dart';
-import '../screens/shopVisiting/manavForms/manavShopFormScreen.dart';
-import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTaskDetailScreen.dart';
-import '../screens/shopVisiting/userBS/inPlaceTasks/inPlaceTasksMainScreen.dart';
-import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTaskDetailScreen.dart';
-import '../screens/shopVisiting/userBS/visitingReportTasks/visitingReportTasksMainScreen.dart';
-import '../screens/shopVisiting/userPM/visitingReport/pastReportTaskDetailScreen.dart';
-import '../screens/shopVisiting/userPM/visitingReport/pastReportTasksScreen.dart';
-import '../screens/shopVisiting/userPM/visitingReport/visitingReportMainScreen.dart';
+import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/inPlaceTasksSatisOperasyon/inPlaceTasksMainScreenSatisOperasyon.dart';
+import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/visitingReportTasksSatisOperasyon/visitingReportTaskDetailScreenSatisOperasyon.dart';
+import '../screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/visitingReportSatisOperasyon/visitingReportMainScreenSatisOperasyon.dart';
+import '../screens/shopVisiting/unkar/formsUnkar/breadGroupFormScreen.dart';
+import '../screens/shopVisiting/unkar/formsUnkar/frozenGroupFormScreen.dart';
+import '../screens/shopVisiting/unkar/formsUnkar/tatbakGroupFormScreen.dart';
+import '../screens/shopVisiting/unkar/shopVisitingProcessesScreenUnkar.dart';
 import '../screens/startWork/shiftTypeScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
@@ -79,36 +93,71 @@ void naviShopClosingCheckingScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopClosingCheckingScreen(shop_code: id)));
 }
 
-void naviVisitingReportTaskMainScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreen(shop_code: id,)));
+void naviVisitingReportTaskMainScreen(BuildContext context, id, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreenSatisOperasyon(shop_code: id,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskMainScreenManav(shop_code: id,)));
+  }
 }
 
-void naviInPlaceTaskMainScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreen(shop_code:id)));
+void naviInPlaceTaskMainScreen(BuildContext context, id, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreenSatisOperasyon(shop_code: id,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreenManav(shop_code: id,)));
+  }
 }
 
 void naviCashCountingScreen(BuildContext context, id, name){
   Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen(shop_code:id, shopName: name,)));
 }
 
-void naviVisitingReportMainScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreen(shop_code: id,)));
+void naviVisitingReportMainScreen(BuildContext context, id, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreenSatisOperasyon(shop_code: id,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingRaportMainScreenManav(shop_code: id,)));
+  }
 }
 
-void naviInPlaceTaskDetailScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreen(task_id: id)));
+void naviInPlaceTaskDetailScreen(BuildContext context, id, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreenSatisOperasyon(task_id: id)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreenManav(task_id: id)));
+  }
 }
 
-void naviVisitingReportTaskDetailScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreen(task_id: id)));
+void naviVisitingReportTaskDetailScreen(BuildContext context, id, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreenSatisOperasyon(task_id: id)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VisitingReportTaskDetailScreenManav(task_id: id)));
+  }
 }
 
-void naviPastReportTasksScreen(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreen(report_id: id,)));
+void naviPastReportTasksScreen(BuildContext context, id, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreenSatisOperasyon(report_id: id,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreenManav(report_id: id,)));
+  }
 }
 
-void naviPastReportTaskDetailScreen(BuildContext context, id,completionInfo){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreen(task_id: id,completionInfo: completionInfo,)));
+void naviPastReportTaskDetailScreen(BuildContext context, id,completionInfo, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreenSatisOperasyon(task_id: id,completionInfo: completionInfo,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreenManav(task_id: id,completionInfo: completionInfo,)));
+  }
 }
 
 void naviSubmitTaskMainScreen(BuildContext context){
@@ -135,8 +184,16 @@ void naviForgetPasswordScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
 }
 
-void naviShopVisitingProcessesScreen(BuildContext context, id, name){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreen(shop_code:id, shopName: name,)));
+void naviShopVisitingProcessesScreen(BuildContext context, id, name, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreenSatisOperasyon(shop_code:id, shopName: name,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreenManav(shop_code:id, shopName: name,)));
+  }
+  else if(groupNo == 2){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreenUnkar(shop_code:id, shopName: name,)));
+  }
 }
 
 void naviTaskDownloadedPhotoScreen(BuildContext context, id){
@@ -167,8 +224,16 @@ void naviPlaceSelectionScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => PlaceSelectionScreen()));
 }
 
-void naviRegionCenterVisitingMainScreen(BuildContext context, id, name){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingMainScreen(region_code:id, regionName: name,)));
+void naviRegionCenterVisitingProcessesScreen(BuildContext context, id, name, groupNo){
+  if(groupNo == 0){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingProcessesScreenSatisOperasyon(region_code:id, regionName: name,)));
+  }
+  else if(groupNo == 1){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingProcessesScreenManav(region_code:id, regionName: name,)));
+  }
+  else if(groupNo == 2){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingProcessesScreenUnkar(region_code:id, regionName: name,)));
+  }
 }
 
 void naviShiftTypeScreen(BuildContext context){
@@ -181,6 +246,18 @@ void naviManavDepoFormScreen(BuildContext context, id){
 
 void naviManavShopFormScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ManavShopFormScreen(shop_code: id,)));
+}
+
+void naviBreadGroupFormScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => BreadGroupFormScreen(shop_code: id,)));
+}
+
+void naviTatbakGroupFormScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => TatbakGroupFormScreen(shop_code: id,)));
+}
+
+void naviFrozenGroupFormScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => FrozenGroupFormScreen(shop_code: id,)));
 }
 
 void naviOtherMainScreen(BuildContext context){
