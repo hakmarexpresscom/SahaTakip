@@ -81,7 +81,7 @@ class PhotoManager2 extends GetxController {
 
   void uploadeAfterPhoto() {
     afterPhoto.value = true;
-    boxStateManagement.put('isAftere', true);
+    boxStateManagement.put('isAfter', true);
   }
 
   void noAfterPhoto() {

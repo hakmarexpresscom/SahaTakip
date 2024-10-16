@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:deneme/screens/authScreens/loginScreen/loginMainScreen.dart';
 import 'package:deneme/screens/navigation/navigationMainScreen.dart';
+import 'package:deneme/screens/photoScreen/shopVisitingBeforeAfterPhotoScreen.dart';
 import 'package:deneme/screens/regionCenterVisiting/manav/regionCenterVisitingProcessesScreenManav.dart';
 import 'package:deneme/screens/regionCenterVisiting/satisOperasyon/regionCenterVisitingProcessesScreenSatisOperasyon.dart';
 import 'package:deneme/screens/regionCenterVisiting/unkar/regionCenterVisitingProcessesScreenUnkar.dart';
@@ -139,23 +140,31 @@ class _MyAppState extends State<MyApp> {
         page3 = InternetWarningScreen();
       }
 
+
       else if(versions1[0].version!="1.1.1+19"){
         page = VersionWarningScreen();
         page2 = VersionWarningScreen();
         page3 = VersionWarningScreen();
       }
 
+
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
-          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
         else if(box.get("groupNo")==1){
-          page = ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
         else if(box.get("groupNo")==2){
-          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
       }
+
+
+      else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==false && boxStateManagement.get('isBefore')==true && boxStateManagement.get('isAfter')==false && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = ShopVisitingBeforeAfterPhotoScreen(isBefore: false);
+      }
+
 
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isRegionCenterVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
@@ -169,9 +178,11 @@ class _MyAppState extends State<MyApp> {
         }
       }
 
+
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStartShift')==true && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ShiftTypeScreen();
       }
+
 
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStartShift')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
@@ -182,6 +193,7 @@ class _MyAppState extends State<MyApp> {
         shiftManager.endShift();
       }
 
+
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
         storeVisitManager.endStoreVisit();
@@ -191,6 +203,7 @@ class _MyAppState extends State<MyApp> {
         storeVisitManager.endStoreVisit();
       }
 
+
       else if(versions1[0].version=="1.1.1+19" && boxStateManagement.get('isRegionCenterVisit')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
         regionCenterVisitManager.endRegionCenterVisit();
@@ -199,7 +212,6 @@ class _MyAppState extends State<MyApp> {
         page = StartWorkMainScreen();
         regionCenterVisitManager.endRegionCenterVisit();
       }
-
     }
 
     pageCondition();
@@ -222,6 +234,8 @@ class _MyAppState2 extends State<MyApp> {
   final ShiftManager shiftManager = Get.put(ShiftManager());
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
   final RegionCenterVisitManager regionCenterVisitManager = Get.put(RegionCenterVisitManager());
+  final PhotoManager1 photoManager1 = Get.put(PhotoManager1());
+  final PhotoManager2 photoManager2 = Get.put(PhotoManager2());
 
   @override
   void initState() {
@@ -265,15 +279,21 @@ class _MyAppState2 extends State<MyApp> {
 
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
-          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
         else if(box.get("groupNo")==1){
-          page = ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
         else if(box.get("groupNo")==2){
-          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
       }
+
+
+      else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==false && boxStateManagement.get('isBefore')==true && boxStateManagement.get('isAfter')==false && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        page = ShopVisitingBeforeAfterPhotoScreen(isBefore: false);
+      }
+
 
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isRegionCenterVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
@@ -287,9 +307,11 @@ class _MyAppState2 extends State<MyApp> {
         }
       }
 
+
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStartShift')==true && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = ShiftTypeScreen();
       }
+
 
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStartShift')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
@@ -300,6 +322,7 @@ class _MyAppState2 extends State<MyApp> {
         shiftManager.endShift();
       }
 
+
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isStoreVisit')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
         storeVisitManager.endStoreVisit();
@@ -309,6 +332,7 @@ class _MyAppState2 extends State<MyApp> {
         storeVisitManager.endStoreVisit();
       }
 
+
       else if(versions1[1].version=="1.1.1+19" && boxStateManagement.get('isRegionCenterVisit')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
         regionCenterVisitManager.endRegionCenterVisit();
@@ -317,7 +341,6 @@ class _MyAppState2 extends State<MyApp> {
         page = StartWorkMainScreen();
         regionCenterVisitManager.endRegionCenterVisit();
       }
-
     }
 
     pageCondition();

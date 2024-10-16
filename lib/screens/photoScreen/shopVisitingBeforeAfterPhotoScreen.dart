@@ -3,9 +3,12 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../main.dart';
 import '../../routing/landing.dart';
+import '../../utils/appStateManager.dart';
 import '../../utils/generalFunctions.dart';
 import '../../utils/sendShopVsitingReportFuncstions.dart';
 import '../../widgets/button_widget.dart';
@@ -25,6 +28,9 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
 
   late double deviceHeight;
   late double deviceWidth;
+
+  final PhotoManager1 photoManager1 = Get.put(PhotoManager1());
+  final PhotoManager2 photoManager2 = Get.put(PhotoManager2());
 
   @override
   void initState() {
@@ -166,13 +172,18 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
         'Başarılı', 'Fotoğraf başarıyla yüklendi.',
         () async{
           if(widget.isBefore==true){
+            photoManager1.uploadeBeforePhoto();
             naviShopVisitingProcessesScreen(context, box.get("currentShopID"), box.get("currentShopName"), box.get("groupNo"));
           }
           else if(widget.isBefore==false){
             showAlertDialogWithoutButtonWidget(context,"Mail Gönderiliyor","Ziyaret raporu mailiniz yollanıyor lütfen bekleyiniz.");
 
+            photoManager2.uploadeAfterPhoto();
             await sendReport(box.get("groupNo"));
+
             resetShopVisitingReportInfo(box.get("groupNo"));
+            photoManager1.noBeforePhoto();
+            photoManager2.noAfterPhoto();
 
             Navigator.of(context).pop(); // Close the dialog
             (isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
