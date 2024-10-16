@@ -164,14 +164,17 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
       showAlertDialogWidget(
         context,
         'Başarılı', 'Fotoğraf başarıyla yüklendi.',
-        () {
+        () async{
           if(widget.isBefore==true){
-            sendReport(box.get("groupNo"));
             naviShopVisitingProcessesScreen(context, box.get("currentShopID"), box.get("currentShopName"), box.get("groupNo"));
           }
           else if(widget.isBefore==false){
-            sendReport(box.get("groupNo"));
-            resetShopVisitingForm(box.get("groupNo"));
+            showAlertDialogWithoutButtonWidget(context,"Mail Gönderiliyor","Ziyaret raporu mailiniz yollanıyor lütfen bekleyiniz.");
+
+            await sendReport(box.get("groupNo"));
+            resetShopVisitingReportInfo(box.get("groupNo"));
+
+            Navigator.of(context).pop(); // Close the dialog
             (isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
           }
         });

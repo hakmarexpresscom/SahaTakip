@@ -3,15 +3,15 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../main.dart';
 
-sendReport(int grup){
-  if(grup==0){
-    sendShopVistingReportMail([box.get("inShopOpenFormList"),box.get("outShopOpenFormList"),box.get("inShopCloseFormList"),box.get("outShopCloseFormList")]);
+Future<void> sendReport(int grup) async {
+  if(grup == 0){
+    await sendShopVistingReportMail([box.get("inShopOpenFormList"), box.get("outShopOpenFormList"), box.get("inShopCloseFormList"), box.get("outShopCloseFormList")]);
   }
-  else if(grup==1){
-    sendShopVistingReportMail([box.get("manavShopFormList")]);
+  else if(grup == 1){
+    await sendShopVistingReportMail([box.get("manavShopFormList")]);
   }
-  if(grup==2){
-    sendShopVistingReportMail([box.get("breadGroupFormList"),box.get("frozenGroupFormList"),box.get("tatbakGroupFormList")]);
+  if(grup == 2){
+    await sendShopVistingReportMail([box.get("breadGroupFormList"), box.get("frozenGroupFormList"), box.get("tatbakGroupFormList")]);
   }
 }
 
