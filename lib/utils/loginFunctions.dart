@@ -172,13 +172,13 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("regionCode",users[i].bolge);
       regionCode=box.get("regionCode");
 
-      box.put("yoneticiID", users[sayac].manager_id);
+      box.put("yoneticiID", users[i].manager_id);
       yoneticiID = box.get("yoneticiID");
 
       final UserPM userPM = await fetchUserPM3("${constUrl}api/KullaniciPM/${yoneticiID}");
 
       box.put("yoneticiEmail", userPM.email);
-      yoneticiID = box.get("yoneticiEmail");
+      yoneticiEmail = box.get("yoneticiEmail");
 
       sayac=i;
     }
@@ -267,7 +267,7 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("regionCode",users[i].bolge);
       regionCode=box.get("regionCode");
 
-      box.put("yoneticiID", users[sayac].manager_id);
+      box.put("yoneticiID", users[i].manager_id);
       yoneticiID = box.get("yoneticiID");
 
       final UserBM userBM = await fetchUserBM3("${constUrl}api/KullaniciBM/${yoneticiID}");
