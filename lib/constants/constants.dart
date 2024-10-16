@@ -55,7 +55,7 @@ List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
-int yoneticiEmail = (isLoggedIn)?box.get("yoneticiID"):"email";
+int yoneticiEmail = (isLoggedIn)?box.get("yoneticiEmail"):"email";
 int groupNo = (isLoggedIn)?box.get("groupNo"):0;
 int regionCode = (isLoggedIn)?box.get("regionCode"):0;
 
