@@ -5,13 +5,13 @@ import '../main.dart';
 
 Future<void> sendReport(int grup) async {
   if(grup == 0){
-    await sendShopVistingReportMail([box.get("inShopOpenFormList"), box.get("outShopOpenFormList"), box.get("inShopCloseFormList"), box.get("outShopCloseFormList")]);
+    await sendShopVistingReportMail([boxShopVisitingForms.get("inShopOpenFormList"), boxShopVisitingForms.get("outShopOpenFormList"), boxShopVisitingForms.get("inShopCloseFormList"), boxShopVisitingForms.get("outShopCloseFormList")]);
   }
   else if(grup == 1){
-    await sendShopVistingReportMail([box.get("manavShopFormList")]);
+    await sendShopVistingReportMail([boxShopVisitingForms.get("manavShopFormList")]);
   }
   if(grup == 2){
-    await sendShopVistingReportMail([box.get("breadGroupFormList"), box.get("frozenGroupFormList"), box.get("tatbakGroupFormList")]);
+    await sendShopVistingReportMail([boxShopVisitingForms.get("breadGroupFormList"), boxShopVisitingForms.get("frozenGroupFormList"), boxShopVisitingForms.get("tatbakGroupFormList")]);
   }
 }
 
@@ -33,7 +33,7 @@ sendShopVistingReportMail(List<String> formattedFormHTMLList) async {
   final message = Message()
     ..from = Address(username, 'Bizz Uygulaması')
     ..recipients.add(box.get("yoneticiEmail"))
-    ..recipients.add("mag"+box.get("currentShopID").toString()+"hakmarmagazacilik.com.tr")
+    ..recipients.add("mag"+box.get("currentShopID").toString()+"@hakmarmagazacilik.com.tr")
     ..subject = box.get("currentShopID").toString() + " " + box.get("currentShopName") + ' Ziyaret Raporu'
     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
     ..html = "<p>Yollanmış olan mailde $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş formların sonuçlarını "

@@ -75,7 +75,7 @@ class InShopCloseControl{
       gunluk_evrak: json['gunluk_evrak'],
       zemin_temizligi: json['zemin_temizligi'],
       ofis_depo_kapi: json['ofis_depo_kapi'],
-      isitici_klima: json['isitic_klima'],
+      isitici_klima: json['isitici_klima'],
       ofis_depo_cop: json['ofis_depo_cop'],
       kasa_alti_resmi_evrak: json['kasa_alti_resmi_evrak'],
       kasa_temizligi: json['kasa_temizligi'],

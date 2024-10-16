@@ -86,15 +86,11 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                     future: futureOutShopCloseControl,
                     builder: (context, snapshot){
                       if(snapshot.hasData){
-                        setState(() {
-                          box.put("outShopCloseForm",1);
-                        });
+                       box.put("outShopCloseForm",1);
                         return Text("Mağaza dışı kapanış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        setState(() {
-                          box.put("outShopCloseForm",0);
-                        });
+                        box.put("outShopCloseForm",0);
                         return outShopClosingCheckingUI(context);
                       }
                     }

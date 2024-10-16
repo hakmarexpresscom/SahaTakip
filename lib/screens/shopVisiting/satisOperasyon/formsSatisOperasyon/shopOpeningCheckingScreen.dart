@@ -86,15 +86,11 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                     future: futureOutShopOpenControl,
                     builder: (context, snapshot){
                       if(snapshot.hasData){
-                        setState(() {
-                          box.put("outShopOpenForm",1);
-                        });
+                        box.put("outShopOpenForm",1);
                         return Text("Mağaza dışı açılış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        setState(() {
-                          box.put("outShopOpenForm",0);
-                        });
+                        box.put("outShopOpenForm",0);
                         return outShopOpeningCheckingUI(context);
                       }
                     }

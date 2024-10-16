@@ -138,14 +138,14 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _pickImage(ImageSource.camera,context);
+                _pickImage(ImageSource.camera);
               },
               child: Text("Kamera"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _pickImage(ImageSource.gallery,context);
+                _pickImage(ImageSource.gallery);
               },
               child: Text("Galeri"),
             ),
@@ -155,7 +155,7 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
     );
   }
 
-  Future<void> _pickImage(ImageSource source, BuildContext context) async {
+  Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
 
@@ -173,6 +173,7 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
         () async{
           if(widget.isBefore==true){
             photoManager1.uploadeBeforePhoto();
+            resetShopVisitingFormInfo(box.get("groupNo"));
             naviShopVisitingProcessesScreen(context, box.get("currentShopID"), box.get("currentShopName"), box.get("groupNo"));
           }
           else if(widget.isBefore==false){
@@ -181,7 +182,8 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
             photoManager2.uploadeAfterPhoto();
             await sendReport(box.get("groupNo"));
 
-            resetShopVisitingReportInfo(box.get("groupNo"));
+            resetShopVisitingFormInfo(box.get("groupNo"));
+            resetShopVisitingBeforeAfterPhoto();
             photoManager1.noBeforePhoto();
             photoManager2.noAfterPhoto();
 
