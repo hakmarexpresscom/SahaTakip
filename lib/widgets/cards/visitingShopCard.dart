@@ -97,7 +97,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                     showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
                   }
 
-                  /*else if (getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
+                  else if (getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
                     showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
                     if(box.get("onDayShift")==0){
@@ -147,54 +147,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
 
                   else if(getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){
                     showAlertDialogWidget(context, 'Mesafe Kontrolü', 'Ziyaret etmek istediğiniz mağazanın en az 250 metre yakınında olmanız gerekmektedir!', (){naviShopVisitingShopsScreenBS(context);});
-                  }*/
-
-
-                  showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
-
-                  if(box.get("onDayShift")==0){
-                    widget.shiftManager.startShift();
-                    box.put("onDayShift",1);
-                    setState(() {
-                      box.put("startTime",DateTime.now());
-                      box.put("shiftDate","");
-                      box.put("shiftDate",DateTime.now().toIso8601String());
-                    });
-                    await createShift(
-                        (isBS)?userID:null,
-                        (isBS)?null:userID,
-                        "Mesai",
-                        box.get("shiftDate"),
-                        box.get("startTime").toIso8601String(),
-                        null,
-                        null,
-                        "${constUrl}api/mesai"
-                    );
-                    await countShift("${constUrl}api/mesai");
                   }
-
-                  widget.storeVisitManager.startStoreVisit();
-                  box.put("currentShopName", widget.shopName);
-                  box.put("currentShopID", widget.shopCode);
-                  box.put("visitingStartTime", DateTime.now());
-                  await createVisitingDurations(
-                      box.get('currentShopID'),
-                      (isBS == true) ? userID : null,
-                      (isBS == true) ? null : userID,
-                      box.get("visitingStartTime").toIso8601String(),
-                      null,
-                      box.get("shiftDate"),
-                      null,
-                      "${constUrl}api/ZiyaretSureleri"
-                  );
-                  await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
-
-                  boxVisitTimer.put('elapsedTime', 0);
-                  boxVisitTimer.put('timerStartTime', DateTime.now());
-
-                  Navigator.of(context).pop(); // Close the dialog
-                  //naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
-                  naviShopVisitingBeforeAfterPhotoScreen(context, true);
                 },
                 borderWidht: 1,
                 backgroundColor:
