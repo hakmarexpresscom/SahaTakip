@@ -9,6 +9,7 @@ import '../../../../main.dart';
 import '../../../../models/shopClosingControl.dart';
 import '../../../../routing/landing.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../utils/sendShopVsitingReportFuncstions.dart';
 
 class ShopClosingCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -72,15 +73,11 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
                     future: futureInShopCloseControl,
                     builder: (context, snapshot){
                       if(snapshot.hasData){
-                        setState(() {
-                          box.put("inShopCloseForm",1);
-                        });
+                        box.put("inShopCloseForm",1);
                         return Text("Mağaza içi kapanış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        setState(() {
-                          box.put("inShopCloseForm",0);
-                        });
+                        box.put("inShopCloseForm",0);
                         return inShopClosingCheckingUI(context);
                       }
                     }
@@ -200,12 +197,13 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               inShopClosingCheckingList.values.toList()[19],
               "${constUrl}api/KapanisKontroluMagazaIci"
           );
+          boxShopVisitingForms.put("inShopCloseFormList", formatFormToHTML(inShopClosingCheckingList));
+          box.put("inShopCloseForm",1);
           showAlertDialogWidget(
               context,
               'Kontroller Yapıldı', 'Kapanış formunu başarıyla doldurdunuz!',
               (){
                 inShopClosingCheckingList.forEach((key, value) {inShopClosingCheckingList[key] = 0;});
-                box.put("inShopCloseForm",1);
                 naviShopClosingCheckingScreen(context, widget.shop_code);
               }
           );
@@ -241,12 +239,13 @@ class _ShopClosingCheckingScreenState extends State<ShopClosingCheckingScreen> {
               outShopClosingCheckingList.values.toList()[7],
               "${constUrl}api/KapanisKontroluMagazaDisi"
           );
+          boxShopVisitingForms.put("outShopCloseFormList", formatFormToHTML(inShopClosingCheckingList));
+          box.put("outShopCloseForm",1);
           showAlertDialogWidget(
             context,
             'Kontroller Yapıldı', 'Kapanış formunu başarıyla doldurdunuz!',
             (){
               outShopClosingCheckingList.forEach((key, value) {outShopClosingCheckingList[key] = 0;});
-              box.put("outShopCloseForm",1);
               naviShopClosingCheckingScreen(context, widget.shop_code);
             }
           );

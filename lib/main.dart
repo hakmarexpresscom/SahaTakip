@@ -28,6 +28,7 @@ var stateManagementConstants = Hive.box('stateManagementConstants');
 var shopTaskPhotoConstants = Hive.box('shopTaskPhotoConstants');
 var visitTimer = Hive.box('visitTimer');
 var shopVisitingPhoto = Hive.box('shopVisitingPhoto');
+var shopVisitingForms = Hive.box('shopVisitingForms');
 var versions1;
 var internetConnection;
 
@@ -38,6 +39,7 @@ var boxStateManagement;
 var boxShopTaskPhoto;
 var boxVisitTimer;
 var boxshopVisitingPhoto;
+var boxShopVisitingForms;
 
 void main() async{
 
@@ -70,6 +72,11 @@ void main() async{
   Hive.init(appDocumentDir5.path,backendPreference: HiveStorageBackendPreference.native);
   var hiveShopVisitingPhoto = await Hive.openBox('shopVisitingPhoto');
   boxshopVisitingPhoto = hiveShopVisitingPhoto;
+
+  final appDocumentDir6 = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir6.path,backendPreference: HiveStorageBackendPreference.native);
+  var hiveShopVisitingForms = await Hive.openBox('shopVisitingForms');
+  boxShopVisitingForms = hiveShopVisitingForms;
 
   if(internetConnection[0] != ConnectivityResult.none){
     final List<Version> versions2 = await fetchVersion2('${constUrl}api/Versiyon');

@@ -333,6 +333,10 @@ class _ShopVisitingProcessesScreenUnkarState extends State<ShopVisitingProcesses
           showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
         }
 
+        else if(box.get("breadGroupForm")==0||box.get("frozenGroupForm")||box.get("tatbakGroupForm")==0){
+          showAlertDialogWidget(context, 'Form Hatası', 'Mağaza Formunlarını doldurmadınız. Lütfen formlarını hepsini doldurunuz.', (){Navigator.of(context).pop();});
+        }
+
         else if(connectivityResult[0] != ConnectivityResult.none){
 
           showAlertDialogWithoutButtonWidget(context,"Ziyaret Bitiriliyor","Ziyaretiniz bitiriliyor, lütfen bekleyiniz.");
@@ -358,7 +362,8 @@ class _ShopVisitingProcessesScreenUnkarState extends State<ShopVisitingProcesses
           boxVisitTimer.put('timerStartTime', null); // Sayaç başlangıç zamanını sil
 
           Navigator.of(context).pop(); // Close the dialog
-          (isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
+          //(isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
+          naviShopVisitingBeforeAfterPhotoScreen(context, false);
         }
       },
       borderWidht: 1,

@@ -3,7 +3,19 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../main.dart';
 
-sendShopVistingReport(List<String> formattedFormHTMLList) async {
+sendReport(int grup){
+  if(grup==0){
+    sendShopVistingReportMail([box.get("inShopOpenFormList"),box.get("outShopOpenFormList"),box.get("inShopCloseFormList"),box.get("outShopCloseFormList")]);
+  }
+  else if(grup==1){
+    sendShopVistingReportMail([box.get("manavShopFormList")]);
+  }
+  if(grup==2){
+    sendShopVistingReportMail([box.get("breadGroupFormList"),box.get("frozenGroupFormList"),box.get("tatbakGroupFormList")]);
+  }
+}
+
+sendShopVistingReportMail(List<String> formattedFormHTMLList) async {
 
   String username = 'bizz@hakmarmagazacilik.com.tr';
   String password = 'Qur11738';

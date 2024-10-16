@@ -8,6 +8,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/manavDepoFormServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../utils/sendShopVsitingReportFuncstions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/checkingCard.dart';
 
@@ -60,9 +61,11 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
             future: futureManavDepoForm,
             builder: (context, snapshot){
               if(snapshot.hasData){
+                box.put("manavDepoForm",1);
                 return Text("Manav depo formunu bu ziyaret için doldurdunuz.");
               }
               else{
+                box.put("manavDepoForm",0);
                 return manavDepoFormScreenUI(context);
               }
             }
@@ -125,6 +128,8 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
             depoFormList.values.toList()[9],
             "${constUrl}api/ManavDepoFormu"
         );
+        boxShopVisitingForms.put("manavDepoFormList", formatFormToHTML(depoFormList));
+        box.put("manavDepoForm",1);
         showAlertDialogWidget(
           context,
           'Kontroller Yapıldı', 'Depo formunu başarıyla doldurdunuz!',

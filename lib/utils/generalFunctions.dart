@@ -258,3 +258,22 @@ showAlertDialogWidget(BuildContext context, String title, String content, VoidCa
   );
 }
 
+//------------
+
+resetShopVisitingForm(int grup){
+  if(grup==0){
+    box.put("inShopOpenForm",0);
+    box.put("outShopOpenForm",0);
+    box.put("inShopCloseForm",0);
+    box.put("outShopCloseForm",0);
+  }
+  else if(grup==1){
+    box.put("manavShopForm",0);
+  }
+  else if(grup==2){
+    box.put("breadGroupForm",0);
+    box.put("frozenGroupForm",0);
+    box.put("tatbakGroupForm",0);
+  }
+}
+

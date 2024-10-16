@@ -9,6 +9,7 @@ import '../../../../main.dart';
 import '../../../../models/shopOpeningControl.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../utils/sendShopVsitingReportFuncstions.dart';
 
 class ShopOpeningCheckingScreen extends StatefulWidget {
   int shop_code = 0;
@@ -72,15 +73,11 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
                     future: futureInShopOpenControl,
                     builder: (context, snapshot){
                       if(snapshot.hasData){
-                        setState(() {
-                          box.put("inShopOpenForm",1);
-                        });
+                        box.put("inShopOpenForm",1);
                         return Text("Mağaza içi açılış kontrol formunu bu ziyaret için doldurdunuz.");
                       }
                       else{
-                        setState(() {
-                          box.put("inShopOpenForm",0);
-                        });
+                        box.put("inShopOpenForm",0);
                         return inShopOpeningCheckingUI(context);
                       }
                     }
@@ -201,12 +198,13 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               inShopOpeningCheckingList.values.toList()[20],
               "${constUrl}api/AcilisKontroluMagazaIci"
           );
+          boxShopVisitingForms.put("inShopOpenFormList", formatFormToHTML(inShopOpeningCheckingList));
+          box.put("inShopOpenForm",1);
           showAlertDialogWidget(
             context,
             'Kontroller Yapıldı', 'Açılış formunu başarıyla doldurdunuz!',
             (){
               inShopOpeningCheckingList.forEach((key, value) {inShopOpeningCheckingList[key] = 0;});
-              box.put("inShopOpenForm",1);
               naviShopOpeningCheckingScreen(context, widget.shop_code);
             }
           );
@@ -239,12 +237,13 @@ class _ShopOpeningCheckingScreenState extends State<ShopOpeningCheckingScreen> {
               outShopOpeningCheckingList.values.toList()[4],
               "${constUrl}api/AcilisKontroluMagazaDisi"
           );
+          boxShopVisitingForms.put("outShopOpenFormList", formatFormToHTML(inShopOpeningCheckingList));
+          box.put("outShopOpenForm",1);
           showAlertDialogWidget(
             context,
             'Kontroller Yapıldı', 'Açılış formunu başarıyla doldurdunuz!',
             (){
               outShopOpeningCheckingList.forEach((key, value) {outShopOpeningCheckingList[key] = 0;});
-              box.put("outShopOpenForm",1);
               naviShopOpeningCheckingScreen(context, widget.shop_code);
             }
           );

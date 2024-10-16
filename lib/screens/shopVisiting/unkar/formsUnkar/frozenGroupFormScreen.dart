@@ -8,6 +8,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/unkarShopFormServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../utils/sendShopVsitingReportFuncstions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/checkingCard.dart';
 
@@ -60,9 +61,11 @@ class _FrozenGroupFormScreenState extends State<FrozenGroupFormScreen> {
               future: futureFrozenGroupForm,
               builder: (context, snapshot){
                 if(snapshot.hasData){
+                  box.put("frozenGroupForm",1);
                   return Text("Donuk Urun Grubu formunu bu ziyaret için doldurdunuz.");
                 }
                 else{
+                  box.put("frozenGroupForm",1);
                   return frozenGroupFormScreenUI(context);
                 }
               }
@@ -123,6 +126,8 @@ class _FrozenGroupFormScreenState extends State<FrozenGroupFormScreen> {
               frozenGroupList.values.toList()[6],
               "${constUrl}api/DonukUrunGrubu"
           );
+          boxShopVisitingForms.put("frozenGroupFormList", formatFormToHTML(frozenGroupList));
+          box.put("frozenGroupForm",1);
           showAlertDialogWidget(
               context,
               'Kontroller Yapıldı', 'Mağaza formunu başarıyla doldurdunuz!',

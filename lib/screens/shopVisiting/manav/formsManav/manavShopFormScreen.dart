@@ -8,6 +8,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/manavShopFormServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../utils/sendShopVsitingReportFuncstions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/checkingCard.dart';
 
@@ -60,9 +61,11 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
             future: futureManavShopForm,
             builder: (context, snapshot){
               if(snapshot.hasData){
+                box.put("manavShopForm",1);
                 return Text("Manav magaza formunu bu ziyaret için doldurdunuz.");
               }
               else{
+                box.put("manavShopForm",0);
                 return manavShopFormScreenUI(context);
               }
             }
@@ -138,6 +141,8 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
               shopFormList.values.toList()[22],
               "${constUrl}api/ManavMagazaFormu"
           );
+          boxShopVisitingForms.put("manavShopFormList", formatFormToHTML(shopFormList));
+          box.put("manavShopForm",1);
           showAlertDialogWidget(
             context,
             'Kontroller Yapıldı', 'Mağaza formunu başarıyla doldurdunuz!',

@@ -1,10 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:deneme/constants/constants.dart';
 import 'package:deneme/styles/styleConst.dart';
 import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../main.dart';
+import '../../routing/landing.dart';
 import '../../utils/generalFunctions.dart';
+import '../../utils/sendShopVsitingReportFuncstions.dart';
 import '../../widgets/button_widget.dart';
 
 class ShopVisitingBeforeAfterPhotoScreen extends StatefulWidget {
@@ -67,7 +70,7 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
             SizedBox(height: deviceHeight*0.2,),
             photoInfo(),
             SizedBox(height: deviceHeight*0.05,),
-            uploadPhotoButton(),
+            uploadPhotoButton(context),
           ],
         ),
       );
@@ -91,7 +94,7 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
     );
   }
 
-  Widget uploadPhotoButton() {
+  Widget uploadPhotoButton(BuildContext context) {
     return ButtonWidget(
       text: "Fotoğraf Yükle",
       heightConst: 0.06,
@@ -129,14 +132,14 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _pickImage(ImageSource.camera);
+                _pickImage(ImageSource.camera,context);
               },
               child: Text("Kamera"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _pickImage(ImageSource.gallery);
+                _pickImage(ImageSource.gallery,context);
               },
               child: Text("Galeri"),
             ),
@@ -146,7 +149,7 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
     );
   }
 
-  Future<void> _pickImage(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source, BuildContext context) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
 
@@ -158,13 +161,23 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
         boxshopVisitingPhoto.put('afterPhoto', pickedFile.path);
       }
 
-      showAlertDialogWidget(context, 'Başarılı', 'Fotoğraf başarıyla yüklendi.', () {
-        Navigator.of(context).pop();
-      });
-    } else {
-      showAlertDialogWidget(context, 'Hata', 'Fotoğraf seçilmedi.', () {
-        Navigator.of(context).pop();
-      });
+      showAlertDialogWidget(
+        context,
+        'Başarılı', 'Fotoğraf başarıyla yüklendi.',
+        () {
+          if(widget.isBefore==true){
+            sendReport(box.get("groupNo"));
+            naviShopVisitingProcessesScreen(context, box.get("currentShopID"), box.get("currentShopName"), box.get("groupNo"));
+          }
+          else if(widget.isBefore==false){
+            sendReport(box.get("groupNo"));
+            resetShopVisitingForm(box.get("groupNo"));
+            (isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
+          }
+        });
+    }
+    else {
+      showAlertDialogWidget(context, 'Hata', 'Fotoğraf seçilmedi.', () {Navigator.of(context).pop();});
     }
   }
 

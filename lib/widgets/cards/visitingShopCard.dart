@@ -141,7 +141,8 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                     boxVisitTimer.put('timerStartTime', DateTime.now());
 
                     Navigator.of(context).pop(); // Close the dialog
-                    naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
+                    //naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
+                    naviShopVisitingBeforeAfterPhotoScreen(context, true);
                   }
 
                   else if(getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){

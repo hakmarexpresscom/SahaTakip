@@ -8,6 +8,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/unkarShopFormServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/generalFunctions.dart';
+import '../../../../utils/sendShopVsitingReportFuncstions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/checkingCard.dart';
 
@@ -60,9 +61,11 @@ class _BreadGroupFormScreenState extends State<BreadGroupFormScreen> {
               future: futureBreadGroupForm,
               builder: (context, snapshot){
                 if(snapshot.hasData){
+                  box.put("breadGroupForm",1);
                   return Text("Ekmek Grubu formunu bu ziyaret için doldurdunuz.");
                 }
                 else{
+                  box.put("breadGroupForm",1);
                   return breadGroupFormScreenUI(context);
                 }
               }
@@ -126,6 +129,8 @@ class _BreadGroupFormScreenState extends State<BreadGroupFormScreen> {
               breadGroupList.values.toList()[9],
               "${constUrl}api/EkmekGrubu"
           );
+          boxShopVisitingForms.put("breadGroupFormList", formatFormToHTML(breadGroupList));
+          box.put("breadGroupForm",1);
           showAlertDialogWidget(
               context,
               'Kontroller Yapıldı', 'Mağaza formunu başarıyla doldurdunuz!',

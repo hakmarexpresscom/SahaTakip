@@ -18,6 +18,7 @@ import '../screens/externalTask/externalTaskMainScreen.dart';
 import '../screens/externalTask/externalTasksListScreen.dart';
 import '../screens/externalTask/externalWorkPlaceSelectionScreen.dart';
 import '../screens/photoScreen/answerDownloadedPhoto.dart';
+import '../screens/photoScreen/shopVisitingBeforeAfterPhotoScreen.dart';
 import '../screens/photoScreen/taskDownloadedPhoto.dart';
 import '../screens/photoScreen/taskPhoto.dart';
 import '../screens/photoScreen/taskPhotoGalleryView.dart';
@@ -263,3 +264,8 @@ void naviFrozenGroupFormScreen(BuildContext context, id){
 void naviOtherMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => OtherMainScreen()));
 }
+
+void naviShopVisitingBeforeAfterPhotoScreen(BuildContext context, bool isBefore){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingBeforeAfterPhotoScreen(isBefore: isBefore,)));
+}
+
