@@ -102,12 +102,12 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
 
                     if(box.get("onDayShift")==0){
                       widget.shiftManager.startShift();
+
                       box.put("onDayShift",1);
-                      setState(() {
-                        box.put("startTime",DateTime.now());
-                        box.put("shiftDate","");
-                        box.put("shiftDate",DateTime.now().toIso8601String());
-                      });
+                      box.put("startTime",DateTime.now());
+                      box.put("shiftDate","");
+                      box.put("shiftDate",DateTime.now().toIso8601String());
+
                       await createShift(
                         (isBS)?userID:null,
                         (isBS)?null:userID,
@@ -118,13 +118,19 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                         null,
                         "${constUrl}api/mesai"
                       );
+
                       await countShift("${constUrl}api/mesai");
                     }
 
+                    resetShopVisitingFormInfo(box.get("groupNo"));
+                    resetShopVisitingBeforeAfterPhoto();
+
                     widget.storeVisitManager.startStoreVisit();
+
                     box.put("currentShopName", widget.shopName);
                     box.put("currentShopID", widget.shopCode);
                     box.put("visitingStartTime", DateTime.now());
+
                     await createVisitingDurations(
                       box.get('currentShopID'),
                       (isBS == true) ? userID : null,
@@ -135,14 +141,19 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                       null,
                       "${constUrl}api/ZiyaretSureleri"
                     );
+
                     await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
                     boxVisitTimer.put('elapsedTime', 0);
                     boxVisitTimer.put('timerStartTime', DateTime.now());
 
                     Navigator.of(context).pop(); // Close the dialog
-                    //naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
-                    naviShopVisitingBeforeAfterPhotoScreen(context, true);
+                    if(box.get("groupNo")==0||box.get("groupNo")==2){
+                      naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
+                    }
+                    else if(box.get("groupNo")==1){
+                      naviShopVisitingBeforeAfterPhotoScreen(context, true);
+                    }
                   }
 
                   else if(getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) > 250.0 && connectivityResult[0] != ConnectivityResult.none){

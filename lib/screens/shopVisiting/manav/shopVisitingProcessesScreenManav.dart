@@ -345,7 +345,6 @@ class _ShopVisitingProcessesScreenManavState extends State<ShopVisitingProcesses
           boxVisitTimer.put('timerStartTime', null); // Sayaç başlangıç zamanını sil
 
           Navigator.of(context).pop(); // Close the dialog
-          //(isBS == true) ? naviShopVisitingShopsScreenBS(context) : naviShopVisitingShopsScreenPM(context);
           naviShopVisitingBeforeAfterPhotoScreen(context, false);
         }
       },
