@@ -273,7 +273,7 @@ class _MyAppState2 extends State<MyApp> {
 
       bool isWithinTimeRange2 = now.isAfter(startTime2) && now.isBefore(endTime2);
 
-      if(internetConnection[1] == ConnectivityResult.none){
+      if(internetConnection[0] == ConnectivityResult.none){
         page = InternetWarningScreen();
         page2 = InternetWarningScreen();
         page3 = InternetWarningScreen();
