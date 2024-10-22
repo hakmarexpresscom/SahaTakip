@@ -6,8 +6,7 @@ import '../screens/other/otherMainScreen.dart';
 import '../screens/remoteTasks/remoteTasksMainScreen.dart';
 import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
-import '../screens/taskChecking/taskCheckingMainScreenBM.dart';
-import '../screens/taskChecking/taskCheckingMainScreenPM.dart';
+import '../screens/taskChecking/taskCheckingMainScreen.dart';
 
 late List<Widget> pagesBS = [
   StartWorkMainScreen(),
@@ -29,7 +28,7 @@ late List<Widget> pagesPM = [
   StartWorkMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreenPM(),
+  TaskCheckingMainScreen(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];
@@ -38,7 +37,7 @@ late List<Widget> pagesPM2 = [
   ShiftTypeScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreenPM(),
+  TaskCheckingMainScreen(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];
@@ -46,7 +45,7 @@ late List<Widget> pagesPM2 = [
 late List<Widget> pagesBMGK = [
   NavigationMainScreen(),
   NearShopsMainScreen(),
-  TaskCheckingMainScreenBM(),
+  TaskCheckingMainScreen(),
   SubmitTaskMainScreen(),
   OtherMainScreen()
 ];

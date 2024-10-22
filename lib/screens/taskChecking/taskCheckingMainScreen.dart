@@ -11,14 +11,14 @@ import '../../services/inCompleteTaskServices.dart';
 import '../../widgets/cards/taskCheckingCard.dart';
 import '../../widgets/text_widget.dart';
 
-class TaskCheckingMainScreenPM extends StatefulWidget {
-  const TaskCheckingMainScreenPM({super.key});
+class TaskCheckingMainScreen extends StatefulWidget {
+  const TaskCheckingMainScreen({super.key});
 
   @override
-  State<TaskCheckingMainScreenPM> createState() => _TaskCheckingMainScreenPMState();
+  State<TaskCheckingMainScreen> createState() => _TaskCheckingMainScreenState();
 }
 
-class _TaskCheckingMainScreenPMState extends State<TaskCheckingMainScreenPM> with TickerProviderStateMixin  {
+class _TaskCheckingMainScreenState extends State<TaskCheckingMainScreen> with TickerProviderStateMixin  {
 
   late Future<List<IncompleteTask>> futureIncompleteTask;
   late Future<List<IncompleteTask>> futureIncompleteTask2;

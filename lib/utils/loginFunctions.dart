@@ -408,7 +408,8 @@ Future checkPasswordBM(String password, String urlUser, BuildContext context) as
 
         if (groupNo == 0) {
           await saveBSID("${constUrl}api/magaza${urlShopFilter}=${userID}");
-        } else {
+        }
+        else if(groupNo==1){
           await saveBSManavID("${constUrl}api/magaza${urlShopFilter}=${userID}");
         }
 

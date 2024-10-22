@@ -51,7 +51,6 @@ import '../screens/startWork/startWorkMainScreen.dart';
 import '../screens/submitTask/submitTaskMainScreen.dart';
 import '../screens/submitTask/submitTaskShopPhotoSelectionScreen.dart';
 import '../screens/taskChecking/taskCheckingDetailScreen.dart';
-import '../screens/taskChecking/taskCheckingMainScreenBM.dart';
 
 
 void naviShopVisitingShopsScreenBS(BuildContext context){
@@ -215,10 +214,6 @@ void naviTaskPhotoGalleryView(BuildContext context, imageList){
 
 void naviTaskCheckingDetailScreen(BuildContext context, id, completionInfo){
   Navigator.push(context, MaterialPageRoute(builder: (context) => TaskCheckingDetailScreen(task_id: id,completionInfo: completionInfo,)));
-}
-
-void naviTaskCheckingMainScreenBM(BuildContext context){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => TaskCheckingMainScreenBM()));
 }
 
 void naviPlaceSelectionScreen(BuildContext context){
