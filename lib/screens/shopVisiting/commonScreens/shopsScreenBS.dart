@@ -56,10 +56,10 @@ class _ShopVisitingShopsScreenBSState extends State<ShopVisitingShopsScreenBS> w
   void initState() {
     super.initState();
 
-    createSearchBarShopList('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}',false);
-    createSearchBarShopList('${constUrl}api/magaza/byBolge?bolge=${regionCode}',true);
-    futureOwnShopListBS = fetchShop('${constUrl}api/magaza${box.get("urlShopFilter")}=${userID}');
-    futurePartnerShopList = fetchShop('${constUrl}api/magaza/byBolge?bolge=${regionCode}');
+    createSearchBarShopList('${constUrl}api/MagazaV112${box.get("urlShopFilter")}=${userID}',false);
+    createSearchBarShopList('${constUrl}api/MagazaV112/byBolge?bolge=${regionCode}',true);
+    futureOwnShopListBS = fetchShop('${constUrl}api/MagazaV112${box.get("urlShopFilter")}=${userID}');
+    futurePartnerShopList = fetchShop('${constUrl}api/MagazaV112/byBolge?bolge=${regionCode}');
 
     checkGps();
     controller = AnimationController(

@@ -117,7 +117,7 @@ Future<void> saveBSName() async {
 
 Future createShopTaskPhotoMap(int grup) async {
   final List<Future<Shop>> fetchFutures = shopCodes.map<Future<Shop>>((code) {
-    return fetchShop3("${constUrl}api/Magaza/$code");
+    return fetchShop3("${constUrl}api/MagazaV112/$code");
   }).toList();
   final List<Shop> shops = await Future.wait(fetchFutures);
   for (int i = 0; i < shopCodes.length; i++) {
@@ -136,7 +136,7 @@ Future createShopTaskPhotoMap(int grup) async {
 
 Future createShopTaskPhotoMapBS(int grup) async{
   for(int i=0;i<box.get("shopCodes").length;i++){
-    final Shop shop = await fetchShop3("${constUrl}api/Magaza/${box.get("shopCodes")[i]}");
+    final Shop shop = await fetchShop3("${constUrl}api/MagazaV112/${box.get("shopCodes")[i]}");
     if(groupNo==0){
       boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_id]);
     }

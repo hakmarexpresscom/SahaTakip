@@ -100,7 +100,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   @override
   void initState() {
     super.initState();
-    futureShopList = fetchShop('${constUrl}api/magaza${urlShopFilter}=${userID}');
+    futureShopList = fetchShop('${constUrl}api/MagazaV112${urlShopFilter}=${userID}');
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
@@ -211,10 +211,10 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                       setState(() {
                         bs = selectedItem;
                         if(bs == 0){
-                          futureShopList = fetchShop('${constUrl}api/magaza${urlShopFilter}=${userID}');
+                          futureShopList = fetchShop('${constUrl}api/MagazaV112${urlShopFilter}=${userID}');
                         }
                         else{
-                          futureShopList = (groupNo == 0) ? fetchShop('${constUrl}api/magaza/byBsId?bs_id=${bsIDs[bs]}') : fetchShop('${constUrl}api/magaza/byBsManavId?bs_manav_id=${bsIDs[bs-1]}');
+                          futureShopList = (groupNo == 0) ? fetchShop('${constUrl}api/MagazaV112/byBsId?bs_id=${bsIDs[bs]}') : fetchShop('${constUrl}api/MagazaV112/byBsManavId?bs_manav_id=${bsIDs[bs-1]}');
                         }
                       });
                     },

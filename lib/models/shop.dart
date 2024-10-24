@@ -11,8 +11,8 @@ class Shop{
   late int pm_manav_id;
   late int bm_manav_id;
   late int isActive;
-  late int bs_unkar_id;
-  late int pm_unkar_id;
+  late int? bs_unkar_id;
+  late int? pm_unkar_id;
 
   Shop({
     required this.shopCode,

@@ -46,7 +46,7 @@ class _NearShopsMainScreenState extends State<NearShopsMainScreen> with TickerPr
 
   @override
   void initState() {
-    futureShopList = fetchShop('${constUrl}api/magaza');
+    futureShopList = fetchShop('${constUrl}api/MagazaV112');
     checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
