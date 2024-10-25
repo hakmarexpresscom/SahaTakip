@@ -9,22 +9,22 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../../main.dart';
-import '../../../routing/landing.dart';
-import '../../../utils/appStateManager.dart';
-import '../../../utils/generalFunctions.dart';
+import '../../../../main.dart';
+import '../../../../routing/landing.dart';
+import '../../../../utils/appStateManager.dart';
+import '../../../../utils/generalFunctions.dart';
 
-class ShopVisitingProcessesScreenSatisOperasyon extends StatefulWidget {
+class ShopVisitingProcessesScreenTedarikZinciri extends StatefulWidget {
   int shop_code = 0;
   String shopName = "";
 
-  ShopVisitingProcessesScreenSatisOperasyon({super.key, required this.shop_code, required this.shopName});
+  ShopVisitingProcessesScreenTedarikZinciri({super.key, required this.shop_code, required this.shopName});
 
   @override
-  State<ShopVisitingProcessesScreenSatisOperasyon> createState() => _ShopVisitingProcessesScreenSatisOperasyonState();
+  State<ShopVisitingProcessesScreenTedarikZinciri> createState() => _ShopVisitingProcessesScreenTedarikZinciriState();
 }
 
-class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisitingProcessesScreenSatisOperasyon> {
+class _ShopVisitingProcessesScreenTedarikZinciriState extends State<ShopVisitingProcessesScreenTedarikZinciri> {
   List<String> splittedName = [];
 
   late double deviceHeight;
@@ -33,7 +33,6 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
   DateTime now = DateTime.now();
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
-  final ReportManager reportManager = Get.put(ReportManager());
 
   Timer? _timer;
   int _start = 0;
@@ -105,7 +104,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: Container(
               alignment: Alignment.center,
-              child: (isBS) ? shopVisitingProcessesScreenBSUI(context) : shopVisitingProcessesScreenPMUI(context),
+              child: shopVisitingProcessesScreenBSUI(context),
             ),
           ),
         )
@@ -167,178 +166,15 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                     ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
-                      processName: "Mağaza\nAçılış\nKontrolü",
-                      processIcon: Icons.checklist,
-                      onTaps: () {
-                        _stopTimer();
-                        naviShopOpeningCheckingScreen(context, widget.shop_code);
-                      },
-                    ),
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Mağaza\nKapanış\nKontrolü",
-                      processIcon: Icons.checklist,
-                      onTaps: () {
-                        _stopTimer();
-                        naviShopClosingCheckingScreen(context, widget.shop_code);
-                      },
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Ziyaret Tespit\nRaporu Maddeleri",
+                      processName: "Tedarik\nZinciri\nMağaza Formu",
                       processIcon: Icons.assignment,
                       onTaps: () {
                         _stopTimer();
-                        naviVisitingReportTaskMainScreen(context, widget.shop_code,box.get("groupNo"));
+                        naviTedarikZinciriFormScreen(context, widget.shop_code);
                       },
                     ),
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Yerinde\nGörevler",
-                      processIcon: Icons.assignment,
-                      onTaps: () {
-                        _stopTimer();
-                        naviInPlaceTaskMainScreen(context, widget.shop_code,box.get("groupNo"));
-                      },
-                    )
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Kasa\nSayımı",
-                      processIcon: Icons.price_check,
-                      onTaps: () {
-                        _stopTimer();
-                        naviCashCountingScreen(context, widget.shop_code, widget.shopName);
-                      },
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
-        ),
-      );
-    });
-  }
-
-  Widget shopVisitingProcessesScreenPMUI(BuildContext context) {
-    return Builder(builder: (BuildContext context) {
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              color: Colors.grey.withOpacity(0.4),
-              height: deviceHeight * 0.16,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      shopCodeInfo(),
-                      shopNameInfo(),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Geçen süre:'),
-                      Text(
-                        _formatTime(_start),
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      stopVisitingButton(context),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: deviceHeight * 0.02),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Mağaza\nAçılış\nKontrolü",
-                      processIcon: Icons.checklist,
-                      onTaps: () {
-                        _stopTimer();
-                        naviShopOpeningCheckingScreen(context, widget.shop_code);
-                      },
-                    ),
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Mağaza\nKapanış\nKontrolü",
-                      processIcon: Icons.checklist,
-                      onTaps: () {
-                        _stopTimer();
-                        naviShopClosingCheckingScreen(context, widget.shop_code);
-                      },
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Ziyaret\nTespit\nRaporu",
-                      processIcon: Icons.assignment,
-                      onTaps: () {
-                        _stopTimer();
-                        naviVisitingReportMainScreen(context, widget.shop_code,box.get("groupNo"));
-                      },
-                    ),
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Kasa\nSayımı",
-                      processIcon: Icons.price_check,
-                      onTaps: () {
-                        _stopTimer();
-                        naviCashCountingScreen(context, widget.shop_code, widget.shopName);
-                      },
-                    ),
-                  ],
-                )
               ],
             ),
           ],
@@ -371,7 +207,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
           showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
         }
 
-        else if(box.get("inShopOpenForm")==0||box.get("outShopOpenForm")==0||box.get("inShopCloseForm")==0||box.get("outShopCloseForm")==0){
+        else if(box.get("tedarikZinciriShopForm")==0){
           showAlertDialogWidget(context, 'Form Hatası', 'Mağaza Formlarını doldurmadınız. Lütfen formların hepsini doldurunuz.', (){Navigator.of(context).pop();});
         }
 
@@ -380,8 +216,6 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
           showAlertDialogWithoutButtonWidget(context,"Ziyaret Bitiriliyor","Ziyaretiniz bitiriliyor, lütfen bekleyiniz.");
 
           storeVisitManager.endStoreVisit();
-          reportManager.noReport();
-
           box.put("visitingFinishTime", DateTime.now());
           String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"), box.get("visitingFinishTime"));
           updateFinishHourWorkDurationVisitingDurations(

@@ -275,14 +275,14 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
 
                     showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
-                    if(box.get("onDayShift")==0){
+                    if(box.get("onDayShift")==0 || boxStateManagement.get('isStartShift')==false){
                       shiftManager.startShift();
+
                       box.put("onDayShift",1);
-                      setState(() {
-                        box.put("startTime",DateTime.now());
-                        box.put("shiftDate","");
-                        box.put("shiftDate",DateTime.now().toIso8601String());
-                      });
+                      box.put("startTime",DateTime.now());
+                      box.put("shiftDate","");
+                      box.put("shiftDate",DateTime.now().toIso8601String());
+
                       await createShift(
                           (isBS)?userID:null,
                           (isBS)?null:userID,

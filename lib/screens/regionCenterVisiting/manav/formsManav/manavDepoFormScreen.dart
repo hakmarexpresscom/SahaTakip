@@ -126,7 +126,7 @@ class _ManavDepoFormScreenState extends State<ManavDepoFormScreen> {
             depoFormList.values.toList()[7],
             depoFormList.values.toList()[8],
             depoFormList.values.toList()[9],
-            "${constUrl}api/ManavDepoFormu"
+            "${constUrl}api/ManavDepoForm"
         );
         boxShopVisitingForms.put("manavDepoFormList", formatFormToHTML(depoFormList));
         box.put("manavDepoForm",1);

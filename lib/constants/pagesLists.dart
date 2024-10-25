@@ -55,3 +55,10 @@ late List<Widget> pagesNK = [
   NearShopsMainScreen(),
   OtherMainScreen()
 ];
+
+late List<Widget> pagesTZ = [
+  StartWorkMainScreen(),
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  OtherMainScreen()
+];

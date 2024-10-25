@@ -264,3 +264,7 @@ void naviShopVisitingBeforeAfterPhotoScreen(BuildContext context, bool isBefore)
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingBeforeAfterPhotoScreen(isBefore: isBefore,)));
 }
 
+void naviTedarikZinciriFormScreen(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => FrozenGroupFormScreen(shop_code: id,)));
+}
+

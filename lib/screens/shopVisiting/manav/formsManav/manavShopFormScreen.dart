@@ -139,7 +139,7 @@ class _ManavShopFormScreenState extends State<ManavShopFormScreen> {
               shopFormList.values.toList()[20],
               shopFormList.values.toList()[21],
               shopFormList.values.toList()[22],
-              "${constUrl}api/ManavMagazaFormu"
+              "${constUrl}api/ManavMagazaForm"
           );
           boxShopVisitingForms.put("manavShopFormList", formatFormToHTML(shopFormList));
           box.put("manavShopForm",1);

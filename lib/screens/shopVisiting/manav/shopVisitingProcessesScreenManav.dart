@@ -33,6 +33,7 @@ class _ShopVisitingProcessesScreenManavState extends State<ShopVisitingProcesses
   DateTime now = DateTime.now();
 
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+  final ReportManager reportManager = Get.put(ReportManager());
 
   Timer? _timer;
   int _start = 0;
@@ -325,6 +326,8 @@ class _ShopVisitingProcessesScreenManavState extends State<ShopVisitingProcesses
           showAlertDialogWithoutButtonWidget(context,"Ziyaret Bitiriliyor","Ziyaretiniz bitiriliyor, lütfen bekleyiniz.");
 
           storeVisitManager.endStoreVisit();
+          reportManager.noReport();
+
           box.put("visitingFinishTime", DateTime.now());
           String visitingDuration = calculateElapsedTime(box.get("visitingStartTime"), box.get("visitingFinishTime"));
           updateFinishHourWorkDurationVisitingDurations(

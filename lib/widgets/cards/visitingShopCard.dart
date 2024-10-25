@@ -100,7 +100,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                   else if (getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
                     showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
-                    if(box.get("onDayShift")==0){
+                    if(box.get("onDayShift")==0 || boxStateManagement.get('isStartShift')==false){
                       widget.shiftManager.startShift();
 
                       box.put("onDayShift",1);

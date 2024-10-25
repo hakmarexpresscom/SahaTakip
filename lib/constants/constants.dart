@@ -14,22 +14,22 @@ List<String> ownShopList = [];
 List<String> partnerShopList = [];
 
 RxBool isStartShiftObs = isStartShift.obs;
-bool isStartShift = (isLoggedIn)?boxStateManagement.get('isStartShift'):false;
+bool isStartShift = (isLoggedIn) ? boxStateManagement.get('isStartShift', defaultValue: false) : false;
 
 RxBool isStoreVisitInProgress = isStoreVisit.obs;
-bool isStoreVisit = (isLoggedIn)?boxStateManagement.get('isStoreVisit'):false;
+bool isStoreVisit = (isLoggedIn) ? boxStateManagement.get('isStoreVisit', defaultValue: false) : false;
 
 RxBool isRegionCenterVisitInProgress = isRegionCenterVisit.obs;
-bool isRegionCenterVisit = (isLoggedIn)?boxStateManagement.get('isRegionCenterVisit'):false;
+bool isRegionCenterVisit = (isLoggedIn) ? boxStateManagement.get('isRegionCenterVisit', defaultValue: false) : false;
 
 RxBool isReportCreated = isReport.obs;
-bool isReport = (isLoggedIn)?boxStateManagement.get('isReport'):false;
+bool isReport = (isLoggedIn) ? boxStateManagement.get('isReport', defaultValue: false) : false;
 
 RxBool beforePhoto = isBefore.obs;
-bool isBefore = (isLoggedIn)?boxStateManagement.get('isBefore'):false;
+bool isBefore = (isLoggedIn ? boxStateManagement.get('isBefore', defaultValue: false) : false);
 
 RxBool afterPhoto = isAfter.obs;
-bool isAfter = (isLoggedIn)?boxStateManagement.get('isAfter'):false;
+bool isAfter = (isLoggedIn ? boxStateManagement.get('isAfter', defaultValue: false) : false);
 
 class GoogleMapMarkerList {
 

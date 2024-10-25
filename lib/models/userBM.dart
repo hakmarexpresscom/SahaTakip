@@ -6,7 +6,7 @@ class UserBM{
   late int manager_id;
   late String userType;
   late int group_no;
-  late int regionCode;
+  late int? regionCode;
   late int isActive;
 
 

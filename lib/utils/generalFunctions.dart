@@ -280,13 +280,19 @@ resetShopVisitingFormInfo(int grup){
   }
   else if(grup==1){
     box.put("manavShopForm",0);
+    box.put("manavDepoForm",0);
   }
   else if(grup==2){
     box.put("breadGroupForm",0);
     box.put("frozenGroupForm",0);
     box.put("tatbakGroupForm",0);
   }
+  else if(grup==3){
+    box.put("tedarikZinciriShopForm",0);
+  }
 }
+
+//------------
 
 resetShopVisitingBeforeAfterPhoto(){
   boxshopVisitingPhoto.put('beforePhoto', "photo");
