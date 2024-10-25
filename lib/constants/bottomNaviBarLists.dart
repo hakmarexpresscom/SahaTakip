@@ -88,3 +88,22 @@ late List<BottomNavigationBarItem> itemListNK = [
     label: 'Diğer',
   ),
 ];
+
+late List<BottomNavigationBarItem> itemListTZ = [
+  BottomNavigationBarItem(
+    icon: Icon(Icons.work),
+    label: 'Mesaiye Başla',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.location_on),
+    label: 'Navigasyon',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.near_me),
+    label: 'Çevre Mağazalar',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.menu),
+    label: 'Diğer',
+  ),
+];
