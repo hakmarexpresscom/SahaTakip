@@ -100,7 +100,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
   @override
   void initState() {
     super.initState();
-    futureShopList = fetchShop('${constUrl}api/MagazaV112${urlShopFilter}=${userID}');
+    futureShopList = fetchShop('${constUrl}api/MagazaV113${urlShopFilter}=${userID}');
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
@@ -150,7 +150,7 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
           pageList = pagesBS2;
         }
       }
-      if(user == "PM"){
+      else if(user == "PM"){
         naviBarList = itemListPM;
         if(isStartShiftObs.value == false && isRegionCenterVisitInProgress.value == false){
           pageList = pagesPM;
@@ -160,12 +160,12 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
         }
         _selectedIndex = 4;
       }
-      if(user == "BM" || user == "GK"){
+      else if(user == "BM" || user == "GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
         _selectedIndex = 3;
       }
-      if(user == "NK"){
+      else if(user == "NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }
@@ -211,10 +211,10 @@ class _SubmitTaskShopPhotoSelectionScreenState extends State<SubmitTaskShopPhoto
                       setState(() {
                         bs = selectedItem;
                         if(bs == 0){
-                          futureShopList = fetchShop('${constUrl}api/MagazaV112${urlShopFilter}=${userID}');
+                          futureShopList = fetchShop('${constUrl}api/MagazaV113${urlShopFilter}=${userID}');
                         }
                         else{
-                          futureShopList = (groupNo == 0) ? fetchShop('${constUrl}api/MagazaV112/byBsId?bs_id=${bsIDs[bs]}') : fetchShop('${constUrl}api/MagazaV112/byBsManavId?bs_manav_id=${bsIDs[bs-1]}');
+                          futureShopList = (groupNo == 0) ? fetchShop('${constUrl}api/MagazaV113/byBsId?bs_id=${bsIDs[bs]}') : fetchShop('${constUrl}api/MagazaV113/byBsManavId?bs_manav_id=${bsIDs[bs-1]}');
                         }
                       });
                     },

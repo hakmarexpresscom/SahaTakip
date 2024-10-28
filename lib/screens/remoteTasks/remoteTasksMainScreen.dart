@@ -94,7 +94,7 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
           pageList = pagesBS2;
         }
       }
-      if(user=="PM"){
+      else if(user=="PM"){
         naviBarList = itemListPM;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
@@ -103,11 +103,11 @@ class _RemoteTaskMainScreenState extends State<RemoteTaskMainScreen> with Ticker
           pageList = pagesPM2;
         }
       }
-      if(user=="BM" || user=="GK"){
+      else if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
       }
-      if(user=="NK"){
+      else if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }

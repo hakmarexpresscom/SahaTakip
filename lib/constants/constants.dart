@@ -40,7 +40,7 @@ class GoogleMapMarkerList {
   ];
 }
 
-Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/MagazaV112');
+Future<List<Shop>> futureShopList = fetchShop('${constUrl}api/MagazaV113');
 
 String urlShopFilter = (isLoggedIn)?box.get("urlShopFilter"):"";
 String urlWorkFilter = (isLoggedIn)?box.get("urlWorkFilter"):"";

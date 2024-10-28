@@ -62,3 +62,10 @@ late List<Widget> pagesTZ = [
   NearShopsMainScreen(),
   OtherMainScreen()
 ];
+
+late List<Widget> pagesTZ2 = [
+  ShiftTypeScreen(),
+  NavigationMainScreen(),
+  NearShopsMainScreen(),
+  OtherMainScreen()
+];

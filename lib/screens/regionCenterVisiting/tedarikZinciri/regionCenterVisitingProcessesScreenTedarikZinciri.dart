@@ -15,19 +15,18 @@ import '../../../utils/generalFunctions.dart';
 import '../../../constants/bottomNaviBarLists.dart';
 import '../../../constants/pagesLists.dart';
 import '../../../routing/bottomNavigationBar.dart';
-import '../../../widgets/cards/shopVisitingProcessCard.dart';
 
-class RegionCenterVisitingProcessesScreenManav extends StatefulWidget {
+class RegionCenterVisitingProcessesScreenTedarikZinciri extends StatefulWidget {
   int region_code = 0;
   String regionName = "";
 
-  RegionCenterVisitingProcessesScreenManav({super.key, required this.region_code, required this.regionName});
+  RegionCenterVisitingProcessesScreenTedarikZinciri({super.key, required this.region_code, required this.regionName});
 
   @override
-  State<RegionCenterVisitingProcessesScreenManav> createState() => _RegionCenterVisitingProcessesScreenManavState();
+  State<RegionCenterVisitingProcessesScreenTedarikZinciri> createState() => _RegionCenterVisitingProcessesScreenTedarikZinciriState();
 }
 
-class _RegionCenterVisitingProcessesScreenManavState extends State<RegionCenterVisitingProcessesScreenManav> {
+class _RegionCenterVisitingProcessesScreenTedarikZinciriState extends State<RegionCenterVisitingProcessesScreenTedarikZinciri> {
   int _selectedIndex = 0;
 
   late double deviceHeight;
@@ -201,31 +200,7 @@ class _RegionCenterVisitingProcessesScreenManavState extends State<RegionCenterV
                 ],
               ),
             ),
-            (isBS == false) ? SizedBox(height: deviceHeight * 0.02,) : SizedBox(height: deviceHeight * 0,),
-            (isBS == false) ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
-                      processName: "Manav\nDepo\nFormu",
-                      processIcon: Icons.checklist,
-                      onTaps: () {
-                        _stopTimer();
-                        naviManavDepoFormScreen(context, widget.region_code);
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ) : Container()
+            Container()
           ],
         ),
       );

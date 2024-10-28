@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/constants.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../models/center.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../services/centerServices.dart';
@@ -61,7 +62,16 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
     deviceWidth = MediaQuery.of(context).size.width;
 
     void userCondition(String user){
-      if(user=="BS"){
+      if(user=="BS" && box.get("groupNo") == 3){
+        naviBarList = itemListTZ;
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
+          pageList = pagesTZ;
+        }
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
+          pageList = pagesTZ2;
+        }
+      }
+      else if(user=="BS"){
         naviBarList = itemListBS;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
@@ -70,7 +80,7 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
           pageList = pagesBS2;
         }
       }
-      if(user=="PM"){
+      else if(user=="PM"){
         naviBarList = itemListPM;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
@@ -79,11 +89,11 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
           pageList = pagesPM2;
         }
       }
-      if(user=="BM" || user=="GK"){
+      else if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
       }
-      if(user=="NK"){
+      else if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }

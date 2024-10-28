@@ -223,10 +223,14 @@ Future checkPasswordBS(String password, String urlUser, BuildContext context) as
         urlShopFilter = "/byBsUnkarId?bs_unkar_id";
         box.put("urlShopFilter", urlShopFilter);
       }
+      else if(groupNo==3){
+        urlShopFilter = "/byBsTedarikId?bs_tedarik_id";
+        box.put("urlShopFilter", urlShopFilter);
+      }
 
       try {
 
-        await saveShopCodes("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+        await saveShopCodes("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
         await createShopTaskPhotoMapBS(groupNo);
 
       } catch (error) {
@@ -320,16 +324,16 @@ Future checkPasswordPM(String password, String urlUser,BuildContext context) asy
       }
 
       try {
-        await saveShopCodes("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+        await saveShopCodes("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
 
         if (groupNo == 0) {
-          await saveBSID("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+          await saveBSID("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
         }
         else if(groupNo==1){
-          await saveBSManavID("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+          await saveBSManavID("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
         }
         else if(groupNo==2){
-          await saveBSUnkarID("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+          await saveBSUnkarID("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
         }
 
         await saveBSName();
@@ -404,13 +408,13 @@ Future checkPasswordBM(String password, String urlUser, BuildContext context) as
       box.put("urlShopFilter", urlShopFilter);
 
       try {
-        await saveShopCodes("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+        await saveShopCodes("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
 
         if (groupNo == 0) {
-          await saveBSID("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+          await saveBSID("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
         }
         else if(groupNo==1){
-          await saveBSManavID("${constUrl}api/MagazaV112${urlShopFilter}=${userID}");
+          await saveBSManavID("${constUrl}api/MagazaV113${urlShopFilter}=${userID}");
         }
 
         await saveBSName();

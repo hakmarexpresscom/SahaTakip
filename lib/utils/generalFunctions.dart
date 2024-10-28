@@ -117,7 +117,7 @@ Future<void> saveBSName() async {
 
 Future createShopTaskPhotoMap(int grup) async {
   final List<Future<Shop>> fetchFutures = shopCodes.map<Future<Shop>>((code) {
-    return fetchShop3("${constUrl}api/MagazaV112/$code");
+    return fetchShop3("${constUrl}api/MagazaV113/$code");
   }).toList();
   final List<Shop> shops = await Future.wait(fetchFutures);
   for (int i = 0; i < shopCodes.length; i++) {
@@ -125,9 +125,14 @@ Future createShopTaskPhotoMap(int grup) async {
     if (grup == 0) {
       int index1 = bsIDs.indexOf(shop.bs_id);
       boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_id, shop.shopName, bsNames[index1]]);
-    } else {
+    }
+    else if(grup == 1){
       int index2 = bsIDs.indexOf(shop.bs_manav_id);
       boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_manav_id, shop.shopName, bsNames[index2]]);
+    }
+    else if(grup == 2){
+      int index2 = bsIDs.indexOf(shop.bs_unkar_id);
+      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_unkar_id, shop.shopName, bsNames[index2]]);
     }
   }
 }
@@ -136,16 +141,18 @@ Future createShopTaskPhotoMap(int grup) async {
 
 Future createShopTaskPhotoMapBS(int grup) async{
   for(int i=0;i<box.get("shopCodes").length;i++){
-    final Shop shop = await fetchShop3("${constUrl}api/MagazaV112/${box.get("shopCodes")[i]}");
-    if(groupNo==0){
+    final Shop shop = await fetchShop3("${constUrl}api/MagazaV113/${box.get("shopCodes")[i]}");
+    if(grup==0){
       boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_id]);
     }
-    else if(groupNo==1){
+    else if(grup==1){
       boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_manav_id]);
-
     }
-    else if(groupNo==2){
+    else if(grup==2){
       boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_unkar_id]);
+    }
+    else if(grup==3){
+      boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_tedarik_id]);
     }
   }
 }

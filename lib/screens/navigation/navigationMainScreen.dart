@@ -7,6 +7,7 @@ import 'package:deneme/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
+import '../../main.dart';
 import '../../models/shop.dart';
 import '../../utils/generalFunctions.dart';
 
@@ -36,7 +37,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
   @override
   void initState() {
     super.initState();
-    createShopList("${constUrl}api/MagazaV112");
+    createShopList("${constUrl}api/MagazaV113");
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
@@ -61,7 +62,17 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
     deviceWidth = MediaQuery.of(context).size.width;
 
     void userCondition(String user){
-      if(user=="BS"){
+      if(user=="BS" && box.get("groupNo") == 3){
+        naviBarList = itemListTZ;
+        if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
+          pageList = pagesTZ;
+        }
+        else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
+          pageList = pagesTZ2;
+        }
+        _selectedIndex = 1;
+      }
+      else if(user=="BS"){
         naviBarList = itemListBS;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesBS;
@@ -71,7 +82,7 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         }
         _selectedIndex = 1;
       }
-      if(user=="PM"){
+      else if(user=="PM"){
         naviBarList = itemListPM;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
@@ -81,12 +92,12 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
         }
         _selectedIndex = 1;
       }
-      if(user=="BM" || user=="GK"){
+      else if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
         _selectedIndex = 0;
       }
-      if(user=="NK"){
+      else if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
         _selectedIndex = 0;

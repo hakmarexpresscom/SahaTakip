@@ -75,7 +75,7 @@ class _TaskPhotoScreenState extends State<TaskPhotoScreen> with TickerProviderSt
           pageList = pagesBS2;
         }
       }
-      if(user=="PM"){
+      else if(user=="PM"){
         naviBarList = itemListPM;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
           pageList = pagesPM;
@@ -85,12 +85,12 @@ class _TaskPhotoScreenState extends State<TaskPhotoScreen> with TickerProviderSt
         }
         _selectedIndex = 4;
       }
-      if(user=="BM" || user=="GK"){
+      else if(user=="BM" || user=="GK"){
         naviBarList = itemListBMandGK;
         pageList = pagesBMGK;
         _selectedIndex = 3;
       }
-      if(user=="NK"){
+      else if(user=="NK"){
         naviBarList = itemListNK;
         pageList = pagesNK;
       }

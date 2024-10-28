@@ -13,6 +13,7 @@ class Shop{
   late int isActive;
   late int? bs_unkar_id;
   late int? pm_unkar_id;
+  late int? bs_tedarik_id;
 
   Shop({
     required this.shopCode,
@@ -28,7 +29,8 @@ class Shop{
     required this.bm_manav_id,
     required this.isActive,
     required this.bs_unkar_id,
-    required this.pm_unkar_id
+    required this.pm_unkar_id,
+    required this.bs_tedarik_id
   });
 
   factory Shop.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class Shop{
       isActive: json['isActive'],
       bs_unkar_id: json['bs_unkar_id'],
       pm_unkar_id: json['pm_unkar_id'],
+      bs_tedarik_id: json['bs_tedarik_id']
     );
   }
 
