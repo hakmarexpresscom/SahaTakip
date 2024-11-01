@@ -333,9 +333,9 @@ class _ShopVisitingProcessesScreenUnkarState extends State<ShopVisitingProcesses
           showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
         }
 
-        else if(box.get("breadGroupForm")==0||box.get("frozenGroupForm")==0||box.get("tatbakGroupForm")==0){
+        /*else if(box.get("breadGroupForm")==0||box.get("frozenGroupForm")==0||box.get("tatbakGroupForm")==0){
           showAlertDialogWidget(context, 'Form Hatası', 'Mağaza Formlarını doldurmadınız. Lütfen formların hepsini doldurunuz.', (){Navigator.of(context).pop();});
-        }
+        }*/
 
         else if(connectivityResult[0] != ConnectivityResult.none){
 

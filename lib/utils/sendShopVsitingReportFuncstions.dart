@@ -3,16 +3,23 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../main.dart';
 
-Future<void> sendReport(int grup) async {
+/*Future<void> sendReport(int grup) async {
   if(grup == 0){
     await sendShopVistingReportMail([boxShopVisitingForms.get("inShopOpenFormList"), boxShopVisitingForms.get("outShopOpenFormList"), boxShopVisitingForms.get("inShopCloseFormList"), boxShopVisitingForms.get("outShopCloseFormList")]);
   }
   else if(grup == 1){
     await sendShopVistingReportMail([boxShopVisitingForms.get("manavShopFormList")]);
   }
-  if(grup == 2){
+  else if(grup == 2){
     await sendShopVistingReportMail([boxShopVisitingForms.get("breadGroupFormList"), boxShopVisitingForms.get("frozenGroupFormList"), boxShopVisitingForms.get("tatbakGroupFormList")]);
   }
+  else if(grup == 4){
+    await sendShopVistingReportMail([boxShopVisitingForms.get("tedarikZinciriShopFormList")]);
+  }
+}*/
+
+Future<void> sendReport() async {
+  await sendShopVistingReportMail([boxShopVisitingForms.get("manavShopFormList")]);
 }
 
 sendShopVistingReportMail(List<String> formattedFormHTMLList) async {
@@ -37,10 +44,8 @@ sendShopVistingReportMail(List<String> formattedFormHTMLList) async {
     ..subject = box.get("currentShopID").toString() + " " + box.get("currentShopName") + ' Ziyaret Raporu'
     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
     ..html = "<p>Yollanmış olan mailde $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş formların sonuçlarını "
-        "ve uygulamaya yüklenmiş olan ziyaret fotoğraflarını bulabilirsiniz.</p>"
-        + completeHTMLContent.toString()
-    ..attachments.add(FileAttachment(File(boxshopVisitingPhoto.get("beforePhoto"))))
-    ..attachments.add(FileAttachment(File(boxshopVisitingPhoto.get("afterPhoto"))));
+        "bulabilirsiniz.</p>"
+        + completeHTMLContent.toString();
 
   try {
     final sendReport = await send(message, smtpServer);
@@ -67,4 +72,10 @@ String formatFormToHTML(Map<String, int> form) {
   formListBuffer.write("</ul>");
   return formListBuffer.toString();
 }
+
+//..html = "<p>Yollanmış olan mailde $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş formların sonuçlarını "
+//         "ve uygulamaya yüklenmiş olan ziyaret fotoğraflarını bulabilirsiniz.</p>"
+//         + completeHTMLContent.toString();
+// ..attachments.add(FileAttachment(File(boxshopVisitingPhoto.get("beforePhoto"))))
+// ..attachments.add(FileAttachment(File(boxshopVisitingPhoto.get("afterPhoto"))));
 

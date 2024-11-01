@@ -180,7 +180,7 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
             showAlertDialogWithoutButtonWidget(context,"Mail Gönderiliyor","Ziyaret raporu mailiniz yollanıyor lütfen bekleyiniz.");
 
             photoManager2.uploadeAfterPhoto();
-            await sendReport(box.get("groupNo"));
+            await sendReport();
 
             resetShopVisitingFormInfo(box.get("groupNo"));
             resetShopVisitingBeforeAfterPhoto();
