@@ -83,8 +83,11 @@ Future<IncompleteTask> createIncompleteTask(String title,String? detail,String a
     ),
   );
   if (response.statusCode == 201) {
-    return IncompleteTask.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    IncompleteTask incompleteTask = IncompleteTask.fromJson(jsonResponse);
+    box.put("incompleteTaskCount", incompleteTask.task_id);
+    return incompleteTask;
+  }else {
     throw Exception('Failed to create Incomplete Task List.');
   }
 }
@@ -149,9 +152,4 @@ Future<IncompleteTask> updatePhotoIDIncompleteTask(int id,String title,String? d
   } else {
     throw Exception('Failed to update Incomplete Task');
   }
-}
-
-Future countIncompleteTask(String url) async {
-  final List<IncompleteTask> incompleteTasks = await fetchIncompleteTask3(url);
-  box.put("incompleteTaskCount", incompleteTasks[incompleteTasks.length-1].task_id);
 }

@@ -56,14 +56,14 @@ late List<Widget> pagesNK = [
   OtherMainScreen()
 ];
 
-late List<Widget> pagesTZ = [
+late List<Widget> pagesUnkarTZ = [
   StartWorkMainScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),
   OtherMainScreen()
 ];
 
-late List<Widget> pagesTZ2 = [
+late List<Widget> pagesUnkarTZ2 = [
   ShiftTypeScreen(),
   NavigationMainScreen(),
   NearShopsMainScreen(),

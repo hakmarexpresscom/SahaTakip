@@ -1,3 +1,4 @@
+import 'package:deneme/routing/landing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/bottomNaviBarLists.dart';
@@ -8,6 +9,7 @@ import '../../models/center.dart';
 import '../../routing/bottomNavigationBar.dart';
 import '../../services/centerServices.dart';
 import '../../styles/styleConst.dart';
+import '../../widgets/button_widget.dart';
 import '../../widgets/text_form_field.dart';
 
 class PlaceSelectionScreen extends StatefulWidget {
@@ -62,13 +64,13 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
     deviceWidth = MediaQuery.of(context).size.width;
 
     void userCondition(String user){
-      if(user=="BS" && box.get("groupNo") == 3){
+      if(user=="BS" && box.get("groupNo") == 2 && box.get("groupNo") == 3){
         naviBarList = itemListTZ;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
-          pageList = pagesTZ;
+          pageList = pagesUnkarTZ;
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
-          pageList = pagesTZ2;
+          pageList = pagesUnkarTZ2;
         }
       }
       else if(user=="BS"){
@@ -111,7 +113,7 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               RadioListTile(
                 title: Text('Tepeören Bölge Merkez'),
@@ -220,6 +222,22 @@ class _PlaceSelectionScreenState extends State<PlaceSelectionScreen> with Ticker
                       enabled: true,
                   ),
                 ),
+              SizedBox(height: deviceHeight*0.05,),
+              ButtonWidget(
+                  text: "Seçilen Yeri Kaydet",
+                  heightConst: 0.06,
+                  widthConst: 0.8,
+                  size: 18,
+                  radius: 20,
+                  fontWeight: FontWeight.w600,
+                  onTaps: () {
+                    naviEnterExternalTaskScreen(context);
+                  },
+                  borderWidht: 1,
+                  backgroundColor: secondaryColor,
+                  borderColor: secondaryColor,
+                  textColor: textColor
+              )
             ],
           ),
         ),

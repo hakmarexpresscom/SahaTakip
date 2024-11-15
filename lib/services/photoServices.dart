@@ -80,7 +80,10 @@ Future<Photo> createPhoto(int? task_id, int shopCode,int? bs_id,int? pm_id,int? 
     ),
   );
   if (response.statusCode == 201) {
-    return Photo.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    Photo photo = Photo.fromJson(jsonResponse);
+    box.put("photoCount", photo.photo_id);
+    return photo;
   } else {
     throw Exception('Failed to create Photo.');
   }
@@ -138,9 +141,4 @@ Future<Photo> updateCompleteTaskIDPhoto(int id,int? task_id, int shopCode,int? b
   } else {
     throw Exception('Failed to update Photo');
   }
-}
-
-Future countPhoto(String url) async {
-  final List<Photo> photos = await fetchPhoto3(url);
-  box.put("photoCount", photos[photos.length-1].photo_id);
 }

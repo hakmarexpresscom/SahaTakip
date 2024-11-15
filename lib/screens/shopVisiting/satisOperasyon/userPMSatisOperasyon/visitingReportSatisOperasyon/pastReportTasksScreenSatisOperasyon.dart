@@ -61,7 +61,7 @@ class _PastReportTasksScreenSatisOperasyonState extends State<PastReportTasksScr
           appBar: AppBar(
             foregroundColor: appbarForeground,
             backgroundColor: appbarBackground,
-            title: const Text('Ziyaret Tespit Raporu Görevleri'),
+            title: const Text('Ziyaret Tespiti Görevleri'),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {

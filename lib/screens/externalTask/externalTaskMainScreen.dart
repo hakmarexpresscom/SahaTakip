@@ -34,13 +34,13 @@ class _ExternalTaskMainScreenState extends State<ExternalTaskMainScreen> {
     deviceWidth = MediaQuery.of(context).size.width;
 
     void userCondition(String user){
-      if(user=="BS" && box.get("groupNo") == 3){
+      if(user=="BS" && box.get("groupNo") == 2 && box.get("groupNo") == 3){
         naviBarList = itemListTZ;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
-          pageList = pagesTZ;
+          pageList = pagesUnkarTZ;
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
-          pageList = pagesTZ2;
+          pageList = pagesUnkarTZ2;
         }
       }
       else if(user=="BS"){

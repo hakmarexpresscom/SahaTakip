@@ -142,13 +142,13 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
     deviceWidth = MediaQuery.of(context).size.width;
 
     void userCondition(String user){
-      if(user=="BS" && box.get("groupNo") == 3){
+      if(user=="BS" && box.get("groupNo") == 2 && box.get("groupNo") == 3){
         naviBarList = itemListTZ;
         if(isStartShiftObs.value==false&&isRegionCenterVisitInProgress.value==false){
-          pageList = pagesTZ;
+          pageList = pagesUnkarTZ;
         }
         else if(isStartShiftObs.value&&isRegionCenterVisitInProgress.value==false){
-          pageList = pagesTZ2;
+          pageList = pagesUnkarTZ2;
         }
       }
       else if(user=="BS"){
@@ -219,7 +219,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
             SizedBox(height: deviceHeight*0.03,),
             externalWorkButton(),
             SizedBox(height: deviceHeight*0.03,),
-            stopShiftButton(context)
+            (boxStateManagement.get('isStartShift')==true)?stopShiftButton(context):SizedBox(height: deviceHeight*0.00,),
           ],
         ),
       );
@@ -302,7 +302,7 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                           null,
                           "${constUrl}api/mesai"
                       );
-                      await countShift("${constUrl}api/mesai");
+                      //await countShift("${constUrl}api/mesai");
                     }
 
                     regionCenterVisitManager.startRegionCenterVisit();
@@ -319,7 +319,6 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                       null,
                       "${constUrl}api/ZiyaretSureleri"
                     );
-                    await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
                     boxVisitTimer.put('elapsedTime', 0);
                     boxVisitTimer.put('timerStartTime', DateTime.now());

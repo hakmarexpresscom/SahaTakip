@@ -63,25 +63,28 @@ Future<List<VisitingDurations>> fetchVisitingDurations3(String url) async {
 }
 
 Future<VisitingDurations> createVisitingDurations(int shop_code, int? bs_id, int? pm_id, String startHour, String? finishHour, String date, String? workDuration, String url) async {
-  final response = await http.post(Uri.parse(url),
+  final response = await http.post(
+    Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'api_key': apiKey,
     },
-    body: jsonEncode(<String, dynamic>
-    {
-      "magaza_kodu" : shop_code,
+    body: jsonEncode(<String, dynamic>{
+      "magaza_kodu": shop_code,
       "bs_id": bs_id,
       "pm_id": pm_id,
-      "baslangic_saati" : startHour,
-      "bitis_saati" : finishHour,
-      "tarih" : date,
-      "calisma_suresi" : workDuration
-    }
-    ),
+      "baslangic_saati": startHour,
+      "bitis_saati": finishHour,
+      "tarih": date,
+      "calisma_suresi": workDuration,
+    }),
   );
+
   if (response.statusCode == 201) {
-    return VisitingDurations.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    VisitingDurations visitingDurations = VisitingDurations.fromJson(jsonResponse);
+    box.put("visitingDurationsCount", visitingDurations.visiting_id);
+    return visitingDurations;
   } else {
     throw Exception('Failed to create VisitingDurations.');
   }
@@ -111,11 +114,6 @@ Future<VisitingDurations> updateFinishHourWorkDurationVisitingDurations(int id,i
   } else {
     throw Exception('Failed to update VisitingDurations.');
   }
-}
-
-Future countVisitingDurations(String url) async {
-  final List<VisitingDurations> visitingDurations = await fetchVisitingDurations3(url);
-  box.put("visitingDurationsCount", visitingDurations[visitingDurations.length-1].visiting_id);
 }
 
 Future<void> downloadVisitingReport(String url) async {

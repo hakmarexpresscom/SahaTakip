@@ -146,7 +146,7 @@ class _VisitingRaportMainScreenManavState extends State<VisitingRaportMainScreen
           appBar: AppBar(
             foregroundColor: appbarForeground,
             backgroundColor: appbarBackground,
-            title: const Text('Ziyaret Tespit Raporu'),
+            title: const Text('Ziyaret Tespiti BS Görevlendirme'),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
@@ -249,7 +249,7 @@ class _VisitingRaportMainScreenManavState extends State<VisitingRaportMainScreen
 
             reportManager.createReport();
             await createReport(userID, widget.shop_code,now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString(), groupNo, "${constUrl}api/Rapor");
-            await countReport("${constUrl}api/Rapor");
+            //await countReport("${constUrl}api/Rapor");
 
             Navigator.of(context).pop(); // Close the dialog
             naviVisitingReportMainScreen(context, widget.shop_code,box.get("groupNo"));
@@ -284,7 +284,7 @@ class _VisitingRaportMainScreenManavState extends State<VisitingRaportMainScreen
 
             showAlertDialogWithoutButtonWidget(context,"Görev Ekleniyor","Göreviniz rapora ekleniyor, lütfen bekleyiniz.");
 
-            await countReport("${constUrl}api/Rapor");
+            //await countReport("${constUrl}api/Rapor");
             await addReportTaskToDatabase(
               "${constUrl}api/TamamlanmamisGorev",
               taskNameController.text,

@@ -67,7 +67,7 @@ class _RemoteTaskDetailScreenState extends State<RemoteTaskDetailScreen> with Ti
       showAlertDialogWithoutButtonWidget(context,"Fotoğraf Ekleniyor","Cevap fotoğrafınız ekleniyor lütfen bekleyiniz.");
 
       await createPhoto(task_id, shopCode, bs_id, pm_id, bm_id, photoType, photo_file, completeTask_id, url);
-      await countPhoto(url);
+      //await countPhoto(url);
 
       Navigator.of(context).pop(); // Close the dialog
     }

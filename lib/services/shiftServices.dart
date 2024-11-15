@@ -82,6 +82,12 @@ Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shift
     ),
   );
   if (response.statusCode == 201) {
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    Shift shift = Shift.fromJson(jsonResponse);
+    box.put("shiftCount", shift.shift_id);
+    return shift;
+  }
+  if (response.statusCode == 201) {
     return Shift.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to create Shift.');
@@ -112,11 +118,6 @@ Future<Shift> updateFinishHourWorkDurationShift(int id,int? bs_id, int? pm_id, S
   } else {
     throw Exception('Failed to update Shift.');
   }
-}
-
-Future countShift(String url) async {
-  final List<Shift> shifts = await fetchShift3(url);
-  box.put("shiftCount",shifts[shifts.length-1].shift_id);
 }
 
 Future onDayShift(String url) async {

@@ -61,7 +61,7 @@ class _PastReportTasksScreenManavState extends State<PastReportTasksScreenManav>
           appBar: AppBar(
             foregroundColor: appbarForeground,
             backgroundColor: appbarBackground,
-            title: const Text('Ziyaret Tespit Raporu Görevleri'),
+            title: const Text('Ziyaret Tespiti Görevleri'),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {

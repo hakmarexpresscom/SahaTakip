@@ -75,13 +75,11 @@ Future<Report> createReport(int pm_id, int shopCode, String createDate, int grou
     ),
   );
   if (response.statusCode == 201) {
-    return Report.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    Report report = Report.fromJson(jsonResponse);
+    box.put("reportCount", report.report_id);
+    return report;
   } else {
     throw Exception('Failed to create Report.');
   }
-}
-
-Future countReport(String url) async {
-  final List<Report> reports = await fetchReport3(url);
-  box.put("reportCount", reports[reports.length-1].report_id);
 }

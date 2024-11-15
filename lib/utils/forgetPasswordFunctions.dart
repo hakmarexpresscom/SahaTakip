@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:deneme/routing/landing.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../constants/constants.dart';
@@ -19,10 +20,11 @@ import '../services/userBSServices.dart';
 import '../services/userNKServices.dart';
 import '../services/userPMServices.dart';
 
-int temporaryUserID = 0;
-String temporaryPassword = "";
 
 findPassword(String user, String email,BuildContext context) async {
+
+  int temporaryUserID = 0;
+
   if(user=="Bölge Sorumlusu") {
     final List<UserBS> users = await fetchUserBS2('${constUrl}api/KullaniciBS');
     for(int i=0; i<users.length;i++){
@@ -30,11 +32,19 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].bs_id;
       }
     }
-    String newPW = generateRandomString();
-    sendPasswordMail(email, newPW);
-    updateBSPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/BSSifre/${temporaryUserID}");
-    naviLoginMainScreen(context);
+    if(temporaryUserID != 0){
+      String newPW = generateRandomString();
+      sendPasswordMail(email, newPW);
+      updateBSPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/BSSifre/${temporaryUserID}");
+      naviLoginMainScreen(context);
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta girdiniz.')),
+      );
+    }
   }
+
   else if(user=="Pazarlama Müdürü") {
     final List<UserPM> users = await fetchUserPM2('${constUrl}api/KullaniciPM');
     for(int i=0; i<users.length;i++){
@@ -42,11 +52,19 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].pm_id;
       }
     }
-    String newPW = generateRandomString();
-    sendPasswordMail(email, newPW);
-    updatePMPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/PMSifre/${temporaryUserID}");
-    naviLoginMainScreen(context);
+    if(temporaryUserID != 0){
+      String newPW = generateRandomString();
+      sendPasswordMail(email, newPW);
+      updatePMPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/PMSifre/${temporaryUserID}");
+      naviLoginMainScreen(context);
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta girdiniz.')),
+      );
+    }
   }
+
   else if(user=="Bölge Müdürü") {
     final List<UserBM> users = await fetchUserBM2('${constUrl}api/KullaniciBM');
     for(int i=0; i<users.length;i++){
@@ -54,11 +72,19 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].bm_id;
       }
     }
-    String newPW = generateRandomString();
-    sendPasswordMail(email, newPW);
-    updateBMPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/BMSifre/${temporaryUserID}");
-    naviLoginMainScreen(context);
+    if(temporaryUserID != 0){
+      String newPW = generateRandomString();
+      sendPasswordMail(email, newPW);
+      updateBMPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/BMSifre/${temporaryUserID}");
+      naviLoginMainScreen(context);
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta girdiniz.')),
+      );
+    }
   }
+
   else if(user=="Normal Kullanıcı") {
     final List<UserNK> users = await fetchUserNK2('${constUrl}api/KullaniciNK');
     for(int i=0; i<users.length;i++){
@@ -66,12 +92,21 @@ findPassword(String user, String email,BuildContext context) async {
         temporaryUserID=users[i].nk_id;
       }
     }
-    String newPW = generateRandomString();
-    sendPasswordMail(email, newPW);
-    updateNKPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/NKSifre/${temporaryUserID}");
-    naviLoginMainScreen(context);
+    if(temporaryUserID != 0){
+      String newPW = generateRandomString();
+      sendPasswordMail(email, newPW);
+      updateNKPassword(temporaryUserID,hashPassword(newPW),"${constUrl}api/NKSifre/${temporaryUserID}");
+      naviLoginMainScreen(context);
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Yanlış e-posta girdiniz.')),
+      );
+    }
   }
+
 }
+
 
 sendPasswordMail(String email, String newPW) async {
 

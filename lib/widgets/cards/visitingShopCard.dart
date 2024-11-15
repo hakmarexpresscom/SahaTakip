@@ -119,7 +119,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                         "${constUrl}api/mesai"
                       );
 
-                      await countShift("${constUrl}api/mesai");
+                      //await countShift("${constUrl}api/mesai");
                     }
 
                     resetShopVisitingFormInfo(box.get("groupNo"));
@@ -142,16 +142,16 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                       "${constUrl}api/ZiyaretSureleri"
                     );
 
-                    await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
+                    //await countVisitingDurations("${constUrl}api/ZiyaretSureleri");
 
                     boxVisitTimer.put('elapsedTime', 0);
                     boxVisitTimer.put('timerStartTime', DateTime.now());
 
                     Navigator.of(context).pop(); // Close the dialog
-                    if(box.get("groupNo")==0||box.get("groupNo")==2){
+                    if(box.get("groupNo")==0){
                       naviShopVisitingProcessesScreen(context, widget.shopCode, widget.shopName, box.get("groupNo"));
                     }
-                    else if(box.get("groupNo")==1){
+                    else if(box.get("groupNo")==1||box.get("groupNo")==2){
                       naviShopVisitingBeforeAfterPhotoScreen(context, true);
                     }
                   }
