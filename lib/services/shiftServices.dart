@@ -86,10 +86,7 @@ Future<Shift> createShift(int? bs_id, int? pm_id, String shiftType, String shift
     Shift shift = Shift.fromJson(jsonResponse);
     box.put("shiftCount", shift.shift_id);
     return shift;
-  }
-  if (response.statusCode == 201) {
-    return Shift.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
+  }else {
     throw Exception('Failed to create Shift.');
   }
 }
