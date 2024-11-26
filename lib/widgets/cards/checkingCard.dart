@@ -32,29 +32,44 @@ class _TaskCardState extends State<CheckingCard> {
               width: 3
           )
       ),
-      child: Container(
-        padding: EdgeInsets.fromLTRB(context.dynamicWidth(0.01), context.dynamicWidth(0.08), 0, 0),
-        height: context.dynamicHeight(widget.heightConst),
-        width: context.dynamicWidth(widget.widthConst),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextWidget(text: widget.taskName, size: 17, fontWeight: FontWeight.w400, color: textColor),
-            Switch(
-              value: (widget.value)==0?false:true,
-              activeColor: Colors.green,
-              onChanged: (bool newValue) {
-                setState(() {
-                  widget.value = newValue?1:0;
-                  widget.checkMap[widget.checkKey]=newValue?1:0;
-                }
-                );
-                },
-            )
-          ],
-        ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: context.dynamicHeight(0.02),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    child: TextWidget(
+                      text: widget.taskName,
+                      size: 17,
+                      fontWeight: FontWeight.w400,
+                      color: textColor,
+                      overflow: TextOverflow.visible, // Yazının devam etmesini sağlar
+                    ),
+                  ),
+                  Switch(
+                    value: (widget.value)==0?false:true,
+                    activeColor: Colors.green,
+                    onChanged: (bool newValue) {
+                      setState(() {
+                        widget.value = newValue?1:0;
+                        widget.checkMap[widget.checkKey]=newValue?1:0;
+                      }
+                      );
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: context.dynamicHeight(0.02),),
+            ],
+        )
       ),
     );
   }

@@ -40,7 +40,10 @@ import '../screens/shopVisiting/satisOperasyon/formsSatisOperasyon/shopOpeningCh
 import '../screens/shopVisiting/commonScreens/shopsScreenBS.dart';
 import '../screens/shopVisiting/commonScreens/shopsScreenPM.dart';
 import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/inPlaceTasksSatisOperasyon/inPlaceTasksMainScreenSatisOperasyon.dart';
+import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormDetailScreenBSSatisOperasyon.dart';
+import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormMainScreenBSSatisOperasyon.dart';
 import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/visitingReportTasksSatisOperasyon/visitingReportTaskDetailScreenSatisOperasyon.dart';
+import '../screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormMainScreenPMSatisOperasyon.dart';
 import '../screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/visitingReportSatisOperasyon/visitingReportMainScreenSatisOperasyon.dart';
 import '../screens/shopVisiting/unkar/formsUnkar/breadGroupFormScreen.dart';
 import '../screens/shopVisiting/unkar/formsUnkar/frozenGroupFormScreen.dart';
@@ -266,5 +269,17 @@ void naviShopVisitingBeforeAfterPhotoScreen(BuildContext context, bool isBefore)
 
 void naviTedarikZinciriFormScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => FrozenGroupFormScreen(shop_code: id,)));
+}
+
+void naviShopVisitingFormMainScreenBSSatisOperasyon(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormMainScreenBSSatisOperasyon(shop_code: id,)));
+}
+
+void naviShopVisitingFormMainScreenPMSatisOperasyon(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormMainScreenPMSatisOperasyon(shop_code: id,)));
+}
+
+void naviShopVisitingFormDetailScreenBSSatisOperasyon(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenBSSatisOperasyon(item_id: id,)));
 }
 

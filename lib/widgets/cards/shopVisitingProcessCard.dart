@@ -39,7 +39,7 @@ class _ShopVisitingProcessCardState extends State<ShopVisitingProcessCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: context.dynamicHeight(0.03),),
-              Icon(widget.processIcon,size: 50,),
+              Icon(widget.processIcon,size: 40,),
               SizedBox(height: context.dynamicHeight(0.04),),
               TextWidget(text: widget.processName, size: 20, fontWeight: FontWeight.w600, color: textColor),
             ],

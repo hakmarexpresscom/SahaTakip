@@ -1,13 +1,13 @@
 Map<String, int> tedarikZinciriList = {
-  "Mağaza deposunda stoğu gereğinden\nfazla ürün var mı?":0,
-  "Mağaza deposunda toplatma kararı\nolup gönderilmeyen spot ürün var mı?":0,
-  "Aktif ürünlere ait fire alanında\nbekleyen ürün var mı?":0,
-  "Planogram yapılan mağaza ise, kural\ndışı dizilim mevcut mu?":0,
-  "İçinde bulunduğumuz haftaya ait\ndepodan mağazaya gitmeyen G.Spot ürün var mı?":0,
-  "Şarküteri dolabında bekletilen\niade/fire ürün mevcut mu?":0,
-  "Ekmek, sütlü tatlı ve Hak-Et\ndolaplarında stoklar yeterli mi?":0,
-  "Kampanya ürünlerine ait etiketler\ndoğru mu?":0,
+  "Mağaza deposunda stoğu gereğinden fazla ürün var mı?":0,
+  "Mağaza deposunda toplatma kararı olup gönderilmeyen spot ürün var mı?":0,
+  "Aktif ürünlere ait fire alanında bekleyen ürün var mı?":0,
+  "Planogram yapılan mağaza ise, kural dışı dizilim mevcut mu?":0,
+  "İçinde bulunduğumuz haftaya ait depodan mağazaya gitmeyen G.Spot ürün var mı?":0,
+  "Şarküteri dolabında bekletilen iade/fire ürün mevcut mu?":0,
+  "Ekmek, sütlü tatlı ve Hak-Et dolaplarında stoklar yeterli mi?":0,
+  "Kampanya ürünlerine ait etiketler doğru mu?":0,
   "SKT fiyat istekleri doğru yapılmış mı?":0,
-  "Teşhir ve stant ürünleri içerisinde\nsatışa sunulmuş mu?":0,
-  "Mağaza sorumlusu ile müşteri talepleri\nhakkında görüşüldü mü?":0
+  "Teşhir ve stant ürünleri içerisinde satışa sunulmuş mu?":0,
+  "Mağaza sorumlusu ile müşteri talepleri hakkında görüşüldü mü?":0
 };

@@ -26,8 +26,6 @@ logout(BuildContext context) async {
   box.put("bsNames",[]);
   box.put("allSelected",[]);
 
-  boxShopTaskPhoto.clear();
-
   box.put('currentShopName', "");
   box.put('currentShopID', 0);
   box.put('currentCenterName', "");
@@ -43,6 +41,10 @@ logout(BuildContext context) async {
   boxStateManagement.put('isStoreVisit', false);
   boxStateManagement.put("isRegionCenterVisit", false);
   boxStateManagement.put('isReport', false);
+  boxStateManagement.put('isBefore', false);
+  boxStateManagement.put('isAfter', false);
+
+  boxShopTaskPhoto.clear();
 
   userID=0;
   yoneticiID=0;

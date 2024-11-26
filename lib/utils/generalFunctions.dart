@@ -2,6 +2,7 @@ import 'package:deneme/constants/constants.dart';
 import 'package:deneme/services/inCompleteTaskServices.dart';
 import 'package:deneme/services/photoServices.dart';
 import 'package:deneme/services/userBSServices.dart';
+import 'package:deneme/widgets/alert_dialog_double_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
@@ -271,6 +272,22 @@ showAlertDialogWidget(BuildContext context, String title, String content, VoidCa
           title: title,
           content: content,
           onTaps: onTaps
+        );
+      }
+  );
+}
+
+//------------
+
+showAlertDialogDoubleButtonWidget(BuildContext context, String title, String content, VoidCallback onTaps, VoidCallback onTaps2) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialogDoubleButtonWidget(
+            title: title,
+            content: content,
+            onTaps: onTaps,
+            onTaps2: onTaps2
         );
       }
   );

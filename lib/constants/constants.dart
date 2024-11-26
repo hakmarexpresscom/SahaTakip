@@ -71,6 +71,7 @@ List<String> taskListCompleteTask = <String>['Yerinde Görevler', 'Uzaktan Göre
 List<String> taskListIncompleteTask = <String>['Yerinde Görevler', 'Uzaktan Görevler', 'Raporu Görevleri'];
 List<String> taskTypeListCompleteTask = <String>['Yerinde', 'Uzaktan', 'Rapor'];
 List<String> taskTypeListIncompleteTask = <String>['Yerinde', 'Uzaktan', 'Rapor'];
+List<String> pointList = <String>["1","2","3","4","5"];
 double kItemExtent = 32.0;
 
 List<dynamic> createShopFilterList(int bsID) {

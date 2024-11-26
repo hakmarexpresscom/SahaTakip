@@ -10,7 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../main.dart';
+import '../../../models/shopVisitingFormBS.dart';
+import '../../../models/shopVisitingFormPM.dart';
 import '../../../routing/landing.dart';
+import '../../../services/shopVisitingFormBSServices.dart';
+import '../../../services/shopVisitingFormPMServices.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../utils/generalFunctions.dart';
 
@@ -228,6 +232,26 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                         naviCashCountingScreen(context, widget.shop_code, widget.shopName);
                       },
                     ),
+                    ShopVisitingProcessCard(
+                      heightConst: 0.25,
+                      widthConst: 0.47,
+                      processName: "Mağaza\nZiyaret\nFormu",
+                      processIcon: Icons.content_paste_outlined,
+                      onTaps: () async{
+                        _stopTimer();
+                        if(boxBSSatisOperasyonShopVisitingFormShops.toMap().keys.length==0){
+                          final List<ShopVisitingFormBS> shopVisitingFormBS = await fetchShopVisitingFormBS3('${constUrl}api/MagazaZiyaretFormuBS');
+                          Map<dynamic,dynamic> BSSatisOperasyonShopVisitingForm = {};
+                          for(int i=1;i<shopVisitingFormBS.length;i++){
+                            BSSatisOperasyonShopVisitingForm[i.toString()] = ["test", "0"];
+                          }
+                          for(int i=0;i<box.get("shopCodes").length;i++){
+                            await boxBSSatisOperasyonShopVisitingFormShops.put(box.get("shopCodes")[i],BSSatisOperasyonShopVisitingForm);
+                          }
+                        }
+                        naviShopVisitingFormMainScreenBSSatisOperasyon(context,widget.shop_code);
+                      },
+                    ),
                   ],
                 )
               ],
@@ -335,6 +359,33 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       onTaps: () {
                         _stopTimer();
                         naviCashCountingScreen(context, widget.shop_code, widget.shopName);
+                      },
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    ShopVisitingProcessCard(
+                      heightConst: 0.25,
+                      widthConst: 0.47,
+                      processName: "Mağaza\nZiyaret\nFormu",
+                      processIcon: Icons.content_paste_outlined,
+                      onTaps: () async{
+                        _stopTimer();
+                        if(boxPMSatisOperasyonShopVisitingFormShops.toMap().keys.length==0){
+                          final List<ShopVisitingFormPM> shopVisitingFormPM = await fetchShopVisitingFormPM3('${constUrl}api/MagazaZiyaretFormuPM');
+                          Map<dynamic,dynamic> PMSatisOperasyonShopVisitingForm = {};
+                          for(int i=1;i<shopVisitingFormPM.length;i++){
+                            PMSatisOperasyonShopVisitingForm[i.toString()] = ["test", "0"];
+                          }
+                          for(int i=0;i<box.get("shopCodes").length;i++){
+                            await boxPMSatisOperasyonShopVisitingFormShops.put(box.get("shopCodes")[i],PMSatisOperasyonShopVisitingForm);
+                          }
+                        }
+                        naviShopVisitingFormMainScreenPMSatisOperasyon(context,widget.shop_code);
                       },
                     ),
                   ],
