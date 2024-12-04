@@ -23,7 +23,7 @@ Map<String, int> inShopOpeningCheckingList = {
 };
 
 Map<String, int> outShopOpeningCheckingList = {
-  "Alarm kurularak mağazaya giriş yapılıyor mu? aasda asdsadasd asdasdasd":0,
+  "Alarm kurularak mağazaya giriş yapılıyor mu?":0,
   "Mağaza yeterli personel ile açıldı mı?":0,
   "Mağaza açılışından önce uygun zamanda gelindi mi?":0,
   "Giriş-çıkış kapısı, kepenkler ve depo kapısı kapalı mı?":0,
