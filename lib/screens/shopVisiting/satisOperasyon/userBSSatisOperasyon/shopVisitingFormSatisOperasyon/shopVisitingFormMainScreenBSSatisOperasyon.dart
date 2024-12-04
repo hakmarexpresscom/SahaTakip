@@ -8,6 +8,7 @@ import '../../../../../services/shopVisitingFormAnswersServices.dart';
 import '../../../../../services/shopVisitingFormBSServices.dart';
 import '../../../../../styles/styleConst.dart';
 import '../../../../../utils/generalFunctions.dart';
+import '../../../../../utils/sendShopVisitingFormFunctions.dart';
 import '../../../../../widgets/button_widget.dart';
 import '../../../../../widgets/cards/shopVisitingFormItemCard.dart';
 
@@ -175,9 +176,11 @@ class _ShopVisitingFormMainScreenBSSatisOperasyonState extends State<ShopVisitin
                 (isBS==true)?null:userID,
                 box.get("currentShopID"),
                 box.get("shiftDate"),
-                boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).toString(),
+                convertMapToJsonString(boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))),
                 '${constUrl}api/MagazaZiyaretFormuCevaplar'
             );
+
+            await sendForm(box.get("groupNo"));
 
             boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).forEach((key, value) {boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[key] = ["test", "0"];});
 

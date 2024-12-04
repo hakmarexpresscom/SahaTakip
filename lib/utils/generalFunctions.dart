@@ -323,3 +323,14 @@ resetShopVisitingBeforeAfterPhoto(){
   boxshopVisitingPhoto.put('afterPhoto', "photo");
 }
 
+//------------
+
+String convertMapToJsonString(Map<dynamic,dynamic> originalMap) {
+  return originalMap.map((key, value) {
+    return MapEntry(
+        '"$key"',
+        value.map((e) => '"$e"').toList()
+    );
+  }).toString();
+}
+

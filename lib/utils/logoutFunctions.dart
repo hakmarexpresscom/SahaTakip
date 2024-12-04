@@ -10,6 +10,7 @@ logout(BuildContext context) async {
   box.put("userID",0);
   box.put("yoneticiID",0);
   box.put("yoneticiEmail","email");
+  box.put("userEmail","email");
   box.put("groupNo",0);
   box.put("regionCode",0);
   box.put("userType","PM");

@@ -175,6 +175,9 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       box.put("yoneticiID", users[i].manager_id);
       yoneticiID = box.get("yoneticiID");
 
+      box.put("userEmail", users[i].email);
+      userEmail = box.get("userEmail");
+
       final UserPM userPM = await fetchUserPM3("${constUrl}api/KullaniciPM/${yoneticiID}");
 
       box.put("yoneticiEmail", userPM.email);
@@ -274,6 +277,9 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
       box.put("yoneticiID", users[i].manager_id);
       yoneticiID = box.get("yoneticiID");
 
+      box.put("userEmail", users[i].email);
+      userEmail = box.get("userEmail");
+
       final UserBM userBM = await fetchUserBM3("${constUrl}api/KullaniciBM/${yoneticiID}");
 
       box.put("yoneticiEmail", userBM.email);
@@ -372,6 +378,9 @@ Future checkEmailBM(String email, String url,BuildContext context) async {
 
       box.put("groupNo",users[i].group_no);
       groupNo=box.get("groupNo");
+
+      box.put("userEmail", users[i].email);
+      userEmail = box.get("userEmail");
 
       sayac = i;
     }

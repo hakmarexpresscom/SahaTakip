@@ -169,7 +169,7 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
                 (isBS==true)?null:userID,
                 box.get("currentShopID"),
                 box.get("shiftDate"),
-                boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).toMap().toString(),
+                convertMapToJsonString(boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))),
                 '${constUrl}api/MagazaZiyaretFormuCevaplar'
             );
 

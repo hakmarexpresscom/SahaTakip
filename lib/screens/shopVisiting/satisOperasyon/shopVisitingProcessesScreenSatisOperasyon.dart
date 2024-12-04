@@ -242,12 +242,15 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                         if(boxBSSatisOperasyonShopVisitingFormShops.toMap().keys.length==0){
                           final List<ShopVisitingFormBS> shopVisitingFormBS = await fetchShopVisitingFormBS3('${constUrl}api/MagazaZiyaretFormuBS');
                           Map<dynamic,dynamic> BSSatisOperasyonShopVisitingForm = {};
-                          for(int i=1;i<shopVisitingFormBS.length;i++){
-                            BSSatisOperasyonShopVisitingForm[i.toString()] = ["test", "0"];
+                          Map<dynamic,dynamic> BSSatisOperasyonShopVisitingFormQuestions = {};
+                          for(int i=0;i<shopVisitingFormBS.length;i++){
+                            BSSatisOperasyonShopVisitingForm[shopVisitingFormBS[i].itemID.toString()] = ["test", "0"];
+                            BSSatisOperasyonShopVisitingFormQuestions[shopVisitingFormBS[i].itemID] = shopVisitingFormBS[i].itemName;
                           }
                           for(int i=0;i<box.get("shopCodes").length;i++){
                             await boxBSSatisOperasyonShopVisitingFormShops.put(box.get("shopCodes")[i],BSSatisOperasyonShopVisitingForm);
                           }
+                          await boxBSSatisOperasyonShopVisitingFormShops.put("questions", BSSatisOperasyonShopVisitingFormQuestions);
                         }
                         naviShopVisitingFormMainScreenBSSatisOperasyon(context,widget.shop_code);
                       },
@@ -378,12 +381,15 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                         if(boxPMSatisOperasyonShopVisitingFormShops.toMap().keys.length==0){
                           final List<ShopVisitingFormPM> shopVisitingFormPM = await fetchShopVisitingFormPM3('${constUrl}api/MagazaZiyaretFormuPM');
                           Map<dynamic,dynamic> PMSatisOperasyonShopVisitingForm = {};
-                          for(int i=1;i<shopVisitingFormPM.length;i++){
-                            PMSatisOperasyonShopVisitingForm[i.toString()] = ["test", "0"];
+                          Map<dynamic,dynamic> PMSatisOperasyonShopVisitingFormQuestions = {};
+                          for(int i=0;i<shopVisitingFormPM.length;i++){
+                            PMSatisOperasyonShopVisitingForm[shopVisitingFormPM[i].itemID.toString()] = ["test", "0"];
+                            PMSatisOperasyonShopVisitingFormQuestions[shopVisitingFormPM[i].itemID] = shopVisitingFormPM[i].itemName;
                           }
                           for(int i=0;i<box.get("shopCodes").length;i++){
                             await boxPMSatisOperasyonShopVisitingFormShops.put(box.get("shopCodes")[i],PMSatisOperasyonShopVisitingForm);
                           }
+                          await boxBSSatisOperasyonShopVisitingFormShops.put("questions", PMSatisOperasyonShopVisitingFormQuestions);
                         }
                         naviShopVisitingFormMainScreenPMSatisOperasyon(context,widget.shop_code);
                       },

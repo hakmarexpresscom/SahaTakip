@@ -28,8 +28,6 @@ Future<void> sendReport(int grup) async {
   }
 
   if(grup == 1){
-    //await sendShopVistingReportMail([boxShopVisitingForms.get("manavShopFormList")]);
-
     await sendReportToApi(
         recipients,
         subject,
@@ -39,8 +37,6 @@ Future<void> sendReport(int grup) async {
   }
 
   else if(grup == 2){
-    //await sendShopVistingReportMail([boxShopVisitingForms.get("breadGroupFormList"), boxShopVisitingForms.get("frozenGroupFormList"), boxShopVisitingForms.get("tatbakGroupFormList")]);
-
     await sendReportToApi(
         recipients,
         subject,
