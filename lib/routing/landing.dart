@@ -43,6 +43,7 @@ import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/inPlaceTasks
 import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormDetailScreenBSSatisOperasyon.dart';
 import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormMainScreenBSSatisOperasyon.dart';
 import '../screens/shopVisiting/satisOperasyon/userBSSatisOperasyon/visitingReportTasksSatisOperasyon/visitingReportTaskDetailScreenSatisOperasyon.dart';
+import '../screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormDetailScreenPMSatisOperasyon.dart';
 import '../screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/shopVisitingFormSatisOperasyon/shopVisitingFormMainScreenPMSatisOperasyon.dart';
 import '../screens/shopVisiting/satisOperasyon/userPMSatisOperasyon/visitingReportSatisOperasyon/visitingReportMainScreenSatisOperasyon.dart';
 import '../screens/shopVisiting/unkar/formsUnkar/breadGroupFormScreen.dart';
@@ -281,5 +282,9 @@ void naviShopVisitingFormMainScreenPMSatisOperasyon(BuildContext context, id){
 
 void naviShopVisitingFormDetailScreenBSSatisOperasyon(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenBSSatisOperasyon(item_id: id,)));
+}
+
+void naviShopVisitingFormDetailScreenPMSatisOperasyon(BuildContext context, id){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenPMSatisOperasyon(item_id: id,)));
 }
 

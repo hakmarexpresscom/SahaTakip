@@ -100,7 +100,13 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ShopVisitingFormItemCard(formItemText: snapshot.data![index].itemName,icon: Icons.arrow_forward_ios,onTaps: (){},),
+                          ShopVisitingFormItemCard(
+                            formItemText: snapshot.data![index].itemName,
+                            icon: Icons.arrow_forward_ios,
+                            onTaps: (){
+                              naviShopVisitingFormDetailScreenPMSatisOperasyon(context, snapshot.data![index].itemID);
+                            },
+                          ),
                           SizedBox(height: deviceHeight*0.005,),
                         ],
                       );
