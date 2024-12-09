@@ -9,7 +9,7 @@ import '../../../../main.dart';
 import '../../../../models/shopClosingControl.dart';
 import '../../../../routing/landing.dart';
 import '../../../../utils/generalFunctions.dart';
-import '../../../../utils/sendShopVsitingReportFuncstions.dart';
+import '../../../../utils/sendShopVsitingReportMailFunctions.dart';
 
 class ShopClosingCheckingScreen extends StatefulWidget {
   int shop_code = 0;

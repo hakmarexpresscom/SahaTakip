@@ -8,7 +8,7 @@ import '../../../../routing/landing.dart';
 import '../../../../services/manavDepoFormServices.dart';
 import '../../../../styles/styleConst.dart';
 import '../../../../utils/generalFunctions.dart';
-import '../../../../utils/sendShopVsitingReportFuncstions.dart';
+import '../../../../utils/sendShopVsitingReportMailFunctions.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/cards/checkingCard.dart';
 

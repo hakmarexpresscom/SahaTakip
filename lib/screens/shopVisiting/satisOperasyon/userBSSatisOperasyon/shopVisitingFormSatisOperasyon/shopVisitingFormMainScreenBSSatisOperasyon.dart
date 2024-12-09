@@ -8,7 +8,7 @@ import '../../../../../services/shopVisitingFormAnswersServices.dart';
 import '../../../../../services/shopVisitingFormBSServices.dart';
 import '../../../../../styles/styleConst.dart';
 import '../../../../../utils/generalFunctions.dart';
-import '../../../../../utils/sendShopVisitingFormFunctions.dart';
+import '../../../../../utils/sendShopVisitingFormMailFunctions.dart';
 import '../../../../../widgets/button_widget.dart';
 import '../../../../../widgets/cards/shopVisitingFormItemCard.dart';
 
