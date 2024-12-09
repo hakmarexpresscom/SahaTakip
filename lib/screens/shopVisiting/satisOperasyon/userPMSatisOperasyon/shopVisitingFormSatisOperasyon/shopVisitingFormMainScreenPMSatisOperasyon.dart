@@ -74,7 +74,7 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: deviceHeight*0.02,),
-          shopVisitingFormMainScreenPMUI(),
+          shopVisitingFormMainScreenPMSatisOperasyonUI(),
           SizedBox(height: deviceHeight*0.02,),
           saveButtonForm(context),
           SizedBox(height: deviceHeight*0.02,),
@@ -83,56 +83,62 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
     );
   }
 
-  Widget shopVisitingFormMainScreenPMUI(){
+  Widget shopVisitingFormMainScreenPMSatisOperasyonUI() {
     return Expanded(
-        child: FutureBuilder<List<ShopVisitingFormPM>>(
-            future: futureShopVisitingFormPM,
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index){
-                    if (snapshot.data![index].isActive == 1) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ShopVisitingFormItemCard(
-                            formItemText: snapshot.data![index].itemName,
-                            icon: Icons.arrow_forward_ios,
-                            onTaps: (){
-                              naviShopVisitingFormDetailScreenPMSatisOperasyon(context, snapshot.data![index].itemID);
-                            },
-                          ),
-                          SizedBox(height: deviceHeight*0.005,),
-                        ],
-                      );
-                    }
-                    else {
-                      return Container();
-                    }
-                  },
-                );
-              }
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Column(
-                    children:[
-                      SizedBox(height: deviceHeight*0.06,),
-                      CircularProgressIndicator(
-                        value: controller.value,
-                        semanticsLabel: 'Circular progress indicator',
+      child: FutureBuilder<List<ShopVisitingFormPM>>(
+        future: futureShopVisitingFormPM,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (snapshot.data![index].isActive == 1) {
+
+                  String itemID = snapshot.data![index].itemID.toString();
+                  bool isAnswered = boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[itemID][0] != "test"; // Cevaplanma durumu kontrolü
+
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ShopVisitingFormItemCard(
+                        formItemText: snapshot.data![index].itemName,
+                        icon: Icons.arrow_forward_ios,
+                        isAnswered: isAnswered, // Durumu burada belirtiyoruz
+                        onTaps: () {
+                          naviShopVisitingFormDetailScreenPMSatisOperasyon(
+                              context, snapshot.data![index].itemID);
+                        },
                       ),
-                    ]
-                );
-              }
-              else{
-                return Text("Veri yok");
-              }
-            }
-        )
+                      SizedBox(
+                        height: deviceHeight * 0.005,
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Column(children: [
+              SizedBox(
+                height: deviceHeight * 0.06,
+              ),
+              CircularProgressIndicator(
+                value: controller.value,
+                semanticsLabel: 'Circular progress indicator',
+              ),
+            ]);
+          } else {
+            return Text("Veri yok");
+          }
+        },
+      ),
     );
   }
 

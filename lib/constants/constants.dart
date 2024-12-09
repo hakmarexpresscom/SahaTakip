@@ -57,6 +57,8 @@ int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
 String yoneticiEmail = (isLoggedIn)?box.get("yoneticiEmail"):"email";
 String userEmail = (isLoggedIn)?box.get("userEmail"):"email";
+String userFullName = (isLoggedIn)?box.get("userFullName"):"name";
+String BMEmail = (isLoggedIn)?box.get("BMEmail"):"email";
 int groupNo = (isLoggedIn)?box.get("groupNo"):0;
 int regionCode = (isLoggedIn)?box.get("regionCode"):0;
 

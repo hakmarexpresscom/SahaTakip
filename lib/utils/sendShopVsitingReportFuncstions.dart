@@ -48,10 +48,6 @@ Future<void> sendReport(int grup) async {
         attachments
     );
   }
-
-  /*else if(grup == 4){
-    //haket fonksiyonu
-  }*/
 }
 
 //-------------------------------------

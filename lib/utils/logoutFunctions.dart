@@ -11,8 +11,11 @@ logout(BuildContext context) async {
   box.put("yoneticiID",0);
   box.put("yoneticiEmail","email");
   box.put("userEmail","email");
+  box.put("userFullName","email");
+  box.put("BMEmail","email");
   box.put("groupNo",0);
   box.put("regionCode",0);
+
   box.put("userType","PM");
   box.put("isBSorPM",true);
   box.put("isBS",false);
@@ -49,8 +52,13 @@ logout(BuildContext context) async {
 
   userID=0;
   yoneticiID=0;
+  yoneticiEmail="";
+  userEmail="";
+  userFullName="";
+  BMEmail="";
   groupNo=0;
   regionCode=0;
+
   userType = "PM";
   isBSorPM = true;
   isBS = false;

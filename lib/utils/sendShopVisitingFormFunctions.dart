@@ -2,85 +2,74 @@ import '../main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../constants/constants.dart';
+import '../models/dynamicReportRequest.dart';
 
-Future<void> sendForm(int grup) async {
+Future<void> sendForm(int grup,Map<dynamic, dynamic> questions, Map<dynamic, dynamic> answers) async {
 
   String subject = "${box.get("currentShopID")} ${box.get("currentShopName")} Ziyaret Formu";
 
+  String store = "${box.get("currentShopID")} - ${box.get("currentShopName")}";
+
+  String filledBy = "${box.get("userFullName")}";
+
   List<String> recipients = [
+    box.get("BMEmail"),
     box.get("yoneticiEmail"),
     box.get("userEmail"),
     "mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"
   ];
 
-  List<String> attachments = [];
+  List<AttachmentData> attachments = [];
+
+  DateTime now = DateTime.now();
+  String formattedDate = "${now.day.toString().padLeft(2, '0')}.${now.month.toString().padLeft(2, '0')}.${now.year}";
+
+  List<Question> questionsList = [];
+
+  for(int i=0;i<questions.keys.toList().length;i++){
+    String key = (questions.keys.toList())[i].toString(); // Key'i string'e çevir
+    if (answers.containsKey(key)) {
+      final answer = answers[key];
+      questionsList.add(Question(id: (questions.keys.toList())[i], text: questions[(questions.keys.toList())[i]], answer: answer[0], score: int.parse(answer[1])));
+    }
+  }
 
   if(grup == 0){
-    await sendFormToApi(
-        recipients,
-        subject,
-        [formatFormToHTML2(boxBSSatisOperasyonShopVisitingFormShops.get("questions"), boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")))],
-        attachments
+
+    var request = DynamicReportRequest(
+      date: formattedDate,
+      store: store,
+      filledBy: filledBy,
+      questions: questionsList,
+      mailRequest: MailRequest(
+        recipients: recipients,
+        subject: subject,
+        htmlContent: "<p>Yollanmış olan mail ekinde $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş olan mağaza ziyaret formunu "
+            "bulabilirsiniz.</p>",
+        attachments: attachments,
+      ),
     );
+
+    await sendDynamicWordReport(request);
   }
 
 }
 
 //-------------------------------------
 
-String formatFormToHTML2(Map<dynamic, dynamic> questions, Map<dynamic, dynamic> answers) {
-  StringBuffer formListBuffer = StringBuffer();
-  formListBuffer.write("<ul>");
-
-  questions.forEach((itemID, itemName) {
-    String key = itemID.toString(); // Key'i string'e çevir
-    if (answers.containsKey(key)) {
-      final answer = answers[key];
-      formListBuffer.write("<li>");
-      formListBuffer.write("$key ) $itemName :<br>");
-      formListBuffer.write("Cevap: \"${answer[0]}\"<br>");
-      formListBuffer.write("Puan: ${answer[1]}<br>");
-      formListBuffer.write("</li>");
-    }
-  });
-
-  formListBuffer.write("</ul>");
-  return formListBuffer.toString();
-}
-
-
-
-//-------------------------------------
-
-Future<void> sendFormToApi(List<String> recipients, String subject, List<String> formattedFormHTMLList, List<String> attachments) async {
-  StringBuffer completeHTMLContent = StringBuffer();
-  formattedFormHTMLList.forEach((htmlContent) {
-    completeHTMLContent.write(htmlContent);
-  });
-
-  List<Map<String, String>> base64Attachments = [];
-
-  DateTime now = DateTime.now();
-  String formattedDate = "${now.day.toString().padLeft(2, '0')}.${now.month.toString().padLeft(2, '0')}.${now.year}";
-
-  var url = Uri.parse('${constUrl}api/email/send-report');
-  var response = await http.post(
+Future<void> sendDynamicWordReport(DynamicReportRequest request) async {
+  final url = Uri.parse('${constUrl}api/email/send-dynamic-word-report');
+  final response = await http.post(
     url,
-    headers: {'Content-Type': 'application/json'},
-    body: jsonEncode({
-      'recipients': recipients,
-      'subject': subject,
-      'htmlContent': "<p>Yollanmış olan mailde $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş olan mağaza ziyaret formunun "
-          "cevaplarını bulabilirsiniz.</p>"
-          + completeHTMLContent.toString(),
-      'attachments': base64Attachments,
-    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(request.toJson()),
   );
 
   if (response.statusCode == 200) {
-    print('Mail sent successfully');
+    print('Word report sent successfully!');
   } else {
-    print('Failed to send mail: ${response.statusCode}');
-    print('Response body: ${response.body}'); // Sunucudan dönen hata mesajını görüntüleyin
+    throw Exception('Failed to send report: ${response.body}');
   }
 }
