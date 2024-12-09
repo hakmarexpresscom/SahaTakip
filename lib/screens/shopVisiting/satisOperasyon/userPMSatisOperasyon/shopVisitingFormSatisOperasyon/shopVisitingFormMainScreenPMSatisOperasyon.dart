@@ -89,38 +89,58 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
         future: futureShopVisitingFormPM,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            // Listeyi al
+            List<ShopVisitingFormPM> formItems = snapshot.data!
+                .where((item) => item.isActive == 1)
+                .toList();
+
+            // Sıralama işlemi
+            formItems.sort((a, b) {
+              String itemID_A = a.itemID.toString();
+              String itemID_B = b.itemID.toString();
+
+              bool isAnsweredA = boxPMSatisOperasyonShopVisitingFormShops
+                  .get(box.get("currentShopID"))[itemID_A][0] !=
+                  "test";
+              bool isAnsweredB = boxPMSatisOperasyonShopVisitingFormShops
+                  .get(box.get("currentShopID"))[itemID_B][0] !=
+                  "test";
+
+              if (isAnsweredA == isAnsweredB) {
+                return 0; // İkisi de aynı durumdaysa sıralamayı değiştirme
+              }
+              return isAnsweredA ? 1 : -1; // Cevaplanmış olanlar sona gider
+            });
+
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: snapshot.data!.length,
+              itemCount: formItems.length,
               itemBuilder: (BuildContext context, int index) {
-                if (snapshot.data![index].isActive == 1) {
+                String itemID = formItems[index].itemID.toString();
+                bool isAnswered = boxPMSatisOperasyonShopVisitingFormShops
+                    .get(box.get("currentShopID"))[itemID][0] !=
+                    "test"; // Cevaplanma durumu kontrolü
 
-                  String itemID = snapshot.data![index].itemID.toString();
-                  bool isAnswered = boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[itemID][0] != "test"; // Cevaplanma durumu kontrolü
-
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ShopVisitingFormItemCard(
-                        formItemText: snapshot.data![index].itemName,
-                        icon: Icons.arrow_forward_ios,
-                        isAnswered: isAnswered, // Durumu burada belirtiyoruz
-                        onTaps: () {
-                          naviShopVisitingFormDetailScreenPMSatisOperasyon(
-                              context, snapshot.data![index].itemID);
-                        },
-                      ),
-                      SizedBox(
-                        height: deviceHeight * 0.005,
-                      ),
-                    ],
-                  );
-                } else {
-                  return Container();
-                }
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ShopVisitingFormItemCard(
+                      formItemText: formItems[index].itemName,
+                      icon: Icons.arrow_forward_ios,
+                      isAnswered: isAnswered,
+                      onTaps: () {
+                        naviShopVisitingFormDetailScreenPMSatisOperasyon(
+                            context, formItems[index].itemID);
+                      },
+                    ),
+                    SizedBox(
+                      height: deviceHeight * 0.005,
+                    ),
+                  ],
+                );
               },
             );
           }
