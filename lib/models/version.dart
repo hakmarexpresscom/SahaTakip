@@ -1,16 +1,16 @@
-class Version{
+class NewVersion{
   late int id;
-  late String version_list;
+  late String versiyon_list;
 
-  Version({
+  NewVersion({
     required this.id,
-    required this.version_list,
+    required this.versiyon_list,
   });
 
-  factory Version.fromJson(Map<String, dynamic> json) {
-    return Version(
+  factory NewVersion.fromJson(Map<String, dynamic> json) {
+    return NewVersion(
       id: json['id'],
-      version_list: json['versiyon_list'],
+      versiyon_list: json['versiyon_list'],
     );
   }
 

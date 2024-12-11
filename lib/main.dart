@@ -99,7 +99,7 @@ void main() async{
 
 
   if(internetConnection[0] != ConnectivityResult.none){
-    final List<Version> versions2 = await fetchVersion2('${constUrl}api/Versiyon');
+    final List<NewVersion> versions2 = await fetchVersion2('${constUrl}api/NewVersion');
     versions1 = versions2;
   }
 
@@ -153,7 +153,10 @@ class _MyAppState extends State<MyApp> {
 
       bool isWithinTimeRange2 = now.isAfter(startTime2) && now.isBefore(endTime2);
 
-      List<int> versionList = (versions1[0].version_list).split(',').where((e) => e.isNotEmpty).map(int.parse).toList();
+      String versionListRaw = versions1[0].versiyon_list;
+
+      List<int> versionList = versionListRaw.split(',').where((e) => e.isNotEmpty).map(int.parse).toList();
+
 
       if(internetConnection[0] == ConnectivityResult.none){
         page = InternetWarningScreen();
@@ -303,7 +306,9 @@ class _MyAppState2 extends State<MyApp> {
 
       bool isWithinTimeRange2 = now.isAfter(startTime2) && now.isBefore(endTime2);
 
-      List<int> versionList = (versions1[1].version_list).split(',').where((e) => e.isNotEmpty).map(int.parse).toList();
+      String versionListRaw = versions1[1].versiyon_list;
+
+      List<int> versionList = versionListRaw.split(',').where((e) => e.isNotEmpty).map(int.parse).toList();
 
       if(internetConnection[0] == ConnectivityResult.none){
         page = InternetWarningScreen();
