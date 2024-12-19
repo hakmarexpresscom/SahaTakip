@@ -219,10 +219,14 @@ class _ShopVisitingFormMainScreenBSSatisOperasyonState extends State<ShopVisitin
               ]
             );
 
-            boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).forEach((key, value) {boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[key] = ["test", "0"];});
+            boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).forEach((key, value) {
+              boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[key] = ["test", "0"];
+            });
 
             Navigator.of(context).pop(); // Close the dialog
-            showAlertDialogWidget(context, 'Form Kaydedildi', 'Formunuz başarıyla veritabanına kaydedildi!', (){naviShopVisitingProcessesScreen(context,box.get("currentShopID"), box.get("currentShopName"),box.get("groupNo"));});
+            showAlertDialogWidget(context, 'Form Kaydedildi', 'Formunuz başarıyla veritabanına kaydedildi!', (){
+              naviShopVisitingProcessesScreen(context,box.get("currentShopID"), box.get("currentShopName"),box.get("groupNo"));
+            });
           }
         },
         borderWidht: 1,

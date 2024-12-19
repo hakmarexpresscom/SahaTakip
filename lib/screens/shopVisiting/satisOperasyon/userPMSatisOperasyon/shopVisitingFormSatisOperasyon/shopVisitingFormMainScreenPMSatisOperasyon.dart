@@ -221,6 +221,7 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
                 "mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"
               ],
             );
+
             boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).forEach((key, value) {
               boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[key] = ["test", "0"];
             });
