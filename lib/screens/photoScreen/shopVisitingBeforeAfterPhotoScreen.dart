@@ -180,7 +180,12 @@ class _ShopVisitingBeforeAfterPhotoScreenState extends State<ShopVisitingBeforeA
             showAlertDialogWithoutButtonWidget(context,"Mail Gönderiliyor","Ziyaret raporu mailiniz yollanıyor lütfen bekleyiniz.");
 
             photoManager2.uploadeAfterPhoto();
-            await sendReport(box.get("groupNo"));
+            await sendReport(
+                box.get("groupNo"),
+                (isBS==true) ?
+                [box.get("PMEmail"),box.get("BMEmail"),"mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"] :
+                [box.get("BMEmail"),"mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"]
+            );
 
             resetShopVisitingFormInfo(box.get("groupNo"));
             resetShopVisitingBeforeAfterPhoto();

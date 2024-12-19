@@ -280,11 +280,11 @@ void naviShopVisitingFormMainScreenPMSatisOperasyon(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormMainScreenPMSatisOperasyon(shop_code: id,)));
 }
 
-void naviShopVisitingFormDetailScreenBSSatisOperasyon(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenBSSatisOperasyon(item_id: id,)));
+void naviShopVisitingFormDetailScreenBSSatisOperasyon(BuildContext context, id, name){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenBSSatisOperasyon(item_id: id, item_name: name)));
 }
 
-void naviShopVisitingFormDetailScreenPMSatisOperasyon(BuildContext context, id){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenPMSatisOperasyon(item_id: id,)));
+void naviShopVisitingFormDetailScreenPMSatisOperasyon(BuildContext context, id, name){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingFormDetailScreenPMSatisOperasyon(item_id: id, item_name: name,)));
 }
 

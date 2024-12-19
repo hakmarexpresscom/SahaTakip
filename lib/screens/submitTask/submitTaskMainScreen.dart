@@ -11,6 +11,7 @@ import '../../constants/bottomNaviBarLists.dart';
 import '../../constants/pagesLists.dart';
 import '../../main.dart';
 import '../../routing/landing.dart';
+import '../../utils/sendTaskMailFunctions.dart';
 import '../../widgets/text_form_field.dart';
 
 
@@ -146,9 +147,6 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
       fontWeight: FontWeight.w600,
       onTaps: () async {
 
-        print(inPlace);
-        print(remote);
-
         var connectivityResult = await (Connectivity().checkConnectivity());
         List<dynamic> firstIndexValues = boxShopTaskPhoto.values.map((value) => value[1]).toList();
 
@@ -190,6 +188,8 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             (inPlace == true && remote == false) ? "Yerinde" : "Uzaktan",
             "${constUrl}api/Fotograf",
           );
+
+          await sendTask(box.get("groupNo"), "Bizz / Yerinde-Uzaktan Görev Ataması");
 
           Navigator.of(context).pop(); // Close the dialog
           showAlertDialogWidget(context, 'Görev Atandı', 'Görev başarıyla atandı!', (){createShopTaskPhotoMap(groupNo);resetTaskPhotos();naviSubmitTaskMainScreen(context);});

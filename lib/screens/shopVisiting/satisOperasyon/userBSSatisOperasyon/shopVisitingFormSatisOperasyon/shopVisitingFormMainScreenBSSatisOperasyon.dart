@@ -134,7 +134,7 @@ class _ShopVisitingFormMainScreenBSSatisOperasyonState extends State<ShopVisitin
                       isAnswered: isAnswered,
                       onTaps: () {
                         naviShopVisitingFormDetailScreenBSSatisOperasyon(
-                            context, formItems[index].itemID);
+                            context, formItems[index].itemID, formItems[index].itemName);
                       },
                     ),
                     SizedBox(
@@ -198,15 +198,26 @@ class _ShopVisitingFormMainScreenBSSatisOperasyonState extends State<ShopVisitin
             showAlertDialogWithoutButtonWidget(context,"Form Yollanıyor","Formunuz veritabanına yollanıyor, lütfen bekleyiniz.");
 
             await createShopVisitingFormAnswers(
-                (isBS==true)?userID:null,
-                (isBS==true)?null:userID,
-                box.get("currentShopID"),
-                box.get("shiftDate"),
-                convertMapToJsonString(boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))),
-                '${constUrl}api/MagazaZiyaretFormuCevaplar'
+              (isBS==true)?userID:null,
+              (isBS==true)?null:userID,
+              box.get("currentShopID"),
+              box.get("shiftDate"),
+              convertMapToJsonString(boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))),
+              '${constUrl}api/MagazaZiyaretFormuCevaplar'
             );
 
-            await sendForm(box.get("groupNo"),boxBSSatisOperasyonShopVisitingFormShops.get("questions"), boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")));
+            await sendForm(
+              box.get("groupNo"),
+              boxBSSatisOperasyonShopVisitingFormShops.get("questions"),
+              boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")),
+              "${box.get("currentShopID")} ${box.get("currentShopName")} Bölge Sorumlusu Ziyaret Formu",
+              [
+                box.get("PMEmail"),
+                box.get("BMEmail"),
+                box.get("userEmail"),
+                "mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"
+              ]
+            );
 
             boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")).forEach((key, value) {boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID"))[key] = ["test", "0"];});
 

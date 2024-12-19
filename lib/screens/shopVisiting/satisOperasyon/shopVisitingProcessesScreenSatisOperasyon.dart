@@ -222,7 +222,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    ShopVisitingProcessCard(
+                    /*ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
                       processName: "Kasa\nSayımı",
@@ -231,7 +231,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                         _stopTimer();
                         naviCashCountingScreen(context, widget.shop_code, widget.shopName);
                       },
-                    ),
+                    ),*/
                     ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
@@ -357,23 +357,6 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                     ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
-                      processName: "Kasa\nSayımı",
-                      processIcon: Icons.price_check,
-                      onTaps: () {
-                        _stopTimer();
-                        naviCashCountingScreen(context, widget.shop_code, widget.shopName);
-                      },
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ShopVisitingProcessCard(
-                      heightConst: 0.25,
-                      widthConst: 0.47,
                       processName: "Mağaza\nZiyaret\nFormu",
                       processIcon: Icons.content_paste_outlined,
                       onTaps: () async{
@@ -395,7 +378,24 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       },
                     ),
                   ],
-                )
+                ),
+                /*Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    ShopVisitingProcessCard(
+                      heightConst: 0.25,
+                      widthConst: 0.47,
+                      processName: "Kasa\nSayımı",
+                      processIcon: Icons.price_check,
+                      onTaps: () {
+                        _stopTimer();
+                        naviCashCountingScreen(context, widget.shop_code, widget.shopName);
+                      },
+                    ),
+                  ],
+                )*/
               ],
             ),
           ],

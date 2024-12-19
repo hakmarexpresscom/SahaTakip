@@ -52,10 +52,10 @@ logout(BuildContext context) async {
 
   userID=0;
   yoneticiID=0;
-  yoneticiEmail="";
   userEmail="";
   userFullName="";
   BMEmail="";
+  PMEmail="";
   groupNo=0;
   regionCode=0;
 
@@ -69,6 +69,7 @@ logout(BuildContext context) async {
   shopCodes = [];
   bsIDs = [];
   bsNames = [];
+  bsEmails = [];
   allSelected = [];
   taskPhotos = [];
 

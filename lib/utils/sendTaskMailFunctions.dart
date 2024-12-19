@@ -1,10 +1,17 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../constants/constants.dart';
+import '../main.dart';
 
-Future<void> sendTask(int grup,List<String> recipients) async {
+Future<void> sendTask(int grup, String subject) async {
 
-  String subject = "Bizz Uygulaması Görev Atama";
+  List<String> recipients = [];
+
+  for (int i = 0; i < box.get("shopCodes").length; i++) {
+    if(boxShopTaskPhoto.get(box.get("shopCodes")[i].toString())[1]==true){
+      recipients.add(boxShopTaskPhoto.get(box.get("shopCodes")[i].toString())[5]);
+    }
+  }
 
   if(grup == 0){
     await sendTaskToApi(
@@ -37,7 +44,7 @@ Future<void> sendTaskToApi(List<String> recipients, String subject) async {
     body: jsonEncode({
       'recipients': recipients,
       'subject': subject,
-      'htmlContent': "<p>Tarafınıza $formattedDate tarihinde yeni bir görev atanmıştır.</p>",
+      'htmlContent': "<p>Tarafınıza $formattedDate tarihinde yeni bir görev atanmıştır. Bizz uygulaması içerisinden görevi kontrol edebilirsiniz.</p>",
       'attachments': base64Attachments,
     }),
   );

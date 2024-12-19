@@ -30,6 +30,8 @@ int sayac = 0;
 
 login(String user, String email, String password, BuildContext context) async {
 
+  box.put("user",user);
+
   if(user=="Bölge Sorumlusu") {
 
     box.put("userType","BS");
@@ -184,8 +186,8 @@ Future checkEmailBS(String email, String url,BuildContext context) async {
       final UserPM userPM = await fetchUserPM3("${constUrl}api/KullaniciPM/${yoneticiID}");
       final UserBM userBM = await fetchUserBM3("${constUrl}api/KullaniciBM/${userPM.manager_id}");
 
-      box.put("yoneticiEmail", userPM.email);
-      yoneticiEmail = box.get("yoneticiEmail");
+      box.put("PMEmail", userPM.email);
+      PMEmail = box.get("PMEmail");
 
       box.put("BMEmail", userBM.email);
       BMEmail = box.get("BMEmail");
@@ -292,8 +294,8 @@ Future checkEmailPM(String email, String url,BuildContext context) async {
 
       final UserBM userBM = await fetchUserBM3("${constUrl}api/KullaniciBM/${yoneticiID}");
 
-      box.put("yoneticiEmail", userBM.email);
-      yoneticiEmail = box.get("yoneticiEmail");
+      box.put("BMEmail", userBM.email);
+      BMEmail = box.get("BMEmail");
 
       sayac=i;
     }
@@ -353,6 +355,7 @@ Future checkPasswordPM(String password, String urlUser,BuildContext context) asy
         }
 
         await saveBSName();
+        await saveBSEmail();
         await createShopTaskPhotoMap(groupNo);
 
       } catch (error) {
@@ -440,6 +443,7 @@ Future checkPasswordBM(String password, String urlUser, BuildContext context) as
         }
 
         await saveBSName();
+        await saveBSEmail();
         await createShopTaskPhotoMap(groupNo);
 
       } catch (error) {

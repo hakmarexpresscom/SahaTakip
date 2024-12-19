@@ -15,7 +15,8 @@ class ShopVisitingFormDetailScreenBSSatisOperasyon extends StatefulWidget {
   static var explanation = "";
 
   int item_id = 0;
-  ShopVisitingFormDetailScreenBSSatisOperasyon({super.key, required this.item_id});
+  String item_name = "test";
+  ShopVisitingFormDetailScreenBSSatisOperasyon({super.key, required this.item_id, required this.item_name});
 
   @override
   State<ShopVisitingFormDetailScreenBSSatisOperasyon> createState() =>
@@ -119,7 +120,9 @@ class _ShopVisitingFormDetailScreenBSSatisOperasyonState extends State<ShopVisit
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: deviceHeight * 0.04),
+            SizedBox(height: deviceHeight * 0.02),
+            TextWidget(text: widget.item_name, size: 17, fontWeight: FontWeight.w400, color: textColor),
+            SizedBox(height: deviceHeight * 0.02),
             TextWidget(text: "Puan:", size: 17, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: deviceHeight * 0.02),
             pointDropDown(),

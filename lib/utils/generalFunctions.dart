@@ -116,6 +116,22 @@ Future<void> saveBSName() async {
 
 //------------
 
+Future<void> saveBSEmail() async {
+  if (!bsEmails.contains("Tüm BS'ler")) {
+    bsEmails.add("Tüm BS'ler");
+  }
+  for (int i = 1; i < bsIDs.length; i++) {
+    final UserBS userBS = await fetchUserBS3("${constUrl}api/KullaniciBS/${bsIDs[i]}");
+    final String email = userBS.email;
+    if (!bsEmails.contains(email)) {
+      bsEmails.add(email);
+    }
+  }
+  await box.put("bsEmails", bsEmails);
+}
+
+//------------
+
 Future createShopTaskPhotoMap(int grup) async {
   final List<Future<Shop>> fetchFutures = shopCodes.map<Future<Shop>>((code) {
     return fetchShop3("${constUrl}api/MagazaV113/$code");
@@ -125,15 +141,15 @@ Future createShopTaskPhotoMap(int grup) async {
     final Shop shop = shops[i];
     if (grup == 0) {
       int index1 = bsIDs.indexOf(shop.bs_id);
-      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_id, shop.shopName, bsNames[index1]]);
+      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_id, shop.shopName, bsNames[index1],bsEmails[index1]]);
     }
     else if(grup == 1){
       int index2 = bsIDs.indexOf(shop.bs_manav_id);
-      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_manav_id, shop.shopName, bsNames[index2]]);
+      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_manav_id, shop.shopName, bsNames[index2],bsEmails[index2]]);
     }
     else if(grup == 2){
-      int index2 = bsIDs.indexOf(shop.bs_unkar_id);
-      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_unkar_id, shop.shopName, bsNames[index2]]);
+      int index3 = bsIDs.indexOf(shop.bs_unkar_id);
+      boxShopTaskPhoto.put(shopCodes[i].toString(), ["", false, shop.bs_unkar_id, shop.shopName, bsNames[index3],bsEmails[index3]]);
     }
   }
 }
@@ -151,9 +167,6 @@ Future createShopTaskPhotoMapBS(int grup) async{
     }
     else if(grup==2){
       boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_unkar_id]);
-    }
-    else if(grup==3){
-      boxShopTaskPhoto.put(box.get("shopCodes")[i].toString(),["",false,shop.bs_tedarik_id]);
     }
   }
 }

@@ -14,6 +14,7 @@ import '../../../../../services/reportServices.dart';
 import '../../../../../styles/styleConst.dart';
 import '../../../../../utils/appStateManager.dart';
 import '../../../../../utils/generalFunctions.dart';
+import '../../../../../utils/sendTaskMailFunctions.dart';
 import '../../../../../widgets/button_widget.dart';
 import '../../../../../widgets/cards/pastReportCard.dart';
 import '../../../../../widgets/text_form_field.dart';
@@ -303,6 +304,8 @@ class _VisitingRaportMainScreenSatisOperasyonState extends State<VisitingRaportM
                 null,
                 "Rapor",
             );
+
+            await sendTask(box.get("groupNo"), "Bizz / Mağaza Tespit Raporu Görev Ataması");
 
             Navigator.of(context).pop(); // Close the dialog
             showAlertDialogWidget(context, 'Görev Eklendi', 'Görev başarılı bir şekilde rapora eklendi!', (){naviVisitingReportMainScreen(context, widget.shop_code,box.get("groupNo"));});

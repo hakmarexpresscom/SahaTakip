@@ -183,7 +183,19 @@ class _NavigationMainScreenState extends State<NavigationMainScreen> with Ticker
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children:<Widget>[
-                            ShopCard(icon: Icons.store,sizedBoxConst1: sizedBoxConst1,sizedBoxConst2: sizedBoxConst2,sizedBoxConst3: sizedBoxConst3, textSizeCode: textSizeCode, textSizeName: textSizeName, textSizeButton: textSizeButton, shopName: snapshot.data![index].shopName, shopCode: snapshot.data![index].shopCode.toString(), lat: snapshot.data![index].Lat, long: snapshot.data![index].Long)
+                            ShopCard(
+                                icon: Icons.store,
+                                sizedBoxConst1: sizedBoxConst1,
+                                sizedBoxConst2: sizedBoxConst2,
+                                sizedBoxConst3: sizedBoxConst3,
+                                textSizeCode: textSizeCode,
+                                textSizeName: textSizeName,
+                                textSizeButton: textSizeButton,
+                                shopName: snapshot.data![index].shopName,
+                                shopCode: snapshot.data![index].shopCode.toString(),
+                                lat: snapshot.data![index].Lat,
+                                long: snapshot.data![index].Long
+                            )
                           ]
                       );
                     }

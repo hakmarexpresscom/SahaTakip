@@ -18,6 +18,11 @@ import 'package:deneme/screens/warning/internetWarningScreen.dart';
 import 'package:deneme/screens/warning/versionWarningScreen.dart';
 import 'package:deneme/services/versionServices.dart';
 import 'package:deneme/utils/appStateManager.dart';
+import 'package:deneme/utils/generalFunctions.dart';
+import 'package:deneme/utils/isFirstLaunchAfterUpdate.dart';
+import 'package:deneme/utils/isFirstLoginToday.dart';
+import 'package:deneme/utils/synchronizationBoxData.dart';
+import 'package:deneme/widgets/alert_dialog_without_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -26,81 +31,41 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'constants/constants.dart';
 import 'models/version.dart';
 
-var appConstants = Hive.box('appConstants');
-var stateManagementConstants = Hive.box('stateManagementConstants');
-var shopTaskPhotoConstants = Hive.box('shopTaskPhotoConstants');
-var visitTimer = Hive.box('visitTimer');
-var shopVisitingPhoto = Hive.box('shopVisitingPhoto');
-var shopVisitingForms = Hive.box('shopVisitingForms');
-var BSSatisOperasyonShopVisitingForm = Hive.box('BSSatisOperasyonShopVisitingForm');
-var PMSatisOperasyonShopVisitingForm = Hive.box('PMSatisOperasyonShopVisitingForm');
-var BSSatisOperasyonShopVisitingFormShops = Hive.box('BSSatisOperasyonShopVisitingFormShops');
-var PMSatisOperasyonShopVisitingFormShops = Hive.box('PMSatisOperasyonShopVisitingFormShops');
-var versions1;
-var internetConnection;
+late Box box;
+late Box boxStateManagement;
+late Box boxShopTaskPhoto;
+late Box boxVisitTimer;
+late Box boxshopVisitingPhoto;
+late Box boxShopVisitingForms;
+late Box boxBSSatisOperasyonShopVisitingFormShops;
+late Box boxPMSatisOperasyonShopVisitingFormShops;
 
+var internetConnection;
+List<NewVersion> versions1 = [];
 bool isLoggedIn = false;
 
-var box;
-var boxStateManagement;
-var boxShopTaskPhoto;
-var boxVisitTimer;
-var boxshopVisitingPhoto;
-var boxShopVisitingForms;
-var boxBSSatisOperasyonShopVisitingFormShops;
-var boxPMSatisOperasyonShopVisitingFormShops;
-
-void main() async{
-
-  WidgetsFlutterBinding.ensureInitialized();
-
-  var connectivityResult = await (Connectivity().checkConnectivity());
-  internetConnection = connectivityResult;
-
+Future<void> initHiveBoxes() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path,backendPreference: HiveStorageBackendPreference.native);
-  var hive = await Hive.openBox('appConstants');
-  box = hive;
+  Hive.init(appDocumentDir.path, backendPreference: HiveStorageBackendPreference.native);
 
-  final appDocumentDir2 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir2.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveStateManagement = await Hive.openBox<bool>('stateManagementConstants');
-  boxStateManagement = hiveStateManagement;
+  box = await Hive.openBox('appConstants');
+  boxStateManagement = await Hive.openBox('stateManagementConstants');
+  boxShopTaskPhoto = await Hive.openBox('shopTaskPhotoConstants');
+  boxVisitTimer = await Hive.openBox('visitTimer');
+  boxshopVisitingPhoto = await Hive.openBox('shopVisitingPhoto');
+  boxShopVisitingForms = await Hive.openBox('shopVisitingForms');
+  boxBSSatisOperasyonShopVisitingFormShops = await Hive.openBox('BSSatisOperasyonShopVisitingFormShops');
+  boxPMSatisOperasyonShopVisitingFormShops = await Hive.openBox('PMSatisOperasyonShopVisitingFormShops');
+}
 
-  final appDocumentDir3 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir3.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveShopTaskPhoto = await Hive.openBox('shopTaskPhotoConstants');
-  boxShopTaskPhoto = hiveShopTaskPhoto;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initHiveBoxes();
 
-  final appDocumentDir4 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir4.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveVisitTimer = await Hive.openBox('visitTimer');
-  boxVisitTimer = hiveVisitTimer;
+  internetConnection = await Connectivity().checkConnectivity();
 
-  final appDocumentDir5 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir5.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveShopVisitingPhoto = await Hive.openBox('shopVisitingPhoto');
-  boxshopVisitingPhoto = hiveShopVisitingPhoto;
-
-  final appDocumentDir6 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir6.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveShopVisitingForms = await Hive.openBox('shopVisitingForms');
-  boxShopVisitingForms = hiveShopVisitingForms;
-
-  final appDocumentDir7 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir7.path,backendPreference: HiveStorageBackendPreference.native);
-  var hiveBSSatisOperasyonShopVisitingFormShops = await Hive.openBox('BSSatisOperasyonShopVisitingFormShops');
-  boxBSSatisOperasyonShopVisitingFormShops = hiveBSSatisOperasyonShopVisitingFormShops;
-
-  final appDocumentDir8 = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir8.path,backendPreference: HiveStorageBackendPreference.native);
-  var hivePMSatisOperasyonShopVisitingFormShops = await Hive.openBox('PMSatisOperasyonShopVisitingFormShops');
-  boxPMSatisOperasyonShopVisitingFormShops = hivePMSatisOperasyonShopVisitingFormShops;
-
-
-  if(internetConnection[0] != ConnectivityResult.none){
-    final List<NewVersion> versions2 = await fetchVersion2('${constUrl}api/NewVersion');
-    versions1 = versions2;
+  if (internetConnection != ConnectivityResult.none) {
+    versions1 = await fetchVersion2('${constUrl}api/NewVersion');
   }
 
   runApp(MyApp());
@@ -118,6 +83,8 @@ class _MyAppState extends State<MyApp> {
   late Widget page = StartWorkMainScreen();
   late Widget page2 = NavigationMainScreen();
   late Widget page3 = LoginMainScreen();
+
+  bool isSyncingData = false;
 
   DateTime now = DateTime.now();
 
@@ -137,7 +104,37 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       isLoggedIn = loggedIn;
     });
+    if (isLoggedIn) {
+      checkFirstLoginAndSyncData();
+    }
   }
+
+  Future<void> checkFirstLoginAndSyncData() async {
+    bool isFirstLogin = await isFirstLoginToday();
+    bool isFirstLogin2 = await isFirstLaunchAfterUpdate();
+
+    if (isFirstLogin || isFirstLogin2) {
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+
+        showDialog(
+          context: Get.context!,
+          barrierDismissible: false,
+          builder: (context) => AlertDialogWithoutButtonWidget(
+            title: "Verileriniz senkronize ediliyor",
+            content: "Lütfen bekleyiniz...",
+          ),
+        );
+      });
+
+      await synchronizationBoxData(box.get("user"),box.get("groupNo"));
+
+      if (Navigator.canPop(Get.context!)) {
+        Navigator.of(Get.context!).pop();
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -409,6 +406,15 @@ class _MyAppState2 extends State<MyApp> {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+      ),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+          child: child!,
+        );
+      },
       home: (isLoggedIn)? (isBSorPM?page:page2) : page3,
     );
   }

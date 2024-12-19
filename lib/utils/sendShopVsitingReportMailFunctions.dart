@@ -6,14 +6,9 @@ import '../constants/constants.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 
-Future<void> sendReport(int grup) async {
+Future<void> sendReport(int grup, List<String> recipients) async {
 
   String subject = "${box.get("currentShopID")} ${box.get("currentShopName")} Ziyaret Raporu";
-
-  List<String> recipients = [
-    box.get("yoneticiEmail"),
-    "mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"
-  ];
 
   List<String> attachments = [];
 
@@ -32,7 +27,10 @@ Future<void> sendReport(int grup) async {
         recipients,
         subject,
         [boxShopVisitingForms.get("manavShopFormList")],
-        attachments
+        attachments,
+        box.get("userFullName"),
+        box.get("visitingStartTime").toString(),
+        box.get("visitingFinishTime").toString()
     );
   }
 
@@ -45,7 +43,10 @@ Future<void> sendReport(int grup) async {
           boxShopVisitingForms.get("frozenGroupFormList"),
           boxShopVisitingForms.get("tatbakGroupFormList")
         ],
-        attachments
+        attachments,
+        box.get("userFullName"),
+        box.get("visitingStartTime").toString(),
+        box.get("visitingFinishTime").toString()
     );
   }
 }
@@ -91,7 +92,7 @@ Future<File?> resizeAndCompressImage(String filePath, int width) async {
 
 //-------------------------------------
 
-Future<void> sendReportToApi(List<String> recipients, String subject, List<String> formattedFormHTMLList, List<String> attachments) async {
+Future<void> sendReportToApi(List<String> recipients, String subject, List<String> formattedFormHTMLList, List<String> attachments, String userName, String time1, String time2) async {
   StringBuffer completeHTMLContent = StringBuffer();
   formattedFormHTMLList.forEach((htmlContent) {
     completeHTMLContent.write(htmlContent);
@@ -117,8 +118,8 @@ Future<void> sendReportToApi(List<String> recipients, String subject, List<Strin
     body: jsonEncode({
       'recipients': recipients,
       'subject': subject,
-      'htmlContent': "<p>Yollanmış olan mailde $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş formların sonuçlarını "
-          "ve uygulamaya yüklenmiş olan ziyaret fotoğraflarını bulabilirsiniz.</p>"
+      'htmlContent': "<p>Yollanmış olan mailde $userName kişisinin $formattedDate tarihli mağaza ziyareti sırasında doldurulmuş formların sonuçlarını "
+          "ve uygulamaya yüklenmiş olan ziyaret fotoğraflarını bulabilirsiniz. Ziyaret başlangıç saati: $userName, Ziyaret bitiş saati: $time2</p>"
           + completeHTMLContent.toString(),
       'attachments': base64Attachments,
     }),

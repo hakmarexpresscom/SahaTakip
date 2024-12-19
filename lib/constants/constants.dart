@@ -50,15 +50,16 @@ String urlTaskShops = (isLoggedIn)?box.get("urlTaskShops"):"";
 List<dynamic> shopCodes = (isLoggedIn) ? box.get("shopCodes", defaultValue: []) : [];
 List<dynamic> bsIDs = (isLoggedIn) ? box.get("bsIDs", defaultValue: []) : [];
 List<dynamic> bsNames = (isLoggedIn) ? box.get("bsNames", defaultValue: []) : [];
+List<dynamic> bsEmails = (isLoggedIn) ? box.get("bsEmails", defaultValue: []) : [];
 List<dynamic> allSelected = (isLoggedIn) ? box.get("allSelected", defaultValue: []) : [];
 List<XFile> taskPhotos = [];
 
 int userID=(isLoggedIn)?box.get("userID"):0;
 int yoneticiID = (isLoggedIn)?box.get("yoneticiID"):0;
-String yoneticiEmail = (isLoggedIn)?box.get("yoneticiEmail"):"email";
 String userEmail = (isLoggedIn)?box.get("userEmail"):"email";
 String userFullName = (isLoggedIn)?box.get("userFullName"):"name";
 String BMEmail = (isLoggedIn)?box.get("BMEmail"):"email";
+String PMEmail = (isLoggedIn)?box.get("PMEmail"):"email";
 int groupNo = (isLoggedIn)?box.get("groupNo"):0;
 int regionCode = (isLoggedIn)?box.get("regionCode"):0;
 

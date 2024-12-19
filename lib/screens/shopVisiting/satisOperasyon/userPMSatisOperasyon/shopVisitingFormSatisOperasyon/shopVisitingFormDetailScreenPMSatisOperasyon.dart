@@ -15,7 +15,8 @@ class ShopVisitingFormDetailScreenPMSatisOperasyon extends StatefulWidget {
   static var explanation = "";
 
   int item_id = 0;
-  ShopVisitingFormDetailScreenPMSatisOperasyon({super.key, required this.item_id});
+  String item_name = "test";
+  ShopVisitingFormDetailScreenPMSatisOperasyon({super.key, required this.item_id,required this.item_name});
 
   @override
   State<ShopVisitingFormDetailScreenPMSatisOperasyon> createState() =>
@@ -117,7 +118,9 @@ class _ShopVisitingFormDetailScreenPMSatisOperasyonState extends State<ShopVisit
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: deviceHeight * 0.04),
+            SizedBox(height: deviceHeight * 0.02),
+            TextWidget(text: widget.item_name, size: 17, fontWeight: FontWeight.w400, color: textColor),
+            SizedBox(height: deviceHeight * 0.02),
             TextWidget(text: "Puan:", size: 17, fontWeight: FontWeight.w400, color: textColor),
             SizedBox(height: deviceHeight * 0.02),
             pointDropDown(),

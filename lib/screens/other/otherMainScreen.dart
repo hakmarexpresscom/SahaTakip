@@ -115,7 +115,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
+            /*(isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
             (isBS == true && groupNo == 0)?getReportButton1(context):SizedBox(height: deviceHeight*0.00,),
             (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
             (isBS == true && groupNo == 0)?getReportButton2(context):SizedBox(height: deviceHeight*0.00,),
@@ -126,7 +126,7 @@ class _OtherMainScreenState extends State<OtherMainScreen> {
             (isBS == true && groupNo == 0)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
             (isBS == true && groupNo == 0)?getReportButton5(context):SizedBox(height: deviceHeight*0.00,),
             (isBS == true)?SizedBox(height: deviceHeight*0.03,):SizedBox(height: deviceHeight*0.00,),
-            (isBS == true)?getReportButton6(context):SizedBox(height: deviceHeight*0.00,),
+            (isBS == true)?getReportButton6(context):SizedBox(height: deviceHeight*0.00,),*/
             SizedBox(height: deviceHeight*0.03,),
             logoutButton()
           ],

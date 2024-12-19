@@ -4,20 +4,11 @@ import 'dart:convert';
 import '../constants/constants.dart';
 import '../models/dynamicReportRequest.dart';
 
-Future<void> sendForm(int grup,Map<dynamic, dynamic> questions, Map<dynamic, dynamic> answers) async {
-
-  String subject = "${box.get("currentShopID")} ${box.get("currentShopName")} Ziyaret Formu";
+Future<void> sendForm(int grup,Map<dynamic, dynamic> questions, Map<dynamic, dynamic> answers, String subject, List<String> recipients) async {
 
   String store = "${box.get("currentShopID")} - ${box.get("currentShopName")}";
 
   String filledBy = "${box.get("userFullName")}";
-
-  List<String> recipients = [
-    box.get("BMEmail"),
-    box.get("yoneticiEmail"),
-    box.get("userEmail"),
-    "mag${box.get("currentShopID")}@hakmarmagazacilik.com.tr"
-  ];
 
   List<AttachmentData> attachments = [];
 
