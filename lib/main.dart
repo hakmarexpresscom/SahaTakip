@@ -287,6 +287,35 @@ class _MyAppState2 extends State<MyApp> {
     setState(() {
       isLoggedIn = loggedIn;
     });
+    if (isLoggedIn) {
+      checkFirstLoginAndSyncData();
+    }
+  }
+
+  Future<void> checkFirstLoginAndSyncData() async {
+    bool isFirstLogin = await isFirstLoginToday();
+    bool isFirstLogin2 = await isFirstLaunchAfterUpdate();
+
+    if (isFirstLogin || isFirstLogin2) {
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+
+        showDialog(
+          context: Get.context!,
+          barrierDismissible: false,
+          builder: (context) => AlertDialogWithoutButtonWidget(
+            title: "Verileriniz senkronize ediliyor",
+            content: "Lütfen bekleyiniz...",
+          ),
+        );
+      });
+
+      await synchronizationBoxData(box.get("user"),box.get("groupNo"));
+
+      if (Navigator.canPop(Get.context!)) {
+        Navigator.of(Get.context!).pop();
+      }
+    }
   }
 
   @override
