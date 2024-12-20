@@ -41,6 +41,23 @@ synchronizationBoxData(String user, int grup) async{
     box.put("BMEmail", userBM.email);
     BMEmail = box.get("BMEmail");
 
+    if(grup==0){
+      urlShopFilter = "/byBsId?bs_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
+    else if(grup==1){
+      urlShopFilter = "/byBsManavId?bs_manav_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
+    else if(grup==2){
+      urlShopFilter = "/byBsUnkarId?bs_unkar_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
+    else if(grup==3){
+      urlShopFilter = "/byBsTedarikId?bs_tedarik_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
+
     try {
 
       await saveShopCodes("${constUrl}api/MagazaV113${box.get("urlShopFilter")}=${userID}");
@@ -78,6 +95,19 @@ synchronizationBoxData(String user, int grup) async{
 
     box.put("BMEmail", userBM.email);
     BMEmail = box.get("BMEmail");
+
+    if(grup==0){
+      urlShopFilter = "/byPmId?Pm_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
+    else if(grup==1){
+      urlShopFilter = "/byPmManavId?pm_manav_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
+    else if(grup==2){
+      urlShopFilter = "/byPmUnkarId?pm_unkar_id";
+      box.put("urlShopFilter", urlShopFilter);
+    }
 
     try {
       await saveShopCodes("${constUrl}api/MagazaV113${box.get("urlShopFilter")}=${userID}");

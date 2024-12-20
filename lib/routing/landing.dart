@@ -106,6 +106,8 @@ void naviVisitingReportTaskMainScreen(BuildContext context, id, groupNo){
   }
 }
 
+//------------
+
 void naviInPlaceTaskMainScreen(BuildContext context, id, groupNo){
   if(groupNo == 0){
     Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskMainScreenSatisOperasyon(shop_code: id,)));
@@ -115,9 +117,13 @@ void naviInPlaceTaskMainScreen(BuildContext context, id, groupNo){
   }
 }
 
+//------------
+
 void naviCashCountingScreen(BuildContext context, id, name){
   Navigator.push(context, MaterialPageRoute(builder: (context) => CashCountingScreen(shop_code:id, shopName: name,)));
 }
+
+//------------
 
 void naviVisitingReportMainScreen(BuildContext context, id, groupNo){
   if(groupNo == 0){
@@ -128,6 +134,8 @@ void naviVisitingReportMainScreen(BuildContext context, id, groupNo){
   }
 }
 
+//------------
+
 void naviInPlaceTaskDetailScreen(BuildContext context, id, groupNo){
   if(groupNo == 0){
     Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreenSatisOperasyon(task_id: id)));
@@ -136,6 +144,8 @@ void naviInPlaceTaskDetailScreen(BuildContext context, id, groupNo){
     Navigator.push(context, MaterialPageRoute(builder: (context) => InPlaceTaskDetailScreenManav(task_id: id)));
   }
 }
+
+//------------
 
 void naviVisitingReportTaskDetailScreen(BuildContext context, id, groupNo){
   if(groupNo == 0){
@@ -146,6 +156,8 @@ void naviVisitingReportTaskDetailScreen(BuildContext context, id, groupNo){
   }
 }
 
+//------------
+
 void naviPastReportTasksScreen(BuildContext context, id, groupNo){
   if(groupNo == 0){
     Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTasksScreenSatisOperasyon(report_id: id,)));
@@ -155,6 +167,8 @@ void naviPastReportTasksScreen(BuildContext context, id, groupNo){
   }
 }
 
+//------------
+
 void naviPastReportTaskDetailScreen(BuildContext context, id,completionInfo, groupNo){
   if(groupNo == 0){
     Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreenSatisOperasyon(task_id: id,completionInfo: completionInfo,)));
@@ -163,6 +177,8 @@ void naviPastReportTaskDetailScreen(BuildContext context, id,completionInfo, gro
     Navigator.push(context, MaterialPageRoute(builder: (context) => PastReportTaskDetailScreenManav(task_id: id,completionInfo: completionInfo,)));
   }
 }
+
+//------------
 
 void naviSubmitTaskMainScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTaskMainScreen()));
@@ -188,6 +204,8 @@ void naviForgetPasswordScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
 }
 
+//------------
+
 void naviShopVisitingProcessesScreen(BuildContext context, id, name, groupNo){
   if(groupNo == 0){
     Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreenSatisOperasyon(shop_code:id, shopName: name,)));
@@ -199,6 +217,8 @@ void naviShopVisitingProcessesScreen(BuildContext context, id, name, groupNo){
     Navigator.push(context, MaterialPageRoute(builder: (context) => ShopVisitingProcessesScreenUnkar(shop_code:id, shopName: name,)));
   }
 }
+
+//------------
 
 void naviTaskDownloadedPhotoScreen(BuildContext context, id){
   Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDownloadedPhotoScreen(photo_id: id)));
@@ -224,6 +244,8 @@ void naviPlaceSelectionScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => PlaceSelectionScreen()));
 }
 
+//------------
+
 void naviRegionCenterVisitingProcessesScreen(BuildContext context, id, name, groupNo){
   if(groupNo == 0){
     Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingProcessesScreenSatisOperasyon(region_code:id, regionName: name,)));
@@ -235,6 +257,8 @@ void naviRegionCenterVisitingProcessesScreen(BuildContext context, id, name, gro
     Navigator.push(context, MaterialPageRoute(builder: (context) => RegionCenterVisitingProcessesScreenUnkar(region_code:id, regionName: name,)));
   }
 }
+
+//------------
 
 void naviShiftTypeScreen(BuildContext context){
   Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftTypeScreen()));

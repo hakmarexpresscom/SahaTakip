@@ -87,7 +87,7 @@ class InShopCloseControl{
   }
 }
 
-// -------------------------------------
+//-------------------------------------
 
 class OutShopCloseControl{
   late int formID;

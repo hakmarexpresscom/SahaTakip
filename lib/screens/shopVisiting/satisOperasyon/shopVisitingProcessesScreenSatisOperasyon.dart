@@ -10,11 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../main.dart';
-import '../../../models/shopVisitingFormBS.dart';
-import '../../../models/shopVisitingFormPM.dart';
 import '../../../routing/landing.dart';
-import '../../../services/shopVisitingFormBSServices.dart';
-import '../../../services/shopVisitingFormPMServices.dart';
 import '../../../utils/appStateManager.dart';
 import '../../../utils/generalFunctions.dart';
 
@@ -239,19 +235,6 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       processIcon: Icons.content_paste_outlined,
                       onTaps: () async{
                         _stopTimer();
-                        if(boxBSSatisOperasyonShopVisitingFormShops.toMap().keys.length==0){
-                          final List<ShopVisitingFormBS> shopVisitingFormBS = await fetchShopVisitingFormBS3('${constUrl}api/MagazaZiyaretFormuBS');
-                          Map<dynamic,dynamic> BSSatisOperasyonShopVisitingForm = {};
-                          Map<dynamic,dynamic> BSSatisOperasyonShopVisitingFormQuestions = {};
-                          for(int i=0;i<shopVisitingFormBS.length;i++){
-                            BSSatisOperasyonShopVisitingForm[shopVisitingFormBS[i].itemID.toString()] = ["test", "0"];
-                            BSSatisOperasyonShopVisitingFormQuestions[shopVisitingFormBS[i].itemID] = shopVisitingFormBS[i].itemName;
-                          }
-                          for(int i=0;i<box.get("shopCodes").length;i++){
-                            await boxBSSatisOperasyonShopVisitingFormShops.put(box.get("shopCodes")[i],BSSatisOperasyonShopVisitingForm);
-                          }
-                          await boxBSSatisOperasyonShopVisitingFormShops.put("questions", BSSatisOperasyonShopVisitingFormQuestions);
-                        }
                         naviShopVisitingFormMainScreenBSSatisOperasyon(context,widget.shop_code);
                       },
                     ),
@@ -361,19 +344,6 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       processIcon: Icons.content_paste_outlined,
                       onTaps: () async{
                         _stopTimer();
-                        if(boxPMSatisOperasyonShopVisitingFormShops.toMap().keys.length==0){
-                          final List<ShopVisitingFormPM> shopVisitingFormPM = await fetchShopVisitingFormPM3('${constUrl}api/MagazaZiyaretFormuPM');
-                          Map<dynamic,dynamic> PMSatisOperasyonShopVisitingForm = {};
-                          Map<dynamic,dynamic> PMSatisOperasyonShopVisitingFormQuestions = {};
-                          for(int i=0;i<shopVisitingFormPM.length;i++){
-                            PMSatisOperasyonShopVisitingForm[shopVisitingFormPM[i].itemID.toString()] = ["test", "0"];
-                            PMSatisOperasyonShopVisitingFormQuestions[shopVisitingFormPM[i].itemID] = shopVisitingFormPM[i].itemName;
-                          }
-                          for(int i=0;i<box.get("shopCodes").length;i++){
-                            await boxPMSatisOperasyonShopVisitingFormShops.put(box.get("shopCodes")[i],PMSatisOperasyonShopVisitingForm);
-                          }
-                          await boxBSSatisOperasyonShopVisitingFormShops.put("questions", PMSatisOperasyonShopVisitingFormQuestions);
-                        }
                         naviShopVisitingFormMainScreenPMSatisOperasyon(context,widget.shop_code);
                       },
                     ),

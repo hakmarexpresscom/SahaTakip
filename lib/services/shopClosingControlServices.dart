@@ -138,8 +138,7 @@ Future<void> downloadInShopCloseControlReport(String url) async {
   }
 }
 
-//********************************************************
-
+//-------------------------------------
 
 Future<List<OutShopCloseControl>> parseJsonListOut(String jsonBody) async{
   List<dynamic> responseList = jsonDecode(jsonBody);
