@@ -189,7 +189,7 @@ class _SubmitTaskMainScreenState extends State<SubmitTaskMainScreen> {
             "${constUrl}api/Fotograf",
           );
 
-          await sendTask(box.get("groupNo"), "Bizz / Yerinde-Uzaktan Görev Ataması");
+          await sendTaskMail(box.get("groupNo"), "Bizz / Yerinde-Uzaktan Görev Ataması");
 
           Navigator.of(context).pop(); // Close the dialog
           showAlertDialogWidget(context, 'Görev Atandı', 'Görev başarıyla atandı!', (){createShopTaskPhotoMap(groupNo);resetTaskPhotos();naviSubmitTaskMainScreen(context);});

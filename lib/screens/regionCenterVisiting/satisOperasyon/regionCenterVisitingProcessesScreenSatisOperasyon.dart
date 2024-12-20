@@ -18,9 +18,9 @@ import '../../../routing/bottomNavigationBar.dart';
 
 class RegionCenterVisitingProcessesScreenSatisOperasyon extends StatefulWidget {
   int region_code = 0;
-  String regionName = "";
+  String region_name = "";
 
-  RegionCenterVisitingProcessesScreenSatisOperasyon({super.key, required this.region_code, required this.regionName});
+  RegionCenterVisitingProcessesScreenSatisOperasyon({super.key, required this.region_code, required this.region_name});
 
   @override
   State<RegionCenterVisitingProcessesScreenSatisOperasyon> createState() => _RegionCenterVisitingProcessesScreenSatisOperasyonState();
@@ -208,7 +208,7 @@ class _RegionCenterVisitingProcessesScreenSatisOperasyonState extends State<Regi
   }
 
   Widget shopNameInfo() {
-    return TextWidget(text: widget.regionName, size: 18, fontWeight: FontWeight.w600, color: textColor);
+    return TextWidget(text: widget.region_name, size: 18, fontWeight: FontWeight.w600, color: textColor);
   }
 
   Widget shopCodeInfo() {

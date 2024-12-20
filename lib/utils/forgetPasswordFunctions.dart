@@ -21,7 +21,7 @@ import '../services/userNKServices.dart';
 import '../services/userPMServices.dart';
 
 
-findPassword(String user, String email,BuildContext context) async {
+getPassword(String user, String email,BuildContext context) async {
 
   int temporaryUserID = 0;
 

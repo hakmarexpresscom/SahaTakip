@@ -7,8 +7,8 @@ import 'package:photo_view/photo_view_gallery.dart';
 import '../../styles/styleConst.dart';
 
 class TaskPhotoGalleryView extends StatefulWidget {
-  List<XFile> imageList;
-  TaskPhotoGalleryView({super.key,required this.imageList});
+  List<XFile> image_list;
+  TaskPhotoGalleryView({super.key,required this.image_list});
 
   @override
   State<TaskPhotoGalleryView> createState() => _TaskPhotoGalleryViewState();
@@ -31,17 +31,17 @@ class _TaskPhotoGalleryViewState extends State<TaskPhotoGalleryView> {
         backgroundColor: appbarBackground,
         title: const Text('Görev İçin Yüklenen Fotoğraflar'),
       ),
-      body: (widget.imageList.isEmpty)?Text("Bu görev için yüklenen fotoğraf yok."):
+      body: (widget.image_list.isEmpty)?Text("Bu görev için yüklenen fotoğraf yok."):
       PhotoViewGallery.builder(
         scrollPhysics: BouncingScrollPhysics(),
         builder: (BuildContext context, int index) {
           return PhotoViewGalleryPageOptions(
-            imageProvider: FileImage(File(widget.imageList[index].path)),
+            imageProvider: FileImage(File(widget.image_list[index].path)),
             minScale: PhotoViewComputedScale.contained * 0.8,
             maxScale: PhotoViewComputedScale.covered * 2,
           );
         },
-        itemCount: widget.imageList.length,
+        itemCount: widget.image_list.length,
         backgroundDecoration: BoxDecoration(
           color: textColor,
         ),

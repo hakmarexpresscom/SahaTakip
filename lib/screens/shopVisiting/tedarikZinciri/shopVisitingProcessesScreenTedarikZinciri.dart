@@ -16,9 +16,9 @@ import '../../../../utils/generalFunctions.dart';
 
 class ShopVisitingProcessesScreenTedarikZinciri extends StatefulWidget {
   int shop_code = 0;
-  String shopName = "";
+  String shop_name = "";
 
-  ShopVisitingProcessesScreenTedarikZinciri({super.key, required this.shop_code, required this.shopName});
+  ShopVisitingProcessesScreenTedarikZinciri({super.key, required this.shop_code, required this.shop_name});
 
   @override
   State<ShopVisitingProcessesScreenTedarikZinciri> createState() => _ShopVisitingProcessesScreenTedarikZinciriState();
@@ -62,7 +62,7 @@ class _ShopVisitingProcessesScreenTedarikZinciriState extends State<ShopVisiting
   void initState() {
     super.initState();
 
-    splittedName = widget.shopName.split("/");
+    splittedName = widget.shop_name.split("/");
 
     // Sayaç başlatma saatini alın
     DateTime? timerStartTime = boxVisitTimer.get('timerStartTime');
@@ -170,7 +170,7 @@ class _ShopVisitingProcessesScreenTedarikZinciriState extends State<ShopVisiting
                       processIcon: Icons.assignment,
                       onTaps: () {
                         _stopTimer();
-                        naviTedarikZinciriFormScreen(context, widget.shop_code);
+                        naviTedarikZinciriShopFormScreen(context, widget.shop_code);
                       },
                     ),
                   ],

@@ -305,7 +305,7 @@ class _VisitingRaportMainScreenSatisOperasyonState extends State<VisitingRaportM
                 "Rapor",
             );
 
-            await sendTask(box.get("groupNo"), "Bizz / Mağaza Tespit Raporu Görev Ataması");
+            await sendTaskMail(box.get("groupNo"), "Bizz / Mağaza Tespit Raporu Görev Ataması");
 
             Navigator.of(context).pop(); // Close the dialog
             showAlertDialogWidget(context, 'Görev Eklendi', 'Görev başarılı bir şekilde rapora eklendi!', (){naviVisitingReportMainScreen(context, widget.shop_code,box.get("groupNo"));});

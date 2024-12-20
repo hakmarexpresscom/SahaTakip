@@ -206,7 +206,7 @@ class _ShopVisitingFormMainScreenBSSatisOperasyonState extends State<ShopVisitin
               '${constUrl}api/MagazaZiyaretFormuCevaplar'
             );
 
-            await sendForm(
+            await sendShopVisitingFormMail(
               box.get("groupNo"),
               boxBSSatisOperasyonShopVisitingFormShops.get("questions"),
               boxBSSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")),

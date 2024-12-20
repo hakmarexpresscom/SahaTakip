@@ -13,7 +13,7 @@ import '../../../../utils/generalFunctions.dart';
 class CashCountingScreen extends StatefulWidget {
 
   int shop_code = 0;
-  String shopName= "";
+  String shop_name= "";
 
   static var kagitParaSayimi = "";
   static var madeniParaSsayimi = "";
@@ -23,7 +23,7 @@ class CashCountingScreen extends StatefulWidget {
   static var kasaDefterMevcudu = "";
   static var fark = "";
 
-  CashCountingScreen({super.key, required this.shop_code,required this.shopName});
+  CashCountingScreen({super.key, required this.shop_code,required this.shop_name});
 
   @override
   State<CashCountingScreen> createState() =>
@@ -159,7 +159,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
   }
 
   Widget shopNameInfo(){
-    return TextWidget(text: widget.shopName, size: 20, fontWeight: FontWeight.w400, color: textColor);
+    return TextWidget(text: widget.shop_name, size: 20, fontWeight: FontWeight.w400, color: textColor);
   }
   Widget shopCodeInfo(){
     return TextWidget(text: widget.shop_code.toString(), size: 20, fontWeight: FontWeight.w400, color: textColor);
@@ -176,7 +176,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
 
           createCashCounting(
               widget.shop_code,
-              widget.shopName,
+              widget.shop_name,
               (isBS)?userID:null,
               (isBS)?null:userID,
               now.toIso8601String(),
@@ -193,7 +193,7 @@ class _CashCountingScreenState extends State<CashCountingScreen> {
           showAlertDialogWidget(
             context,
             'Kontroller Yapıldı', 'Kasa sayımı formunu başarıyla doldurdunuz!',
-            (){naviCashCountingScreen(context, widget.shop_code, widget.shopName);}
+            (){naviCashCountingScreen(context, widget.shop_code, widget.shop_name);}
           );
         },
         borderWidht: 1,

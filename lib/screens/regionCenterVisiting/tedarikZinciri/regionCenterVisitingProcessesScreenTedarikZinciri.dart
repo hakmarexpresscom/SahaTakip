@@ -18,9 +18,9 @@ import '../../../routing/bottomNavigationBar.dart';
 
 class RegionCenterVisitingProcessesScreenTedarikZinciri extends StatefulWidget {
   int region_code = 0;
-  String regionName = "";
+  String region_name = "";
 
-  RegionCenterVisitingProcessesScreenTedarikZinciri({super.key, required this.region_code, required this.regionName});
+  RegionCenterVisitingProcessesScreenTedarikZinciri({super.key, required this.region_code, required this.region_name});
 
   @override
   State<RegionCenterVisitingProcessesScreenTedarikZinciri> createState() => _RegionCenterVisitingProcessesScreenTedarikZinciriState();
@@ -208,7 +208,7 @@ class _RegionCenterVisitingProcessesScreenTedarikZinciriState extends State<Regi
   }
 
   Widget shopNameInfo() {
-    return TextWidget(text: widget.regionName, size: 18, fontWeight: FontWeight.w600, color: textColor);
+    return TextWidget(text: widget.region_name, size: 18, fontWeight: FontWeight.w600, color: textColor);
   }
 
   Widget shopCodeInfo() {

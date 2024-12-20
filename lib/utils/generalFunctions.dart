@@ -183,10 +183,8 @@ addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, S
   for(int i=0;i<shopCodes.length;i++){
     if(boxShopTaskPhoto.get(shopCodes[i].toString())[1]==true){
       await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCodes[i], boxShopTaskPhoto.get(shopCodes[i].toString())[3], photo_id, taskType, report_id,group_no, boxShopTaskPhoto.get(shopCodes[i].toString())[4], createTaskUrl);
-      //await countIncompleteTask(countTaskUrl);
       if(boxShopTaskPhoto.get(shopCodes[i].toString())[0]!=""){
         await createPhoto(box.get("incompleteTaskCount"), shopCodes[i], bs_id, pm_id, bm_id, photoType, boxShopTaskPhoto.get(shopCodes[i].toString())[0],null, createPhotoUrl);
-        //await countPhoto(countPhotoUrl);
         updatePhotoIDIncompleteTask(box.get("incompleteTaskCount"),title, detail, assignmentDate, finishDate, shopCodes[i], boxShopTaskPhoto.get(shopCodes[i].toString())[3], box.get("photoCount"), taskType, report_id, group_no, boxShopTaskPhoto.get(shopCodes[i].toString())[4], "${constUrl}api/TamamlanmamisGorev/${box.get("incompleteTaskCount")}");
       }
     }
@@ -197,10 +195,8 @@ addIncompleteTaskToDatabase(String countTaskUrl, String title, String? detail, S
 
 addReportTaskToDatabase(String countTaskUrl, String title, String? detail, String assignmentDate, String finishDate, int shopCode, int? photo_id, String taskType, int? report_id, int group_no, String createTaskUrl,String photo_file, int? bs_id, int? pm_id, int? bm_id, String photoType) async{
     await createIncompleteTask(title, detail, assignmentDate, finishDate, shopCode, box.get("currentShopName"), photo_id, taskType, report_id, group_no, boxShopTaskPhoto.get(shopCode.toString())[4], createTaskUrl);
-    //await countIncompleteTask(countTaskUrl);
     if(photo_file.isNotEmpty){
       await createPhoto(box.get("incompleteTaskCount"), shopCode, bs_id, pm_id, bm_id, photoType, photo_file,null, "${constUrl}api/Fotograf");
-      //await countPhoto("${constUrl}api/Fotograf");
       updatePhotoIDIncompleteTask(box.get("incompleteTaskCount"),title, detail, assignmentDate, finishDate, shopCode, box.get("currentShopName"), box.get("photoCount"), taskType, report_id, group_no, boxShopTaskPhoto.get(shopCode.toString())[4], "${constUrl}api/TamamlanmamisGorev/${box.get("incompleteTaskCount")}");
     }
 }

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import '../constants/constants.dart';
-import '../models/center.dart';
+import '../models/regionCenter.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<RegionCenter>> parseJsonList(String jsonBody) async{

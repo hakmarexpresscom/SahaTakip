@@ -155,7 +155,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     showAlertDialogWidget(context, 'Internet Bağlantı Hatası', 'Telefonunuzun internet bağlantısı bulunmamaktadır. Lütfen telefonunuzu internete bağlayınız.', (){Navigator.of(context).pop();});
                   }
                   else if(connectivityResult[0] != ConnectivityResult.none){
-                    findPassword(item,emailController.text.replaceAll(" ", "").toLowerCase(),context);
+                    getPassword(item,emailController.text.replaceAll(" ", "").toLowerCase(),context);
                   }
                 },
                 borderWidht: 1,

@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../constants/constants.dart';
 import '../main.dart';
 
-Future<void> sendTask(int grup, String subject) async {
+Future<void> sendTaskMail(int grup, String subject) async {
 
   List<String> recipients = [];
 
@@ -14,14 +14,14 @@ Future<void> sendTask(int grup, String subject) async {
   }
 
   if(grup == 0){
-    await sendTaskToApi(
+    await sendTaskMailToApi(
         recipients,
         subject,
     );
   }
 
   else if(grup == 1){
-    await sendTaskToApi(
+    await sendTaskMailToApi(
         recipients,
         subject,
     );
@@ -30,7 +30,7 @@ Future<void> sendTask(int grup, String subject) async {
 
 //-------------------------------------
 
-Future<void> sendTaskToApi(List<String> recipients, String subject) async {
+Future<void> sendTaskMailToApi(List<String> recipients, String subject) async {
 
   List<Map<String, String>> base64Attachments = [];
 

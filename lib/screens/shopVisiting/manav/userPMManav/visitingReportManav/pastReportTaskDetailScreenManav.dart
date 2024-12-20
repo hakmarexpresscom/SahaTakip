@@ -12,8 +12,8 @@ import '../../../../../widgets/cards/pastReportsTaskDetailCard.dart';
 class PastReportTaskDetailScreenManav extends StatefulWidget {
 
   int task_id = 0;
-  int completionInfo = 0;
-  PastReportTaskDetailScreenManav({super.key, required this.task_id,required this.completionInfo});
+  int completion_info = 0;
+  PastReportTaskDetailScreenManav({super.key, required this.task_id,required this.completion_info});
 
   @override
   State<PastReportTaskDetailScreenManav> createState() => _PastReportTaskDetailScreenManavState();
@@ -66,7 +66,7 @@ class _PastReportTaskDetailScreenManavState extends State<PastReportTaskDetailSc
         padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
         child:Container(
           alignment: Alignment.center,
-          child: (widget.completionInfo==0)?incompletePastReportTaskDetailScreen():completePastReportTaskDetailScreen(),
+          child: (widget.completion_info==0)?incompletePastReportTaskDetailScreen():completePastReportTaskDetailScreen(),
         ),
       ),
     );

@@ -18,9 +18,9 @@ import '../../../routing/bottomNavigationBar.dart';
 
 class RegionCenterVisitingProcessesScreenUnkar extends StatefulWidget {
   int region_code = 0;
-  String regionName = "";
+  String region_name = "";
 
-  RegionCenterVisitingProcessesScreenUnkar({super.key, required this.region_code, required this.regionName});
+  RegionCenterVisitingProcessesScreenUnkar({super.key, required this.region_code, required this.region_name});
 
   @override
   State<RegionCenterVisitingProcessesScreenUnkar> createState() => _RegionCenterVisitingProcessesScreenUnkarState();
@@ -208,7 +208,7 @@ class _RegionCenterVisitingProcessesScreenUnkarState extends State<RegionCenterV
   }
 
   Widget shopNameInfo() {
-    return TextWidget(text: widget.regionName, size: 18, fontWeight: FontWeight.w600, color: textColor);
+    return TextWidget(text: widget.region_name, size: 18, fontWeight: FontWeight.w600, color: textColor);
   }
 
   Widget shopCodeInfo() {

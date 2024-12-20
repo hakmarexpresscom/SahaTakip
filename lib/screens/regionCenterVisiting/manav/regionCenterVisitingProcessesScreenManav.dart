@@ -19,9 +19,9 @@ import '../../../widgets/cards/shopVisitingProcessCard.dart';
 
 class RegionCenterVisitingProcessesScreenManav extends StatefulWidget {
   int region_code = 0;
-  String regionName = "";
+  String region_name = "";
 
-  RegionCenterVisitingProcessesScreenManav({super.key, required this.region_code, required this.regionName});
+  RegionCenterVisitingProcessesScreenManav({super.key, required this.region_code, required this.region_name});
 
   @override
   State<RegionCenterVisitingProcessesScreenManav> createState() => _RegionCenterVisitingProcessesScreenManavState();
@@ -233,7 +233,7 @@ class _RegionCenterVisitingProcessesScreenManavState extends State<RegionCenterV
   }
 
   Widget shopNameInfo() {
-    return TextWidget(text: widget.regionName, size: 18, fontWeight: FontWeight.w600, color: textColor);
+    return TextWidget(text: widget.region_name, size: 18, fontWeight: FontWeight.w600, color: textColor);
   }
 
   Widget shopCodeInfo() {

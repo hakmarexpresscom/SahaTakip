@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../constants/constants.dart';
 import '../models/dynamicReportRequest.dart';
 
-Future<void> sendForm(int grup,Map<dynamic, dynamic> questions, Map<dynamic, dynamic> answers, String subject, List<String> recipients) async {
+Future<void> sendShopVisitingFormMail(int grup,Map<dynamic, dynamic> questions, Map<dynamic, dynamic> answers, String subject, List<String> recipients) async {
 
   String store = "${box.get("currentShopID")} - ${box.get("currentShopName")}";
 

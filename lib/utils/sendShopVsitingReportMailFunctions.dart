@@ -6,7 +6,7 @@ import '../constants/constants.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 
-Future<void> sendReport(int grup, List<String> recipients) async {
+Future<void> sendShopVisitingReportMail(int grup, List<String> recipients) async {
 
   String subject = "${box.get("currentShopID")} ${box.get("currentShopName")} Ziyaret Raporu";
 
@@ -23,7 +23,7 @@ Future<void> sendReport(int grup, List<String> recipients) async {
   }
 
   if(grup == 1){
-    await sendReportToApi(
+    await sendShopVisitingReportMailToApi(
         recipients,
         subject,
         [boxShopVisitingForms.get("manavShopFormList")],
@@ -35,7 +35,7 @@ Future<void> sendReport(int grup, List<String> recipients) async {
   }
 
   else if(grup == 2){
-    await sendReportToApi(
+    await sendShopVisitingReportMailToApi(
         recipients,
         subject,
         [
@@ -92,7 +92,7 @@ Future<File?> resizeAndCompressImage(String filePath, int width) async {
 
 //-------------------------------------
 
-Future<void> sendReportToApi(List<String> recipients, String subject, List<String> formattedFormHTMLList, List<String> attachments, String userName, String time1, String time2) async {
+Future<void> sendShopVisitingReportMailToApi(List<String> recipients, String subject, List<String> formattedFormHTMLList, List<String> attachments, String userName, String time1, String time2) async {
   StringBuffer completeHTMLContent = StringBuffer();
   formattedFormHTMLList.forEach((htmlContent) {
     completeHTMLContent.write(htmlContent);

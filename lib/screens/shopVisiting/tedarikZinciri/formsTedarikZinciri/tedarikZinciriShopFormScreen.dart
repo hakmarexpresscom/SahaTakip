@@ -138,7 +138,7 @@ class _TedarikZinciriShopFormScreenState extends State<TedarikZinciriShopFormScr
               'Kontroller Yapıldı', 'Mağaza formunu başarıyla doldurdunuz!',
               (){
                 tedarikZinciriList.forEach((key, value) {tedarikZinciriList[key] = 0;});
-                naviTedarikZinciriFormScreen(context, widget.shop_code);
+                naviTedarikZinciriShopFormScreen(context, widget.shop_code);
               }
           );
         },

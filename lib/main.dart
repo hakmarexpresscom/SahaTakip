@@ -175,48 +175,48 @@ class _MyAppState extends State<MyApp> {
 
       else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
-          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
         }
         else if(box.get("groupNo")==1){
-          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
+          page = (boxStateManagement.get('isBefore')==true)?ShopVisitingProcessesScreenManav(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName')):ShopVisitingBeforeAfterPhotoScreen(isBefore: true);
         }
         else if(box.get("groupNo")==2){
-          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
         }
         else if(box.get("groupNo")==3){
-          page = ShopVisitingProcessesScreenTedarikZinciri(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = ShopVisitingProcessesScreenTedarikZinciri(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
         }
       }
 
 
       else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==false && boxStateManagement.get('isBefore')==true && boxStateManagement.get('isAfter')==false && isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
-          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
         }
         else if(box.get("groupNo")==1){
           page = ShopVisitingBeforeAfterPhotoScreen(isBefore: false);
         }
         else if(box.get("groupNo")==2){
-          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = ShopVisitingProcessesScreenUnkar(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
         }
         else if(box.get("groupNo")==3){
-          page = ShopVisitingProcessesScreenTedarikZinciri(shop_code: box.get('currentShopID'), shopName: box.get('currentShopName'));
+          page = ShopVisitingProcessesScreenTedarikZinciri(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
         }
       }
 
 
       else if(versionList.contains(121) && boxStateManagement.get('isRegionCenterVisit')==true&& isWithinTimeRange && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         if(box.get("groupNo")==0){
-          page = RegionCenterVisitingProcessesScreenSatisOperasyon(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+          page = RegionCenterVisitingProcessesScreenSatisOperasyon(region_code: box.get('currentCenterID'), region_name: box.get('currentCenterName'));
         }
         else if(box.get("groupNo")==1){
-          page = RegionCenterVisitingProcessesScreenManav(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+          page = RegionCenterVisitingProcessesScreenManav(region_code: box.get('currentCenterID'), region_name: box.get('currentCenterName'));
         }
         else if(box.get("groupNo")==2){
-          page = RegionCenterVisitingProcessesScreenUnkar(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+          page = RegionCenterVisitingProcessesScreenUnkar(region_code: box.get('currentCenterID'), region_name: box.get('currentCenterName'));
         }
         else if(box.get("groupNo")==3){
-          page = RegionCenterVisitingProcessesScreenTedarikZinciri(region_code: box.get('currentCenterID'), regionName: box.get('currentCenterName'));
+          page = RegionCenterVisitingProcessesScreenTedarikZinciri(region_code: box.get('currentCenterID'), region_name: box.get('currentCenterName'));
         }
       }
 

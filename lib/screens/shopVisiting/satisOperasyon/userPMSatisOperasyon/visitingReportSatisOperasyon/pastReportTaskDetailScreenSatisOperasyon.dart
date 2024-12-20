@@ -12,8 +12,8 @@ import '../../../../../widgets/cards/pastReportsTaskDetailCard.dart';
 class PastReportTaskDetailScreenSatisOperasyon extends StatefulWidget {
 
   int task_id = 0;
-  int completionInfo = 0;
-  PastReportTaskDetailScreenSatisOperasyon({super.key, required this.task_id,required this.completionInfo});
+  int completion_info = 0;
+  PastReportTaskDetailScreenSatisOperasyon({super.key, required this.task_id,required this.completion_info});
 
   @override
   State<PastReportTaskDetailScreenSatisOperasyon> createState() => _PastReportTaskDetailScreenSatisOperasyonState();
@@ -66,7 +66,7 @@ class _PastReportTaskDetailScreenSatisOperasyonState extends State<PastReportTas
           padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
           child:Container(
             alignment: Alignment.center,
-            child: (widget.completionInfo==0)?incompletePastReportTaskDetailScreen():completePastReportTaskDetailScreen(),
+            child: (widget.completion_info==0)?incompletePastReportTaskDetailScreen():completePastReportTaskDetailScreen(),
           ),
         ),
     );

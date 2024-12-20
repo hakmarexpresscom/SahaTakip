@@ -16,9 +16,9 @@ import '../../../utils/generalFunctions.dart';
 
 class ShopVisitingProcessesScreenManav extends StatefulWidget {
   int shop_code = 0;
-  String shopName = "";
+  String shop_name = "";
 
-  ShopVisitingProcessesScreenManav({super.key, required this.shop_code, required this.shopName});
+  ShopVisitingProcessesScreenManav({super.key, required this.shop_code, required this.shop_name});
 
   @override
   State<ShopVisitingProcessesScreenManav> createState() => _ShopVisitingProcessesScreenManavState();
@@ -63,7 +63,7 @@ class _ShopVisitingProcessesScreenManavState extends State<ShopVisitingProcesses
   void initState() {
     super.initState();
 
-    splittedName = widget.shopName.split("/");
+    splittedName = widget.shop_name.split("/");
 
     // Sayaç başlatma saatini alın
     DateTime? timerStartTime = boxVisitTimer.get('timerStartTime');

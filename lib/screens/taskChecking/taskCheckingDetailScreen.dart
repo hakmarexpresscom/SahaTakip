@@ -15,8 +15,8 @@ import '../../widgets/cards/completeTaskCheckingDetailCard.dart';
 
 class TaskCheckingDetailScreen extends StatefulWidget {
   int task_id = 0;
-  int completionInfo = 0;
-  TaskCheckingDetailScreen({super.key, required this.task_id,required this.completionInfo});
+  int completion_info = 0;
+  TaskCheckingDetailScreen({super.key, required this.task_id,required this.completion_info});
 
   @override
   State<TaskCheckingDetailScreen> createState() => _TaskCheckingDetailScreenState();
@@ -106,7 +106,7 @@ class _TaskCheckingDetailScreenState extends State<TaskCheckingDetailScreen> wit
           padding: EdgeInsets.fromLTRB(0, deviceHeight*0.04, 0, 0),
           child:Container(
             alignment: Alignment.center,
-            child: (widget.completionInfo==0)?incompleteTaskCheckingDetailScreen():completeTaskCheckingDetailScreen(),
+            child: (widget.completion_info==0)?incompleteTaskCheckingDetailScreen():completeTaskCheckingDetailScreen(),
           ),
         ),
         bottomNavigationBar: BottomNaviBar(selectedIndex: _selectedIndex,itemList: naviBarList,pageList: pageList,)
