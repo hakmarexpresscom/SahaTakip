@@ -40,7 +40,7 @@ class StoreVisitManager2 extends GetxController {
   }
 
   void endStoreVisit2() {
-    isStoreVisitInProgress.value = false;
+    isStoreVisitInProgress2.value = false;
     boxStateManagement.put('isStoreVisit2', false);
   }
 }
