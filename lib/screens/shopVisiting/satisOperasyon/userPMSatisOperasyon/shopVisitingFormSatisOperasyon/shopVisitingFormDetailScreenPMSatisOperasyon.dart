@@ -43,7 +43,7 @@ class _ShopVisitingFormDetailScreenPMSatisOperasyonState extends State<ShopVisit
   @override
   void initState() {
     super.initState();
-    futureShopVisitingFormPM = fetchShopVisitingFormPM('${constUrl}api/MagazaZiyaretFormuPM');
+    futureShopVisitingFormPM = fetchShopVisitingFormPM('${constUrl}api/MagazaZiyaretFormuPMV122');
     explanationController.text = ((boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")))[widget.item_id.toString()][0]=="test") ? "" : (boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")))[widget.item_id.toString()][0];
     point = ((boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")))[widget.item_id.toString()][1]=="0") ? pointList[0] : (boxPMSatisOperasyonShopVisitingFormShops.get(box.get("currentShopID")))[widget.item_id.toString()][1];
     controller = AnimationController(

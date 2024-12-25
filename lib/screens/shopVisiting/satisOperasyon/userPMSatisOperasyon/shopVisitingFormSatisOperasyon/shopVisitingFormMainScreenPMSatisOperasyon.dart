@@ -34,7 +34,7 @@ class _ShopVisitingFormMainScreenPMSatisOperasyonState extends State<ShopVisitin
   @override
   void initState() {
     super.initState();
-    futureShopVisitingFormPM = fetchShopVisitingFormPM('${constUrl}api/MagazaZiyaretFormuPM');
+    futureShopVisitingFormPM = fetchShopVisitingFormPM('${constUrl}api/MagazaZiyaretFormuPMV122');
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),

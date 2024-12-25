@@ -87,7 +87,7 @@ Future<void> checkAndUpdateVisitingFormData(bool isBS) async {
   } else {
     // API'den güncel shopVisitingFormPM verilerini alın
     final List<ShopVisitingFormPM> currentShopVisitingFormPM =
-    await fetchShopVisitingFormPM3('${constUrl}api/MagazaZiyaretFormuPM');
+    await fetchShopVisitingFormPM3('${constUrl}api/MagazaZiyaretFormuPMV122');
 
     // Mevcut verilerden itemName'leri alın
     final Map<dynamic, dynamic> existingQuestions = boxPMSatisOperasyonShopVisitingFormShops
