@@ -236,13 +236,25 @@ class _MyAppState extends State<MyApp> {
       }
 
 
-      else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==true && boxStateManagement.get('isStoreVisit2')==false && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
         storeVisitManager.endStoreVisit();
       }
-      else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==true && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+      else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==true && boxStateManagement.get('isStoreVisit2')==false && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
         page = StartWorkMainScreen();
         storeVisitManager.endStoreVisit();
+      }
+
+
+      else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==false && boxStateManagement.get('isStoreVisit2')==true && isWithinTimeRange2 && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"==now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        if(box.get("groupNo")==0){
+          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
+        }
+      }
+      else if(versionList.contains(121) && boxStateManagement.get('isStoreVisit')==false && boxStateManagement.get('isStoreVisit2')==true && "${int.parse(box.get("shiftDate").split("T")[0].split("-")[2])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[1])}-${int.parse(box.get("shiftDate").split("T")[0].split("-")[0])}"!=now.day.toString()+"-"+now.month.toString()+"-"+now.year.toString()){
+        if(box.get("groupNo")==0){
+          page = ShopVisitingProcessesScreenSatisOperasyon(shop_code: box.get('currentShopID'), shop_name: box.get('currentShopName'));
+        }
       }
 
 

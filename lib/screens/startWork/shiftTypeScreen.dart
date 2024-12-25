@@ -42,6 +42,8 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
 
   DateTime now = DateTime.now();
 
+  bool isWithinTimeRange = true;
+
   late AnimationController controller;
 
   final ShiftManager shiftManager = Get.put(ShiftManager());
@@ -58,7 +60,14 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
   @override
   void initState() {
     super.initState();
+
     futureRegionCenter = fetchRegionCenter2('${constUrl}api/BolgeMerkezleri/${regionCode}');
+
+    DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
+    DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
+
+    isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
+
     checkGps();
     controller = AnimationController(
       /// [AnimationController]s can be created with `vsync: this` because of
@@ -215,9 +224,9 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
             SizedBox(height: deviceHeight*0.08,),
             shopVisitingButton(),
             SizedBox(height: deviceHeight*0.03,),
-            regionCenterVisitingButton(context),
+            (isWithinTimeRange)?regionCenterVisitingButton(context):SizedBox(height: deviceHeight*0.0,),
             SizedBox(height: deviceHeight*0.03,),
-            externalWorkButton(),
+            (isWithinTimeRange)?externalWorkButton():SizedBox(height: deviceHeight*0.0,),
             SizedBox(height: deviceHeight*0.03,),
             (boxStateManagement.get('isStartShift')==true)?stopShiftButton(context):SizedBox(height: deviceHeight*0.00,),
           ],

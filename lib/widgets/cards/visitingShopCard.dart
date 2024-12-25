@@ -31,6 +31,7 @@ class VisitingShopCard extends StatefulWidget {
   late double textSizeName;
   late double textSizeButton;
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+  final StoreVisitManager2 storeVisitManager2 = Get.put(StoreVisitManager2());
   final ShiftManager shiftManager = Get.put(ShiftManager());
 
   VisitingShopCard({Key? key,
@@ -91,6 +92,13 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                 fontWeight: FontWeight.w500,
                 onTaps: () async{
 
+                  DateTime now = DateTime.now();
+
+                  DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
+                  DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
+
+                  bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
+
                   var connectivityResult = await (Connectivity().checkConnectivity());
 
                   if(connectivityResult[0] == ConnectivityResult.none){
@@ -100,7 +108,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                   else if (getDistance(double.parse(widget.currentLat), double.parse(widget.currentLong), double.parse(widget.lat), double.parse(widget.long)) <= 250.0 && connectivityResult[0] != ConnectivityResult.none) {
                     showAlertDialogWithoutButtonWidget(context,"Ziyaret Başlatılıyor","Ziyaretiniz başlatılıyor, lütfen bekleyiniz.");
 
-                    if(box.get("onDayShift")==0 || boxStateManagement.get('isStartShift')==false){
+                    if((box.get("onDayShift")==0 || boxStateManagement.get('isStartShift')==false)&&isWithinTimeRange){
                       widget.shiftManager.startShift();
 
                       box.put("onDayShift",1);
@@ -123,7 +131,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                     resetShopVisitingFormInfo(box.get("groupNo"));
                     resetShopVisitingBeforeAfterPhoto();
 
-                    widget.storeVisitManager.startStoreVisit();
+                    (isWithinTimeRange)?widget.storeVisitManager.startStoreVisit():widget.storeVisitManager2.startStoreVisit2();
 
                     box.put("currentShopName", widget.shopName);
                     box.put("currentShopID", widget.shopCode);
@@ -133,7 +141,7 @@ class _VisitingShopCardState extends State<VisitingShopCard> {
                       box.get('currentShopID'),
                       (isBS == true) ? userID : null,
                       (isBS == true) ? null : userID,
-                      box.get("visitingStartTime").toIso8601String(),
+                      (isWithinTimeRange)?box.get("visitingStartTime").toIso8601String():DateTime(now.year, now.month, now.day, 21, 0, 0,).toIso8601String(),
                       null,
                       box.get("shiftDate"),
                       null,

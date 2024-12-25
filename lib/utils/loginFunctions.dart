@@ -66,8 +66,11 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
 
+    boxStateManagement.put('isStoreVisit2', false);
+    isStoreVisit2 = boxStateManagement.get('isStoreVisit2');
+
     boxStateManagement.put('isRegionCenterVisit', false);
-    isStoreVisit = boxStateManagement.get('isRegionCenterVisit');
+    isRegionCenterVisit = boxStateManagement.get('isRegionCenterVisit');
 
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
@@ -109,8 +112,11 @@ login(String user, String email, String password, BuildContext context) async {
     boxStateManagement.put('isStoreVisit', false);
     isStoreVisit = boxStateManagement.get('isStoreVisit');
 
+    boxStateManagement.put('isStoreVisit2', false);
+    isStoreVisit2 = boxStateManagement.get('isStoreVisit2');
+
     boxStateManagement.put('isRegionCenterVisit', false);
-    isStoreVisit = boxStateManagement.get('isRegionCenterVisit');
+    isRegionCenterVisit = boxStateManagement.get('isRegionCenterVisit');
 
     boxStateManagement.put('isReport', false);
     isReport = boxStateManagement.get('isReport');
@@ -128,18 +134,6 @@ login(String user, String email, String password, BuildContext context) async {
 
     box.put("isBS",false);
     isBS=box.get("isBS");
-
-    boxStateManagement.put('isStartShift', false);
-    isStartShift = boxStateManagement.get('isStartShift');
-
-    boxStateManagement.put('isStoreVisit', false);
-    isStoreVisit = boxStateManagement.get('isStoreVisit');
-
-    boxStateManagement.put('isRegionCenterVisit', false);
-    isStoreVisit = boxStateManagement.get('isRegionCenterVisit');
-
-    boxStateManagement.put('isReport', false);
-    isReport = boxStateManagement.get('isReport');
 
     checkEmailBM(email, '${constUrl}api/KullaniciBM', context);
     checkPasswordBM(password,'${constUrl}api/KullaniciBM', context);

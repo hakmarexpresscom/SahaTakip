@@ -32,6 +32,21 @@ class StoreVisitManager extends GetxController {
 
 //------------
 
+class StoreVisitManager2 extends GetxController {
+
+  void startStoreVisit2() {
+    isStoreVisitInProgress2.value = true;
+    boxStateManagement.put('isStoreVisit2', true);
+  }
+
+  void endStoreVisit2() {
+    isStoreVisitInProgress.value = false;
+    boxStateManagement.put('isStoreVisit2', false);
+  }
+}
+
+//------------
+
 class RegionCenterVisitManager extends GetxController {
 
   void startRegionCenterVisit() {

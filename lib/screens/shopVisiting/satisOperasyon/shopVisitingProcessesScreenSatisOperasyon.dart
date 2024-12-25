@@ -32,7 +32,10 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
 
   DateTime now = DateTime.now();
 
+  bool isWithinTimeRange = true;
+
   final StoreVisitManager storeVisitManager = Get.put(StoreVisitManager());
+  final StoreVisitManager2 storeVisitManager2 = Get.put(StoreVisitManager2());
   final ReportManager reportManager = Get.put(ReportManager());
 
   Timer? _timer;
@@ -64,6 +67,11 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
     super.initState();
 
     splittedName = widget.shop_name.split("/");
+
+    DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
+    DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
+
+    isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
 
     // Sayaç başlatma saatini alın
     DateTime? timerStartTime = boxVisitTimer.get('timerStartTime');
@@ -164,7 +172,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    ShopVisitingProcessCard(
+                    (isWithinTimeRange)?ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
                       processName: "Mağaza\nAçılış\nKontrolü",
@@ -173,7 +181,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                         _stopTimer();
                         naviShopOpeningCheckingScreen(context, widget.shop_code);
                       },
-                    ),
+                    ): SizedBox(width: deviceWidth*0.0,),
                     ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
@@ -186,7 +194,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                     )
                   ],
                 ),
-                Row(
+                (isWithinTimeRange)?Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -212,8 +220,8 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       },
                     )
                   ],
-                ),
-                Row(
+                ): SizedBox(height: deviceHeight*0.0,),
+                (isWithinTimeRange)?Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -239,7 +247,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       },
                     ),
                   ],
-                )
+                ): SizedBox(height: deviceHeight*0.0,),
               ],
             ),
           ],
@@ -300,7 +308,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    ShopVisitingProcessCard(
+                    (isWithinTimeRange)?ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
                       processName: "Mağaza\nAçılış\nKontrolü",
@@ -309,7 +317,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                         _stopTimer();
                         naviShopOpeningCheckingScreen(context, widget.shop_code);
                       },
-                    ),
+                    ): SizedBox(width: deviceWidth*0.0,),
                     ShopVisitingProcessCard(
                       heightConst: 0.25,
                       widthConst: 0.47,
@@ -322,7 +330,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                     )
                   ],
                 ),
-                Row(
+                (isWithinTimeRange)?Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,7 +356,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
                       },
                     ),
                   ],
-                ),
+                ): SizedBox(height: deviceHeight*0.0,),
                 /*Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
@@ -406,7 +414,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
 
           showAlertDialogWithoutButtonWidget(context,"Ziyaret Bitiriliyor","Ziyaretiniz bitiriliyor, lütfen bekleyiniz.");
 
-          storeVisitManager.endStoreVisit();
+          (isWithinTimeRange)?storeVisitManager.endStoreVisit():storeVisitManager2.endStoreVisit2();
           reportManager.noReport();
 
           box.put("visitingFinishTime", DateTime.now());
@@ -416,8 +424,8 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
             box.get('currentShopID'),
             (isBS == true) ? userID : null,
             (isBS == true) ? null : userID,
-            box.get("visitingStartTime").toIso8601String(),
-            box.get("visitingFinishTime").toIso8601String(),
+            (isWithinTimeRange)?box.get("visitingStartTime").toIso8601String():DateTime(now.year, now.month, now.day, 21, 0, 0,).toIso8601String(),
+            (isWithinTimeRange)?box.get("visitingFinishTime").toIso8601String():DateTime(now.year, now.month, now.day, 21, 5, 0,).toIso8601String(),
             box.get("shiftDate"),
             visitingDuration,
             "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}",

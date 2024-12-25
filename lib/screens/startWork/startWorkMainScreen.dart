@@ -165,7 +165,8 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
           DateTime startTime = DateTime(now.year, now.month, now.day, 8, 30);
           DateTime endTime = DateTime(now.year, now.month, now.day, 18, 30);
 
-          bool isWithinTimeRange = now.isAfter(startTime) && now.isBefore(endTime);
+          bool isWithinTimeRange = now.isBefore(startTime);
+          bool  isWithinTimeRange2 = now.isAfter(endTime);
 
           var connectivityResult = await (Connectivity().checkConnectivity());
 
@@ -178,8 +179,12 @@ class _StartWorkMainScreenState extends State<StartWorkMainScreen> {
             naviShiftTypeScreen(context);
           }
 
-          else if(isWithinTimeRange==false && connectivityResult[0] != ConnectivityResult.none){
-            showAlertDialogWidget(context, 'Mesai Saati Kontrolü', '08.30-18.30 saatleri arasında mesai başlatabilirsiniz!', (){naviStartWorkMainScreen(context);});
+          else if(isWithinTimeRange && connectivityResult[0] != ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Mesai Saati Kontrolü', "08.30'dan önce mesai başlatamazsınız!", (){naviStartWorkMainScreen(context);});
+          }
+
+          else if(isWithinTimeRange2 && connectivityResult[0] != ConnectivityResult.none){
+            showAlertDialogWidget(context, 'Mesai Saati Kontrolü', "18.30'dan sonra sadece mağaza ziyaret gerçekleştirebilirsiniz ve ziyaret esnasında sadece kapanış formunu doldurabilirsiniz!", (){naviShiftTypeScreen(context);});
           }
         },
         borderWidht: 1,

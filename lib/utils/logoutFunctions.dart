@@ -43,6 +43,7 @@ logout(BuildContext context) async {
 
   boxStateManagement.put('isStartShift', false);
   boxStateManagement.put('isStoreVisit', false);
+  boxStateManagement.put('isStoreVisit2', false);
   boxStateManagement.put("isRegionCenterVisit", false);
   boxStateManagement.put('isReport', false);
   boxStateManagement.put('isBefore', false);

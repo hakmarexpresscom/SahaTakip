@@ -19,6 +19,9 @@ bool isStartShift = (isLoggedIn) ? boxStateManagement.get('isStartShift', defaul
 RxBool isStoreVisitInProgress = isStoreVisit.obs;
 bool isStoreVisit = (isLoggedIn) ? boxStateManagement.get('isStoreVisit', defaultValue: false) : false;
 
+RxBool isStoreVisitInProgress2 = isStoreVisit2.obs;
+bool isStoreVisit2 = (isLoggedIn) ? boxStateManagement.get('isStoreVisit2', defaultValue: false) : false;
+
 RxBool isRegionCenterVisitInProgress = isRegionCenterVisit.obs;
 bool isRegionCenterVisit = (isLoggedIn) ? boxStateManagement.get('isRegionCenterVisit', defaultValue: false) : false;
 
