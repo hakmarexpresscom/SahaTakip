@@ -311,7 +311,6 @@ class _ShiftTypeScreenState extends State<ShiftTypeScreen> with TickerProviderSt
                           null,
                           "${constUrl}api/mesai"
                       );
-                      //await countShift("${constUrl}api/mesai");
                     }
 
                     regionCenterVisitManager.startRegionCenterVisit();

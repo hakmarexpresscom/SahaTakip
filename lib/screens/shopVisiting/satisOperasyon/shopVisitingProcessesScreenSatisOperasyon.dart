@@ -426,7 +426,7 @@ class _ShopVisitingProcessesScreenSatisOperasyonState extends State<ShopVisiting
             (isBS == true) ? null : userID,
             (isWithinTimeRange)?box.get("visitingStartTime").toIso8601String():DateTime(now.year, now.month, now.day, 21, 0, 0,).toIso8601String(),
             (isWithinTimeRange)?box.get("visitingFinishTime").toIso8601String():DateTime(now.year, now.month, now.day, 21, 5, 0,).toIso8601String(),
-            box.get("shiftDate"),
+            (isWithinTimeRange)?box.get("shiftDate"):DateTime(now.year, now.month, now.day, 21, 0, 0,).toIso8601String(),
             visitingDuration,
             "${constUrl}api/ZiyaretSureleri/${box.get("visitingDurationsCount")}",
           );
